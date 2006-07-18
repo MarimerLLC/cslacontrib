@@ -1,0 +1,51 @@
+---------------------------------------------------
+  CSLA 2.0 CodeSmith Templates for C#
+  Author: Ricky A. Supit (rsupit@hotmail.com)
+---------------------------------------------------
+
+History:
+- Fix(RAS): Incorrectly implemented Guid property type, all Guid is treated as identity column. (reported by Allan Nielsen)
+- Fix(RAS): Incorrectly defined property name when calling PropertyHasChanged, CanReadProperty, and CanWriteProperty. (reported by Kraz)
+- Fix(RAS): Missing onFetchObjectComplete and onFetchChildrenComplete method in EditableSwitchable.
+- Enh(RAS): Add support all lower case column name; Ensure property name's first character is in capital letter. (suggested by Allan Nielsen)
+0.9.4	6/30/06
+- Enh(RAS): Add support for column name separated by space. ex:column [Start Date] to StartDate and _startDate
+- Enh(TEC): Handle nullable fields during insert/update, with option to disable when HandleNullableFields=false.
+- Fix(RAS): Compile error on AddNewCore when table use non identity primary key.
+- Fix(RAS): EditableSwitchable.cst generates no overload error when parentName is filled. (reported by Joe Egan)
+- Enh(RAS): Add NoInlining attribute on property get and set when MinimizeStackTraceUse=false.
+- Fix(RAS): DataPortal.Create implementation no longer work with version 2.0.2. See: http://www.lhotka.net/Articles.aspx?id=f32a3736-88ba-40e4-8453-8607750925a9
+- Enh(RAS): Properly convert all caps column name not separated by underscore. ex: FIRSTNAME to Firstname and _firstname
+- Fix(RAS): Csla.cst and CslaXml.cst unable to load template when open from VS.
+- Fix(RAS): DelegationMethod.inc incorrectly remove delegate declarations.
+0.9.3	5/30/06
+- ENH(RAS): Add hooks to support Split-Partial.
+- Fix(RAS): ReadOnlyChildList is missing IsReadOnly set to false and true in Fetch method.
+- Fix(RAS): EditableChild is missing MarkOld() in Fetch method.
+- Fix(RAS): Missing ResultSetIndex property in EditableSwitchable. (reported by Joe Egan)
+- Fix(RAS): Missing CanXXXObject authorization-rule methods in EditableSwitchable. (reported by Joe Egan)
+- Fix(RAS): Duplicate FetchObject, FetchChildren, and UpdateChildren on EditableSwitchable. (reported by Joe Egan)
+- ENH(RAS): Improve split class support, add Execute[Fetch|Insert|Update|Delete] methods.
+- Fix(TEC): Missing Convert null to string on SmartDate property set.
+- Fix(TEC): EmptyIsMin value was incorectly assigned during declaration when column start with active, start, begin, from.
+- ENH(TEC): Guid value is automaticaly generated in business object.
+
+0.9.2	4/30/06
+- Enh(TEC): Provide support for CommmandSchema object allowing for a stored procedure
+            to be used as a data source.
+- Fix(RAS): Add override on AddNewCore (ERL, ECL) to allow adding new collection item.
+- Fix(RAS): Pass Options properties to subtemplate on Csla.cst.
+- Fix(RAS): Make MinimizeStackTraceUse defaulted to true instead of false.
+- Enh(RAS): Add ChildNameAndSuffix, ParentNameAndSuffix.
+- Enh(RAS): refactor loading ObjectInfo.
+
+0.9.1   4/16/06
+- Fix: Constructor in ECL contain pk assignment. (reported by Tom Harris)
+- Fix: Constructor exist in base class of ECL and EC.
+- Enh: 'using' on SqlCommand to ensure proper object dispose
+- New: EditableSwitchable template
+- Fix: RO generate override IsValid/IsDirty when child col obj exist. (reported by ChrisD)
+- Fix: Add criteria object in ROR (reported by ChrisD)
+
+0.9.0   4/6/06   By:Ricky Supit
+- Initial release (Alpha)

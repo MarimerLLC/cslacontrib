@@ -1,5 +1,4 @@
-
-#Region " Factory Methods "
+<%=Indent(0, True)%>#Region " Factory Methods "
 <% If objInfo.IsUserBase Then %>
 <%=Indent(i, True)%>Private Sub New() 
 <%=Indent(i+1)%>MyBase.New()  ' require use of factory method  
@@ -9,7 +8,7 @@
 <% If Not objInfo.IsReadOnly Then %>
 <%=Indent(i, True)%>Friend Shared Function <%=objInfo.NewMethodName%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>) As <%=objInfo.Type%> 
 <% i+=1 %>
-<% If objInfo.IsGeneratedBase Then 'abstract-child cannot use constructor %>
+<% If objInfo.IsGeneratedBase Then ' abstract-child cannot use constructor %>
 <%=Indent(i)%>Dim child As <%=objInfo.Type%> = DataPortal.Create(Of <%=objInfo.Type%>)(<%If Not objInfo.HasIdentity AndAlso Not objInfo.IsGeneratedClass Then %>New Criteria(<%=GetFactoryNewCallArguments(objInfo)%>)<% End If %>)
 <% If Not objInfo.IsCollection Then %>
 <%=Indent(i)%>child.ValidationRules.CheckRules()
@@ -51,6 +50,5 @@
 <%=Indent(i)%>Fetch(dr)
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-<% End If %><% End If %>
-
-#End Region 
+<% End If : End If %>
+<%=Indent(0, True)%>#End Region ' Factory Methods

@@ -16,29 +16,30 @@
    Dim objInfo As ObjectInfo = New ObjectInfo(Me)
 %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->
-Imports System
-Imports System.Data
-Imports System.Data.SqlClient
-Imports Csla
-Imports Csla.Data
-Imports Csla.Validation
-
-<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
+<%=Indent(0, True)%>Imports System
+<%=Indent(0)%>Imports System.Data
+<%=Indent(0)%>Imports System.Data.SqlClient
+<%=Indent(0)%>Imports Csla
+<%=Indent(0)%>Imports Csla.Data
+<%=Indent(0)%>Imports Csla.Validation
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
+<%=Indent(0, True)%>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% End If %> 
 <% If Not objInfo.IsUserPartial Then %>
-<%=Indent(i)%><Serializable()> _ 
-<% End If %>
+<%=Indent(i, True)%><Serializable()> _ 
 <%=Indent(i)%><%= objInfo.Modifiers %> Class <%=objInfo.NameAndSuffix%>
-<%=Indent(i+1)%>Inherits <%=objInfo.Inherits%>
+<% Else %>
+<%=Indent(i, True)%><%= objInfo.Modifiers %> Class <%=objInfo.NameAndSuffix%>
+<% End If %>
 <% i+=1 %>
+<%=Indent(i)%>Inherits <%=objInfo.Inherits%>
 <!-- #INCLUDE FILE="Initialize.inc" -->
 <!-- #INCLUDE FILE="PropertiesMethods.inc" -->
 <!-- #INCLUDE FILE="ValidationRules.inc" -->
 <!-- #INCLUDE FILE="AuthorizationRules.inc" -->
 <!-- #INCLUDE FILE="ObjectFactoryMethods.inc" -->
-
-<%=Indent(0, true)%>#Region " Data Access "
+<%=Indent(0, True)%>#Region " Data Access "
 <% If objInfo.IsGeneratedClass Then %>
 <!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <!-- #INCLUDE FILE="DataPortalCreate.inc" -->
@@ -52,6 +53,4 @@ Imports Csla.Validation
 <% i-=1 %>
 <%=Indent(i, True)%>End Class
 <% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
-
-End Namespace
-<% End If %>
+<%=Indent(0, True)%>End Namespace<% End If %>

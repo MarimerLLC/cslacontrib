@@ -1,4 +1,4 @@
-<%@ CodeTemplate Src="TemplateBase.vb" Debug="True" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Object." %>
+<%@ CodeTemplate Src="TemplateBase.vb" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Object." %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Assembly Name="System.Design" %>
@@ -17,28 +17,27 @@
 <%@ Property Name="Template" Type="ObjectType" Optional="false" Category="0. Render Options" Description="Required - Generate the object code from this template." %>
 <%@ Property Name="OutputToFile" Type="System.Boolean" Optional="false" Category="0. Render Options" Description="Required - True to generate file, or False to preview on the screen" %>
 <script runat="template">
-	private _outputDirectory as string = "C:\Projects"	' set your default directory here
+	Private _outputDirectory As String = "C:\Projects"	' set your default directory here
 	
-	<Editor(gettype(System.Windows.Forms.Design.FolderNameEditor), gettype(System.Drawing.Design.UITypeEditor)), _
+	<Editor(GetType(System.Windows.Forms.Design.FolderNameEditor), GetType(System.Drawing.Design.UITypeEditor)), _
 	Category("0. Render Options"), Description("Optional - The directory to which every output file is generated.")> _
-	public PROPERTY OutputDirectory as string 
-		get 
-			return _outputDirectory
-		end get
-		set(byval value as string)
+	Public Property OutputDirectory As String 
+		Get 
+			Return _outputDirectory
+		End Get
+		Set(ByVal value As String)
 			_outputDirectory= value
-		end set
-	end property
+		End Set
+	End Property
 </script>
 
 <%	
-	OutputSubTemplate(Template, false)
-	'debugger.Break
+	OutputSubTemplate(Template, False)
 %>
 
 <script runat="template">
 
-public sub OutputSubTemplate(byval objectType as ObjectType ,byval overwriteFile as boolean )
+Public Sub OutputSubTemplate(ByVal objectType As ObjectType, ByVal overwriteFile As Boolean)
 	' validate first, make sure all required properties are filled
 	' if(!Validate(table, template)) return;
 	
@@ -79,7 +78,7 @@ End Function
 Private Function GetSourcePath() As String
 	Dim path As String =  OutputDirectory.Trim() 
  
-	path += iif(path.EndsWith("\\"), "","\\")
+	path += IIf(path.EndsWith("\\"), "","\\")
  
 	'check if path not exist, create folder
 	If Not System.IO.Directory.Exists(path) Then
@@ -90,38 +89,38 @@ Private Function GetSourcePath() As String
 End Function
 
 ' validate properties based on template
-private shadows function Validate(byval table as SchemaExplorer.TableSchema ,byval template as ObjectType ) as boolean
-	 dim message as string= ""
+Private Shadows Function Validate(ByVal table As SchemaExplorer.TableSchema, ByVal template As ObjectType) As Boolean
+	Dim message As String = ""
 
 	' validate all required properties for a given template
 
-	if(OutputToFile) then
-		if(OutputDirectory is nothing  orelse OutputDirectory.Trim().Length =0) then
-			message += "OutputDirectory is Required.\n\r"
-		end if
-	end if
+	If OutputToFile Then
+		If OutputDirectory Is Nothing OrElse OutputDirectory.Trim().Length = 0 Then
+			message += "OutputDirectory is Required." & Environment.NewLine
+		End If
+	End If
 
-	if(message.Length>0) then
-		System.Windows.Forms.MessageBox.Show(message,"Validation Errors", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error)
-		return false
-	end if
-	return true
-end function
+	If message.Length > 0 Then
+		System.Windows.Forms.MessageBox.Show(message, "Validation Errors", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error)
+		Return False
+	End If
+	Return True
+End Function
 
 Private  Sub SetProperties(ByVal template As CodeTemplate)
 	'properties apply to all templates
 	'Object
 	template.SetProperty("ClassNamespace", ClassNamespace)
 	template.SetProperty("ObjectName", ObjectName)
-	If Template.ToString().IndexOf("Child")>=0 And Template.ToString().IndexOf("Editable")>=0 Then
+	If Template.ToString().IndexOf("Child") >= 0 And Template.ToString().IndexOf("Editable") >= 0 Then
 		template.SetProperty("ParentName", ParentName)
 	End If
-	If Template.ToString().IndexOf("List")>=0 Then
+	If Template.ToString().IndexOf("List") >= 0 Then
 		template.SetProperty("ChildName", ChildName)
 	End If
  
 	'Child Collection Object
-	If Template.ToString().IndexOf("List")<0 And Template.ToString().IndexOf("NameValue")<0 Then
+	If Template.ToString().IndexOf("List") < 0 And Template.ToString().IndexOf("NameValue") < 0 Then
 		template.SetProperty("ChildCollectionNames", ChildCollectionNames)
 		template.SetProperty("ChildPropertyNames", ChildPropertyNames)
 	End If
@@ -131,10 +130,10 @@ Private  Sub SetProperties(ByVal template As CodeTemplate)
 	template.SetProperty("RootTable", RootTable)
 	template.SetProperty("RootView", RootView)
 	template.SetProperty("ResultSetIndex", ResultSetIndex)
-	If Template.ToString().IndexOf("List")<0 And Template.ToString().IndexOf("NameValue")<0 Then
+	If Template.ToString().IndexOf("List") < 0 And Template.ToString().IndexOf("NameValue") < 0 Then
 		template.SetProperty("UniqueColumnNames", UniqueColumnNames)
 	End If
-	If Template.ToString().IndexOf("RootList")>=0 Then
+	If Template.ToString().IndexOf("RootList") >= 0 Then
 		template.SetProperty("FilterColumnNames", FilterColumnNames)
 	End If
  
@@ -146,7 +145,6 @@ Private  Sub SetProperties(ByVal template As CodeTemplate)
 	'Code Generation
 	template.SetProperty("GenerationMethod", GenerationMethod)
 	template.SetProperty("ClassType", ClassType)
- 
 End Sub
 
 </script>

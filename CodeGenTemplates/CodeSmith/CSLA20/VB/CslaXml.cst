@@ -1,4 +1,4 @@
-<%@ CodeTemplate Src="TemplateBase.vb" debug="true" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Object." %>
+<%@ CodeTemplate Src="TemplateBase.vb" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Object." %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Assembly Name="System.Design" %>
@@ -7,53 +7,49 @@
 <%@ Import Namespace="System.IO" %>
 <%@ Property Name="OutputToFile" Type="System.Boolean" Optional="false" Category="0. Render Options" Description="Required - True to generate file, or False to preview on the screen" %>
 <script runat="template">
-	private _xmlPath as string = ""
+	Private _xmlPath As String = ""
 	<Editor(GetType(System.Windows.Forms.Design.FileNameEditor), GetType(System.Drawing.Design.UITypeEditor)), Optionalattribute(), Category("0. Render Options"), Description("Required - The Xml file name to be generated.")> _
-	public Property XmlFileName as string 
-		get 
-			return _xmlPath
-		end get
-		set(Byval value as string)
+	Public Property XmlFileName As String 
+		Get 
+			Return _xmlPath
+		End Get
+		Set(Byval value As String)
 			_xmlPath= value
-		end set
-	end property
+		End Set
+	End Property
 	
-	private _outputDirectory as string = "C:\\Projects"	'set your default directory here
+	Private _outputDirectory As String = "C:\\Projects"	'set your default directory here
 	<Editor(Gettype(System.Windows.Forms.Design.FolderNameEditor), Gettype(System.Drawing.Design.UITypeEditor)), OptionalAttribute(), Category("0. Render Options"), Description("Optional - The directory to which every output file is generated.")> _
-	public property OutputDirectory as string 
-		get 
-			return _outputDirectory
-		end get
-		set(byval value as string)
+	Public Property OutputDirectory As String 
+		Get 
+			Return _outputDirectory
+		End Get
+		Set(ByVal value As String)
 			_outputDirectory = value
-		end set
-	end property
+		End Set
+	End Property
 </script>
 
-<% Debugger.Break() %>
 <% LoadObjects() %>
 
 <script runat="template">
-public Sub LoadObjects() 
-    dim xtr as XmlTextReader = new XmlTextReader(_xmlPath)
-    while (xtr.Read())
-        if (xtr.NodeType = XmlNodeType.Element andalso xtr.LocalName.ToLower() = "object") then
+Public Sub LoadObjects() 
+    Dim xtr As XmlTextReader = New XmlTextReader(_xmlPath)
+    while xtr.Read()
+        If xtr.NodeType = XmlNodeType.Element AndAlso xtr.LocalName.ToLower() = "object" Then
 			 'render first object
-			 dim objectType as string = xtr.GetAttribute("type")
-			 dim objectName as string = xtr.GetAttribute("name")
+			 Dim objectType As String = xtr.GetAttribute("type")
+			 Dim objectName As String = xtr.GetAttribute("name")
 		     
-			 OutputSubTemplate(objectName, objectType, true)
-        end if
-    end while
+			 OutputSubTemplate(objectName, objectType, True)
+        End If
+    End while
     xtr.Close()
-end sub
+End sub
 
-public Sub OutputSubTemplate(byval objectName as string , byval cslaObjectType as string , byval overwriteFile as boolean)
-	'validate first, make sure all required properties are filled
-	'if(not Validate(table, template)) then return
-	
-	dim subTemplate as CodeTemplate = TemplateHelper.GetCompiledTemplate(cslaObjectType + ".cst")
-	if (subTemplate is nothing) then return
+Public Sub OutputSubTemplate(ByVal objectName As String, ByVal cslaObjectType As String, ByVal overwriteFile As boolean)
+	Dim subTemplate As CodeTemplate = TemplateHelper.GetCompiledTemplate(cslaObjectType + ".cst")
+	If subTemplate Is Nothing Then Return
 
 	' assign properties		
 	subTemplate.SetProperty("XmlFilePath", _xmlPath)
@@ -68,40 +64,39 @@ public Sub OutputSubTemplate(byval objectName as string , byval cslaObjectType a
 	' Output to screen
 	subTemplate.Render(Response)
 	
-	if(OutputToFile) then
-		dim fileName as string = GetSourcePath() + GetSourceFileName(objectName)
-		try 
+	If OutputToFile Then
+		Dim fileName As String = GetSourcePath() + GetSourceFileName(objectName)
+		Try 
 			subTemplate.RenderToFile(fileName, overwriteFile)
-		catch ex as Exception
+		Catch ex As Exception
 			Response.WriteLine("Error Rendering To File: " + ex.Message)
 			Response.WriteLine("- " + fileName)
-		end try
-	end if
-end sub
-
+		End Try
+	End If
+End Sub
 
 ' determine output file name based on Language, template name, and table name
-private Function GetSourceFileName(byval objectName as string) as string  'todo:get from template instead.
-	Dim fileName  as string = objectName
-	if (ClassType = GenerationClassType.Generated) then
-		if (GenerationMethod = CodeGenerationMethod.SplitBase) then
+Private Function GetSourceFileName(ByVal objectName As String) As String  'todo:Get from template instead.
+	Dim fileName As String = objectName
+	If ClassType = GenerationClassType.Generated Then
+		If GenerationMethod = CodeGenerationMethod.SplitBase Then
 			fileName += "Base"
-		elseif (GenerationMethod = CodeGenerationMethod.SplitPartial) then
+		ElseIf GenerationMethod = CodeGenerationMethod.SplitPartial Then
 			fileName += ".Generated"
-		end if
-	end if
-	return fileName + ".cs"
-end function
+		End If
+	End If
+	Return fileName + ".vb"
+End function
 
-private Function GetSourcePath() as string 
-	dim path as string = OutputDirectory.Trim()
+Private Function GetSourcePath() As String 
+	Dim path As String = OutputDirectory.Trim()
 
-	path += iif(path.EndsWith("\\"), "","\\")
+	path += IIf(path.EndsWith("\\"), "","\\")
 
-	' check if path not exist, create folder
-	if (not System.IO.Directory.Exists(path)) then System.IO.Directory.CreateDirectory(path)
+	' check If path Not exist, create folder
+	If Not System.IO.Directory.Exists(path) Then System.IO.Directory.CreateDirectory(path)
 
-	return path
-end function
+	Return path
+End Function
 
 </script>

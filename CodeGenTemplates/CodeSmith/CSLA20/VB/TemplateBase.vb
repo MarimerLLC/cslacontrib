@@ -17,6 +17,7 @@ Imports CodeSmith.Engine
 Imports SchemaExplorer
 Imports CodeSmith.CustomProperties
 Imports System.Xml
+Imports Microsoft.VisualBasic
 
 Namespace CodeSmith.Csla
     Public Class TemplateBase
@@ -46,7 +47,7 @@ Namespace CodeSmith.Csla
         Protected Const GenericTypeChildParameter As String = "C"
         Private Const GenericTypeParentParameter As String = "P"
         'number of spaces to use for indentation, set to 0 to use tab indentation
-        Shared IndentLevelSpaces As Integer = 4
+        Shared IndentLevelSpaces As Integer = 0
         'option to minimize use of StackTrace
         Shared MinimizeStackTraceUse As Boolean = True
 
@@ -218,12 +219,18 @@ Namespace CodeSmith.Csla
         Public Function GetMemberDeclarations(ByVal objInfo As ObjectInfo, ByVal level As Integer) As String
             Dim members As String = Indent(level, True) + "' declare members"
             For Each prop As PropertyInfo In objInfo.Properties
+				' if csla-type, later...
                 If Not objInfo.ChildCollection.Contains(prop) Then
-                    members += Indent(level, True) + GetMemberDeclaration(prop)
+					' if pk (non composite) and type of Guid, default value is Guid.NewGuid
+                	If objInfo.UniqueProperties.Count = 1 AndAlso objInfo.UniqueProperties.Contains(prop) AndAlso prop.Type = "Guid" Then
+                    	members += Indent(level, True) + GetMemberDeclaration(prop.MemberAccess, prop.Type, prop.MemberName, "Guid.NewGuid()")
+                	Else
+                    	members += Indent(level, True) + GetMemberDeclaration(prop)
+					End If
                 End If
             Next
 
-            ' add class-type child objects (not simple type but csla-type class)
+            ' add csla-type child objects (not simple type but csla-type class)
             If objInfo.HasChild Then
                 members += environment.NewLine + Indent(level, True) + "' declare child member(s)"
             End If
@@ -513,9 +520,8 @@ Namespace CodeSmith.Csla
             Dim varType As String = prop.Type
 
             'check if criteria property or variable
-            If varPrefix = String.Empty Then varPrefix = "Me"
-            If varPrefix = "Me" Then
-                varName = varPrefix + "." + prop.MemberName
+            If varPrefix = String.Empty OrElse varPrefix = "Me" Then
+                varName = prop.MemberName
             Else
                 varName = varPrefix + "." + prop.Name
             End If
@@ -753,7 +759,8 @@ Namespace CodeSmith.Csla
             If (IndentLevelSpaces > 0) Then
                 str += New String(" ", level * IndentLevelSpaces)
             Else
-                str += New String("\t", level)
+				dim tab as char = strings.Chr(9)
+                str += New String(tab, level)
             End If
             Return str
         End Function
@@ -1163,9 +1170,9 @@ Namespace CodeSmith.Csla
                     Select Case _objectType
                         Case ObjectType.EditableRoot, ObjectType.EditableChild, ObjectType.EditableSwitchable, ObjectType.ReadOnlyRoot, ObjectType.ReadOnlyChild
                             Return String.Format(" As {1}(Of {0})", Type, Name)
-                        Case ObjectType.EditableChildList
+                        Case ObjectType.EditableChildList, ObjectType.ReadOnlyRootList
                             If IsGeneratedBase Then
-                                Return String.Format(" As {1}(Of {0},{2})", Type, Name, ChildType)
+                                Return String.Format(" As {1}(Of {0}, {2})", Type, Name, ChildType)
                             End If
                         Case ObjectType.EditableRootList
                             If IsGeneratedBase Then
@@ -1622,7 +1629,7 @@ Namespace CodeSmith.Csla
                         Case "name"
                             _name = VBHelper.MakeProper(xtr.Value)
                         Case "type"
-                            _type = xtr.Value
+                            _type = VBHelper.ConvertType(xtr.Value)
                         Case "access"
                             _access = xtr.Value
                         Case "default"
@@ -1677,7 +1684,8 @@ Namespace CodeSmith.Csla
                 _isRequired = Not col.AllowDBNull
                 _isComputed = VbHelper.IsComputed(col)
                 _isTimestamp = VbHelper.IsTimestamp(col)
-                If (_type = "String" AndAlso col.Size <= 8000) Then 'fixsize string is <= 8000
+				' fixsize string is <= 8000
+                If _type = "String" AndAlso col.Size <= 8000 AndAlso col.NativeType.ToLower <> "text" AndAlso col.NativeType.ToLower <> "ntext" Then 
                     _maxSize = col.Size
                 End If
             End Sub
@@ -1717,18 +1725,18 @@ Namespace CodeSmith.Csla
 
             Public Shared Function GetReaderMethod(ByVal varType As String) As String
                 Dim val As String = String.Empty
-                Select Case varType
-                    Case "SmartDate", "DateTime", "Guid"
+                Select Case varType.ToLower
+                    Case "smartdate", "datetime", "guid", "date"
                         Return "Get" + varType
-                    Case "String", "Double", "Byte", "Decimal", "Single"
+                    Case "string", "double", "byte", "decimal", "single"
                         Return "Get" + varType.Substring(0, 1).ToUpper() + varType.Substring(1)
-                    Case "Boolean"
+                    Case "boolean"
                         Return "GetBoolean"
-                    Case "Short"
+                    Case "short"
                         Return "GetInt16"
-                    Case "Integer"
+                    Case "integer"
                         Return "GetInt32"
-                    Case "Long"
+                    Case "long"
                         Return "GetInt64"
                 End Select
                 Return String.Empty
@@ -1740,6 +1748,33 @@ Namespace CodeSmith.Csla
         Public Class VbHelper
             Private Sub New()
             End Sub
+			
+			'convert C# variable types to VB so that the same 
+			' XML document can create either language type
+			Public Shared Function ConvertType(ByVal varType As String) As String
+				Select Case varType.ToLower
+					Case "bool"
+						Return "Boolean"						
+					Case "int", "int32"
+						Return "Integer"
+					Case "int16"
+						Return "Short"
+					Case "int64"
+						Return "Long"
+					Case "uint16"
+						Return "UShort"
+					Case "uint", "uint32"
+						Return "UInteger"
+					Case "uint64"
+						Return "ULong"
+					Case "float"
+						Return "Single"
+					Case "datetime"
+						Return "Date"
+					Case Else
+						Return varType.Substring(0, 1).ToUpper() + varType.Substring(1)
+				End Select
+			End Function	
 
             'remove underscore and convert to pascal case
             Public Shared Function MakeProper(ByVal name As String) As String
@@ -1843,7 +1878,7 @@ Namespace CodeSmith.Csla
                     Case "SmartDate"
                         Return "New SmartDate(True)"
                     Case "Guid"
-                        Return "Guid.NewGuid()"
+                        Return "Guid.Empty"
                     Case "String"
                         Return "String.Empty"
                     Case "Boolean"
@@ -1870,7 +1905,7 @@ Namespace CodeSmith.Csla
             Public Shared Function GetDefaultValue(ByVal col As DataObjectBase) As String
                 Select Case col.DataType
                     Case DbType.Guid
-                        Return "Guid.NewGuid()"
+                        Return "Guid.Empty"
                     Case DbType.AnsiString
                         Return "String.Empty"
                     Case DbType.AnsiStringFixedLength

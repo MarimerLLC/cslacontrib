@@ -1,10 +1,8 @@
 <% If objInfo.IsUserClass AndAlso objInfo.UseSecurity Then %>
-
-<%=Indent(0)%>#Region " Authorization Rules "
+<%=Indent(0, True)%>#Region " Authorization Rules "
 <% If Not objInfo.IsCollection Then %>
 <% If Not objInfo.PropertyAuthorization = PropertyAccessSecurity.None Then %>
-
-<%=Indent(i)%>Protected Overrides Sub AddAuthorizationRules()
+<%=Indent(i, True)%>Protected Overrides Sub AddAuthorizationRules()
 <%i+=1%>
 <% If objInfo.PropertyAuthorization = PropertyAccessSecurity.Read OrElse objInfo.PropertyAuthorization = PropertyAccessSecurity.Both Then %>
 <%=Indent(i)%>'TODO: Define authorization rules in <%=objInfo.Name%>
@@ -30,8 +28,7 @@
 <% End If%>
 <% End If%>
 <% If Not objInfo.IsChild OrElse objInfo.CslaObjectType = ObjectType.EditableSwitchable Then %>
-
-<%=Indent(i)%>Public Shared Function CanGetObject() As Boolean
+<%=Indent(i, True)%>Public Shared Function CanGetObject() As Boolean
 <% i+=1 %>
 <%=Indent(i)%>'TODO: Define CanGetObject permission in <%=objInfo.Name%>
 <%=Indent(i)%>Return True
@@ -42,8 +39,7 @@
 <% i-=1 %>
 <%=Indent(i)%>End Function
 <% If Not objInfo.IsReadOnly Then%>
-
-<%=Indent(i)%>Public Shared Function CanAddObject() As Boolean
+<%=Indent(i, True)%>Public Shared Function CanAddObject() As Boolean
 <%i+=1%>
 <%=Indent(i)%>'TODO: Define CanAddObject permission in <%=objInfo.Name%>
 <%=Indent(i)%>Return True
@@ -53,8 +49,7 @@
 <%=Indent(i)%>'Return False
 <%i-=1%>
 <%=Indent(i)%>End Function
-
-<%=Indent(i)%>Public Shared Function CanEditObject() As Boolean
+<%=Indent(i, True)%>Public Shared Function CanEditObject() As Boolean
 <%i+=1%>
 <%=Indent(i)%>'TODO: Define CanEditObject permission in <%=objInfo.Name%>
 <%=Indent(i)%>Return True
@@ -64,8 +59,7 @@
 <%=Indent(i)%>'Return False
 <%i-=1%>
 <%=Indent(i)%>End Function
-
-<%=Indent(i)%>Public Shared Function CanDeleteObject() As Boolean
+<%=Indent(i, True)%>Public Shared Function CanDeleteObject() As Boolean
 <%i+=1%>
 <%=Indent(i)%>'TODO: Define CanDeleteObject permission in <%=objInfo.Name%>
 <%=Indent(i)%>Return True
@@ -75,8 +69,6 @@
 <%=Indent(i)%>'Return False
 <%i-=1%>
 <%=Indent(i)%>End Function
-
-<% End If %>
-<% End If %>
-<%=Indent(0)%>#End Region 'Authorization Rules
+<% End If : End If %>
+<%=Indent(0, True)%>#End Region ' Authorization Rules
 <% End If %>

@@ -11,8 +11,8 @@
 
 <%-- Generic Variables for code to use  --%>
 <% 
-   Dim i As Integer = BaseIndentLevel
-   Dim objInfo As ObjectInfo = New ObjectInfo(Me)
+    Dim i As Integer = BaseIndentLevel
+    Dim objInfo As ObjectInfo = New ObjectInfo(Me)
 %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->
 Imports System

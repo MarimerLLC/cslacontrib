@@ -1,16 +1,13 @@
-
-<%=Indent(0)%>#Region " Factory Methods "
-
+<%=Indent(0, True)%>#Region " Factory Methods "
 <% If objInfo.IsSingle OrElse objInfo.IsGeneratedPartial OrElse objInfo.IsUserBase Then %>
-<%=Indent(i)%>Private Sub New()
+<%=Indent(i, True)%>Private Sub New()
 <%=Indent(i)%>' require use of factory method 
 <%=Indent(i)%>End Sub
 <% End If %>
 <% 'all in generated class except when base class with authorization turned on
-    If (objInfo.IsSingle OrElse objInfo.IsGeneratedPartial OrElse (objInfo.IsGeneratedBase andalso not objInfo.UseSecurity) OrElse (objInfo.IsUserBase andalso objInfo.UseSecurity)) Then %>
+    If (objInfo.IsSingle OrElse objInfo.IsGeneratedPartial OrElse (objInfo.IsGeneratedBase AndAlso Not objInfo.UseSecurity) OrElse (objInfo.IsUserBase AndAlso objInfo.UseSecurity)) Then %>
 <% If Not objInfo.IsReadOnly Then %>
-
-<%=Indent(i)%>Public Shared Function <%=objInfo.NewMethodName%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>) As <%=objInfo.Type%>
+<%=Indent(i, True)%>Public Shared Function <%=objInfo.NewMethodName%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>) As <%=objInfo.Type%>
 <% i+=1 %>
 <% If objInfo.UseSecurity Then %>
 <%=Indent(i)%>If Not CanAddObject() Then
@@ -21,8 +18,7 @@
 <% i-=1 %>
 <%=Indent(i)%>End Function
 <% End If %>
-
-<%=Indent(i)%>Public<% If objInfo.IsUserBase Then %> Overloads<%End If%> Shared Function <%=objInfo.GetMethodName%>(<%=GetFactoryDeclarationArguments(objInfo)%>) As <%=objInfo.Type%>
+<%=Indent(i, True)%>Public<% If objInfo.IsUserBase Then %> Overloads<%End If%> Shared Function <%=objInfo.GetMethodName%>(<%=GetFactoryDeclarationArguments(objInfo)%>) As <%=objInfo.Type%>
 <% i+=1 %>
 <% If objInfo.UseSecurity Then %>
 <%=Indent(i)%>If Not CanGetObject() Then
@@ -33,8 +29,7 @@
 <% i-=1 %>
 <%=Indent(i)%>End Function
 <% If Not objInfo.IsReadOnly Then %>
-
-<%=Indent(i)%>Public Shared Sub <%=objInfo.DeleteMethodName%>(<%=GetFactoryDeclarationArguments(objInfo)%>)
+<%=Indent(i, True)%>Public Shared Sub <%=objInfo.DeleteMethodName%>(<%=GetFactoryDeclarationArguments(objInfo)%>)
 <% i+=1 %>
 <% If objInfo.UseSecurity Then %>
 <%=Indent(i)%>If Not CanDeleteObject() Then
@@ -45,8 +40,7 @@
 <% i-=1 %>
 <%=Indent(i)%>End Sub
 <% If objInfo.UseSecurity Then %>
-
-<%=Indent(i)%>Public Overrides Function Save() As <%=objInfo.Type%>
+<%=Indent(i, True)%>Public Overrides Function Save() As <%=objInfo.Type%>
 <% i+=1 %>
 <%=Indent(i)%>If IsDeleted AndAlso Not CanDeleteObject() Then
 <%=Indent(i+1)%>Throw New System.Security.SecurityException("User not authorized to remove a <%=objInfo.Name%>")
@@ -57,9 +51,5 @@
 <%=Indent(i)%>End If
 <%=Indent(i)%>Return MyBase.Save()
 <% i-=1 %>
-<%=Indent(i)%>End Function
-<% End If %>
-<% End If %>
-<% End If %>
-
-<%=Indent(0)%>#End Region 'Factory Methods
+<%=Indent(i)%>End Function<% End If : End If : End If %>
+<%=Indent(0, True)%>#End Region ' Factory Methods

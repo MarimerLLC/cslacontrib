@@ -12,39 +12,37 @@
 <%@ Property Name="ChildCollectionNames" Type="CodeSmith.CustomProperties.StringCollection" Optional="true" Category="1a. Child Collection Object" Description="The Child Collection's Name. Used for the memeber variable and collection name." %>
 <%@ Property Name="ChildPropertyNames" Type="CodeSmith.CustomProperties.StringCollection" Optional="true" Category="1a. Child Collection Object" Description="The Child Collection's member variable name." %>
 <%-- Generic Variables for code to use  --%>
-<% 
-    Dim i As Integer = BaseIndentLevel
-    Dim objInfo As ObjectInfo = New ObjectInfo(Me)
-%>
+<%  Dim i As Integer = BaseIndentLevel
+    Dim objInfo As ObjectInfo = New ObjectInfo(Me) %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->
-Imports System
-Imports System.Data
-Imports System.Data.SqlClient
-Imports Csla
-Imports Csla.Data
-Imports Csla.Validation
-
-<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
+<%=Indent(0, True)%>Imports System
+<%=Indent(0)%>Imports System.Data
+<%=Indent(0)%>Imports System.Data.SqlClient
+<%=Indent(0)%>Imports Csla
+<%=Indent(0)%>Imports Csla.Data
+<%=Indent(0)%>Imports Csla.Validation
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
+<%=Indent(0, True)%>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% End If %> 
 <% If Not objInfo.IsUserPartial Then %>
-<%=Indent(i)%><Serializable()> _ 
-<% End If %>
+<%=Indent(i, True)%><Serializable()> _ 
 <%=Indent(i)%><%= objInfo.Modifiers %> Class <%=objInfo.NameAndSuffix%>
-<%=Indent(i+1)%>Inherits <%=objInfo.Inherits%>
+<% Else %>
+<%=Indent(i, True)%><%= objInfo.Modifiers %> Class <%=objInfo.NameAndSuffix%>
+<% End If %>
 <% i+=1 %>
+<%=Indent(i)%>Inherits <%=objInfo.Inherits%>
 <!-- #INCLUDE FILE="Initialize.inc" -->
 <!-- #INCLUDE FILE="PropertiesMethods.inc" -->
 <!-- #INCLUDE FILE="ValidationRules.inc" -->
 <!-- #INCLUDE FILE="AuthorizationRules.inc" -->
 <!-- #INCLUDE FILE="ChildFactoryMethods.inc" -->
-
-<%=Indent(0, true)%>#Region " Data Access "
+<%=Indent(0, True)%>#Region " Data Access "
 <% If objInfo.IsGeneratedClass Then %>
 <!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <% If objInfo.IsGeneratedBase Then%>
-
-<%=Indent(i)%><RunLocal> _
+<%=Indent(i, True)%><RunLocal> _
 <%=Indent(i)%>Protected Overrides Sub DataPortal_Create(ByVal criteria As Object) 
 <%=Indent(i+1)%>MarkAsChild()
 <%=Indent(i)%>End Sub
@@ -55,15 +53,13 @@ Imports Csla.Validation
 <!-- #INCLUDE FILE="Update.inc" -->
 <!-- #INCLUDE FILE="Delete.inc" -->
 <% End If %>
-<% If (objInfo.IsUserBase) Then %>
-
-<%=Indent(i)%>'TODO: If parent use identity key, 
+<% If objInfo.IsUserBase Then %>
+<%=Indent(i, True)%>'TODO: If parent use identity key, 
 <%=Indent(i)%>'override AddInsertParameters and fix fk member with value from parent
 <% end If %>
-
-<%=Indent(0)%>#End Region 'Data Access
+<%=Indent(0, True)%>#End Region ' Data Access
 <!-- #INCLUDE FILE="DelegationMethods.inc" -->
 <% i-=1 %>
-
-<%=Indent(i)%>End Class
-<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then%>End Namespace <% End If%>
+<%=Indent(i, True)%>End Class
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then%>
+<%=Indent(0, True)%>End Namespace <% End If%>

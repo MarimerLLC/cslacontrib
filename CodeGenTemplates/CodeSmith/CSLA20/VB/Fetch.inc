@@ -1,30 +1,26 @@
-<%=Indent(0, true)%>#Region " Data Access - Fetch "
-
-<%=Indent(i)%>Private Sub Fetch(ByVal dr As SafeDataReader)
+<%=Indent(0, True)%>#Region " Data Access - Fetch "
+<%=Indent(i, True)%>Private Sub Fetch(ByVal dr As SafeDataReader)
 <% i+=1 %>
 <%=Indent(i)%>FetchObject(dr)
 <% If Not objInfo.IsReadOnly Then %>
 <%=Indent(i)%>MarkOld()
 <%=Indent(i)%>ValidationRules.CheckRules()
 <% End If %>
-
-<%=Indent(i)%>'load child object(s)
+<%=Indent(i, True)%>'load child object(s)
 <%=Indent(i)%>FetchChildren(dr)
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-
-<%=Indent(i)%><%=objInfo.LocalMethodModifiers%> Sub FetchObject(ByVal dr As SafeDataReader)
+<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub FetchObject(ByVal dr As SafeDataReader)
 <% i+=1 %>
 <% For Each prop As PropertyInfo In objInfo.Properties : If prop.HasDbColumn Then %>
-<%=Indent(i)%><%= GetReaderAssignmentStatement(prop) %>
+<%=Indent(i)%><%=GetReaderAssignmentStatement(prop) %>
 <% End If : Next %>
 <% If objInfo.IsGeneratedPartial Then %>
 <%=Indent(i)%>OnFetchObjectComplete(dr)
 <% End If %>
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-
-<%=Indent(i)%><%=objInfo.LocalMethodModifiers%> Sub FetchChildren(ByVal dr As SafeDataReader)
+<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub FetchChildren(ByVal dr As SafeDataReader)
 <% i+=1 %>
 <% If objInfo.HasChild Then %>
 <% For Each prop As PropertyInfo In objInfo.ChildCollection %>
@@ -37,6 +33,4 @@
 <% End If %>
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-
-<%=Indent(0)%>#End Region 'Data Access - Fetch
- 
+<%=Indent(0, True)%>#End Region ' Data Access - Fetch

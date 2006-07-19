@@ -1,4 +1,4 @@
-<%=Indent(0, true)%>#Region " Data Access - Insert "
+<%=Indent(0, True)%>#Region " Data Access - Insert "
 <% If objInfo.IsGeneratedBase AndAlso objInfo.ParentType.Length>0 Then %>
 <%=Indent(i, True)%>Friend Sub Insert(Of <%=objInfo.ParentType%> As <%=objInfo.ParentNameAndSuffix%>)(<%If(objInfo.UseAdoTransaction) Then %>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<% End If %>, ByVal parent As <%=objInfo.ParentType%>)
 <% Else %>
@@ -8,20 +8,19 @@
 <%=Indent(i)%>If Not IsDirty Then Return
 <%=Indent(i)%>ExecuteInsert(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If%><%If objInfo.ParentType.Length > 0 Then %>, parent<% End If %>)
 <%=Indent(i)%>MarkOld()
-<%=Indent(i, True)%>'update child object(s)
-<%=Indent(i)%>UpdateChildren(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If %>)
+<%=Indent(i, True)%>UpdateChildren(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If %>)
 <% i-=1 %>
 <%=Indent(i)%>End Sub
 <% If objInfo.IsGeneratedBase AndAlso objInfo.ParentType.Length > 0 Then %>
 <%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub ExecuteInsert(Of <%=objInfo.ParentType%> As <%=objInfo.ParentNameAndSuffix%>)(<% If objInfo.UseAdoTransaction Then %>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<%End If%>, ByVal parent As <%=objInfo.ParentType%>)
 <% Else %>
-<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub ExecuteInsert(<%If(objInfo.UseAdoTransaction) Then%>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<%End If%><%If(objInfo.ParentType.Length>0) Then%>, ByVal parent As <%=objInfo.ParentType%><%End If%>)
+<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub ExecuteInsert(<% If(objInfo.UseAdoTransaction) Then%>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<%End If%><%If(objInfo.ParentType.Length>0) Then%>, ByVal parent As <%=objInfo.ParentType%><%End If%>)
 <% End If %>
 <% i+=1 %>
 <% If objInfo.IsGeneratedPartial Then%>
-<%=Indent(i)%>If Not OnExecuteInsert(<%If objInfo.UseAdoTransaction Then%>tr<% Else %>cn<% End If %><%If objInfo.ParentType.Length > 0 Then %>, parent<% End If %>) Then Return
+<%=Indent(i)%>If Not OnExecuteInsert(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If %><%If objInfo.ParentType.Length > 0 Then %>, parent<% End If %>) Then Return
 <% End If %>
-<%=Indent(i)%>Using cm As SqlCommand = <%If objInfo.UseAdoTransaction Then %>tr.Connection<% Else %>cn<% End If %>.CreateCommand()
+<%=Indent(i)%>Using cm As SqlCommand = <% If objInfo.UseAdoTransaction Then %>tr.Connection<% Else %>cn<% End If %>.CreateCommand()
 <% i+=1 %>
 <% If objInfo.UseAdoTransaction Then %>
 <%=Indent(i)%>cm.Transaction = tr
@@ -45,7 +44,7 @@
 <%End If%>
 <% i+=1 %>
 <% If objInfo.ParentType.Length > 0 AndAlso objInfo.IsUserClass Then %>
-<%=Indent(i)%>'TODO: If parent use identity key, fix fk member with value from parent
+<%=Indent(i)%>'todo: If parent use identity key, fix fk member with value from parent
 <%End If%>
 <%=GetInsertParameters(objInfo, i)%>
 <% If objInfo.IsGeneratedPartial Then %>
@@ -53,10 +52,8 @@
 <%End If%>
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-
-<%=Indent(0)%>#End Region 'Data Access - Insert
-
-<%=Indent(0)%>#Region " Data Access - Update "
+<%=Indent(0, True)%>#End Region ' Data Access - Insert
+<%=Indent(0, True)%>#Region " Data Access - Update "
 <% If objInfo.IsGeneratedBase AndAlso objInfo.ParentType.Length > 0 Then %>
 <%=Indent(i, True)%>Friend Sub Update(Of <%=objInfo.ParentType%> As <%=objInfo.ParentNameAndSuffix%>)(<% If objInfo.UseAdoTransaction Then %>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<% End If %>, ByVal parent As <%=objInfo.ParentType%>)
 <% Else %>
@@ -70,8 +67,7 @@
 <%=Indent(i)%>MarkOld()
 <% i-=1 %>
 <%=Indent(i)%>End If
-<%=Indent(i, True)%>'update child object(s)
-<%=Indent(i)%>UpdateChildren(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If %>)
+<%=Indent(i, True)%>UpdateChildren(<% If objInfo.UseAdoTransaction Then %>tr<% Else %>cn<% End If %>)
 <% i-=1 %>
 <%=Indent(i)%>End Sub
 <% If objInfo.IsGeneratedBase AndAlso objInfo.ParentType.Length > 0 Then %>
@@ -113,11 +109,11 @@
 <% End If %>
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub UpdateChildren(<%If objInfo.UseAdoTransaction Then %>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<% End If %>)
+<%=Indent(i, True)%><%=objInfo.LocalMethodModifiers%> Sub UpdateChildren(<% If objInfo.UseAdoTransaction Then %>ByVal tr As SqlTransaction<% Else %>ByVal cn As SqlConnection<% End If %>)
 <% i+=1 %>
 <% If objInfo.HasChild Then %>
 <%	Dim cast As string = iif(objInfo.IsGeneratedBase, "(T)", "" )
-	for each prop As PropertyInfo In objInfo.ChildCollection
+	For Each prop As PropertyInfo In objInfo.ChildCollection
 	If objInfo.UseAdoTransaction Then %>
 <%=Indent(i)%><%=string.Format("{0}.Update(tr, {1}Me)", prop.MemberName, cast)%>
 <% Else %>
@@ -129,5 +125,4 @@
 <% End If %>
 <% i-=1 %>
 <%=Indent(i)%>End Sub
-
-<%=Indent(0)%>#End Region 'Data Access - Update
+<%=Indent(0, True)%>#End Region ' Data Access - Update

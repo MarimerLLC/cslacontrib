@@ -4,6 +4,8 @@
 ---------------------------------------------------
 
 History:
+- Enh(RAS): CodeSmith 3.2 returns Text column size as 16 (address size), Add work around to avoid StingMaxLength check rule. (reported by Skafa)
+- Fix(RAS): Non primary key Guid type member is generated with default value of Guid.NewGuid(). (reported by Skafa)
 - Fix(RAS): Incorrectly implemented Guid property type, all Guid is treated as identity column. (reported by Allan Nielsen)
 - Fix(RAS): Incorrectly defined property name when calling PropertyHasChanged, CanReadProperty, and CanWriteProperty. (reported by Kraz)
 - Fix(RAS): Missing onFetchObjectComplete and onFetchChildrenComplete method in EditableSwitchable.

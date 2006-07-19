@@ -39,7 +39,7 @@
 			<properties>
 				<property name="ResourceId" type="int" 
 					dbColumnName="ResourceId"
-					isIdentity="false"
+					isIdentity="true"
 					isPrimaryKey="true" />
 				<property name="FirstName" type="string"
 					default="string.Empty" 

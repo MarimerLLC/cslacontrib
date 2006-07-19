@@ -204,11 +204,17 @@ namespace CodeSmith.Csla
             string members = Indent(level, true) + "//declare members";
             foreach (PropertyInfo prop in objInfo.Properties)
             {
-                if(!objInfo.ChildCollection.Contains(prop))
+                //if csla-type, later...
+                if (objInfo.ChildCollection.Contains(prop))
+                    continue;
+                //if pk (non composite) and type of Guid, default value is Guid.NewGuid()
+                if (objInfo.UniqueProperties.Count==1 && objInfo.UniqueProperties.Contains(prop) && prop.Type == "Guid")
+                    members += Indent(level, true) + GetMemberDeclaration(prop.MemberAccess, prop.Type, prop.MemberName, "Guid.NewGuid()");
+                else
                     members += Indent(level, true) + GetMemberDeclaration(prop);
             }
 
-            //add class-type child objects (not simple type but csla-type class)
+            //add csla-type child objects (not simple type but csla-type class)
             if (objInfo.HasChild)
                 members += "\r\n" + Indent(level, true) + "//declare child member(s)";
             foreach (PropertyInfo prop in objInfo.ChildCollection)
@@ -1671,7 +1677,8 @@ namespace CodeSmith.Csla
                 _isRequired = !col.AllowDBNull;
                 _isComputed = CsHelper.IsComputed(col);
                 _isTimestamp = CsHelper.IsTimestamp(col);
-                if (_type=="string" && col.Size <= 8000) //fixsize string is <= 8000
+                //fixsize string is <= 8000
+                if (_type=="string" && col.Size <= 8000 && col.NativeType!="text" && col.NativeType!="ntext") 
                     _maxSize = col.Size;
             }
         }
@@ -1841,7 +1848,7 @@ namespace CodeSmith.Csla
                 switch (variableType)
                 {
                     case "SmartDate": return "new SmartDate(true)";
-                    case "Guid": return "Guid.NewGuid()";
+                    case "Guid": return "Guid.Empty";
                     case "string": return "string.Empty";
                     case "bool": return "false";
                     case "double": return "0";
@@ -1858,7 +1865,7 @@ namespace CodeSmith.Csla
             { 
                 switch (col.DataType)
                 {
-                    case DbType.Guid: return "Guid.NewGuid()";
+                    case DbType.Guid: return "Guid.Empty";
                     case DbType.AnsiString: return "string.Empty";
                     case DbType.AnsiStringFixedLength: return "string.Empty";
                     case DbType.String: return "string.Empty";

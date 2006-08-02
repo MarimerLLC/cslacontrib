@@ -9,7 +9,7 @@
 <%=Indent(i)%>internal static <%=objInfo.Type%> <%=objInfo.NewMethodName%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>)
 <%=Indent(i++)%>{
 <% if(objInfo.IsGeneratedBase) { //abstract-child cannot use constructor %>
-<%=Indent(i)%><%=objInfo.Type%> child = DataPortal.Create<<%=objInfo.Type%>>(<%if(!objInfo.HasIdentity) {%>new Criteria(<%=GetFactoryNewCallArguments(objInfo)%>)<%}%>);
+<%=Indent(i)%><%=objInfo.Type%> child = DataPortal.Create<<%=objInfo.Type%>>(<% string cPars = GetFactoryNewCallArguments(objInfo); if(cPars.Length>0) {%>new Criteria(<%=cPars%>)<%}%>);
 <% if(!objInfo.IsCollection) {%>
 <%=Indent(i)%>child.ValidationRules.CheckRules();
 <% } %>
@@ -38,6 +38,7 @@
 <% if(!objInfo.IsCollection) {%>
 <%=GetFactoryNewAssignments(objInfo, i)%>
 <% } %>
+<%=Indent(i)%>ValidationRules.CheckRules();
 <%=Indent(i)%>MarkAsChild();
 <%=Indent(--i)%>}
 

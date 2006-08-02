@@ -692,6 +692,7 @@ namespace CodeSmith.Csla
         {
             if (obj.IsCollection) return string.Empty;
             if (obj.HasIdentity) return string.Empty;
+            if (obj.HasObjectGeneratedKey) return string.Empty;
 
             string members = string.Empty;
             foreach (PropertyInfo prop in obj.UniqueProperties)
@@ -709,12 +710,12 @@ namespace CodeSmith.Csla
         {
             if (obj.IsCollection) return string.Empty;
             if (obj.HasIdentity && isNew) return string.Empty;
+            if (obj.HasObjectGeneratedKey && isNew) return string.Empty;
 
             string para = string.Empty;
             foreach (PropertyInfo prop in obj.UniqueProperties)
             {
-                if(!(isNew && prop.Type == "Guid" && obj.UniqueProperties.Count==1))
-                    para += string.Format(", {0} {1}", prop.Type, CsHelper.GetCamelCaseName(prop.Name));
+                para += string.Format(", {0} {1}", prop.Type, CsHelper.GetCamelCaseName(prop.Name));
             }
             if (para.Length > 0) para = para.Substring(2);
             return para;
@@ -731,12 +732,12 @@ namespace CodeSmith.Csla
         {
             if (obj.IsCollection) return string.Empty;
             if (obj.HasIdentity && isNew) return string.Empty;
+            if (obj.HasObjectGeneratedKey && isNew) return string.Empty;
 
             string para = string.Empty;
             foreach (PropertyInfo prop in obj.UniqueProperties)
             {
-                if (!(isNew && prop.Type == "Guid" && obj.UniqueProperties.Count == 1))
-                    para += string.Format(", {0}", useMember ? prop.MemberName : CsHelper.GetCamelCaseName(prop.Name));
+                para += string.Format(", {0}", useMember ? prop.MemberName : CsHelper.GetCamelCaseName(prop.Name));
             }
             if (para.Length > 0) para = para.Substring(2);
             return para;
@@ -814,7 +815,6 @@ namespace CodeSmith.Csla
             {
                 get
                 {
-                    //if(_parent.Length>0) return string.Empty;
                     if (!IsGeneratedBase) return string.Empty;
                     return string.Format("<{0}>", ParentType);
                 }
@@ -1105,6 +1105,13 @@ namespace CodeSmith.Csla
                 get
                 {                    
                     return _childCollection.Count>0;
+                }
+            }
+            public bool HasObjectGeneratedKey
+            {
+                get
+                {
+                    return _uniqueProperties.Count == 1 && ((PropertyInfo)_uniqueProperties[0]).Type == "Guid";
                 }
             }
             #endregion
@@ -1437,8 +1444,8 @@ namespace CodeSmith.Csla
                     throw new Exception("ObjectName is required.");
                 if (_uniqueProperties.Count == 0 && !IsCollection)
                     throw new Exception("Unique Column(s) is required.");
-                //if (!IsReadOnly && IsChild && (_parent == null || _parent.Length == 0))
-                //    throw new Exception("Parent is required.");
+                if (!IsReadOnly && IsChild && IsCollection && (_parent == null || _parent.Length == 0))
+                    throw new Exception("Parent is required.");
                 if (IsCollection && (_child == null || _child.Length == 0) && CslaObjectType != ObjectType.NameValueList)
                     throw new Exception("Child is required.");
             }

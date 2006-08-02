@@ -19,5 +19,10 @@
 <%=Indent(i)%>//executeDeleteDelegate = executeDelete;
 <%=Indent(i)%>//executeDeleteCompleteDelegate = executeDeleteComplete;
 <%=Indent(--i)%>}
+
+<%=Indent(i)%>protected override void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
+<%=Indent(i++)%>{
+<%=Indent(i)%>Initialize();
+<%=Indent(--i)%>}
 <%=Indent(i)%>#endregion //Initialize
 <%}%>

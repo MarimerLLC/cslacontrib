@@ -33,7 +33,7 @@ using Csla.Data;
 <%=GetConstraint(objInfo, i+1)%>
 <%}%>
 <%=Indent(i++)%>{
-<% if(objInfo.IsGeneratedClass && objInfo.HasIdentity) {%>
+<% if(objInfo.IsGeneratedClass && (objInfo.HasIdentity || objInfo.HasObjectGeneratedKey)) {%>
 <%=Indent(i)%>#region BindingList Overrides
 <%=Indent(i)%>protected override object AddNewCore()
 <%=Indent(i++)%>{

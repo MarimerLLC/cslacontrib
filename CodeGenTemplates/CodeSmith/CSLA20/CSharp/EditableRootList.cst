@@ -42,7 +42,7 @@ using Csla.Data;
 <%=Indent(--i)%>}
 <%=Indent(i)%>#endregion //Initialize
 <%}%>
-<% if(objInfo.IsGeneratedClass && objInfo.HasIdentity) {%>
+<% if(objInfo.IsGeneratedClass && (objInfo.HasIdentity || objInfo.HasObjectGeneratedKey)) {%>
 <%=Indent(i)%>#region BindingList Overrides
 <%=Indent(i)%>protected override object AddNewCore()
 <%=Indent(i++)%>{

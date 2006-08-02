@@ -1,16 +1,15 @@
 <%=Indent(i, true)%>#region Data Access - Create
 <%=Indent(i)%>[RunLocal]
-<%if(objInfo.HasIdentity) {%>
+<%if(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey) {%>
 <%=Indent(i)%>protected override void DataPortal_Create(object criteria)
 <%}else{%>
 <%=Indent(i)%>private void DataPortal_Create(Criteria criteria)
 <%}%>
 <%=Indent(i++)%>{
-<% if(!objInfo.IsCollection && !objInfo.HasIdentity) { 
-   foreach(PropertyInfo prop in objInfo.UniqueProperties) { 
-      if(!(prop.Type == "Guid" && objInfo.UniqueProperties.Count==1)) { %>
+<% if(!objInfo.IsCollection && !objInfo.HasIdentity && !objInfo.HasObjectGeneratedKey) { 
+   foreach(PropertyInfo prop in objInfo.UniqueProperties) { %>
 <%=Indent(i)%><%= string.Format("{0} = criteria.{1};", prop.MemberName, prop.Name)%>
-<% }}} %>
+<% }} %>
 <% if(objInfo.IsChild && objInfo.CslaObjectType != ObjectType.EditableSwitchable){ %>
 <%=Indent(i)%>MarkAsChild();
 <% } %>

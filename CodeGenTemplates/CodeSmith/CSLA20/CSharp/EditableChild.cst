@@ -43,15 +43,15 @@ using Csla.Validation;
 <!-- #INCLUDE FILE="ChildFactoryMethods.inc" -->
 
 <%=Indent(i, true)%>#region Data Access
-<% if(objInfo.IsGeneratedClass) {%>
-<!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <% if(objInfo.IsGeneratedBase) {%>
 <%=Indent(i)%>[RunLocal]
 <%=Indent(i)%>protected override void DataPortal_Create(Object criteria) { MarkAsChild(); }
-<% if(!objInfo.HasIdentity) { %>
+<% if(!(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey)) { %>
+<!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <!-- #INCLUDE FILE="DataPortalCreate.inc" -->
 <%}%>
 <%}%>
+<% if(objInfo.IsGeneratedClass) {%>
 <!-- #INCLUDE FILE="Fetch.inc" -->
 <!-- #INCLUDE FILE="Update.inc" -->
 <!-- #INCLUDE FILE="Delete.inc" -->

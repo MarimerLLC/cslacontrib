@@ -1,4 +1,4 @@
-<%@ CodeTemplate src="TemplateBase.vb" Debug="True" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Read Only Root Object." %>
+<%@ CodeTemplate src="TemplateBase.vb" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Read Only Root Object." %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Import Namespace="SchemaExplorer" %>
@@ -14,7 +14,6 @@
 <%-- Generic Variables for code to use  --%>
 <% 
    Dim i As Integer = BaseIndentLevel
-   Debugger.Break()
    Dim objInfo As ObjectInfo = New ObjectInfo(Me)
 %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->

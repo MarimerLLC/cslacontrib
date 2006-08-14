@@ -12,8 +12,8 @@
 <%@ Property Name="ChildPropertyNames" Type="CodeSmith.CustomProperties.StringCollection" Optional="true" Category="1a. Child Collection Object" Description="The Child Collection's member variable name." %>
 <%-- Generic Variables for code to use  --%>
 <% 
-   Dim i As Integer= BaseIndentLevel
-   Dim objInfo As ObjectInfo = New ObjectInfo(Me)
+	Dim i As Integer= BaseIndentLevel
+    Dim objInfo As ObjectInfo = New ObjectInfo(Me)
 %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->
 <%=Indent(0, True)%>Imports System

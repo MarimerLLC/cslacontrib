@@ -39,16 +39,17 @@
 <!-- #INCLUDE FILE="AuthorizationRules.inc" -->
 <!-- #INCLUDE FILE="ChildFactoryMethods.inc" -->
 <%=Indent(0, True)%>#Region " Data Access "
-<% If objInfo.IsGeneratedClass Then %>
-<!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <% If objInfo.IsGeneratedBase Then%>
 <%=Indent(i, True)%><RunLocal> _
 <%=Indent(i)%>Protected Overrides Sub DataPortal_Create(ByVal criteria As Object) 
 <%=Indent(i+1)%>MarkAsChild()
 <%=Indent(i)%>End Sub
-<% If Not objInfo.HasIdentity Then %>
+<% If Not (objInfo.HasIdentity OrElse objInfo.HasObjectGeneratedKey) Then %>
+<!-- #INCLUDE FILE="ObjectCriteria.inc" -->
 <!-- #INCLUDE FILE="DataPortalCreate.inc" -->
-<% End If %><% End If %>
+<% End If %>
+<% End If %>
+<% If objInfo.IsGeneratedClass Then %>
 <!-- #INCLUDE FILE="Fetch.inc" -->
 <!-- #INCLUDE FILE="Update.inc" -->
 <!-- #INCLUDE FILE="Delete.inc" -->

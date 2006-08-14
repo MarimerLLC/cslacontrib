@@ -21,5 +21,8 @@
 <%=Indent(i)%>'executeDeleteCompleteDelegate = AddressOf ExecuteDeleteComplete
 <% i-=1 %>
 <%=Indent(i)%>End Sub
+<%=Indent(i, True)%>Protected Overrides Sub OnDeserialized(ByVal context As System.Runtime.Serialization.StreamingContext)
+<%=Indent(i+1)%>Initialize()
+<%=Indent(i)%>End Sub
 <%=Indent(0, True)%>#End Region ' Inititalize
 <% End If %>

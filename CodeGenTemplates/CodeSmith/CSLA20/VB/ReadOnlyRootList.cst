@@ -1,4 +1,4 @@
-<%@ CodeTemplate Src="TemplateBase.vb" Debug="True" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Collection Object." %>
+<%@ CodeTemplate Src="TemplateBase.vb" Inherits="CodeSmith.Csla.TemplateBase" Language="VB" TargetLanguage="VB" Description="Generates a CSLA Editable Root Collection Object." %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Import Namespace="SchemaExplorer" %>
@@ -11,8 +11,7 @@
 <%@ Property Name="FilterColumnNames" Type="CodeSmith.CustomProperties.StringCollection" Optional="true" Category="2. Data Source" Description="Filter columns used as get criteria. Required when using RootView." %>
 <%-- Generic Variables for code to use  --%>
 <% Dim i As Integer = BaseIndentLevel
-   Dim objInfo As ObjectInfo = New ObjectInfo(Me)
-   Debugger.Break %>
+   Dim objInfo As ObjectInfo = New ObjectInfo(Me) %>
 <!-- #INCLUDE FILE="AutoGenWarning.inc" -->
 <%=Indent(0, True)%>Imports System
 <%=Indent(0)%>Imports System.Data

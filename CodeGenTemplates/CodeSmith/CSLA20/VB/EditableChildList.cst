@@ -30,7 +30,7 @@
 <% End If %>
 <% i+=1 %>
 <%=Indent(i)%>Inherits <%=objInfo.Inherits%>
-<% If objInfo.IsGeneratedClass AndAlso objInfo.HasIdentity Then%>
+<% If objInfo.IsGeneratedClass AndAlso (objInfo.HasIdentity OrElse objInfo.HasObjectGeneratedKey) Then%>
 <%=Indent(0, True)%>#Region " BindingList Overrides "
 <%=Indent(i, True)%>Protected Overrides Function AddNewCore() As Object
 <%=Indent(i+1)%>Dim item As <%=objInfo.ChildType%> = <%=objInfo.ChildNameAndSuffix%>.<%=objInfo.NewChildMethodName%>()

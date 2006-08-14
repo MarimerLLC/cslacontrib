@@ -9,7 +9,7 @@
 <%=Indent(i, True)%>Friend Shared Function <%=objInfo.NewMethodName%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>) As <%=objInfo.Type%> 
 <% i+=1 %>
 <% If objInfo.IsGeneratedBase Then ' abstract-child cannot use constructor %>
-<%=Indent(i)%>Dim child As <%=objInfo.Type%> = DataPortal.Create(Of <%=objInfo.Type%>)(<%If Not objInfo.HasIdentity AndAlso Not objInfo.IsGeneratedClass Then %>New Criteria(<%=GetFactoryNewCallArguments(objInfo)%>)<% End If %>)
+<%=Indent(i)%>Dim child As <%=objInfo.Type%> = DataPortal.Create(Of <%=objInfo.Type%>)(<% Dim cPars As String = GetFactoryNewCallArguments(objInfo): If cPars.Length > 0 Then %>New Criteria(<%=cPars%>)<% End If %>)
 <% If Not objInfo.IsCollection Then %>
 <%=Indent(i)%>child.ValidationRules.CheckRules()
 <% End If %>
@@ -38,6 +38,7 @@
 <% If Not objInfo.IsCollection Then %>
 <%=GetFactoryNewAssignments(objInfo, i)%>
 <% End If %>
+<%=Indent(i)%>ValidationRules.CheckRules()
 <%=Indent(i)%>MarkAsChild()
 <% i-=1 %>
 <%=Indent(i)%>End Sub

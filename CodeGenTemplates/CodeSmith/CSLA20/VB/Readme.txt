@@ -1,9 +1,10 @@
 ---------------------------------------------------
   CSLA 2.0 CodeSmith Templates for VB
-  Version: 0.9.4 (beta)
-  Released: July, 11 2006
+  Version: 0.9.5 (release candidate)
+  Released: August, 11 2006
   Author: Allan Nielsen
-  Download Site: http://workspaces.gotdotnet.com/cslavbtemplate
+  Download Site: http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=CSLAcontrib
+  Workspace has moved from: http://workspaces.gotdotnet.com/cslavbtemplate
 ---------------------------------------------------
 
 This is a collection of CodeSmith templates to generate CSLA 2.0 business objects for VB.  I have converted the entire C# suite of templates to not only generate VB business objects but also to perform the task in VB.  All aspects of the C# version has been included in this version and the objects created will work in an identical fashion.  This includes support xml data source, view as data source, and partial class generation. 

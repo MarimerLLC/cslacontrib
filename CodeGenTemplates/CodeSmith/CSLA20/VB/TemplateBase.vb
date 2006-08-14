@@ -31,10 +31,10 @@ Namespace CodeSmith.Csla
         'base class suffix
         Private Const BaseSuffix As String = "Base"
         'dal commandText formats (stored procedure name)
-        Private Const FetchCommandFormat As String = "Get{0}"
-        Private Const InsertCommandFormat As String = "Add{0}"
-        Private Const UpdateCommandFormat As String = "Update{0}"
-        Private Const DeleteCommandFormat As String = "Delete{0}"
+        Private Const FetchCommandFormat As String = "esp_{0}_select"
+        Private Const InsertCommandFormat As String = "esp_{0}_insert"
+        Private Const UpdateCommandFormat As String = "esp_{0}_update"
+        Private Const DeleteCommandFormat As String = "esp_{0}_delete"
         'database connection format
         Private Const DbConnectionFormat As String = "Database.{0}Connection"
         'factory method formats
@@ -371,12 +371,13 @@ Namespace CodeSmith.Csla
         ''' </summary>
         ''' <param name="obj"></param>
         ''' <param name="level"></param>
+		''' <param name="isShared"></param>
         ''' <returns></returns>
-        Public Function GetCommonValidationRules(ByVal obj As ObjectInfo, ByVal level As Integer) As String
+        Public Function GetCommonValidationRules(ByVal obj As ObjectInfo, ByVal level As Integer, Optional ByVal isShared As Boolean = False) As String
             Dim rules As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.Properties
-                rules += GetCommonValidationRule(prop, level)
+                rules += GetCommonValidationRule(prop, level, isShared)
             Next
             If rules.Length > 0 Then rules = rules.Substring(2)
             Return rules
@@ -389,19 +390,24 @@ Namespace CodeSmith.Csla
         ''' </summary>
         ''' <param name="prop"></param>
         ''' <param name="level"></param>
+		''' <param name="isShared"></param>
+		''' <param name="objType"></param>
         ''' <returns></returns>
-        Private Function GetCommonValidationRule(ByVal prop As PropertyInfo, ByVal level As Integer) As String
+        Private Function GetCommonValidationRule(ByVal prop As PropertyInfo, ByVal level As Integer, Optional ByVal isShared As Boolean = False) As String
             Dim rules As String = String.Empty
+			Dim instance As String = String.Empty
+			If isShared Then instance = "Shared"
+			
             If prop.Type.ToLower = "string" Then
                 If prop.IsRequired Then
-                    rules += Indent(level, True) + String.Format("ValidationRules.AddRule(AddressOf CommonRules.StringRequired, ""{0}"")", prop.Name)
-                End If
+                    rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringRequired, ""{1}"")", instance,  prop.Name)
+				End If
                 If prop.MaxSize > 0 Then
-                    rules += Indent(level, True) + String.Format("ValidationRules.AddRule(AddressOf CommonRules.StringMaxLength, New CommonRules.MaxLengthRuleArgs(""{0}"", {1}))", prop.Name, prop.MaxSize)
+                    rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringMaxLength, New Csla.Validation.CommonRules.MaxLengthRuleArgs(""{1}"", {2}))", instance, prop.Name, prop.MaxSize)
                 End If
             Else
                 If prop.Type.ToLower = "smartdate" AndAlso prop.IsRequired Then
-                    rules += Indent(level, True) + String.Format("ValidationRules.AddRule(AddressOf CommonRules.StringRequired, ""{0}"")", prop.Name + "String")
+                    rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringRequired, ""{1}"")", instance, prop.Name + "String")
                 End If
             End If
             If rules.Length > 0 Then
@@ -476,7 +482,7 @@ Namespace CodeSmith.Csla
                     If Not prop.IsDbComputed Then
                         statement += GetParameterStatement(prop, String.Empty, "Me", True, level)
                     Else
-                        outputStatement += GetParameterStatement(prop, "New", "Me", False, level)
+                        outputStatement += GetParameterStatement(prop, "new_", "Me", False, level)
                     End If
                 End If
             Next
@@ -503,7 +509,7 @@ Namespace CodeSmith.Csla
                         If prop.IsIdentity Then
                             statement += GetParameterStatement(prop, String.Empty, "Me", True, level)
                         Else
-                            outputStatement += GetParameterStatement(prop, "New", "Me", False, level)
+                            outputStatement += GetParameterStatement(prop, "new_", "Me", False, level)
                         End If
                     End If
                 End If
@@ -585,7 +591,7 @@ Namespace CodeSmith.Csla
         Public Function GetReturnParameterStatement(ByVal prop As PropertyInfo) As String
             If Not prop.HasDbColumn Then Return String.Empty
             Dim var As String = prop.MemberName
-            Dim par As String = "New" + prop.DbColumnName
+            Dim par As String = "new_" + prop.DbColumnName
             Dim type As String = prop.Type
 
             If prop.Type.ToLower = "smartdate" Then
@@ -674,7 +680,8 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryNewAssignments(ByVal obj As ObjectInfo, ByVal level As Integer) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity Then Return String.Empty
-
+			If obj.HasObjectGeneratedKey Then Return String.Empty
+			
             Dim members As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
@@ -691,13 +698,12 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryDeclarationArguments(ByVal obj As ObjectInfo, ByVal isNew As Boolean) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity AndAlso isNew Then Return String.Empty
-
+			If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
+			
             Dim para As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
-                If Not (isNew AndAlso prop.Type = "Guid" AndAlso obj.UniqueProperties.Count = 1) Then
-	                para += String.Format(", ByVal {1} As {0}", prop.Type, VbHelper.GetCamelCaseName(prop.Name))
-				End If
+                para += String.Format(", ByVal {1} As {0}", prop.Type, VbHelper.GetCamelCaseName(prop.Name))
             Next
             If (para.Length > 0) Then para = para.Substring(2)
             Return para
@@ -714,16 +720,15 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryCallArguments(ByVal obj As ObjectInfo, ByVal isNew As Boolean, ByVal useMember As Boolean) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity AndAlso isNew Then Return String.Empty
+			If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
 
             Dim para As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
-                If Not (isNew AndAlso prop.Type = "Guid" AndAlso obj.UniqueProperties.Count = 1) Then
-					If useMember Then
-						para += String.Format(", {0}", prop.MemberName)
-					Else
-						para += String.Format(", {0}", VbHelper.GetCamelCaseName(prop.Name))
-					End If
+				If useMember Then
+					para += String.Format(", {0}", prop.MemberName)
+				Else
+					para += String.Format(", {0}", VbHelper.GetCamelCaseName(prop.Name))
 				End If
             Next
             If (para.Length > 0) Then para = para.Substring(2)
@@ -794,7 +799,7 @@ Namespace CodeSmith.Csla
             End Property
             Public ReadOnly Property ParentSuffix() As String
                 Get
-                    If (Not IsGeneratedBase) Then Return String.Empty
+                    If Not IsGeneratedBase Then Return String.Empty
                     Return String.Format("(Of {0})", ParentType)
                 End Get
             End Property
@@ -1112,6 +1117,11 @@ Namespace CodeSmith.Csla
                     Return _childCollection.Count > 0
                 End Get
             End Property
+			Public ReadOnly Property HasObjectGeneratedKey() As Boolean
+				Get
+					Return _uniqueProperties.count = 1 AndAlso DirectCast(_uniqueProperties(0), PropertyInfo).Type = "Guid"
+				End Get
+			End Property
 #End Region
 
 #Region " Keywords "
@@ -1222,22 +1232,22 @@ Namespace CodeSmith.Csla
                     If (Not _rootCommand Is Nothing) Then
                         Return _rootCommand.Name
                     End If
-                    Return String.Format(FetchCommandFormat, _objectName)
+                    Return String.Format(FetchCommandFormat, _objectName.ToLower)
                 End Get
             End Property
             Public ReadOnly Property InsertCommandText() As String
                 Get
-                    Return String.Format(InsertCommandFormat, _objectName)
+                    Return String.Format(InsertCommandFormat, _objectName.ToLower)
                 End Get
             End Property
             Public ReadOnly Property UpdateCommandText() As String
                 Get
-                    Return String.Format(UpdateCommandFormat, _objectName)
+                    Return String.Format(UpdateCommandFormat, _objectName.ToLower)
                 End Get
             End Property
             Public ReadOnly Property DeleteCommandText() As String
                 Get
-                    Return String.Format(DeleteCommandFormat, _objectName)
+                    Return String.Format(DeleteCommandFormat, _objectName.ToLower)
                 End Get
             End Property
 #End Region
@@ -1448,6 +1458,9 @@ Namespace CodeSmith.Csla
                 If (_uniqueProperties.Count = 0 AndAlso Not IsCollection) Then
                     Throw New Exception("Unique Column is required.")
                 End If
+				If (Not IsReadOnly AndAlso IsChild AndAlso IsCollection AndAlso (_parent Is Nothing OrElse _parent.Length = 0)) Then
+					Throw New Exception("Parent is required.")
+				End If
                 If (IsCollection AndAlso (_child Is Nothing OrElse _child.Length = 0) AndAlso CslaObjectType <> ObjectType.NameValueList) Then
                     Throw New Exception("Child is required.")
                 End If
@@ -2088,6 +2101,17 @@ Namespace CodeSmith.Csla
 #End Region
 
 #Region " Enumerations "
+
+		Public Enum SPType
+			SPSelect
+			SPUpdate
+			SPInsert
+			SPDelete
+			SPNameValueList
+			SPList
+			SPExists
+		End Enum
+		
         Public Enum ObjectType
             EditableRoot
             EditableRootList
@@ -2125,6 +2149,45 @@ Namespace CodeSmith.Csla
             EnterpriseService
             TransactionScope
         End Enum
+
+#End Region
+
+#Region " Stored Procedures "
+
+		Private _databaseOwner As String = "dbo"
+		
+		<Category("2a. Stored Proc"), _
+		Description("Optional - The name of the Database Owner.")> _
+		Public Property DatabaseOwner() As String
+			Get
+				Return _databaseOwner
+			End Get
+			Set(ByVal value As String)
+				If value Is Nothing Then value = ""
+				_databaseOwner = value
+			End Set
+		End Property
+
+		Public Function GetSPName(ByVal objInfo As ObjectInfo, Byval storedProcType As SPType) As String
+			Dim result As String = String.Empty
+			Select Case storedProcType
+				Case SPType.SPSelect
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.SelectPrefix, objInfo.ObjectName, objInfo.SelectSuffix)
+				Case SPType.SPInsert
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.InsertPrefix, objInfo.ObjectName, objInfo.InsertSuffix)
+				Case SPType.SPUpdate
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.UpdatePrefix, objInfo.ObjectName, objInfo.UpdateSuffix)
+				Case SPType.SPDelete
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.DeletePrefix, objInfo.ObjectName, objInfo.DeleteSuffix)
+				Case SPType.SPNameValueList
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.NameValueListPrefix, objInfo.ObjectName, objInfo.NameValueListSuffix)
+				Case SPType.SPList
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ListPrefix, objInfo.ObjectName, objInfo.ListSuffix)
+				Case SPType.SPExists
+'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ExistsPrefix, objInfo.ObjectName, objInfo.ExistsSuffix)
+			End Select
+			Return result
+		End Function
 
 #End Region
 

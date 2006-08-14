@@ -3,6 +3,10 @@
 <%=Indent(i, True)%>Private Sub New()
 <%=Indent(i)%>' require use of factory method 
 <%=Indent(i)%>End Sub
+<% ElseIf objInfo.IsGeneratedBase Then %>
+<%=Indent(i, True)%>Protected Sub New()
+<%=Indent(i)%>' require use of factory method in user object
+<%=Indent(i)%>End Sub
 <% End If %>
 <% 'all in generated class except when base class with authorization turned on
     If (objInfo.IsSingle OrElse objInfo.IsGeneratedPartial OrElse (objInfo.IsGeneratedBase AndAlso Not objInfo.UseSecurity) OrElse (objInfo.IsUserBase AndAlso objInfo.UseSecurity)) Then %>

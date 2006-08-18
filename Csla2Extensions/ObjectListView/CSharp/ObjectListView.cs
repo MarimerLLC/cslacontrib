@@ -8,28 +8,30 @@ using System.Text;
 namespace Csla
 {
 	/// <summary>
-	/// Represents a databindable, customized, strongly-typed view of a System.Collections.Generic.IList<T> for sorting, filtering, searching, editing, and navigation.
+	/// Represents a databindable, customized, view of a System.Collections.IList for sorting, filtering, searching, editing, and navigation.
 	/// </summary>
 	/// <author>Brian Criswell</author>
 	/// <license>CREATIVE COMMONS - Attribution 2.5 License http://creativecommons.org/ </license>
-	public class ObjectListView<T> : IBindingListView, IList<T>
+	public class ObjectListView : MarshalByValueComponent, IBindingListView, ITypedList
 	{
 		#region Fields
 
-		private IList<T> _list;
+		// Source list
+		private IList _list;
+		private ObjectView _defaultItem;
 
 		// Sorting fields
 		private ListSortDescriptionCollection _sorts;
-		private List<ListItem> _sortIndex;
+		private List<ObjectView> _sortIndex;
 
 		// Filtering fields
-		private PropertyDescriptorCollection _columns = TypeDescriptor.GetProperties(typeof(T));
+		private Type _indexedType;
+		private PropertyDescriptorCollection _objectProperties;
 		private DataTable _filteredTable = new DataTable();
 		private DataRow _filteredRow;
 		private DataView _filteredView;
 
 		//IBindingList fields
-		private bool _supportsBinding = false;
 		private IBindingList _iBindingList = null;
 		
 		#endregion
@@ -40,7 +42,7 @@ namespace Csla
 		/// Creates a new instance of an ObjectListView
 		/// </summary>
 		/// <param name="list">The source list.</param>
-		public ObjectListView(IList<T> list)
+		public ObjectListView(IList list)
 			: this(list, null, string.Empty)
 		{
 		}
@@ -50,7 +52,7 @@ namespace Csla
 		/// </summary>
 		/// <param name="list">The source list.</param>
 		/// <param name="sorts">The sorts to apply.</param>
-		public ObjectListView(IList<T> list, ListSortDescriptionCollection sorts)
+		public ObjectListView(IList list, ListSortDescriptionCollection sorts)
 			: this(list, sorts, string.Empty)
 		{
 		}
@@ -60,7 +62,7 @@ namespace Csla
 		/// </summary>
 		/// <param name="list">The source list.</param>
 		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList<T> list, string filter)
+		public ObjectListView(IList list, string filter)
 			: this(list, null, filter)
 		{
 		}
@@ -72,8 +74,8 @@ namespace Csla
 		/// <param name="propertyName">The name of the property by which to sort.</param>
 		/// <param name="direction">The direction by which to sort.</param>
 		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList<T> list, string propertyName, ListSortDirection direction, string filter)
-			: this(list, TypeDescriptor.GetProperties(typeof(T))[propertyName], direction, filter)
+		public ObjectListView(IList list, string propertyName, ListSortDirection direction, string filter)
+			: this(list, TypeDescriptor.GetProperties(list.GetType().GetProperty("Item").PropertyType)[propertyName], direction, filter)
 		{
 		}
 
@@ -84,7 +86,7 @@ namespace Csla
 		/// <param name="property">The property by which to sort.</param>
 		/// <param name="direction">The direction by which to sort.</param>
 		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList<T> list, PropertyDescriptor property, ListSortDirection direction, string filter)
+		public ObjectListView(IList list, PropertyDescriptor property, ListSortDirection direction, string filter)
 			: this(list, new ListSortDescriptionCollection(new ListSortDescription[] { new ListSortDescription(property, direction) }), filter)
 		{
 		}
@@ -95,15 +97,24 @@ namespace Csla
 		/// <param name="list">The source list.</param>
 		/// <param name="sorts">The sorts to apply.</param>
 		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList<T> list, ListSortDescriptionCollection sorts, string filter)
+		public ObjectListView(IList list, ListSortDescriptionCollection sorts, string filter)
 		{
 			if (filter == null) filter = string.Empty;
 
 			_list = list;
+			_indexedType = _list.GetType().GetProperty("Item").PropertyType;
+			_objectProperties = TypeDescriptor.GetProperties(_indexedType);
 
-			foreach (PropertyDescriptor prop in _columns)
+			foreach (PropertyDescriptor prop in _objectProperties)
 			{
-				_filteredTable.Columns.Add(prop.Name, prop.PropertyType);
+				if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+				{
+					Type nullableType = prop.PropertyType.GetGenericArguments()[0];
+
+					_filteredTable.Columns.Add(prop.Name, prop.PropertyType.GetGenericArguments()[0]);
+				}
+				else
+				    _filteredTable.Columns.Add(prop.Name, prop.PropertyType);
 			}
 
 			_filteredRow = _filteredTable.Rows.Add();
@@ -113,7 +124,6 @@ namespace Csla
 
 			if (list is IBindingList)
 			{
-				_supportsBinding = true;
 				_iBindingList = (IBindingList)list;
 				_iBindingList.ListChanged += new ListChangedEventHandler(_iBindingList_ListChanged);
 			}
@@ -123,7 +133,9 @@ namespace Csla
 
 		#endregion
 
-		#region Methods
+		#region Handle List Changes
+
+		bool _addingItem = false;
 
 		/// <summary>
 		/// Reacts to changes in the source list.
@@ -135,66 +147,37 @@ namespace Csla
 			switch (e.ListChangedType)
 			{
 				case ListChangedType.ItemAdded:
-					ListItem addedItem = new ListItem(e.NewIndex);
-					this.ApplyFilter(addedItem);
+					if (!_addingItem)
+					{
+						ObjectView addedItem = new ObjectView(this, _list[e.NewIndex], e.NewIndex);
+						addedItem.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
+						addedItem.ApplyFilter(_filteredView);
 
-					if (addedItem.Visible)
-					{
-						this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, this.InsertInOrder(addedItem)));
-					}
-					else
-					{
-						this.InsertInOrder(addedItem);
+						if (addedItem.Visible)
+						{
+							this.OnListChanged(ListChangedType.ItemAdded, this.InsertInOrder(addedItem));
+						}
+						else
+						{
+							this.InsertInOrder(addedItem);
+						}
 					}
 
 					break;
 				case ListChangedType.ItemChanged:
-					for (int i = 0; i < _sortIndex.Count; i++)
+					if (e.NewIndex >= 0)
 					{
-						if (_sortIndex[i].BaseIndex == e.NewIndex)
+						for (int i = 0; i < _sortIndex.Count; i++)
 						{
-							int oldIndex = this.SortedIndex(_sortIndex[i].BaseIndex);
-							ListItem changedItem = _sortIndex[i];
-							bool wasVisible = changedItem.Visible;
-
-							if ((i > 0 && CompareObject(_list[e.NewIndex], _list[_sortIndex[i - 1].BaseIndex]) < 0)
-								|| (i < _sortIndex.Count - 1 && CompareObject(_list[e.NewIndex], _list[_sortIndex[i + 1].BaseIndex]) > 0))
+							if (_sortIndex[i].BaseIndex == e.NewIndex)
 							{
-								if (wasVisible)
+								if (!_sortIndex[i].IsEdit)
 								{
-									this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemChanged, oldIndex));
+									HandleChange(i, e.PropertyDescriptor);
 								}
-								_sortIndex.RemoveAt(i);
 
-								this.InsertInOrder(changedItem);
+								break;
 							}
-
-							this.ApplyFilter(changedItem);
-							int newIndex = this.SortedIndex(changedItem.BaseIndex);
-
-							if (wasVisible)
-							{
-								if (changedItem.Visible)
-								{
-									if (newIndex != oldIndex)
-									{
-										this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemMoved, newIndex, oldIndex));
-									}
-								}
-								else
-								{
-									this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemDeleted, oldIndex));
-								}
-							}
-							else
-							{
-								if (changedItem.Visible)
-								{
-									this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemAdded, newIndex));
-								}
-							}
-
-							break;
 						}
 					}
 
@@ -207,11 +190,11 @@ namespace Csla
 						if (_sortIndex[i].BaseIndex == e.NewIndex)
 						{
 							deletedIndex = this.SortedIndex(_sortIndex[i].BaseIndex);
+							_sortIndex[i].PropertyChanged -= new PropertyChangedEventHandler(ObjectView_PropertyChanged);
 							_sortIndex.RemoveAt(i);
 							break;
 						}
 					}
-
 
 					for (int i = 0; i < _sortIndex.Count; i++)
 					{
@@ -223,7 +206,7 @@ namespace Csla
 
 					if (deletedIndex >= 0)
 					{
-						this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemDeleted, deletedIndex));
+						this.OnListChanged(ListChangedType.ItemDeleted, deletedIndex);
 					}
 
 					break;
@@ -234,6 +217,90 @@ namespace Csla
 			}
 		}
 
+		private void ObjectView_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			int index = this.SortedIndex(((ObjectView)sender).BaseIndex);
+
+			if (index >= 0)
+			{
+				PropertyDescriptor prop = null;
+
+				if (!string.IsNullOrEmpty(e.PropertyName))
+				{
+					prop = _objectProperties[e.PropertyName];
+				}
+
+				this.HandleChange(index, prop);
+			}
+		}
+
+		private void HandleChange(int index, PropertyDescriptor prop)
+		{
+			int baseIndex = _sortIndex[index].BaseIndex;
+			int oldIndex = this.SortedIndex(baseIndex);
+			ObjectView changedItem = _sortIndex[index];
+			bool wasVisible = changedItem.Visible;
+
+			bool needsSorting = false;
+
+			if (index > 0)
+			{
+				needsSorting = CompareObject(_list[baseIndex], _list[_sortIndex[index - 1].BaseIndex]) < 0;
+			}
+
+			if (!needsSorting && index < _sortIndex.Count - 1)
+			{
+				needsSorting = CompareObject(_list[baseIndex], _list[_sortIndex[index + 1].BaseIndex]) > 0;
+			}
+
+			if (needsSorting)
+			{
+				_sortIndex.RemoveAt(index);
+
+				this.InsertInOrder(changedItem);
+			}
+
+			changedItem.ApplyFilter(_filteredView);
+			int newIndex = this.SortedIndex(changedItem.BaseIndex);
+
+			if (wasVisible)
+			{
+				if (changedItem.Visible)
+				{
+					if (newIndex == oldIndex)
+					{
+						if (prop == null)
+						{
+							this.OnListChanged(ListChangedType.ItemChanged, oldIndex);
+						}
+						else
+						{
+							this.OnListChanged(ListChangedType.ItemChanged, oldIndex, prop);
+						}
+					}
+					else
+					{
+						this.OnListChanged(ListChangedType.ItemMoved, newIndex, oldIndex);
+					}
+				}
+				else
+				{
+					this.OnListChanged(ListChangedType.ItemDeleted, oldIndex);
+				}
+			}
+			else
+			{
+				if (changedItem.Visible)
+				{
+					this.OnListChanged(ListChangedType.ItemAdded, newIndex);
+				}
+			}
+		}
+
+		#endregion
+
+		#region Methods
+
 		/// <summary>
 		/// Reapplies the filter to the list.
 		/// </summary>
@@ -241,25 +308,8 @@ namespace Csla
 		{
 			for (int i = 0; i < _sortIndex.Count; i++)
 			{
-				this.ApplyFilter(_sortIndex[i]);
+				_sortIndex[i].ApplyFilter(_filteredView);
 			}
-		}
-
-		/// <summary>
-		/// Applies the filter to a single item.
-		/// </summary>
-		/// <param name="item">The item to filter.</param>
-		private void ApplyFilter(ListItem item)
-		{
-			T itemObject = _list[item.BaseIndex];
-			
-
-			foreach (PropertyDescriptor prop in _columns)
-			{
-				_filteredRow[prop.Name] = prop.GetValue(itemObject);
-			}
-
-			item.Visible = _filteredView.Count > 0;
 		}
 
 		/// <summary>
@@ -298,7 +348,7 @@ namespace Csla
 		/// Zero the order of objectA and objectB should not be changed.
 		/// Greater than zero objectA should be after objectB.
 		/// </returns>
-		private int CompareObject(T objectA, T objectB)
+		private int CompareObject(object objectA, object objectB)
 		{
 			if (_sorts == null || (objectA == null && objectB == null))
 			{
@@ -340,7 +390,7 @@ namespace Csla
 		/// </summary>
 		/// <param name="item">The item to insert.</param>
 		/// <returns>The sorted index of the item.</returns>
-		private int InsertInOrder(ListItem item)
+		private int InsertInOrder(ObjectView item)
 		{
 			if (_sorts == null || _sortIndex.Count == 0)
 			{
@@ -348,11 +398,11 @@ namespace Csla
 				return _sortIndex.Count - 1;
 			}
 
-			T itemObject = _list[item.BaseIndex];
+			object itemObject = item.Object;
 
 			for (int i = _sortIndex.Count - 1; i >= 0; i--)
 			{
-				int comparison = CompareObject(itemObject, _list[_sortIndex[i].BaseIndex]);
+				int comparison = CompareObject(itemObject, _sortIndex[i].Object);
 
 				if (comparison >= 0)
 				{
@@ -374,11 +424,11 @@ namespace Csla
 		}
 
 		/// <summary>
-		/// Gets the original index of an item in the source list.
+		/// Gets the unfiltered but sorted index of an item in the sorted list.
 		/// </summary>
-		/// <param name="sortedIndex">The index of the item in the sorted list.</param>
-		/// <returns>The index of the item in the source list.</returns>
-		private int OriginalIndex(int sortedIndex)
+		/// <param name="sortedIndex">The index of the item in the filtered, sorted list.</param>
+		/// <returns>The index of the item in the sorted list.</returns>
+		private int UnfilteredIndex(int sortedIndex)
 		{
 			int filteredIndex = -1;
 
@@ -391,11 +441,21 @@ namespace Csla
 
 				if (filteredIndex == sortedIndex)
 				{
-					return _sortIndex[i].BaseIndex;
+					return i;
 				}
 			}
 
 			throw new IndexOutOfRangeException();
+		}
+
+		/// <summary>
+		/// Gets the original index of an item in the source list.
+		/// </summary>
+		/// <param name="sortedIndex">The index of the item in the sorted list.</param>
+		/// <returns>The index of the item in the source list.</returns>
+		private int OriginalIndex(int sortedIndex)
+		{
+			return _sortIndex[UnfilteredIndex(sortedIndex)].BaseIndex;
 		}
 
 		/// <summary>
@@ -406,11 +466,10 @@ namespace Csla
 		private int SortedIndex(int originalIndex)
 		{
 			int filteredIndex = -1;
-			ListItem item;
 
 			for (int i = 0; i < _sortIndex.Count; i++)
 			{
-				item = _sortIndex[i];
+				ObjectView item = _sortIndex[i];
 
 				if(item.Visible)
 				{
@@ -433,46 +492,60 @@ namespace Csla
 
 		#endregion
 
-		#region ListItem class
+		#region Properties
 
 		/// <summary>
-		/// Provides a lookup from a sorted item into the source list and records whether the item is currently filtered.
+		/// Gets the source list of the ObjectListView.
 		/// </summary>
-		private class ListItem
+		public IList List
 		{
+			get { return _list; }
+		}
 
-			private bool _visible;
-			private int _baseIndex;
+		internal PropertyDescriptorCollection ObjectProperties
+		{
+			get { return _objectProperties; }
+		}
 
-			/// <summary>
-			/// Gets or sets the base (unsorted) index of a sorted item.
-			/// </summary>
-			public int BaseIndex
+		/// <summary>
+		/// Gets or sets whether to include a default item in the ObjectListView.
+		/// </summary>
+		public bool IncludeDefault
+		{
+			get
 			{
-				get { return _baseIndex; }
-				set { _baseIndex = value; }
+				return _defaultItem != null;
 			}
-
-			/// <summary>
-			/// Gets or sets whether an item is visible.
-			/// </summary>
-			public bool Visible
+			set
 			{
-				get { return _visible; }
-				set { _visible = value; }
-			}
-
-			/// <summary>
-			/// Creates a new instance of a sorted item.
-			/// </summary>
-			/// <param name="baseIndex">The initial index into the source list.</param>
-			public ListItem(int baseIndex)
-			{
-				_visible = true;
-				_baseIndex = baseIndex;
+				if (value)
+				{
+					if (!this.IncludeDefault)
+					{
+						_defaultItem = new ObjectView(this, Activator.CreateInstance(_indexedType, true), -1);
+						// Set the newIndex to -1 as OnListChanged will increment it
+						// because IncludeDefault is now true.
+						this.OnListChanged(ListChangedType.ItemAdded, -1);
+					}
+				}
+				else
+				{
+					if (this.IncludeDefault)
+					{
+						_defaultItem = null;
+						// Set the newIndex to 0 as OnListChanged will no longer increment it
+						// because IncludeDefault is now false.
+						this.OnListChanged(ListChangedType.ItemDeleted, 0);
+					}
+				}
 			}
 		}
 
+		internal Type IndexedType
+		{
+			get { return _indexedType; }
+		}
+		
 		#endregion
 
 		#region ObjectListView enumerator
@@ -480,30 +553,27 @@ namespace Csla
 		/// <summary>
 		/// An enumerator for navigating through an ObjectListView
 		/// </summary>
-		private class ObjectListViewEnumerator : IEnumerator<T>
+		private class ObjectListViewEnumerator : IEnumerator
 		{
 			#region Fields
 
-			private IList<T> _list;
-			private List<ListItem> _sortIndex;
+			private ObjectListView _parent;
 			private int _index;
+			private bool _isValid = true;
 
 			#endregion
 
 			#region Constructor
 
 			/// <summary>
-			/// Initializes a new instance of the Csla.ObjectListView<T>.ObjectListViewEnumerator class
-			/// with the given System.Collections.Generic.IList<T> and System.Collections.Generic.List<ListItem>.
+			/// Initializes a new instance of the Csla.ObjectListView.ObjectListViewEnumerator class
+			/// with the given System.Collections.Generic.IList and System.Collections.Generic.List&lt;ListItem>.
 			/// </summary>
-			/// <param name="list">The source list.</param>
-			/// <param name="sortIndex">The sorted list.</param>
-			public ObjectListViewEnumerator(
-			  IList<T> list,
-			  List<ListItem> sortIndex)
+			/// <param name="parent">The parent ObjectListView.</param>
+			public ObjectListViewEnumerator(ObjectListView parent)
 			{
-				_list = list;
-				_sortIndex = sortIndex;
+				_parent = parent;
+				_parent.ListChanged += new ListChangedEventHandler(_parent_ListChanged);
 				Reset();
 			}
 
@@ -514,9 +584,21 @@ namespace Csla
 			/// <summary>
 			/// Gets the current element in the collection.
 			/// </summary>
-			public T Current
+			public ObjectView Current
 			{
-				get { return _list[_sortIndex[_index].BaseIndex]; }
+				get
+				{
+					if (_index < 0)
+					{
+						throw new InvalidOperationException("The enumerator is positioned before the first element of the collection.");
+					}
+					else if (_index >= _parent.Count)
+					{
+						throw new InvalidOperationException("The enumerator is positioned after the last element of the collection.");
+					}
+					
+					return _parent[_index];
+				}
 			}
 
 			/// <summary>
@@ -532,21 +614,29 @@ namespace Csla
 			#region Methods
 
 			/// <summary>
+			/// Invalidates the enumerator because the underlying list has changed.
+			/// </summary>
+			/// <param name="sender"></param>
+			/// <param name="e"></param>
+			private void _parent_ListChanged(object sender, ListChangedEventArgs e)
+			{
+				_isValid = false;
+			}
+
+			/// <summary>
 			/// Advances the enumerator to the next element of the collection.
 			/// </summary>
 			/// <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
 			public bool MoveNext()
 			{
-				for (int i = _index + 1; i < _sortIndex.Count; i++)
+				if (!_isValid)
 				{
-					if (_sortIndex[i].Visible)
-					{
-						_index = i;
-						return true;
-					}
+					throw new InvalidOperationException("The collection was modified after the enumerator was created.");
 				}
 
-				return false;
+				_index++;
+
+				return _index < _parent.Count;
 			}
 
 			/// <summary>
@@ -554,45 +644,12 @@ namespace Csla
 			/// </summary>
 			public void Reset()
 			{
-				_index = -1;
-			}
-
-			#endregion
-
-			#region IDisposable Support
-
-			private bool _disposedValue = false; // To detect redundant calls.
-
-			/// <summary>
-			/// Implements IDisposable.
-			/// </summary>
-			/// <param name="disposing">Whether to release managed resources.</param>
-			protected virtual void Dispose(bool disposing)
-			{
-				if (!_disposedValue)
+				if (!_isValid)
 				{
-					if (disposing)
-					{
-						// Free unmanaged resources when explicitly called
-					}
-					// Free shared unmanaged resources
+					throw new InvalidOperationException("The collection was modified after the enumerator was created.");
 				}
-				_disposedValue = true;
-			}
 
-			/// <summary>
-			/// Implements IDisposable.
-			/// </summary>
-			void IDisposable.Dispose()
-			{
-				// Do not change this code.  Put cleanup code in Dispose(bool disposing) above.
-				Dispose(true);
-				GC.SuppressFinalize(this);
-			}
-
-			~ObjectListViewEnumerator()
-			{
-				Dispose(false);
+				_index = -1;
 			}
 
 			#endregion
@@ -610,14 +667,25 @@ namespace Csla
 		{
 			_sorts = sorts;
 
-			_sortIndex = new List<ListItem>(_list.Count);
+			if (_sortIndex != null)
+			{
+				for (int i = 0; i < _sortIndex.Count; i++)
+				{
+					_sortIndex[i].PropertyChanged -= new PropertyChangedEventHandler(ObjectView_PropertyChanged);
+				}
+			}
+
+			_sortIndex = new List<ObjectView>(_list.Count);
 
 			for (int i = 0; i < _list.Count; i++)
 			{
-				this.ApplyFilter(_sortIndex[this.InsertInOrder(new ListItem(i))]);
+				ObjectView item = new ObjectView(this, _list[i], i);
+				item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
+				item.ApplyFilter(_filteredView);
+				this.InsertInOrder(item);
 			}
 
-			this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+			this.OnListChanged(ListChangedType.Reset, -1);
 		}
 
 		/// <summary>
@@ -637,7 +705,7 @@ namespace Csla
 				{
 					_filteredView.RowFilter = value;
 					this.ApplyFilter();
-					this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+					this.OnListChanged(ListChangedType.Reset, -1);
 				}
 			}
 		}
@@ -647,17 +715,7 @@ namespace Csla
 		/// </summary>
 		public void RemoveFilter()
 		{
-			if (_filteredView.RowFilter.Length > 0)
-			{
-				_filteredView.RowFilter = string.Empty;
-
-				for (int i = 0; i < _sortIndex.Count; i++)
-				{
-					_sortIndex[i].Visible = true;
-				}
-
-				this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
-			}
+			this.Filter = string.Empty;
 		}
 
 		/// <summary>
@@ -683,7 +741,7 @@ namespace Csla
 		{
 			get { return true; }
 		}
-
+		
 		#endregion
 
 		#region IBindingList Members
@@ -692,9 +750,9 @@ namespace Csla
 		/// Adds an index to the source IBindingList.
 		/// </summary>
 		/// <param name="property"></param>
-		public void AddIndex(System.ComponentModel.PropertyDescriptor property)
+		void IBindingList.AddIndex(PropertyDescriptor property)
 		{
-			if (_supportsBinding)
+			if (_iBindingList != null)
 			{
 				_iBindingList.AddIndex(property);
 			}
@@ -704,15 +762,34 @@ namespace Csla
 		/// Adds a new item to the source IBindingList.
 		/// </summary>
 		/// <returns></returns>
-		public object AddNew()
+		public virtual ObjectView AddNew()
 		{
-			if (_supportsBinding)
+			if (this.AllowNew)
 			{
-				return _iBindingList.AddNew();
+				try
+				{
+					_addingItem = true;
+					ObjectView item = new ObjectView(this, _iBindingList.AddNew(), _list.Count - 1, true);
+					item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
+					item.BeginEdit();
+					_sortIndex.Add(item);
+					return item;
+				}
+				finally
+				{
+					_addingItem = false;
+				}
 			}
-			
-			return null;
+
+			throw new NotSupportedException("Adding new items is not supported."); 
 		}
+
+		object IBindingList.AddNew()
+		{
+			return this.AddNew();
+		}
+
+		private bool _allowEdit = true;
 
 		/// <summary>
 		/// Gets whether the source IBindingList allows edits.
@@ -721,14 +798,23 @@ namespace Csla
 		{
 			get
 			{
-				if (_supportsBinding)
+				bool allowEdit = _allowEdit;
+
+				if (_iBindingList != null)
 				{
-					return _iBindingList.AllowEdit;
+					allowEdit &= _iBindingList.AllowEdit;
+				}
+				else
+				{
+					allowEdit &= !_list.IsReadOnly;
 				}
 
-				return true;
+				return allowEdit;
 			}
+			set { _allowEdit = value; }
 		}
+
+		private bool _allowNew = true;
 
 		/// <summary>
 		/// Gets whether the source IBindingList allows new items.
@@ -737,14 +823,23 @@ namespace Csla
 		{
 			get
 			{
-				if (_supportsBinding)
+				bool allowNew = _allowNew;
+
+				if (_iBindingList != null)
 				{
-					return _iBindingList.AllowNew;
+					allowNew &= _iBindingList.AllowNew;
+				}
+				else
+				{
+					_allowNew &= !_list.IsReadOnly && !_list.IsFixedSize;
 				}
 
-				return true;
+				return allowNew;
 			}
+			set { _allowNew = value; }
 		}
+
+		private bool _allowRemove = true;
 
 		/// <summary>
 		/// Gets whether the source IBindingList allows removing of items.
@@ -753,13 +848,20 @@ namespace Csla
 		{
 			get
 			{
-				if (_supportsBinding)
+				bool allowRemove = _allowRemove;
+
+				if (_iBindingList != null)
 				{
-					return _iBindingList.AllowRemove;
+					allowRemove &= _iBindingList.AllowRemove;
+				}
+				else
+				{
+					allowRemove &= !_list.IsReadOnly & !_list.IsFixedSize;
 				}
 
-				return true;
+				return allowRemove;
 			}
+			set { _allowRemove = value; }
 		}
 
 		/// <summary>
@@ -767,7 +869,7 @@ namespace Csla
 		/// </summary>
 		/// <param name="property">The sort property.</param>
 		/// <param name="direction">The sort direction.</param>
-		public void ApplySort(System.ComponentModel.PropertyDescriptor property, System.ComponentModel.ListSortDirection direction)
+		public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
 		{
 			if (property == null) throw new ArgumentNullException("property");
 			
@@ -783,7 +885,7 @@ namespace Csla
 		/// <returns>The index of the first item whose property matches the key.</returns>
 		public int Find(string propertyName, object key)
 		{
-			return this.Find(TypeDescriptor.GetProperties(typeof(T))[propertyName], key);
+			return this.Find(_objectProperties[propertyName], key);
 		}
 
 		/// <summary>
@@ -792,19 +894,41 @@ namespace Csla
 		/// <param name="property">The property to search.</param>
 		/// <param name="key">The value for which to search.</param>
 		/// <returns>The index of the first item whose property matches the key.</returns>
-		public int Find(System.ComponentModel.PropertyDescriptor property, object key)
+		public int Find(PropertyDescriptor property, object key)
 		{
-			if (property == null) throw new ArgumentNullException("property");
-
-			foreach (T item in this)
+			if (this.SupportsSearching)
 			{
-				if(object.Equals(key, property.GetValue(item)))
+				if (property == null) throw new ArgumentNullException("property");
+
+				if (this.IncludeDefault && object.Equals(key, _defaultItem[property.Name]))
 				{
-					return this.IndexOf(item);
+					return 0;
 				}
+
+				int index = -1;
+
+				for (int i = 0; i < _sortIndex.Count; i++)
+				{
+					if (_sortIndex[i].Visible)
+					{
+						index++;
+
+						if (object.Equals(key, _sortIndex[i][property.Name]))
+						{
+							if (this.IncludeDefault)
+							{
+								return index + 1;
+							}
+
+							return index;
+						}
+					}
+				}
+
+				return -1;
 			}
 
-			return -1;
+			throw new NotSupportedException("Searching is not supported.");
 		}
 
 		/// <summary>
@@ -816,27 +940,71 @@ namespace Csla
 		}
 
 		/// <summary>
-		/// Occurs when the Csla.ObjectListView changes.
+		/// Occurs when the list managed by the ObjectListView changes.
 		/// </summary>
-		public event System.ComponentModel.ListChangedEventHandler ListChanged;
-		
+		public event ListChangedEventHandler ListChanged;
+
 		/// <summary>
 		/// Raises the System.Data.DataView.ListChanged event.
 		/// </summary>
-		/// <param name="e">A System.ComponentModel.ListChangedEventArgs that contains the event data.</param>
-		protected void OnListChanged(ListChangedEventArgs e)
+		/// <param name="listChangedType">The type of change.</param>
+		/// <param name="newIndex">The index of the row affected by the change.</param>
+		/// <remarks>
+		/// Used when adding or deleting a row.  Also used with an index of -1 when resetting the
+		/// list.  Also used when a row has been changed but that change is not the result of a
+		/// specific property changing in the row.
+		/// </remarks>
+		protected void OnListChanged(ListChangedType listChangedType, int newIndex)
 		{
+			if (_defaultItem != null)
+				newIndex++;
+
 			if (ListChanged != null)
-				ListChanged(this, e);
+				this.ListChanged(this, new ListChangedEventArgs(listChangedType, newIndex));
+		}
+
+		/// <summary>
+		/// Raises the System.Data.DataView.ListChanged event.
+		/// </summary>
+		/// <param name="listChangedType">The type of change.</param>
+		/// <param name="newIndex">The index of the row affected by the change.</param>
+		/// <param name="oldIndex">The previous index of the row.</param>
+		/// <remarks>Used when moving a row.</remarks>
+		protected void OnListChanged(ListChangedType listChangedType, int newIndex, int oldIndex)
+		{
+			if (_defaultItem != null)
+			{
+				newIndex++;
+				oldIndex++;
+			}
+
+			if (ListChanged != null)
+				this.ListChanged(this, new ListChangedEventArgs(listChangedType, newIndex, oldIndex));
+		}
+
+		/// <summary>
+		/// Raises the System.Data.DataView.ListChanged event.
+		/// </summary>
+		/// <param name="listChangedType">The type of change.</param>
+		/// <param name="newIndex">The index of the row affected by the change.</param>
+		/// <param name="propDesc">The property that changed on the row.</param>
+		/// <remarks>Used when a change in the row is caused by a changing property.</remarks>
+		protected void OnListChanged(ListChangedType listChangedType, int newIndex, PropertyDescriptor propDesc)
+		{
+			if (_defaultItem != null)
+				newIndex++;
+
+			if (ListChanged != null)
+				this.ListChanged(this, new ListChangedEventArgs(listChangedType, newIndex, propDesc));
 		}
 
 		/// <summary>
 		/// Removes an index from the source System.ComponentModel.IBindingList.
 		/// </summary>
 		/// <param name="property">The property from which to remove the index.</param>
-		public void RemoveIndex(System.ComponentModel.PropertyDescriptor property)
+		public void RemoveIndex(PropertyDescriptor property)
 		{
-			if (_supportsBinding)
+			if (_iBindingList != null)
 			{
 				_iBindingList.RemoveIndex(property);
 			}
@@ -850,14 +1018,14 @@ namespace Csla
 			if (_sorts != null)
 			{
 				this.ApplySort(null);
-				OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, 0));
+				OnListChanged(ListChangedType.Reset, -1);
 			}
 		}
 
 		/// <summary>
 		/// Gets the sort direction of the first sort property.
 		/// </summary>
-		public ListSortDirection SortDirection
+		ListSortDirection IBindingList.SortDirection
 		{
 			get
 			{
@@ -873,7 +1041,7 @@ namespace Csla
 		/// <summary>
 		/// Gets the first property by which the Csla.ObjectListView is sorted.
 		/// </summary>
-		public PropertyDescriptor SortProperty
+		PropertyDescriptor IBindingList.SortProperty
 		{
 			get
 			{
@@ -921,16 +1089,15 @@ namespace Csla
 		/// <returns>The sorted index of the object.</returns>
 		int IList.Add(object value)
 		{
-			this.Add((T)value);
-			return SortedIndex(_list.Count - 1);
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
 		/// Clears the source list.
 		/// </summary>
-		public void Clear()
+		void IList.Clear()
 		{
-			_list.Clear();
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -940,7 +1107,7 @@ namespace Csla
 		/// <returns>Whether the Csla.ObjectListView contains the given object.</returns>
 		bool IList.Contains(object value)
 		{
-			return this.Contains((T)value);
+			return ((IList)this).IndexOf(value) >= 0;
 		}
 
 		/// <summary>
@@ -950,7 +1117,30 @@ namespace Csla
 		/// <returns>The sorted index of the given object, or -1 if the object is not in the Csla.ObjectListView.</returns>
 		int IList.IndexOf(object value)
 		{
-			return this.IndexOf((T)value);
+			int index = -1;
+
+			if (value is ObjectView)
+			{
+				if (this.IncludeDefault && _defaultItem.Equals(value))
+				{
+					return 0;
+				}
+
+				for (int i = 0; i < _sortIndex.Count; i++)
+				{
+					if (_sortIndex[i].Equals(value))
+					{
+						index = i;
+						if (this.IncludeDefault)
+						{
+							index++;
+						}
+						break;
+					}
+				}
+			}
+
+			return index;
 		}
 
 		/// <summary>
@@ -961,21 +1151,21 @@ namespace Csla
 		/// <remarks>Throws a System.NotImplementedException.</remarks>
 		void IList.Insert(int index, object value)
 		{
-			throw new NotImplementedException("Cannot insert objects.");
+			throw new NotImplementedException();
 		}
 
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView is a fixed size.
 		/// </summary>
-		public bool IsFixedSize
+		bool IList.IsFixedSize
 		{
-			get { return false; }
+			get { return _list.IsFixedSize; }
 		}
 
 		/// <summary>
 		/// Gets whether the source list is read only.
 		/// </summary>
-		public bool IsReadOnly
+		bool IList.IsReadOnly
 		{
 			get { return _list.IsReadOnly; }
 		}
@@ -986,16 +1176,53 @@ namespace Csla
 		/// <param name="value">The item to remove.</param>
 		void IList.Remove(object value)
 		{
-			this.Remove((T)value);
+			if (this.AllowRemove)
+			{
+				if (value == _defaultItem)
+				{
+					// Cannot delete the default item, but do not raise an exception.
+					return;
+				}
+
+				for (int i = 0; i < _sortIndex.Count; i++)
+				{
+					if (_sortIndex[i].Equals(value))
+					{
+						_list.RemoveAt(_sortIndex[i].BaseIndex);
+						return;
+					}
+				}
+
+				throw new IndexOutOfRangeException();
+			}
+
+			throw new InvalidOperationException();
 		}
 
 		/// <summary>
 		/// Removes the item at the sorted index.
 		/// </summary>
 		/// <param name="index">The sorted index to remove.</param>
-		public void RemoveAt(int index)
+		void IList.RemoveAt(int index)
 		{
-			_list.RemoveAt(this.OriginalIndex(index));
+			if (this.AllowRemove)
+			{
+				if (this.IncludeDefault)
+				{
+					if (index == 0)
+					{
+						// Cannot delete the default item, but do not raise an exception.
+						return;
+					}
+
+					index--;
+				}
+
+				_list.RemoveAt(this.OriginalIndex(index));
+				return;
+			}
+
+			throw new InvalidOperationException();
 		}
 
 		/// <summary>
@@ -1003,16 +1230,28 @@ namespace Csla
 		/// </summary>
 		/// <param name="index">The sorted index.</param>
 		/// <returns>The item at the given sorted index.</returns>
-		object IList.this[int index]
+		public ObjectView this[int index]
 		{
 			get
 			{
-				return this[index];
+				if (this.IncludeDefault)
+				{
+					if (index == 0)
+					{
+						return _defaultItem;
+					}
+
+					index--;
+				}
+
+				return _sortIndex[this.UnfilteredIndex(index)];
 			}
-			set
-			{
-				this[index] = (T)value;
-			}
+		}
+
+		object IList.this[int index]
+		{
+			get { return this[index]; }
+			set { throw new NotImplementedException(); }
 		}
 
 		#endregion
@@ -1024,9 +1263,19 @@ namespace Csla
 		/// </summary>
 		/// <param name="array">The array into which to copy.</param>
 		/// <param name="index">The index at which to start the copying.</param>
-		void ICollection.CopyTo(Array array, int index)
+		public void CopyTo(Array array, int index)
 		{
-			this.CopyTo((T[])array, index);
+			if (this.Filter.Length == 0)
+			{
+				_list.CopyTo(array, index);
+			}
+			else
+			{
+				for (int i = 0; i < this.Count; i++)
+				{
+					array.SetValue(this[i], i);
+				}
+			}
 		}
 
 		/// <summary>
@@ -1036,19 +1285,26 @@ namespace Csla
 		{
 			get
 			{
-				if (_filteredView.RowFilter.Length == 0)
-				{
-					return _list.Count;
-				}
-
 				int filteredCount = 0;
 
-				for (int i = 0; i < _sortIndex.Count; i++)
+				if (this.Filter.Length == 0)
 				{
-					if (_sortIndex[i].Visible)
+					filteredCount = _list.Count;
+				}
+				else
+				{
+					for (int i = 0; i < _sortIndex.Count; i++)
 					{
-						filteredCount++;
+						if (_sortIndex[i].Visible)
+						{
+							filteredCount++;
+						}
 					}
+				}
+
+				if (this.IncludeDefault)
+				{
+					filteredCount++;
 				}
 
 				return filteredCount;
@@ -1058,7 +1314,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView is synchronized.
 		/// </summary>
-		public bool IsSynchronized
+		bool ICollection.IsSynchronized
 		{
 			get { return false; }
 		}
@@ -1066,9 +1322,9 @@ namespace Csla
 		/// <summary>
 		/// Gets the SyncRoot.
 		/// </summary>
-		public object SyncRoot
+		object ICollection.SyncRoot
 		{
-			get { return _list; }
+			get { return this; }
 		}
 
 		#endregion
@@ -1079,149 +1335,38 @@ namespace Csla
 		/// Gets an System.Collections.IEnumerator to navigate over the Csla.ObjectListView.
 		/// </summary>
 		/// <returns></returns>
-		IEnumerator IEnumerable.GetEnumerator()
+		public IEnumerator GetEnumerator()
 		{
-			return this.GetEnumerator();
+			return new ObjectListViewEnumerator(this);
 		}
 
 		#endregion
 
-		#region IList<T> Members
+		#region ITypedList Members
 
-		/// <summary>
-		/// Gets the index of the given item.
-		/// </summary>
-		/// <param name="item">The item.</param>
-		/// <returns>The index of the given item.</returns>
-		public int IndexOf(T item)
+		PropertyDescriptorCollection ITypedList.GetItemProperties(PropertyDescriptor[] listAccessors)
 		{
-			return SortedIndex(_list.IndexOf(item));
+			PropertyDescriptorCollection pdc = null;
+
+			if (null == listAccessors)
+			{
+				// Return properties in sort order.
+				return TypeDescriptor.GetProperties(
+					_list.GetType().GetProperty("Item").PropertyType,
+					new Attribute[] { new BrowsableAttribute(true) }).Sort();
+			}
+			else
+			{
+				// Return child list shape.
+				pdc = System.Windows.Forms.ListBindingHelper.GetListItemProperties(listAccessors[0].PropertyType);
+			}
+
+			return pdc;
 		}
 
-		/// <summary>
-		/// Inserts an item in the Csla.ObjectListView.
-		/// </summary>
-		/// <param name="index">The index at which to insert.</param>
-		/// <param name="value">The item to insert.</param>
-		/// <remarks>Throws a System.NotImplementedException.</remarks>
-		void IList<T>.Insert(int index, T item)
+		string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
 		{
-			throw new NotImplementedException("The method or operation is not implemented.");
-		}
-
-		/// <summary>
-		/// Gets or sets the item at the given sorted index.
-		/// </summary>
-		/// <param name="index">The sorted index.</param>
-		/// <returns>The item at the given sorted index.</returns>
-		public T this[int index]
-		{
-			get
-			{
-				return _list[OriginalIndex(index)];
-			}
-			set
-			{
-				_list[OriginalIndex(index)] = value;
-			}
-		}
-
-		#endregion
-
-		#region ICollection<T> Members
-
-		/// <summary>
-		/// Adds the given item to the source list.
-		/// </summary>
-		/// <param name="item">The item to add.</param>
-		public void Add(T item)
-		{
-			_list.Add(item);
-		}
-
-		/// <summary>
-		/// Gets whether the Csla.ObjectListView contains the given item.
-		/// </summary>
-		/// <param name="item">The item for which to check.</param>
-		/// <returns>Whether the Csla.ObjectListView contains the given item.</returns>
-		public bool Contains(T item)
-		{
-			if (_filteredView.RowFilter.Length == 0)
-			{
-				return _list.Contains(item);
-			}
-
-			foreach (T filteredItem in this)
-			{
-				if (filteredItem.Equals(item))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <summary>
-		/// Copies the elements of the Csla.ObjectListView into the given array starting at the given index.
-		/// </summary>
-		/// <param name="array">The array into which to copy.</param>
-		/// <param name="arrayIndex">The index at which to start the copying.</param>
-		public void CopyTo(T[] array, int arrayIndex)
-		{
-			if (_filteredView.RowFilter.Length == 0)
-			{
-				_list.CopyTo(array, arrayIndex);
-			}
-
-			int i = 0;
-			foreach (T item in this)
-			{
-				array[i] = item;
-				i++;
-			}
-		}
-
-		/// <summary>
-		/// Removes the given item from the source list.
-		/// </summary>
-		/// <param name="item">The item to remove.</param>
-		/// <returns>Whether the item was removed.</returns>
-		/// <remarks>Only removes the item if it is currently visible in the Csla.ObjectListView.</remarks>
-		public bool Remove(T item)
-		{
-			if (_filteredView.RowFilter.Length == 0)
-			{
-				return _list.Remove(item);
-			}
-
-			foreach (T filteredItem in this)
-			{
-				if (filteredItem.Equals(item))
-				{
-					return _list.Remove(item);
-				}
-			}
-
-			return false;
-		}
-
-		#endregion
-
-		#region IEnumerable<T> Members
-
-		/// <summary>
-		/// Gets a System.Collections.Generic.IEnumerator<T> to navigate over the Csla.ObjectListView.
-		/// </summary>
-		/// <returns>A new enumerator.</returns>
-		public IEnumerator<T> GetEnumerator()
-		{
-			if (_sorts == null && _filteredView.RowFilter.Length == 0)
-			{
-				return _list.GetEnumerator();
-			}
-
-			return new ObjectListViewEnumerator(_list, _sortIndex);
+			return _list.GetType().GetProperty("Item").PropertyType.Name;
 		}
 
 		#endregion

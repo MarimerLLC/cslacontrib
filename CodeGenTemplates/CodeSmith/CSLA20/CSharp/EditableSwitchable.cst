@@ -42,12 +42,21 @@ using Csla.Validation;
 <!-- #INCLUDE FILE="ObjectFactoryMethods.inc" -->
 <%=Indent(i, true)%>#region Child Factory Methods
 <% if(objInfo.IsGeneratedClass) {%>
+<% string cPars = GetFactoryNewCallArguments(objInfo); %>
+<% if(!objInfo.IsGeneratedBase && cPars.Length>0) {%>
+<%=Indent(i)%><%=objInfo.MemberAccess%> <%=objInfo.Name%>(<%=cPars%>)
+<%=Indent(i++)%>{
+<%=GetFactoryNewAssignments(objInfo, i)%>
+<%=Indent(--i)%>}
+
+<% } %>
 <%=Indent(i)%>internal static <%=objInfo.Type%> <%=objInfo.NewMethodName%>Child(<%=GetFactoryNewDeclarationArguments(objInfo)%>)
 <%=Indent(i++)%>{
 <% if(objInfo.IsGeneratedBase) { //abstract-child cannot use constructor %>
-<%=Indent(i)%><%=objInfo.Type%> child = DataPortal.Create<<%=objInfo.Type%>>(<% string cPars = GetFactoryNewCallArguments(objInfo); if(cPars.Length>0) {%>new Criteria(<%=cPars%>)<%}%>);
+<%=Indent(i)%><%=objInfo.Type%> child = DataPortal.Create<<%=objInfo.Type%>>(<% if(cPars.Length>0) {%>new Criteria(<%=cPars%>)<%}%>);
 <% } else { %>
 <%=Indent(i)%><%=objInfo.Type%> child = new <%=objInfo.Name%>(<%=GetFactoryNewCallArguments(objInfo)%>);
+<%=Indent(i)%>child.ValidationRules.CheckRules();
 <% } %>
 <%=Indent(i)%>child.MarkAsChild();
 <%=Indent(i)%>return child;

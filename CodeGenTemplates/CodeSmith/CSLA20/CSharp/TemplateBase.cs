@@ -609,9 +609,15 @@ namespace CodeSmith.Csla
 		{
 			string statement = string.Empty;
             if(varPrefix.Length>0)
-			    statement = Indent(level, true) + string.Format("if ({0}.{1} != {2})", varPrefix, prop.MemberName, prop.DefaultValue);
+				if(prop.Type == "string")
+					statement = Indent(level, true) + string.Format("if ({0}.{1}.Length > 0)", varPrefix, prop.MemberName);	
+				else
+					statement = Indent(level, true) + string.Format("if ({0}.{1} != {2})", varPrefix, prop.MemberName, prop.DefaultValue);
             else
-                statement = Indent(level, true) + string.Format("if ({0} != {1})", prop.MemberName, prop.DefaultValue);
+				if(prop.Type == "string")
+					statement = Indent(level, true) + string.Format("if ({0}.Length > 0)", prop.MemberName);
+				else 
+					statement = Indent(level, true) + string.Format("if ({0} != {1})", prop.MemberName, prop.DefaultValue);
 			return statement;
 		}
         public string GetNewNameValuePair(ObjectInfo obj)
@@ -1848,6 +1854,9 @@ namespace CodeSmith.Csla
                 if (name.EndsWith("TypeCode"))
                     name = name.Substring(0, name.Length - 4);
 
+				if(name.Length == 0)
+					throw new Exception("Column " + col.Name + " has resulted blank property name");
+					
                 return name;
             }
             public static string GetDefaultValue(string variableType)

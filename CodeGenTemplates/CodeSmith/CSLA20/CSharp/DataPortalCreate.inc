@@ -1,6 +1,6 @@
 <%=Indent(i, true)%>#region Data Access - Create
 <%=Indent(i)%>[RunLocal]
-<%if(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey) {%>
+<%if(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey || objInfo.IsCollection) {%>
 <%=Indent(i)%>protected override void DataPortal_Create(object criteria)
 <%}else{%>
 <%=Indent(i)%>private void DataPortal_Create(Criteria criteria)

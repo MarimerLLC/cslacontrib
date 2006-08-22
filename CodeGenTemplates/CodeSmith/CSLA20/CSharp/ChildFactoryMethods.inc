@@ -37,8 +37,8 @@
 <%=Indent(i++)%>{
 <% if(!objInfo.IsCollection) {%>
 <%=GetFactoryNewAssignments(objInfo, i)%>
-<% } %>
 <%=Indent(i)%>ValidationRules.CheckRules();
+<% } %>
 <%=Indent(i)%>MarkAsChild();
 <%=Indent(--i)%>}
 

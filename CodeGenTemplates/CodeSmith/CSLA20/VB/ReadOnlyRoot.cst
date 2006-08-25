@@ -24,7 +24,7 @@ Imports Csla
 Imports Csla.Data
 Imports Csla.Validation
 
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% End If %> 
 <% If Not objInfo.IsUserPartial Then %>
@@ -76,7 +76,7 @@ Imports Csla.Validation
 <%=Indent(i)%>Private executeFetchDelegate  As predicateEx(Of <%If objInfo.UseAdoTransaction Then%>SqlTransaction<%Else%>SqlConnection<%End If%>, Criteria) = Nothing
 <%=Indent(i)%>Private Function OnExecuteFetch(<%If objInfo.UseAdoTransaction Then%>ByVal tr As SqlTransaction<%Else%>ByVal cn As SqlConnection<%End If%>, ByVal criteria As Criteria) As Boolean
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchDelegate Is Nothing Then
 <%=Indent(i+1)%>Return executeFetchDelegate(<%If objInfo.UseAdoTransaction Then%>tr<%else%>cn<%End If%>, criteria)
 <%=Indent(i)%>End If
 <%=Indent(i)%>Return True
@@ -87,7 +87,7 @@ Imports Csla.Validation
 <%=Indent(i)%>Private executeFetchCompleteDelegate As actionEx(Of SqlCommand, Criteria) = Nothing
 <%=Indent(i)%>Private Sub OnExecuteFetchComplete(ByVal cm As SqlCommand,ByVal criteria As Criteria)
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchCompleteDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchCompleteDelegate Is Nothing Then
 <%=Indent(i+1)%>executeFetchCompleteDelegate(cm, criteria)
 <%=Indent(i)%>End If
 <% i-=1 %>
@@ -97,7 +97,7 @@ Imports Csla.Validation
 <%=Indent(i)%>Private fetchObjectCompleteDelegate As Action(Of SafeDataReader) = Nothing
 <%=Indent(i)%>Private Sub onFetchObjectComplete(ByVal dr As SafeDataReader)
 <% i+=1 %>
-<%=Indent(i)%>If fetchObjectCompleteDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not fetchObjectCompleteDelegate Is Nothing Then
 <%=Indent(i+1)%>fetchObjectCompleteDelegate(dr)
 <%=Indent(i)%>End If
 <% i-=1 %>
@@ -107,7 +107,7 @@ Imports Csla.Validation
 <%=Indent(i)%>Private fetchChildrenCompleteDelegate As Action(Of SafeDataReader) = Nothing
 <%=Indent(i)%>Private Sub onFetchChildrenComplete(ByVal dr As SafeDataReader)
 <% i+=1 %>
-<%=Indent(i)%>If fetchChildrenCompleteDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not fetchChildrenCompleteDelegate Is Nothing Then
 <%=Indent(i+1)%>fetchChildrenCompleteDelegate(dr)
 <%=Indent(i)%>End If
 <% i-=1 %>
@@ -119,4 +119,4 @@ Imports Csla.Validation
 <% i-=1 %>
 <%=Indent(i)%>End Class
 
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>End Namespace<%End If%>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>End Namespace<%End If%>

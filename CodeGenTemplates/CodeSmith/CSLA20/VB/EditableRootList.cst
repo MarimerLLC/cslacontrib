@@ -152,7 +152,7 @@
 <%=Indent(i)%>Private executeFetchDelegate as predicateEx(Of <%If(objInfo.UseAdoTransaction) Then%>SqlTransaction<%Else%>SqlConnection<%End If%>, FilterCriteria) = Nothing
 <%=Indent(i)%>Private Function OnExecuteFetch(<%If(objInfo.UseAdoTransaction) Then%>ByVal tr As SqlTransaction<%Else%>ByVal cn As SqlConnection<%End If%>, ByVal criteria As FilterCriteria) As Boolean
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchDelegate Is Nothing Then
 <%=Indent(i+1)%>Return executeFetchDelegate(<%If(objInfo.UseAdoTransaction) Then%>tr<%Else%>cn<%End If%>, criteria)
 <%=Indent(i)%>End If
 <%=Indent(i)%>Return True
@@ -162,7 +162,7 @@
 <%=Indent(i)%>Private executeFetchCompleteDelegate As actionEx(Of SqlCommand, FilterCriteria) = Nothing
 <%=Indent(i)%>Private Sub onExecuteFetchComplete(ByVal cm As SqlCommand, ByVal criteria As FilterCriteria )
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchDelegate Is Nothing Then
 <%=Indent(i+1)%>executeFetchCompleteDelegate(cm, criteria)
 <%=Indent(i)%>End If
 <% i-=1 %>

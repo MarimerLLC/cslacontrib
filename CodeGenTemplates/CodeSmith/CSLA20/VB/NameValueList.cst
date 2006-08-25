@@ -21,7 +21,7 @@ Imports System.Data.SqlClient
 Imports Csla
 Imports Csla.Data
 
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% End If %> 
 <% If Not objInfo.IsUserPartial Then %>
@@ -89,4 +89,4 @@ Imports Csla.Data
 
 <% i-=1 %>
 <%=Indent(i)%>End Class
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>End namespace<% End If %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>End namespace<% End If %>

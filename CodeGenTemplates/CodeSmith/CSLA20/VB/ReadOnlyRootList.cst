@@ -18,7 +18,7 @@
 <%=Indent(0)%>Imports System.Data.SqlClient
 <%=Indent(0)%>Imports Csla
 <%=Indent(0)%>Imports Csla.Data
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
 <%=Indent(0, True)%>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% end If %> 
@@ -77,7 +77,7 @@
 <%=Indent(i)%>Private executeFetchDelegate As predicateEx(Of <%If objInfo.UseAdoTransaction Then%>SqlTransaction<%Else%>SqlConnection<%End If%>, FilterCriteria) = Nothing
 <%=Indent(i)%>Private Function OnExecuteFetch(<%If objInfo.UseAdoTransaction Then%>ByVal tr As SqlTransaction<%Else%>ByVal cn As SqlConnection<%End If%>, ByVal criteria As FilterCriteria) As Boolean
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchDelegate Is Nothing Then
 <%=Indent(i+1)%>Return executeFetchDelegate(<%If objInfo.UseAdoTransaction Then%>tr<%Else%>cn<%End If%>, criteria)
 <%=Indent(i)%>End If
 <%=Indent(i)%>Return True
@@ -87,7 +87,7 @@
 <%=Indent(i)%>Private executeFetchCompleteDelegate As actionEx(Of SqlCommand, FilterCriteria) = Nothing
 <%=Indent(i)%>Private Sub OnExecuteFetchComplete(ByVal cm As SqlCommand, ByVal criteria As FilterCriteria)
 <% i+=1 %>
-<%=Indent(i)%>If executeFetchCompleteDelegate IsNot Nothing Then
+<%=Indent(i)%>If Not executeFetchCompleteDelegate Is Nothing Then
 <%=Indent(i+1)%>executeFetchCompleteDelegate(cm, criteria)
 <%=Indent(i)%>End If
 <% i-=1 %>
@@ -96,5 +96,5 @@
 <% End If %>
 <% i-=1 %>
 <%=Indent(i, True)%>End Class
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then%>
+<% If not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then%>
 <%=Indent(0, True)%>End Namespace<%End If%>

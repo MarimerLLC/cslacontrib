@@ -15,7 +15,7 @@
 <%=Indent(0)%>Imports System.Data.SqlClient
 <%=Indent(0)%>Imports Csla
 <%=Indent(0)%>Imports Csla.Data
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
 <%=Indent(0, True)%>Namespace <%= ClassNamespace %>
 <% i+=1 %>
 <% End If %> 
@@ -79,5 +79,5 @@
 <%=Indent(0, True)%>#End Region ' Server-side Code
 <% i-=1 %>
 <%=Indent(i, True)%>End Class
-<% If ClassNamespace IsNot Nothing AndAlso ClassNamespace.Length > 0 Then %>
+<% If Not ClassNamespace Is Nothing AndAlso ClassNamespace.Length > 0 Then %>
 <%=Indent(0, True)%>End namespace<% End If %>

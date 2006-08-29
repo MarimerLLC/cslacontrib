@@ -25,20 +25,14 @@
 <%=Indent(i+1)%>'todo: add custom/non-generated shared rules here...
 <%=Indent(i)%>End Sub
 <% End If %>
+<% End If %>
 <% If objInfo.IsGeneratedClass Then %>
-<%=Indent(i, True)%>''' <summary>
-<%=Indent(i)%>''' Method that allows the addition of common business rules.
-<%=Indent(i)%>''' </summary>
-<%=Indent(i)%>''' <remarks>These rules represent the database defaults that can be generated.</remarks>
-<%=Indent(i)%><%=objInfo.LocalMethodModifiers%> Sub AddCommonRules()
-<%=Indent(i, True)%>End Sub
 <%=Indent(i, True)%>''' <summary>
 <%=Indent(i)%>''' Method used to instigate the addition of all Business rules both Custom and Common.
 <%=Indent(i)%>''' </summary>
 <%=Indent(i)%>''' <remarks></remarks>
 <%=Indent(i)%>Protected Overrides Sub AddInstanceBusinessRules()
 <% i+=1 %>
-<%=Indent(i)%>AddCommonRules()
 <% If objInfo.IsGeneratedPartial Then %>
 <%=Indent(i)%>OnAddCustomRules()
 <% Else %>
@@ -62,7 +56,7 @@
 <% i+=1 %>
 <%=Indent(i)%>AddSharedCommonRules()
 <% If objInfo.IsGeneratedPartial Then %>
-<%=Indent(i)%>OnAddSharedCustomRules()
+<%=Indent(i)%>OnAddCustomRules()
 <% Else %>
 <%=Indent(i)%>AddSharedCustomRules()
 <%=Indent(i)%>MyBase.AddBusinessRules()
@@ -70,5 +64,5 @@
 <% i-=1 %>
 <%=Indent(i)%>End Sub
 <% End If %>
-<% End If : End If %>
+<% End If %>
 <%=Indent(0, True)%>#End Region ' Validation Rules

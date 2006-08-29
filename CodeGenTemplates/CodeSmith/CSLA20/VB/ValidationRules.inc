@@ -36,7 +36,7 @@
 <%=Indent(i)%>''' Method used to instigate the addition of all Business rules both Custom and Common.
 <%=Indent(i)%>''' </summary>
 <%=Indent(i)%>''' <remarks></remarks>
-<%=Indent(i)%>Protected Overrides Sub AddBusinessRules()
+<%=Indent(i)%>Protected Overrides Sub AddInstanceBusinessRules()
 <% i+=1 %>
 <%=Indent(i)%>AddCommonRules()
 <% If objInfo.IsGeneratedPartial Then %>
@@ -58,14 +58,14 @@
 <%=Indent(i)%>''' Method used to instigate the addition of all Business rules both Custom and Common.
 <%=Indent(i)%>''' </summary>
 <%=Indent(i)%>''' <remarks></remarks>
-<%=Indent(i)%>Protected Overrides Sub AddSharedBusinessRules()
+<%=Indent(i)%>Protected Overrides Sub AddBusinessRules()
 <% i+=1 %>
 <%=Indent(i)%>AddSharedCommonRules()
 <% If objInfo.IsGeneratedPartial Then %>
 <%=Indent(i)%>OnAddSharedCustomRules()
 <% Else %>
 <%=Indent(i)%>AddSharedCustomRules()
-<%=Indent(i)%>MyBase.AddSharedBusinessRules()
+<%=Indent(i)%>MyBase.AddBusinessRules()
 <% End If %>
 <% i-=1 %>
 <%=Indent(i)%>End Sub

@@ -56,7 +56,7 @@ Namespace CodeSmith.Csla
 #Region "Templates"
         'property template
         Private Const PROPERTY_TEMPLATE As String = "[BASEINDENT][COMMENT]" _
-   + "[ATTRIBUTE]" _
++ "[ATTRIBUTE]" _
             + "[BASEINDENT][MODIFIERS] [READWRITE] Property [PROPNAME]() As [TYPE]" _
             + "[NOINLINE]" _
             + "[BASEINDENT][INDENT]Get" _
@@ -64,7 +64,7 @@ Namespace CodeSmith.Csla
             + "[BASEINDENT][INDENT][INDENT]Return [VARNAME]" _
             + "[BASEINDENT][INDENT]End Get" _
             + "[SETTER]" _
-      + "[BASEINDENT]End Property"
+    + "[BASEINDENT]End Property"
         'property set template
         Private Const SETTER_TEMPLATE As String = _
             "[NOINLINE]" _
@@ -101,7 +101,7 @@ Namespace CodeSmith.Csla
                 Return _classNamespace
             End Get
             Set(ByVal Value As String)
-                _classNamespace = value
+                _classNamespace = Value
             End Set
         End Property
 #End Region
@@ -118,7 +118,7 @@ Namespace CodeSmith.Csla
                 Return _propertyAuthorization
             End Get
             Set(ByVal Value As PropertyAccessSecurity)
-                _propertyAuthorization = value
+                _propertyAuthorization = Value
             End Set
         End Property
 
@@ -129,7 +129,7 @@ Namespace CodeSmith.Csla
                 Return _authorizationRules
             End Get
             Set(ByVal Value As Boolean)
-                _authorizationRules = value
+                _authorizationRules = Value
             End Set
         End Property
 
@@ -140,7 +140,7 @@ Namespace CodeSmith.Csla
                 Return _transactionType
             End Get
             Set(ByVal Value As TransactionalTypes)
-                _transactionType = value
+                _transactionType = Value
             End Set
         End Property
 #End Region
@@ -156,7 +156,7 @@ Namespace CodeSmith.Csla
                 Return _codeGenMethod
             End Get
             Set(ByVal Value As CodeGenerationMethod)
-                _codeGenMethod = value
+                _codeGenMethod = Value
             End Set
         End Property
 
@@ -167,7 +167,7 @@ Namespace CodeSmith.Csla
                 Return _classType
             End Get
             Set(ByVal Value As GenerationClassType)
-                _classType = value
+                _classType = Value
             End Set
         End Property
 #End Region
@@ -180,7 +180,7 @@ Namespace CodeSmith.Csla
                 Return _baseIndentLevel
             End Get
             Set(ByVal Value As Integer)
-                _baseIndentLevel = value
+                _baseIndentLevel = Value
             End Set
         End Property
 
@@ -191,7 +191,7 @@ Namespace CodeSmith.Csla
                 Return _xmlFilePath
             End Get
             Set(ByVal Value As String)
-                _xmlFilePath = value
+                _xmlFilePath = Value
             End Set
         End Property
 #End Region
@@ -207,7 +207,7 @@ Namespace CodeSmith.Csla
         ''' <param name="level"></param>
         ''' <returns></returns>
         Public Function GetConstraint(ByVal objInfo As ObjectInfo, ByVal level As Integer) As String
-            Return Indent(level, False) + objInfo.Constraint.Replace(environment.NewLine, Indent(level, True))
+            Return Indent(level, False) + objInfo.Constraint.Replace(Environment.NewLine, Indent(level, True))
         End Function
 
         ''' <summary>
@@ -219,20 +219,20 @@ Namespace CodeSmith.Csla
         Public Function GetMemberDeclarations(ByVal objInfo As ObjectInfo, ByVal level As Integer) As String
             Dim members As String = Indent(level, True) + "' declare members"
             For Each prop As PropertyInfo In objInfo.Properties
-				' if csla-type, later...
+                ' if csla-type, later...
                 If Not objInfo.ChildCollection.Contains(prop) Then
-					' if pk (non composite) and type of Guid, default value is Guid.NewGuid
-                	If objInfo.UniqueProperties.Count = 1 AndAlso objInfo.UniqueProperties.Contains(prop) AndAlso prop.Type = "Guid" Then
-                    	members += Indent(level, True) + GetMemberDeclaration(prop.MemberAccess, prop.Type, prop.MemberName, "Guid.NewGuid()")
-                	Else
-                    	members += Indent(level, True) + GetMemberDeclaration(prop)
-					End If
+                    ' if pk (non composite) and type of Guid, default value is Guid.NewGuid
+                    If objInfo.UniqueProperties.Count = 1 AndAlso objInfo.UniqueProperties.Contains(prop) AndAlso prop.Type = "Guid" Then
+                        members += Indent(level, True) + GetMemberDeclaration(prop.MemberAccess, prop.Type, prop.MemberName, "Guid.NewGuid()")
+                    Else
+                        members += Indent(level, True) + GetMemberDeclaration(prop)
+                    End If
                 End If
             Next
 
             ' add csla-type child objects (not simple type but csla-type class)
             If objInfo.HasChild Then
-                members += environment.NewLine + Indent(level, True) + "' declare child member(s)"
+                members += Environment.NewLine + Indent(level, True) + "' declare child member(s)"
             End If
             For Each prop As PropertyInfo In objInfo.ChildCollection
                 members += Indent(level, True) + GetMemberDeclaration(prop)
@@ -296,13 +296,13 @@ Namespace CodeSmith.Csla
                 If MinimizeStackTraceUse Then
                     ' property name is "<propertyName>String"
                     If prop.Authorization = PropertyAccessSecurity.Read OrElse prop.Authorization = PropertyAccessSecurity.Both Then
-                        newStr = newStr.Replace("[CANREAD]", CANREAD_NOSTACK_TEMPLATE)
+                        NewStr = NewStr.Replace("[CANREAD]", CANREAD_NOSTACK_TEMPLATE)
                     End If
                     If prop.Authorization = PropertyAccessSecurity.Write OrElse prop.Authorization = PropertyAccessSecurity.Both Then
-                        newStr = newStr.Replace("[CANWRITE]", CANWRITE_NOSTACK_TEMPLATE)
+                        NewStr = NewStr.Replace("[CANWRITE]", CANWRITE_NOSTACK_TEMPLATE)
                     End If
-                    newStr = newStr.Replace("[PROPCHANGED]", PROPCHANGED_TEMPLATE)
-                    newStr = newStr.Replace("[PROPNAMESTRING]", """" + prop.Name + "String""")
+                    NewStr = NewStr.Replace("[PROPCHANGED]", PROPCHANGED_TEMPLATE)
+                    NewStr = NewStr.Replace("[PROPNAMESTRING]", """" + prop.Name + "String""")
                 End If
 
                 str = str + NewStr
@@ -363,7 +363,7 @@ Namespace CodeSmith.Csla
             str = Regex.Replace(str, "\[\w+\]", "")   'clean up unused tags.
             Return str
         End Function
-#End Region 'Properties and Methods
+#End Region     'Properties and Methods
 
 #Region " Validation Rules "
         ''' <summary>
@@ -371,7 +371,7 @@ Namespace CodeSmith.Csla
         ''' </summary>
         ''' <param name="obj"></param>
         ''' <param name="level"></param>
-		''' <param name="isShared"></param>
+        ''' <param name="isShared"></param>
         ''' <returns></returns>
         Public Function GetCommonValidationRules(ByVal obj As ObjectInfo, ByVal level As Integer, Optional ByVal isShared As Boolean = False) As String
             Dim rules As String = String.Empty
@@ -390,18 +390,18 @@ Namespace CodeSmith.Csla
         ''' </summary>
         ''' <param name="prop"></param>
         ''' <param name="level"></param>
-		''' <param name="isShared"></param>
-		''' <param name="objType"></param>
+        ''' <param name="isShared"></param>
+        ''' <param name="objType"></param>
         ''' <returns></returns>
         Private Function GetCommonValidationRule(ByVal prop As PropertyInfo, ByVal level As Integer, Optional ByVal isShared As Boolean = False) As String
             Dim rules As String = String.Empty
-			Dim instance As String = String.Empty
-			If isShared Then instance = "Shared"
-			
+            Dim instance As String = String.Empty
+            If Not isShared Then instance = "Instance"
+
             If prop.Type.ToLower = "string" Then
                 If prop.IsRequired Then
-                    rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringRequired, ""{1}"")", instance,  prop.Name)
-				End If
+                    rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringRequired, ""{1}"")", instance, prop.Name)
+                End If
                 If prop.MaxSize > 0 Then
                     rules += Indent(level, True) + String.Format("ValidationRules.Add{0}Rule(AddressOf Csla.Validation.CommonRules.StringMaxLength, New Csla.Validation.CommonRules.MaxLengthRuleArgs(""{1}"", {2}))", instance, prop.Name, prop.MaxSize)
                 End If
@@ -416,7 +416,7 @@ Namespace CodeSmith.Csla
             End If
             Return rules
         End Function
-#End Region 'Validation Rules
+#End Region     'Validation Rules
 
 #Region " Data Access "
         ''' <summary>
@@ -680,8 +680,8 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryNewAssignments(ByVal obj As ObjectInfo, ByVal level As Integer) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity Then Return String.Empty
-			If obj.HasObjectGeneratedKey Then Return String.Empty
-			
+            If obj.HasObjectGeneratedKey Then Return String.Empty
+
             Dim members As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
@@ -698,8 +698,8 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryDeclarationArguments(ByVal obj As ObjectInfo, ByVal isNew As Boolean) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity AndAlso isNew Then Return String.Empty
-			If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
-			
+            If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
+
             Dim para As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
@@ -720,16 +720,16 @@ Namespace CodeSmith.Csla
         Public Function GetFactoryCallArguments(ByVal obj As ObjectInfo, ByVal isNew As Boolean, ByVal useMember As Boolean) As String
             If obj.IsCollection Then Return String.Empty
             If obj.HasIdentity AndAlso isNew Then Return String.Empty
-			If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
+            If obj.HasObjectGeneratedKey AndAlso isNew Then Return String.Empty
 
             Dim para As String = String.Empty
             Dim prop As PropertyInfo
             For Each prop In obj.UniqueProperties
-				If useMember Then
-					para += String.Format(", {0}", prop.MemberName)
-				Else
-					para += String.Format(", {0}", VbHelper.GetCamelCaseName(prop.Name))
-				End If
+                If useMember Then
+                    para += String.Format(", {0}", prop.MemberName)
+                Else
+                    para += String.Format(", {0}", VbHelper.GetCamelCaseName(prop.Name))
+                End If
             Next
             If (para.Length > 0) Then para = para.Substring(2)
             Return para
@@ -760,16 +760,16 @@ Namespace CodeSmith.Csla
         Public Function Indent(ByVal level As Integer, ByVal NewLine As Boolean) As String
             Dim str As String = String.Empty
 
-            If (NewLine) Then str = environment.NewLine
+            If (NewLine) Then str = Environment.NewLine
             If (IndentLevelSpaces > 0) Then
                 str += New String(" ", level * IndentLevelSpaces)
             Else
-				dim tab as char = strings.Chr(9)
+                Dim tab As Char = Strings.Chr(9)
                 str += New String(tab, level)
             End If
             Return str
         End Function
-#End Region 'Indent
+#End Region     'Indent
 #End Region
 
 #Region " Object Class "
@@ -808,7 +808,7 @@ Namespace CodeSmith.Csla
                     Return Parent + ParentSuffix
                 End Get
             End Property
-#End Region 'Parent Properties
+#End Region     'Parent Properties
 
 #Region " Child Properties "
             Public ReadOnly Property ChildType() As String
@@ -840,7 +840,7 @@ Namespace CodeSmith.Csla
                     Return Child + ChildSuffix
                 End Get
             End Property
-#End Region 'Child Properties
+#End Region     'Child Properties
 
 #Region " Properties "
             Private _objectName As String
@@ -873,30 +873,30 @@ Namespace CodeSmith.Csla
                     Return _objectName
                 End Get
             End Property
-            Private _childCollection As ArrayList = New ArrayList()
+            Private _childCollection As ArrayList = New ArrayList
             Public ReadOnly Property ChildCollection() As ArrayList
                 Get
                     Return _childCollection
                 End Get
             End Property
 
-            Private _uniqueProperties As ArrayList = New ArrayList()
+            Private _uniqueProperties As ArrayList = New ArrayList
             Public ReadOnly Property UniqueProperties() As ArrayList
                 Get
                     Return _uniqueProperties
                 End Get
             End Property
 
-            Private _filterProperties As ArrayList = New ArrayList()
+            Private _filterProperties As ArrayList = New ArrayList
             Public Property FilterProperties() As ArrayList
                 Get
                     Return _filterProperties
                 End Get
                 Set(ByVal Value As ArrayList)
-                    _filterProperties = value
+                    _filterProperties = Value
                 End Set
             End Property
-            Private _properties As ArrayList = New ArrayList()
+            Private _properties As ArrayList = New ArrayList
             Public ReadOnly Property Properties() As ArrayList
                 Get
                     Return _properties
@@ -909,7 +909,7 @@ Namespace CodeSmith.Csla
                     Return _objectType
                 End Get
             End Property
-#End Region 'Properties
+#End Region     'Properties
 
 #Region " Methods "
             Public ReadOnly Property MemberAccess() As String
@@ -1117,11 +1117,11 @@ Namespace CodeSmith.Csla
                     Return _childCollection.Count > 0
                 End Get
             End Property
-			Public ReadOnly Property HasObjectGeneratedKey() As Boolean
-				Get
-					Return _uniqueProperties.count = 1 AndAlso DirectCast(_uniqueProperties(0), PropertyInfo).Type = "Guid"
-				End Get
-			End Property
+            Public ReadOnly Property HasObjectGeneratedKey() As Boolean
+                Get
+                    Return _uniqueProperties.Count = 1 AndAlso DirectCast(_uniqueProperties(0), PropertyInfo).Type = "Guid"
+                End Get
+            End Property
 #End Region
 
 #Region " Keywords "
@@ -1286,7 +1286,7 @@ Namespace CodeSmith.Csla
                 While xtr.Read()
                     If (xtr.NodeType = XmlNodeType.Element AndAlso xtr.LocalName.ToLower() = "object") Then
                         If (xtr.GetAttribute("name") = _objectName) Then
-                            _objecttype = [Enum].Parse(GetType(ObjectType), xtr.GetAttribute("type"), True)
+                            _objectType = [Enum].Parse(GetType(ObjectType), xtr.GetAttribute("type"), True)
                             _child = xtr.GetAttribute("child")
                             _parent = xtr.GetAttribute("parent")
 
@@ -1339,7 +1339,7 @@ Namespace CodeSmith.Csla
                 If Not types Is Nothing AndAlso Not names Is Nothing AndAlso types.Count > 0 AndAlso names.Count > 0 Then
                     Dim maxCount As Integer = names.Count
                     If types.Count < names.Count Then
-                        maxcount = types.Count
+                        maxCount = types.Count
                     End If
                     Dim i As Integer
                     For i = 0 To maxCount - 1 Step i + 1
@@ -1361,10 +1361,10 @@ Namespace CodeSmith.Csla
                 End If
 
                 Dim uniqueColumns As StringCollection = CType(template.GetProperty("UniqueColumnNames"), StringCollection)
-                If (uniqueColumns Is Nothing) Then uniqueColumns = New StringCollection()
+                If (uniqueColumns Is Nothing) Then uniqueColumns = New StringCollection
 
                 Dim filterColumns As StringCollection = CType(template.GetProperty("FilterColumnNames"), StringCollection)
-                If (filterColumns Is Nothing) Then filterColumns = New StringCollection()
+                If (filterColumns Is Nothing) Then filterColumns = New StringCollection
 
                 If (Not command Is Nothing) Then
                     LoadProperties(command, resultSetIndex, uniqueColumns, filterColumns)
@@ -1386,7 +1386,7 @@ Namespace CodeSmith.Csla
             End Sub
 
             Private Sub LoadProperties(ByVal table As TableSchema)
-                _dbName = table.DataBase.Name
+                _dbName = table.Database.Name
                 Dim col As ColumnSchema
                 For Each col In table.Columns
                     Dim prop As PropertyInfo = New PropertyInfo(col, Me)
@@ -1402,7 +1402,7 @@ Namespace CodeSmith.Csla
             End Sub
 
             Private Sub LoadProperties(ByVal view As ViewSchema, ByVal uniqueColumns As StringCollection, ByVal filterColumns As StringCollection)
-                _dbName = view.DataBase.Name
+                _dbName = view.Database.Name
                 Dim col As ViewColumnSchema
                 For Each col In view.Columns
                     'need case insensitive
@@ -1423,7 +1423,7 @@ Namespace CodeSmith.Csla
             End Sub
 
             Private Sub LoadProperties(ByVal command As CommandSchema, ByVal resultSetIndex As Integer, ByVal uniqueColumns As StringCollection, ByVal filterColumns As StringCollection)
-                _dbName = command.DataBase.Name
+                _dbName = command.Database.Name
 
                 Dim col As CommandResultColumnSchema
                 For Each col In command.CommandResults(resultSetIndex).Columns
@@ -1458,14 +1458,14 @@ Namespace CodeSmith.Csla
                 If (_uniqueProperties.Count = 0 AndAlso Not IsCollection) Then
                     Throw New Exception("Unique Column is required.")
                 End If
-				If (Not IsReadOnly AndAlso IsChild AndAlso IsCollection AndAlso (_parent Is Nothing OrElse _parent.Length = 0)) Then
-					Throw New Exception("Parent is required.")
-				End If
+                If (Not IsReadOnly AndAlso IsChild AndAlso IsCollection AndAlso (_parent Is Nothing OrElse _parent.Length = 0)) Then
+                    Throw New Exception("Parent is required.")
+                End If
                 If (IsCollection AndAlso (_child Is Nothing OrElse _child.Length = 0) AndAlso CslaObjectType <> ObjectType.NameValueList) Then
                     Throw New Exception("Child is required.")
                 End If
             End Sub
-#End Region 'Constructors
+#End Region     'Constructors
         End Class
 #End Region
 
@@ -1626,7 +1626,7 @@ Namespace CodeSmith.Csla
 
             Public Sub New(ByVal cslaCollName As String, ByVal cslaCollType As String, ByVal parent As ObjectInfo)
                 _parent = parent
-                _name = VBHelper.MakeProper(cslaCollName)
+                _name = VbHelper.MakeProper(cslaCollName)
                 _type = cslaCollType
                 _isCslaClass = True
                 _isCollection = True
@@ -1640,9 +1640,9 @@ Namespace CodeSmith.Csla
                 While xtr.MoveToNextAttribute()
                     Select Case xtr.LocalName.ToLower()
                         Case "name"
-                            _name = VBHelper.MakeProper(xtr.Value)
+                            _name = VbHelper.MakeProper(xtr.Value)
                         Case "type"
-                            _type = VBHelper.ConvertType(xtr.Value)
+                            _type = VbHelper.ConvertType(xtr.Value)
                         Case "access"
                             _access = xtr.Value
                         Case "default"
@@ -1697,8 +1697,8 @@ Namespace CodeSmith.Csla
                 _isRequired = Not col.AllowDBNull
                 _isComputed = VbHelper.IsComputed(col)
                 _isTimestamp = VbHelper.IsTimestamp(col)
-				' fixsize string is <= 8000
-                If _type = "String" AndAlso col.Size <= 8000 AndAlso col.NativeType.ToLower <> "text" AndAlso col.NativeType.ToLower <> "ntext" Then 
+                ' fixsize string is <= 8000
+                If _type = "String" AndAlso col.Size <= 8000 AndAlso col.NativeType.ToLower <> "text" AndAlso col.NativeType.ToLower <> "ntext" Then
                     _maxSize = col.Size
                 End If
             End Sub
@@ -1755,39 +1755,39 @@ Namespace CodeSmith.Csla
                 Return String.Empty
             End Function
         End Class
-#End Region 'Dal Helper
+#End Region     'Dal Helper
 
 #Region " Column VbHelper "
         Public Class VbHelper
             Private Sub New()
             End Sub
-			
-			'convert C# variable types to VB so that the same 
-			' XML document can create either language type
-			Public Shared Function ConvertType(ByVal varType As String) As String
-				Select Case varType.ToLower
-					Case "bool"
-						Return "Boolean"						
-					Case "int", "int32"
-						Return "Integer"
-					Case "int16"
-						Return "Short"
-					Case "int64"
-						Return "Long"
-					Case "uint16"
-						Return "UShort"
-					Case "uint", "uint32"
-						Return "UInteger"
-					Case "uint64"
-						Return "ULong"
-					Case "float"
-						Return "Single"
-					Case "datetime"
-						Return "Date"
-					Case Else
-						Return varType.Substring(0, 1).ToUpper() + varType.Substring(1)
-				End Select
-			End Function	
+
+            'convert C# variable types to VB so that the same 
+            ' XML document can create either language type
+            Public Shared Function ConvertType(ByVal varType As String) As String
+                Select Case varType.ToLower
+                    Case "bool"
+                        Return "Boolean"
+                    Case "int", "int32"
+                        Return "Integer"
+                    Case "int16"
+                        Return "Short"
+                    Case "int64"
+                        Return "Long"
+                    Case "uint16"
+                        Return "UShort"
+                    Case "uint", "uint32"
+                        Return "UInteger"
+                    Case "uint64"
+                        Return "ULong"
+                    Case "float"
+                        Return "Single"
+                    Case "datetime"
+                        Return "Date"
+                    Case Else
+                        Return varType.Substring(0, 1).ToUpper() + varType.Substring(1)
+                End Select
+            End Function
 
             'remove underscore and convert to pascal case
             Public Shared Function MakeProper(ByVal name As String) As String
@@ -1870,7 +1870,7 @@ Namespace CodeSmith.Csla
 
                 'convert ex:START_DATE to StartDate
                 If (name.IndexOf("_") >= 0 OrElse name.IndexOf(" ") >= 0 OrElse name = name.ToUpper()) Then
-                    name = VBHelper.MakeProper(name)
+                    name = VbHelper.MakeProper(name)
                 End If
 
                 'fix name that contain table prefix
@@ -2083,12 +2083,12 @@ Namespace CodeSmith.Csla
                 compiler.Compile()
 
                 If (compiler.Errors.Count > 0) Then
-                    Dim errString As String = "Error Compiling Template" & environment.NewLine
-                    errString += "- " + templatePath + environment.NewLine
+                    Dim errString As String = "Error Compiling Template" & Environment.NewLine
+                    errString += "- " + templatePath + Environment.NewLine
 
                     Dim err As System.CodeDom.Compiler.CompilerError
                     For Each err In compiler.Errors
-                        errString += err.ErrorText + environment.NewLine
+                        errString += err.ErrorText + Environment.NewLine
                     Next
                     Throw New ApplicationException(errString)
                 End If
@@ -2102,16 +2102,16 @@ Namespace CodeSmith.Csla
 
 #Region " Enumerations "
 
-		Public Enum SPType
-			SPSelect
-			SPUpdate
-			SPInsert
-			SPDelete
-			SPNameValueList
-			SPList
-			SPExists
-		End Enum
-		
+        Public Enum SPType
+            SPSelect
+            SPUpdate
+            SPInsert
+            SPDelete
+            SPNameValueList
+            SPList
+            SPExists
+        End Enum
+
         Public Enum ObjectType
             EditableRoot
             EditableRootList
@@ -2154,40 +2154,40 @@ Namespace CodeSmith.Csla
 
 #Region " Stored Procedures "
 
-		Private _databaseOwner As String = "dbo"
-		
-		<Category("2a. Stored Proc"), _
-		Description("Optional - The name of the Database Owner.")> _
-		Public Property DatabaseOwner() As String
-			Get
-				Return _databaseOwner
-			End Get
-			Set(ByVal value As String)
-				If value Is Nothing Then value = ""
-				_databaseOwner = value
-			End Set
-		End Property
+        Private _databaseOwner As String = "dbo"
 
-		Public Function GetSPName(ByVal objInfo As ObjectInfo, Byval storedProcType As SPType) As String
-			Dim result As String = String.Empty
-			Select Case storedProcType
-				Case SPType.SPSelect
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.SelectPrefix, objInfo.ObjectName, objInfo.SelectSuffix)
-				Case SPType.SPInsert
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.InsertPrefix, objInfo.ObjectName, objInfo.InsertSuffix)
-				Case SPType.SPUpdate
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.UpdatePrefix, objInfo.ObjectName, objInfo.UpdateSuffix)
-				Case SPType.SPDelete
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.DeletePrefix, objInfo.ObjectName, objInfo.DeleteSuffix)
-				Case SPType.SPNameValueList
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.NameValueListPrefix, objInfo.ObjectName, objInfo.NameValueListSuffix)
-				Case SPType.SPList
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ListPrefix, objInfo.ObjectName, objInfo.ListSuffix)
-				Case SPType.SPExists
-'					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ExistsPrefix, objInfo.ObjectName, objInfo.ExistsSuffix)
-			End Select
-			Return result
-		End Function
+        <Category("2a. Stored Proc"), _
+        Description("Optional - The name of the Database Owner.")> _
+        Public Property DatabaseOwner() As String
+            Get
+                Return _databaseOwner
+            End Get
+            Set(ByVal value As String)
+                If value Is Nothing Then value = ""
+                _databaseOwner = value
+            End Set
+        End Property
+
+        Public Function GetSPName(ByVal objInfo As ObjectInfo, ByVal storedProcType As SPType) As String
+            Dim result As String = String.Empty
+            Select Case storedProcType
+                Case SPType.SPSelect
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.SelectPrefix, objInfo.ObjectName, objInfo.SelectSuffix)
+                Case SPType.SPInsert
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.InsertPrefix, objInfo.ObjectName, objInfo.InsertSuffix)
+                Case SPType.SPUpdate
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.UpdatePrefix, objInfo.ObjectName, objInfo.UpdateSuffix)
+                Case SPType.SPDelete
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.DeletePrefix, objInfo.ObjectName, objInfo.DeleteSuffix)
+                Case SPType.SPNameValueList
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.NameValueListPrefix, objInfo.ObjectName, objInfo.NameValueListSuffix)
+                Case SPType.SPList
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ListPrefix, objInfo.ObjectName, objInfo.ListSuffix)
+                Case SPType.SPExists
+                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ExistsPrefix, objInfo.ObjectName, objInfo.ExistsSuffix)
+            End Select
+            Return result
+        End Function
 
 #End Region
 

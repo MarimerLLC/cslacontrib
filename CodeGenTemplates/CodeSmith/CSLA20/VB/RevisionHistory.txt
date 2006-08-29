@@ -5,6 +5,7 @@
 
 History:
 0.9.5
+- Fix[JWT]: Fixed the CSLAXML.cst file so it will run in CodeSmith 2.6 removing the OptionalAttribute().
 - Fix[JWT]: Fixed spacing and formating issues on ReadOnlyRoot and fixed formatting and spacing issues and a missing End While on the ReadOnlyChildList.
 - Fix[JWT]: Fixed ValidationRules for EditableRoot SplitPartial Generated class. Also remove the not
             used AddCommonRules as all generated rules go into AddSharedCommonRules.

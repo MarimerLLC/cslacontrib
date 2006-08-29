@@ -8,7 +8,7 @@
 <%@ Property Name="OutputToFile" Type="System.Boolean" Optional="false" Category="0. Render Options" Description="Required - True to generate file, or False to preview on the screen" %>
 <script runat="template">
 	Private _xmlPath As String = ""
-	<Editor(GetType(System.Windows.Forms.Design.FileNameEditor), GetType(System.Drawing.Design.UITypeEditor)), Optionalattribute(), Category("0. Render Options"), Description("Required - The Xml file name to be generated.")> _
+	<Editor(GetType(System.Windows.Forms.Design.FileNameEditor), GetType(System.Drawing.Design.UITypeEditor)), Category("0. Render Options"), Description("Required - The Xml file name to be generated.")> _
 	Public Property XmlFileName As String 
 		Get 
 			Return _xmlPath
@@ -19,7 +19,7 @@
 	End Property
 	
 	Private _outputDirectory As String = "C:\\Projects"	'set your default directory here
-	<Editor(Gettype(System.Windows.Forms.Design.FolderNameEditor), Gettype(System.Drawing.Design.UITypeEditor)), OptionalAttribute(), Category("0. Render Options"), Description("Optional - The directory to which every output file is generated.")> _
+	<Editor(Gettype(System.Windows.Forms.Design.FolderNameEditor), Gettype(System.Drawing.Design.UITypeEditor)), Category("0. Render Options"), Description("Optional - The directory to which every output file is generated.")> _
 	Public Property OutputDirectory As String 
 		Get 
 			Return _outputDirectory

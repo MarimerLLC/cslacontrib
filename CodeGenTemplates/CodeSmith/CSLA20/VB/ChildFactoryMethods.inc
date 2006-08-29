@@ -37,8 +37,8 @@
 <% i+=1 %>
 <% If Not objInfo.IsCollection Then %>
 <%=GetFactoryNewAssignments(objInfo, i)%>
-<% End If %>
 <%=Indent(i)%>ValidationRules.CheckRules()
+<% End If %>
 <%=Indent(i)%>MarkAsChild()
 <% i-=1 %>
 <%=Indent(i)%>End Sub

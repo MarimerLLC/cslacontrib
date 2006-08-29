@@ -1,27 +1,29 @@
 ---------------------------------------------------
   CSLA 2.0 CodeSmith Templates for VB
   Version: 0.9.5 (release candidate)
-  Released: August, 11 2006
-  Author: Allan Nielsen
+  Released: August, 29 2006
+  Author: VB Team
   Download Site: http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=CSLAcontrib
   Workspace has moved from: http://workspaces.gotdotnet.com/cslavbtemplate
 ---------------------------------------------------
 
-This is a collection of CodeSmith templates to generate CSLA 2.0 business objects for VB.  I have converted the entire C# suite of templates to not only generate VB business objects but also to perform the task in VB.  All aspects of the C# version has been included in this version and the objects created will work in an identical fashion.  This includes support xml data source, view as data source, and partial class generation. 
+This is a collection of CodeSmith templates to generate CSLA 2.0 business objects for VB.  We have converted the entire C# suite of templates to not only generate VB business objects but also to perform the task in VB.  All aspects of the C# version has been included in this version and the objects created will work in an identical fashion.  This includes support xml data source, view as data source, and partial class generation. 
 
 Unlike version 1.x, these templates no longer used TableSchema and ColumnSchema directly as data source to generate Csla business object. The current template uses custom classes called ObjectInfo and PropertyInfo. This implementation permits one template to have multiple data sources such as table, view, and xml file.
 
 This collection of templates is design to work with the freeware version (v2.6) of CodeSmith as well as the retail version (v3.2). 
 
-This set of templates and the template base support code are provided free charge. You're free to use and modify anyway you want it. The only request is for you to give back and share any improvement made to these templates if you feel many would benefit from it.  I reserve the right to include (or not include) any of your improvements in future version and in return give credit to you.
+This set of templates and the template base support code are provided free charge. You're free to use and modify anyway you want it. The only request is for you to give back and share any improvement made to these templates if you feel many would benefit from it.  We reserve the right to include (or not include) any of your improvements in future version and in return give credit to you.
 
 Enjoy them,
-Allan Nielsen
+VB Team
 
 ===================================================
  Contributor(s)
 ===================================================
-- Ricky A. Supit (original C# version)
+- Allan Nielsen (Lead / Converted to VB)
+- Ricky A. Supit (Original C# version)
+- Jeff Turner (Developer)
 - Tom Cooley (TEC)
   Stored Procedure support.
   

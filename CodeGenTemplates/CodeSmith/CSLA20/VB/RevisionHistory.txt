@@ -5,6 +5,7 @@
 
 History:
 0.9.5
+- Fix[JWT]: Fixed a extra End If on the Dataportal_update for a EditableSwitchable (single).
 - Fix[JWT]: IsNot was replaces with Not Is to allow the templetes to run in CodeSmith 2.6
 - Fix(RAS): Missing CheckRules in Factory New method in EditableChild (single and split-partial).
 - Fix(RAS): Add call to Initialize method by overriding OnDeserialized in user class (split-partial).

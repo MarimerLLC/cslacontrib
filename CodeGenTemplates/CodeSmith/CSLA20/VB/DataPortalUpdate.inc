@@ -93,7 +93,6 @@
 <% If objInfo.UseAdoTransaction Then %>
 <%=Indent(i)%>tr.Commit()
 <% i-=1 %>
-<%=Indent(i)%>End If
 <%=Indent(i)%>Catch
 <%=Indent(i+1)%>tr.Rollback()
 <%=Indent(i+1)%>Throw

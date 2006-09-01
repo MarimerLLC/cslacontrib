@@ -37,6 +37,8 @@ Namespace CodeSmith.Csla
         Private Const DeleteCommandFormat As String = "esp_{0}_delete"
         'database connection format
         Private Const DbConnectionFormat As String = "Database.{0}Connection"
+        'database owner format
+        Private Const DbOwnerFormat As String = "[{0}]."
         'factory method formats
         Private Const FactoryNewFormat As String = "New{0}"
         Private Const FactoryGetFormat As String = "Get{0}"
@@ -56,7 +58,7 @@ Namespace CodeSmith.Csla
 #Region "Templates"
         'property template
         Private Const PROPERTY_TEMPLATE As String = "[BASEINDENT][COMMENT]" _
-+ "[ATTRIBUTE]" _
+    + "[ATTRIBUTE]" _
             + "[BASEINDENT][MODIFIERS] [READWRITE] Property [PROPNAME]() As [TYPE]" _
             + "[NOINLINE]" _
             + "[BASEINDENT][INDENT]Get" _
@@ -363,7 +365,8 @@ Namespace CodeSmith.Csla
             str = Regex.Replace(str, "\[\w+\]", "")   'clean up unused tags.
             Return str
         End Function
-#End Region     'Properties and Methods
+
+#End Region                     'Properties and Methods
 
 #Region " Validation Rules "
         ''' <summary>
@@ -416,7 +419,7 @@ Namespace CodeSmith.Csla
             End If
             Return rules
         End Function
-#End Region     'Validation Rules
+#End Region                     'Validation Rules
 
 #Region " Data Access "
         ''' <summary>
@@ -491,6 +494,29 @@ Namespace CodeSmith.Csla
         End Function
 
         ''' <summary>
+        ''' return paramenter assignments for insert sql store procedure
+        ''' </summary>
+        ''' <param name="obj"></param>
+        ''' <param name="level"></param>
+        ''' <returns></returns>
+        Public Function GetInsertSqlParameters(ByVal obj As ObjectInfo, ByVal level As Integer) As String
+            Dim statement As String = String.Empty
+            Dim outputStatement As String = String.Empty
+
+            For Each prop As PropertyInfo In obj.Properties
+                If prop.UpdateToDb Then
+                    If Not prop.IsDbComputed Then
+                        statement += GetSqlParameterStatement(prop, String.Empty, "Me", True, level)
+                    Else
+                        outputStatement += GetSqlParameterStatement(prop, "new_", "Me", False, level)
+                    End If
+                End If
+            Next
+            If statement.Length > 0 Then statement = statement.Substring(2)
+            Return statement + outputStatement
+        End Function
+
+        ''' <summary>
         ''' return paramenter assignments for update command
         ''' </summary>
         ''' <param name="obj"></param>
@@ -543,6 +569,19 @@ Namespace CodeSmith.Csla
             statement = Indent(level, True) + DalHelper.ParameterAssignmentStatement(parPrefix + prop.DbColumnName, varName)
             If Not input Then
                 statement += Indent(level, True) + String.Format("cm.Parameters(""@{0}"").Direction = ParameterDirection.Output", parPrefix + prop.DbColumnName)
+            End If
+            Return statement
+        End Function
+
+        ' internal method that return parameter assigment
+        Public Function GetSqlParameterStatement(ByVal prop As PropertyInfo, ByVal parPrefix As String, ByVal varPrefix As String, ByVal input As Boolean, ByVal level As Integer) As String
+            If Not prop.HasDbColumn Then Return String.Empty
+            Dim statement As String = String.Empty
+            Dim varName As String
+
+            statement = Indent(level, True) + "@" + parPrefix + prop.DbColumnName + " As " + prop.SqlType
+            If Not input Then
+                statement += " OUTPUT"
             End If
             Return statement
         End Function
@@ -762,14 +801,14 @@ Namespace CodeSmith.Csla
 
             If (NewLine) Then str = Environment.NewLine
             If (IndentLevelSpaces > 0) Then
-                str += New String(" ", level * IndentLevelSpaces)
+                str += New String(" "c, level * IndentLevelSpaces)
             Else
                 Dim tab As Char = Strings.Chr(9)
                 str += New String(tab, level)
             End If
             Return str
         End Function
-#End Region     'Indent
+#End Region                     'Indent
 #End Region
 
 #Region " Object Class "
@@ -808,7 +847,7 @@ Namespace CodeSmith.Csla
                     Return Parent + ParentSuffix
                 End Get
             End Property
-#End Region     'Parent Properties
+#End Region                     'Parent Properties
 
 #Region " Child Properties "
             Public ReadOnly Property ChildType() As String
@@ -840,7 +879,7 @@ Namespace CodeSmith.Csla
                     Return Child + ChildSuffix
                 End Get
             End Property
-#End Region     'Child Properties
+#End Region                     'Child Properties
 
 #Region " Properties "
             Private _objectName As String
@@ -909,7 +948,7 @@ Namespace CodeSmith.Csla
                     Return _objectType
                 End Get
             End Property
-#End Region     'Properties
+#End Region                     'Properties
 
 #Region " Methods "
             Public ReadOnly Property MemberAccess() As String
@@ -1227,6 +1266,18 @@ Namespace CodeSmith.Csla
                     Return String.Format(DbConnectionFormat, _dbName)
                 End Get
             End Property
+            Dim _dbOwner As String = String.Empty
+            Public ReadOnly Property DbOwner() As String
+                Get
+                    Return String.Format(DbOwnerFormat, _dbOwner)
+                End Get
+            End Property
+            Dim _dbTableOrViewName As String = String.Empty
+            Public ReadOnly Property TableOrViewName() As String
+                Get
+                    Return _dbTableOrViewName
+                End Get
+            End Property
             Public ReadOnly Property FetchCommandText() As String
                 Get
                     If (Not _rootCommand Is Nothing) Then
@@ -1286,7 +1337,7 @@ Namespace CodeSmith.Csla
                 While xtr.Read()
                     If (xtr.NodeType = XmlNodeType.Element AndAlso xtr.LocalName.ToLower() = "object") Then
                         If (xtr.GetAttribute("name") = _objectName) Then
-                            _objectType = [Enum].Parse(GetType(ObjectType), xtr.GetAttribute("type"), True)
+                            _objectType = CType([Enum].Parse(GetType(ObjectType), xtr.GetAttribute("type"), True), ObjectType)
                             _child = xtr.GetAttribute("child")
                             _parent = xtr.GetAttribute("parent")
 
@@ -1321,7 +1372,7 @@ Namespace CodeSmith.Csla
             End Sub
 
             Private Sub LoadFromSchema(ByVal template As CodeTemplate)
-                _objectType = TemplateHelper.ToObjectType(template.CodeTemplateInfo)
+                _objectType = TemplateHelper.ToObjectType(template)
 
                 'object, child, and parent name
                 _objectName = CType(template.GetProperty("ObjectName"), String)
@@ -1387,6 +1438,8 @@ Namespace CodeSmith.Csla
 
             Private Sub LoadProperties(ByVal table As TableSchema)
                 _dbName = table.Database.Name
+                _dbOwner = table.Owner
+                _dbTableOrViewName = table.Name
                 Dim col As ColumnSchema
                 For Each col In table.Columns
                     Dim prop As PropertyInfo = New PropertyInfo(col, Me)
@@ -1403,6 +1456,8 @@ Namespace CodeSmith.Csla
 
             Private Sub LoadProperties(ByVal view As ViewSchema, ByVal uniqueColumns As StringCollection, ByVal filterColumns As StringCollection)
                 _dbName = view.Database.Name
+                _dbOwner = view.Owner
+                _dbTableOrViewName = view.Name
                 Dim col As ViewColumnSchema
                 For Each col In view.Columns
                     'need case insensitive
@@ -1424,6 +1479,8 @@ Namespace CodeSmith.Csla
 
             Private Sub LoadProperties(ByVal command As CommandSchema, ByVal resultSetIndex As Integer, ByVal uniqueColumns As StringCollection, ByVal filterColumns As StringCollection)
                 _dbName = command.Database.Name
+                _dbOwner = command.Owner
+                _dbTableOrViewName = ""
 
                 Dim col As CommandResultColumnSchema
                 For Each col In command.CommandResults(resultSetIndex).Columns
@@ -1465,7 +1522,7 @@ Namespace CodeSmith.Csla
                     Throw New Exception("Child is required.")
                 End If
             End Sub
-#End Region     'Constructors
+#End Region                     'Constructors
         End Class
 #End Region
 
@@ -1474,6 +1531,7 @@ Namespace CodeSmith.Csla
             Private _parent As ObjectInfo
             Private _name As String
             Private _type As String
+            Private _sqlType As String
             Private _access As String = "Public"
             Private _defaultValue As String = String.Empty
             Private _dbColumnName As String = String.Empty
@@ -1499,6 +1557,12 @@ Namespace CodeSmith.Csla
             Public ReadOnly Property Type() As String
                 Get
                     Return _type
+                End Get
+            End Property
+
+            Public ReadOnly Property SqlType() As String
+                Get
+                    Return _sqlType
                 End Get
             End Property
 
@@ -1688,6 +1752,7 @@ Namespace CodeSmith.Csla
                 _name = VbHelper.GetPropertyName(col)
 
                 _type = VbHelper.GetVariableType(col)
+                _sqlType = VbHelper.GetSqlType(col)
                 _defaultValue = VbHelper.GetDefaultValue(col)
                 _isIdentity = VbHelper.IsIdentity(col)
                 If TypeOf (col) Is ColumnSchema Then
@@ -1755,7 +1820,7 @@ Namespace CodeSmith.Csla
                 Return String.Empty
             End Function
         End Class
-#End Region     'Dal Helper
+#End Region                     'Dal Helper
 
 #Region " Column VbHelper "
         Public Class VbHelper
@@ -2016,6 +2081,63 @@ Namespace CodeSmith.Csla
                 End Select
             End Function
 
+            Public Shared Function GetSqlType(ByVal col As DataObjectBase) As String
+                Select Case col.NativeType
+                    Case "bigint"
+                        Return "BigInt"
+                    Case "binary"
+                        Return "Binary(" & col.Size.ToString & ")"
+                    Case "bit"
+                        Return "Bit"
+                    Case "char"
+                        Return "Char(" & col.Size.ToString & ")"
+                    Case "datetime"
+                        Return "DateTime"
+                    Case "decimal"
+                        Return "Decimal(" & col.Precision.ToString & "," & col.Scale.ToString & ")"
+                    Case "float"
+                        Return "Float"
+                    Case "image"
+                        Return "Image"
+                    Case "int"
+                        Return "Int"
+                    Case "money"
+                        Return "Money"
+                    Case "nchar"
+                        Return "NChar(" & col.Size.ToString & ")"
+                    Case "ntext"
+                        Return "NText"
+                    Case "numeric"
+                        Return "Numeric(" & col.Precision.ToString & "," & col.Scale.ToString & ")"
+                    Case "nvarchar"
+                        Return "NVarChar(" & col.Size.ToString & ")"
+                    Case "real"
+                        Return "Real"
+                    Case "smalldatetime"
+                        Return "SmallDateTime"
+                    Case "smallint"
+                        Return "SmallInt"
+                    Case "smallmoney"
+                        Return "SmallMoney"
+                    Case "sql_variant"
+                        Return "Variant"
+                    Case "text"
+                        Return "Text"
+                    Case "timestamp"
+                        Return "Timestamp"
+                    Case "tinyint"
+                        Return "TinyInt"
+                    Case "uniqueidentifier"
+                        Return "UniqueIdentifier"
+                    Case "varbinary"
+                        Return "VarBinary(" & col.Size.ToString & ")"
+                    Case "varchar"
+                        Return "VarChar(" & col.Size.ToString & ")"
+                    Case Else
+                        Return "__UNKNOWN__" & col.NativeType
+                End Select
+            End Function
+
             Public Shared Function IsIdentity(ByVal col As DataObjectBase) As Boolean
                 If (col.ExtendedProperties("CS_IsIdentity") Is Nothing) Then Return False
                 Return CType(col.ExtendedProperties("CS_IsIdentity").Value, Boolean)
@@ -2045,15 +2167,15 @@ Namespace CodeSmith.Csla
 
             Public Shared Function IsObjectType(ByVal info As ICodeTemplateInfo) As Boolean
                 Select Case info.FileName.ToLower()
-                    Case "editableroot.cst", "editablerootlist.cst", "editablechild.cst", "editablechildlist.cst", "editableswitchable.cst", "namevaluelist.cst", "readonlyroot.cst", "readonlyrootlist.cst", "readonlychild.cst", "readonlychildlist.cst"
+                    Case "editableroot.cst", "editablerootlist.cst", "editablechild.cst", "editablechildlist.cst", "editableswitchable.cst", "namevaluelist.cst", "readonlyroot.cst", "readonlyrootlist.cst", "readonlychild.cst", "readonlychildlist.cst", "storeprocedures.cst"
                         Return True
                     Case Else
                         Return False
                 End Select
             End Function
 
-            Public Shared Function ToObjectType(ByVal info As ICodeTemplateInfo) As ObjectType
-                Select Case info.FileName.ToLower()
+            Public Shared Function ToObjectType(ByVal templete As CodeTemplate) As ObjectType
+                Select Case templete.CodeTemplateInfo.FileName.ToLower()
                     Case "editableroot.cst"
                         Return ObjectType.EditableRoot
                     Case "editablerootlist.cst"
@@ -2074,6 +2196,8 @@ Namespace CodeSmith.Csla
                         Return ObjectType.ReadOnlyChild
                     Case "readonlychildlist.cst"
                         Return ObjectType.ReadOnlyChildList
+                    Case "storeprocedures.cst"
+                        Return CType(templete.GetProperty("ObjectType"), ObjectType)
                 End Select
                 Throw New ArgumentOutOfRangeException("Template is not an Object Type template")
             End Function
@@ -2149,45 +2273,6 @@ Namespace CodeSmith.Csla
             EnterpriseService
             TransactionScope
         End Enum
-
-#End Region
-
-#Region " Stored Procedures "
-
-        Private _databaseOwner As String = "dbo"
-
-        <Category("2a. Stored Proc"), _
-        Description("Optional - The name of the Database Owner.")> _
-        Public Property DatabaseOwner() As String
-            Get
-                Return _databaseOwner
-            End Get
-            Set(ByVal value As String)
-                If value Is Nothing Then value = ""
-                _databaseOwner = value
-            End Set
-        End Property
-
-        Public Function GetSPName(ByVal objInfo As ObjectInfo, ByVal storedProcType As SPType) As String
-            Dim result As String = String.Empty
-            Select Case storedProcType
-                Case SPType.SPSelect
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.SelectPrefix, objInfo.ObjectName, objInfo.SelectSuffix)
-                Case SPType.SPInsert
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.InsertPrefix, objInfo.ObjectName, objInfo.InsertSuffix)
-                Case SPType.SPUpdate
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.UpdatePrefix, objInfo.ObjectName, objInfo.UpdateSuffix)
-                Case SPType.SPDelete
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.DeletePrefix, objInfo.ObjectName, objInfo.DeleteSuffix)
-                Case SPType.SPNameValueList
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.NameValueListPrefix, objInfo.ObjectName, objInfo.NameValueListSuffix)
-                Case SPType.SPList
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ListPrefix, objInfo.ObjectName, objInfo.ListSuffix)
-                Case SPType.SPExists
-                    '					Return String.Format("[{0}].[{1}{2}{3}]", DatabaseOwner, objInfo.ExistsPrefix, objInfo.ObjectName, objInfo.ExistsSuffix)
-            End Select
-            Return result
-        End Function
 
 #End Region
 

@@ -502,18 +502,21 @@ Namespace CodeSmith.Csla
         Public Function GetInsertSqlParameters(ByVal obj As ObjectInfo, ByVal level As Integer) As String
             Dim statement As String = String.Empty
             Dim outputStatement As String = String.Empty
+            Dim fullStatement As String = String.Empty
 
-            For Each prop As PropertyInfo In obj.Properties
+            For i As Int32 = 0 To obj.Properties.Count - 1
+                Dim prop As PropertyInfo = CType(obj.Properties.Item(i), PropertyInfo)
                 If prop.UpdateToDb Then
                     If Not prop.IsDbComputed Then
-                        statement += GetSqlParameterStatement(prop, String.Empty, "Me", True, level)
+                        statement += GetSqlParameterStatement(prop, String.Empty, "Me", True, level) + ","
                     Else
-                        outputStatement += GetSqlParameterStatement(prop, "new_", "Me", False, level)
+                        outputStatement += GetSqlParameterStatement(prop, "new_", "Me", False, level) + ","
                     End If
                 End If
             Next
             If statement.Length > 0 Then statement = statement.Substring(2)
-            Return statement + outputStatement
+            fullStatement = statement + outputStatement
+            Return fullStatement.Substring(0, fullStatement.Length - 1)
         End Function
 
         ''' <summary>

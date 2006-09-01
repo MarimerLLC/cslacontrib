@@ -75,7 +75,7 @@ namespace Csla
 		/// <param name="direction">The direction by which to sort.</param>
 		/// <param name="filter">The filter to apply.</param>
 		public ObjectListView(IList list, string propertyName, ListSortDirection direction, string filter)
-			: this(list, TypeDescriptor.GetProperties(list.GetType().GetProperty("Item").PropertyType)[propertyName], direction, filter)
+			: this(list, TypeDescriptor.GetProperties(list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType)[propertyName], direction, filter)
 		{
 		}
 
@@ -102,7 +102,7 @@ namespace Csla
 			if (filter == null) filter = string.Empty;
 
 			_list = list;
-			_indexedType = _list.GetType().GetProperty("Item").PropertyType;
+			_indexedType = _list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType;
 			_objectProperties = TypeDescriptor.GetProperties(_indexedType);
 
 			foreach (PropertyDescriptor prop in _objectProperties)
@@ -1352,7 +1352,7 @@ namespace Csla
 			{
 				// Return properties in sort order.
 				return TypeDescriptor.GetProperties(
-					_list.GetType().GetProperty("Item").PropertyType,
+					_list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType,
 					new Attribute[] { new BrowsableAttribute(true) }).Sort();
 			}
 			else
@@ -1366,7 +1366,7 @@ namespace Csla
 
 		string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
 		{
-			return _list.GetType().GetProperty("Item").PropertyType.Name;
+			return _list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType.Name;
 		}
 
 		#endregion

@@ -71,7 +71,7 @@ GO
 
 CREATE Procedure <%=objInfo.DbOwner%>[<%=objInfo.FetchCommandText%>]
 	<% For i AS Int32 = 0 To objInfo.UniqueProperties.Count - 1 %>
-	@<%=objInfo.UniqueProperties.Item(i).Name%> AS <%=objInfo.UniqueProperties.Item(i).SqlType%>
+	@<%=objInfo.UniqueProperties.Item(i).DbColumnName%> AS <%=objInfo.UniqueProperties.Item(i).SqlType%>
 	<% Next %>
 AS
 /******************************************************************************
@@ -96,9 +96,9 @@ SELECT
 	[<%=objInfo.Properties.Item(i).DbColumnName%>]<% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
 	<% Next %>
 FROM <%=objInfo.DbOwner%>[<%=objInfo.TableOrViewName%>]
-WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).Name%>
+WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).DbColumnName%>
 <% For i AS Int32 = 1 To objInfo.UniqueProperties.Count - 1 %>
-AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).Name%>
+AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).DbColumnName%>
 <% Next %>
 
 GO
@@ -146,7 +146,7 @@ SET NOCOUNT ON
 
 <% For i AS Int32 = 0 To objInfo.UniqueProperties.Count - 1 %>
 <% If objInfo.UniqueProperties.Item(i).SqlType = "UniqueIdentifier" Then %>
-SET @new_<%=objInfo.UniqueProperties.Item(i).Name%> = NEWID()
+SET @new_<%=objInfo.UniqueProperties.Item(i).DbColumnName%> = NEWID()
 
 <% End If %>
 <% Next %>
@@ -159,14 +159,14 @@ INSERT INTO <%=objInfo.DbOwner%>[<%=objInfo.TableOrViewName%>] (
 ) VALUES (
 	<% For i AS Int32 = 0 To objInfo.Properties.Count - 1 %>
 	<% If Not objInfo.Properties.Item(i).IsIdentity Then %>
-	@<% If objInfo.Properties.Item(i).IsDbComputed Then %>new_<% End If %><%=objInfo.Properties.Item(i).Name%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
+	@<% If objInfo.Properties.Item(i).IsDbComputed Then %>new_<% End If %><%=objInfo.Properties.Item(i).DbColumnName%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
 	<% End If %>
 	<% Next %>
 )
 
 <% For i AS Int32 = 0 To objInfo.Properties.Count - 1 %>
 <% If objInfo.Properties.Item(i).IsIdentity Then  %>
-SET @new_<%=objInfo.Properties.Item(i).Name%> = @@IDENTITY
+SET @new_<%=objInfo.Properties.Item(i).DbColumnName%> = @@IDENTITY
 
 <% End If %>
 <% Next %>
@@ -194,7 +194,7 @@ GO
 
 CREATE Procedure <%=objInfo.DbOwner%>[<%=objInfo.UpdateCommandText%>]
 	<% For i AS Int32 = 0 To objInfo.Properties.Count - 1 %>
-	@<%=objInfo.Properties.Item(i).Name%> AS <%=objInfo.Properties.Item(i).SqlType%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
+	@<%=objInfo.Properties.Item(i).DbColumnName%> AS <%=objInfo.Properties.Item(i).SqlType%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
 	<% Next %>
 AS
 /******************************************************************************
@@ -217,12 +217,12 @@ SET NOCOUNT ON
 UPDATE <%=objInfo.DbOwner%>[<%=objInfo.TableOrViewName%>] SET
 	<% For i AS Int32 = 0 To objInfo.Properties.Count - 1 %>
 	<% If Not objInfo.Properties.Item(i).IsPrimaryKey Then %>
-	[<%=objInfo.Properties.Item(i).DbColumnName%>] = @<%=objInfo.Properties.Item(i).Name%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
+	[<%=objInfo.Properties.Item(i).DbColumnName%>] = @<%=objInfo.Properties.Item(i).DbColumnName%><% If i < (objInfo.Properties.Count - 1) Then %>,<% End If %>
 	<% End If %>
 	<% Next %>
-WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).Name%>
+WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).DbColumnName%>
 <% For i AS Int32 = 1 To objInfo.UniqueProperties.Count - 1 %>
-AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).Name%>
+AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).DbColumnName%>
 <% Next %>
 
 GO
@@ -248,7 +248,7 @@ GO
 
 CREATE Procedure <%=objInfo.DbOwner%>[<%=objInfo.DeleteCommandText%>]
 	<% For i AS Int32 = 0 To objInfo.UniqueProperties.Count - 1 %>
-	@<%=objInfo.UniqueProperties.Item(i).Name%> AS <%=objInfo.UniqueProperties.Item(i).SqlType%>
+	@<%=objInfo.UniqueProperties.Item(i).DbColumnName%> AS <%=objInfo.UniqueProperties.Item(i).SqlType%>
 	<% Next %>
 AS
 /******************************************************************************
@@ -269,9 +269,9 @@ AS
 SET NOCOUNT ON
 
 DELETE FROM <%=objInfo.DbOwner%>[<%=objInfo.TableOrViewName%>]
-WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).Name%>
+WHERE [<%=objInfo.UniqueProperties.Item(0).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(0).DbColumnName%>
 <% For i AS Int32 = 1 To objInfo.UniqueProperties.Count - 1 %>
-AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).Name%>
+AND [<%=objInfo.UniqueProperties.Item(i).DbColumnName%>] = @<%=objInfo.UniqueProperties.Item(i).DbColumnName%>
 <% Next %>
 
 GO

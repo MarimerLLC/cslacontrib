@@ -192,7 +192,7 @@ SET @New<%= primaryKeyColumn.Name %> = NEWID()
 <% } %>
 INSERT INTO <%= GetTableOwner() %>[<%= SourceTable.Name %>] (
 	<% if (primaryKeyColumn.DataType == DbType.Guid) { %>
-	[<%= primaryKeyColumn.Name %>],
+	[@New<%= primaryKeyColumn.Name %>],
 	<% } %>
 	<% GenerateColumns(FilterReadOnlyAndExcludedColumns(SourceTable.NonPrimaryKeyColumns), 1); %>
 ) VALUES (
@@ -1119,27 +1119,6 @@ public override string GetFileName()
 	{
 		return base.GetFileName();
 	}
-}
-
-// Override the OutputFile property and assign our specific settings to it.
-[Category("2. Options")]
-[FileDialog(FileDialogType.Save, Title="Select Output File", Filter="Query Files (*.sql)|*.sql|All Files (*.*)|*.*", DefaultExtension=".sql")]
-public override string OutputFile
-{
-	get {return base.OutputFile;}
-	set {base.OutputFile = value;}
-}
-
-protected override void OnPostRender(string result) 
-{
-	if (this.AutoExecuteScript)
-	{
-		// execute the output on the same database as the source table.
-		CodeSmith.BaseTemplates.ScriptResult scriptResult = CodeSmith.BaseTemplates.ScriptUtility.ExecuteScript(this.SourceTable.Database.ConnectionString, result, new System.Data.SqlClient.SqlInfoMessageEventHandler(cn_InfoMessage)); 
-		Trace.Write(scriptResult.ToString());
-	}
-	
-	base.OnPostRender(result);
 }
 
 private void cn_InfoMessage(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e)

@@ -40,6 +40,11 @@ using Csla.Data;
 <%=Indent(i)%>//executeFetchDelegate = executeFetch;
 <%=Indent(i)%>//executeFetchCompleteDelegate = executeFetchComplete;
 <%=Indent(--i)%>}
+
+<%=Indent(i)%>protected override void OnDeserialized(System.Runtime.Serialization.StreamingContext context)
+<%=Indent(i++)%>{
+<%=Indent(i)%>Initialize();
+<%=Indent(--i)%>}
 <%=Indent(i)%>#endregion //Initialize
 <%}%>
 <% if(objInfo.IsGeneratedClass && (objInfo.HasIdentity || objInfo.HasObjectGeneratedKey)) {%>
@@ -155,6 +160,7 @@ using Csla.Data;
 <%=Indent(i)%>// Fetch
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, FilterCriteria> executeFetchDelegate = null;
 <%=Indent(i)%>private bool onExecuteFetch(<%if(objInfo.UseAdoTransaction){%>SqlTransaction tr<%}else{%>SqlConnection cn<%}%>, FilterCriteria criteria)
 <%=Indent(i++)%>{
@@ -163,6 +169,7 @@ using Csla.Data;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private actionEx<SqlCommand, FilterCriteria> executeFetchCompleteDelegate = null;
 <%=Indent(i)%>private void onExecuteFetchComplete(SqlCommand cm, FilterCriteria criteria)
 <%=Indent(i++)%>{

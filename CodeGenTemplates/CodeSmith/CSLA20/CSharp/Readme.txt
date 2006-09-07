@@ -1,10 +1,10 @@
 ---------------------------------------------------
   CSLA 2.0 CodeSmith Templates for C#
-  Version: 0.9.5 (release candidate)
-  Released: August, 1 2006
+  Version: 1.0.0 (release)
+  Released: September 7, 2006
   Author: Ricky A. Supit (rsupit@hotmail.com)
   Download Site: http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=CSLAcontrib
-  Workspace has moved from: http://workspaces.gotdotnet.com/cslacstemplate
+  Workspace was moved from: http://workspaces.gotdotnet.com/cslacstemplate
   
 ---------------------------------------------------
 

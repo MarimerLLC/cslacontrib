@@ -96,6 +96,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Business Rules
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private rulesAction addCustomRulesDelegate = null;
 <%=Indent(i)%>private void onAddCustomRules()
 <%=Indent(i++)%>{
@@ -106,6 +107,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Fetch
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, Criteria> executeFetchDelegate = null;
 <%=Indent(i)%>private bool onExecuteFetch(<%if(objInfo.UseAdoTransaction){%>SqlTransaction tr<%}else{%>SqlConnection cn<%}%>, Criteria criteria)
 <%=Indent(i++)%>{
@@ -114,6 +116,7 @@ using Csla.Validation;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private actionEx<SqlCommand, Criteria> executeFetchCompleteDelegate = null;
 <%=Indent(i)%>private void onExecuteFetchComplete(SqlCommand cm, Criteria criteria)
 <%=Indent(i++)%>{
@@ -121,6 +124,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>executeFetchCompleteDelegate(cm, criteria);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private Action<SafeDataReader> fetchObjectCompleteDelegate = null;
 <%=Indent(i)%>private void onFetchObjectComplete(SafeDataReader dr)
 <%=Indent(i++)%>{
@@ -128,6 +132,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>fetchObjectCompleteDelegate(dr);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private Action<SafeDataReader> fetchChildrenCompleteDelegate = null;
 <%=Indent(i)%>private void onFetchChildrenComplete(SafeDataReader dr)
 <%=Indent(i++)%>{
@@ -138,6 +143,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Insert
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, <%=objInfo.ParentType%>> executeInsertDelegate = null;
 <%} else {%>
@@ -150,6 +156,7 @@ using Csla.Validation;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private actionEx<SqlCommand, <%=objInfo.ParentType%>> executeInsertCompleteDelegate = null;
 <%} else {%>
@@ -161,6 +168,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>executeInsertCompleteDelegate(cm<%if(objInfo.IsChild && objInfo.ParentType.Length>0){%>, parent<%}%>);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private actionEx<SqlCommand, <%=objInfo.ParentType%>> addInsertParamatersCompleteDelegate = null;
 <%} else {%>
@@ -175,6 +183,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Update
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, <%=objInfo.ParentType%>> executeUpdateDelegate = null;
 <%} else {%>
@@ -187,6 +196,7 @@ using Csla.Validation;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private actionEx<SqlCommand, <%=objInfo.ParentType%>> executeUpdateCompleteDelegate = null;
 <%} else {%>
@@ -198,6 +208,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>executeUpdateCompleteDelegate(cm<%if(objInfo.IsChild && objInfo.ParentType.Length>0){%>, parent<%}%>);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <% if(objInfo.IsChild && objInfo.ParentType.Length>0) {%>
 <%=Indent(i)%>private actionEx<SqlCommand, <%=objInfo.ParentType%>> addUpdateParamatersCompleteDelegate = null;
 <%} else {%>
@@ -209,6 +220,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>addUpdateParamatersCompleteDelegate(cm<%if(objInfo.IsChild && objInfo.ParentType.Length>0){%>, parent<%}%>);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private Action<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>> updateChildrenCompleteDelegate = null;
 <%=Indent(i)%>private void onUpdateChildrenComplete(<%if(objInfo.UseAdoTransaction){%>SqlTransaction tr<%}else{%>SqlConnection cn<%}%>)
 <%=Indent(i++)%>{
@@ -219,6 +231,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Delete
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, Criteria> executeDeleteDelegate = null;
 <%=Indent(i)%>private bool onExecuteDelete(<%if(objInfo.UseAdoTransaction){%>SqlTransaction tr<%}else{%>SqlConnection cn<%}%>, Criteria criteria)
 <%=Indent(i++)%>{
@@ -227,6 +240,7 @@ using Csla.Validation;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private actionEx<SqlCommand, Criteria> executeDeleteCompleteDelegate = null;
 <%=Indent(i)%>private void onExecuteDeleteComplete(SqlCommand cm, Criteria criteria)
 <%=Indent(i++)%>{

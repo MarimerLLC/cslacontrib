@@ -64,6 +64,7 @@ using Csla.Validation;
 <%=Indent(i)%>// Fetch
 <%=Indent(i)%>//
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private predicateEx<<%if(objInfo.UseAdoTransaction){%>SqlTransaction<%}else{%>SqlConnection<%}%>, Criteria> executeFetchDelegate = null;
 <%=Indent(i)%>private bool onExecuteFetch(<%if(objInfo.UseAdoTransaction){%>SqlTransaction tr<%}else{%>SqlConnection cn<%}%>, Criteria criteria)
 <%=Indent(i++)%>{
@@ -72,6 +73,7 @@ using Csla.Validation;
 <%=Indent(i)%>return true;
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private actionEx<SqlCommand, Criteria> executeFetchCompleteDelegate = null;
 <%=Indent(i)%>private void onExecuteFetchComplete(SqlCommand cm, Criteria criteria)
 <%=Indent(i++)%>{
@@ -79,6 +81,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>executeFetchCompleteDelegate(cm, criteria);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private Action<SafeDataReader> fetchObjectCompleteDelegate = null;
 <%=Indent(i)%>private void onFetchObjectComplete(SafeDataReader dr)
 <%=Indent(i++)%>{
@@ -86,6 +89,7 @@ using Csla.Validation;
 <%=Indent(i+1)%>fetchObjectCompleteDelegate(dr);
 <%=Indent(--i)%>}
 <%=Indent(i)%>[NonSerialized()]
+<%=Indent(i)%>[NotUndoable()]
 <%=Indent(i)%>private Action<SafeDataReader> fetchChildrenCompleteDelegate = null;
 <%=Indent(i)%>private void onFetchChildrenComplete(SafeDataReader dr)
 <%=Indent(i++)%>{

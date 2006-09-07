@@ -4,6 +4,9 @@
 ---------------------------------------------------
 
 History:
+1.0.0	9/7/06
+- Enh(RAS): Add NotUndoable attribute on all delegates.
+- Fix(RAS): Missing override OnDesirialized to call Initialize in EditableRootList. 
 - Fix(RAS): EditableChildList generates Validation.CheckRules in constructor. (2215)
 - Enh(RAS): Change test for empty string in GetDefaultConditionStatement to improve performance (fxcop:ca1820). (2217)
 - Fix(RAS): When property name is blank, code was generated with no error being thrown. (1588)

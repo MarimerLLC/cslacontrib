@@ -40,10 +40,18 @@ Imports Csla.Validation
 <!-- #INCLUDE FILE="ObjectFactoryMethods.inc" -->
 <%=Indent(0, true)%>#Region " Child Factory Methods "
 <% If objInfo.IsGeneratedClass Then %>
+<% Dim cPars as String = GetFactoryNewCallArguments(objInfo) %>
+<% If Not objInfo.IsGeneratedBase And cPars.Length > 0 Then %>
+<%=Indent(i, true)%>Private Sub New(<%=GetFactoryNewDeclarationArguments(objInfo)%>)
+<% i+=1 %>
+<%=GetFactoryNewAssignments(objInfo, i)%>
+<% i-=1 %>
+<%=Indent(i)%>End Sub
+<% End If %>
 <%=Indent(i, True)%>Friend Shared Function <%=objInfo.NewMethodName%>Child(<%=GetFactoryNewDeclarationArguments(objInfo)%>) As <%=objInfo.Type%>
 <% i+=1 %>
 <% If objInfo.IsGeneratedBase Then 'abstract-child cannot use constructor %>
-<%=Indent(i)%>Dim child As <%=objInfo.Type%> = DataPortal.Create(Of <%=objInfo.Type%>)(<% Dim cPars As String = GetFactoryNewCallArguments(objInfo): If cPars.Length > 0 Then%>New Criteria(<%=cPars%>)<%End If%>)
+<%=Indent(i)%>Dim child As <%=objInfo.Type%> = DataPortal.Create(Of <%=objInfo.Type%>)(<% If cPars.Length > 0 Then %>New Criteria(<%=cPars%>)<%End If%>)
 <% Else %>
 <%=Indent(i)%>Dim child As <%=objInfo.Type%> = New <%=objInfo.Name%>(<%=GetFactoryNewCallArguments(objInfo)%>)
 <% End If %>

@@ -3,9 +3,12 @@
 ---------------------------------------------------
 
 History:
-0.9.5
+
+- Fix[JWT]: Fixed the constructor when table has multiple column keys for EditableSwitchable.
 - Fix[JWT]: Fixed calling the property instead of the DB Column Name in store procedure template.
 - Fix[JWT]: Added StoreProcedure.cst and supporting chnages into TempleteBase.
+
+0.9.5
 - Fix[JWT]: Fixed the CSLAXML.cst file so it will run in CodeSmith 2.6 removing the OptionalAttribute().
 - Fix[JWT]: Fixed spacing and formating issues on ReadOnlyRoot and fixed formatting and spacing issues and a missing End While on the ReadOnlyChildList.
 - Fix[JWT]: Fixed ValidationRules for EditableRoot SplitPartial Generated class. Also remove the not

@@ -75,7 +75,7 @@ namespace Csla
 		/// <param name="direction">The direction by which to sort.</param>
 		/// <param name="filter">The filter to apply.</param>
 		public ObjectListView(IList list, string propertyName, ListSortDirection direction, string filter)
-			: this(list, TypeDescriptor.GetProperties(list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType)[propertyName], direction, filter)
+			: this(list, new ObjectView.ObjectViewPropertyDescriptor(TypeDescriptor.GetProperties(list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType)[propertyName]), direction, filter)
 		{
 		}
 
@@ -103,7 +103,12 @@ namespace Csla
 
 			_list = list;
 			_indexedType = _list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType;
-			_objectProperties = TypeDescriptor.GetProperties(_indexedType);
+			_objectProperties = new PropertyDescriptorCollection(null);
+			PropertyDescriptorCollection props = TypeDescriptor.GetProperties(_indexedType);
+			for (int i = 0; i < props.Count; i++)
+			{
+				_objectProperties.Add(new ObjectView.ObjectViewPropertyDescriptor(props[i]));
+			}
 
 			foreach (PropertyDescriptor prop in _objectProperties)
 			{
@@ -155,11 +160,11 @@ namespace Csla
 
 						if (addedItem.Visible)
 						{
-							this.OnListChanged(ListChangedType.ItemAdded, this.InsertInOrder(addedItem));
+							this.OnListChanged(ListChangedType.ItemAdded, this.InsertInOrder(addedItem, 0, _sortIndex.Count));
 						}
 						else
 						{
-							this.InsertInOrder(addedItem);
+							this.InsertInOrder(addedItem, 0, _sortIndex.Count);
 						}
 					}
 
@@ -245,19 +250,24 @@ namespace Csla
 
 			if (index > 0)
 			{
-				needsSorting = CompareObject(_list[baseIndex], _list[_sortIndex[index - 1].BaseIndex]) < 0;
+				needsSorting = CompareObject(changedItem, _sortIndex[index - 1]) < 0;
+
+				if (needsSorting)
+				{
+					_sortIndex.RemoveAt(index);
+					this.InsertInOrder(changedItem, 0, index);
+				}
 			}
 
 			if (!needsSorting && index < _sortIndex.Count - 1)
 			{
-				needsSorting = CompareObject(_list[baseIndex], _list[_sortIndex[index + 1].BaseIndex]) > 0;
-			}
+				needsSorting = CompareObject(changedItem, _sortIndex[index + 1]) > 0;
 
-			if (needsSorting)
-			{
-				_sortIndex.RemoveAt(index);
-
-				this.InsertInOrder(changedItem);
+				if (needsSorting)
+				{
+					_sortIndex.RemoveAt(index);
+					this.InsertInOrder(changedItem, index + 1, _sortIndex.Count);
+				}
 			}
 
 			changedItem.ApplyFilter(_filteredView);
@@ -348,7 +358,7 @@ namespace Csla
 		/// Zero the order of objectA and objectB should not be changed.
 		/// Greater than zero objectA should be after objectB.
 		/// </returns>
-		private int CompareObject(object objectA, object objectB)
+		private int CompareObject(ObjectView objectA, ObjectView objectB)
 		{
 			if (_sorts == null || (objectA == null && objectB == null))
 			{
@@ -369,7 +379,19 @@ namespace Csla
 			{
 				PropertyDescriptor prop = _sorts[i].PropertyDescriptor;
 
-				comparison = this.Compare(prop.GetValue(objectA), prop.GetValue(objectB));
+				object valueA = objectA[prop.Name];
+				object valueB = objectB[prop.Name];
+
+				if (objectA.Object is IExtendSort)
+					valueA = ((IExtendSort)objectA.Object).GetSortValue(prop, valueA);
+
+				if (objectB.Object is IExtendSort)
+					valueB = ((IExtendSort)objectB.Object).GetSortValue(prop, valueB);
+
+				this.OnExtendSort(prop, valueA);
+				this.OnExtendSort(prop, valueB);
+
+				comparison = this.Compare(valueA, valueB);
 
 				if (comparison != 0)
 				{
@@ -389,8 +411,10 @@ namespace Csla
 		/// Inserts an item in order.
 		/// </summary>
 		/// <param name="item">The item to insert.</param>
+		/// <param name="lowIndex">The index of the lowest item to check.</param>
+		/// <param name="highIndex">One more than the highest index to check.</param>
 		/// <returns>The sorted index of the item.</returns>
-		private int InsertInOrder(ObjectView item)
+		private int InsertInOrder(ObjectView item, int lowIndex, int highIndex)
 		{
 			if (_sorts == null || _sortIndex.Count == 0)
 			{
@@ -398,29 +422,37 @@ namespace Csla
 				return _sortIndex.Count - 1;
 			}
 
-			object itemObject = item.Object;
-
-			for (int i = _sortIndex.Count - 1; i >= 0; i--)
+			if (lowIndex == highIndex)
 			{
-				int comparison = CompareObject(itemObject, _sortIndex[i].Object);
-
-				if (comparison >= 0)
+				// We have gotten to the end of our test
+				if (highIndex == _sortIndex.Count)
 				{
-					if (i == _sortIndex.Count - 1)
-					{
-						_sortIndex.Add(item);
-						return _sortIndex.Count - 1;
-					}
-					else
-					{
-						_sortIndex.Insert(i + 1, item);
-						return i + 1;
-					}
+					_sortIndex.Add(item);
+					return _sortIndex.Count - 1;
+				}
+				else
+				{
+					_sortIndex.Insert(highIndex, item);
+					return highIndex;
 				}
 			}
 
-			_sortIndex.Insert(0, item);
-			return 0;
+			int testIndex = (lowIndex + highIndex) / 2;
+			int comparison = CompareObject(item, _sortIndex[testIndex]);
+
+			if (comparison == 0)
+			{
+				_sortIndex.Insert(testIndex, item);
+				return testIndex;
+			}
+			else if (comparison < 0)
+			{
+				return this.InsertInOrder(item, lowIndex, testIndex);
+			}
+			else
+			{
+				return this.InsertInOrder(item, testIndex + 1, highIndex);
+			}
 		}
 
 		/// <summary>
@@ -522,7 +554,7 @@ namespace Csla
 				{
 					if (!this.IncludeDefault)
 					{
-						_defaultItem = new ObjectView(this, Activator.CreateInstance(_indexedType, true), -1);
+						_defaultItem = new ObjectView.DefaultItemObjectView(this);
 						// Set the newIndex to -1 as OnListChanged will increment it
 						// because IncludeDefault is now true.
 						this.OnListChanged(ListChangedType.ItemAdded, -1);
@@ -546,6 +578,25 @@ namespace Csla
 			get { return _indexedType; }
 		}
 		
+		#endregion
+
+		#region ExtendSort event
+
+		/// <summary>
+		/// Extends the sorting algorithm by allowing a listener to exchange a comparison value with another value.
+		/// </summary>
+		public event EventHandler<ExtendSortEventArgs> ExtendSort;
+
+		private void OnExtendSort(PropertyDescriptor property, object value)
+		{
+			EventHandler<ExtendSortEventArgs> temp = ExtendSort;
+
+			if (temp != null)
+			{
+				temp(this, new ExtendSortEventArgs(property, value));
+			}
+		}
+
 		#endregion
 
 		#region ObjectListView enumerator
@@ -682,7 +733,7 @@ namespace Csla
 				ObjectView item = new ObjectView(this, _list[i], i);
 				item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
 				item.ApplyFilter(_filteredView);
-				this.InsertInOrder(item);
+				this.InsertInOrder(item, 0, _sortIndex.Count);
 			}
 
 			this.OnListChanged(ListChangedType.Reset, -1);
@@ -1346,19 +1397,24 @@ namespace Csla
 
 		PropertyDescriptorCollection ITypedList.GetItemProperties(PropertyDescriptor[] listAccessors)
 		{
-			PropertyDescriptorCollection pdc = null;
+			PropertyDescriptorCollection pdc;
 
 			if (null == listAccessors)
 			{
 				// Return properties in sort order.
-				return TypeDescriptor.GetProperties(
-					_list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType,
-					new Attribute[] { new BrowsableAttribute(true) }).Sort();
+				pdc = _objectProperties;
 			}
 			else
 			{
 				// Return child list shape.
-				pdc = System.Windows.Forms.ListBindingHelper.GetListItemProperties(listAccessors[0].PropertyType);
+				PropertyDescriptorCollection itemProps = System.Windows.Forms.ListBindingHelper.GetListItemProperties(listAccessors[0].PropertyType);
+				PropertyDescriptorCollection props = new PropertyDescriptorCollection(null);
+				for (int i = 0; i < itemProps.Count; i++)
+				{
+					props.Add(new ObjectView.ObjectViewPropertyDescriptor(itemProps[i]));
+				}
+
+				pdc = props;
 			}
 
 			return pdc;
@@ -1366,7 +1422,7 @@ namespace Csla
 
 		string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
 		{
-			return _list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType.Name;
+			return _indexedType.Name;
 		}
 
 		#endregion

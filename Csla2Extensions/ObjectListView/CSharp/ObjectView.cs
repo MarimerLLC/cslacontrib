@@ -49,7 +49,7 @@ namespace Csla
 		/// <returns>The value at the index.</returns>
 		protected virtual object GetValue(int index)
 		{
-			return this.Parent.ObjectProperties[index].GetValue(this.Object);
+			return ((ObjectViewPropertyDescriptor)_parent.ObjectProperties[index]).ObjectPropertyDescriptor.GetValue(this.Object);
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace Csla
 		/// <returns>The value of the name.</returns>
 		protected virtual object GetValue(string name)
 		{
-			return this.Parent.ObjectProperties[name].GetValue(this.Object);
+			return ((ObjectViewPropertyDescriptor)_parent.ObjectProperties[name]).ObjectPropertyDescriptor.GetValue(this.Object);
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace Csla
 		/// <param name="value">The value to set.</param>
 		protected virtual void SetValue(int index, object value)
 		{
-			this.Parent.ObjectProperties[index].SetValue(this.Object, value);
+			((ObjectViewPropertyDescriptor)_parent.ObjectProperties[index]).ObjectPropertyDescriptor.SetValue(this.Object, value);
 		}
 
 		/// <summary>
@@ -79,7 +79,7 @@ namespace Csla
 		/// <param name="value">The value to set.</param>
 		protected virtual void SetValue(string name, object value)
 		{
-			this.Parent.ObjectProperties[name].SetValue(this.Object, value);
+			((ObjectViewPropertyDescriptor)_parent.ObjectProperties[name]).ObjectPropertyDescriptor.SetValue(this.Object, value);
 		}
 
 		#endregion
@@ -149,9 +149,14 @@ namespace Csla
 			get { return _visible; }
 		}
 
+		/// <summary>
+		/// Applies the current filter to the ObjectView.
+		/// </summary>
+		/// <param name="filteredView">The filter to apply.</param>
+		/// <returns>True if the filter is not set or the ObjectView passes the filter; otherwise false.</returns>
 		internal bool ApplyFilter(System.Data.DataView filteredView)
 		{
-			if (filteredView == null)
+			if (filteredView == null || filteredView.RowFilter.Length == 0)
 			{
 				_visible = true;
 				return _visible;
@@ -159,17 +164,18 @@ namespace Csla
 
 			System.Data.DataRow row = filteredView.Table.Rows[0];
 
-			foreach (System.ComponentModel.PropertyDescriptor prop in this.Parent.ObjectProperties)
+			for (int i = 0; i < this.Parent.ObjectProperties.Count; i++)
 			{
-				object value = prop.GetValue(this.Object);
+				string propertyName = this.Parent.ObjectProperties[i].Name;
+				object value = this[propertyName];
 
 				if (value == null)
 				{
-					row[prop.Name] = DBNull.Value;
+					row[propertyName] = DBNull.Value;
 				}
 				else
 				{
-					row[prop.Name] = prop.GetValue(this.Object);
+					row[propertyName] = value;
 				}
 			}
 
@@ -240,9 +246,10 @@ namespace Csla
 			if (_cache == null && !_isNew)
 			{
 				_cache = new Dictionary<string, object>();
-				foreach (PropertyDescriptor prop in _parent.ObjectProperties)
+				for (int i = 0; i < _parent.ObjectProperties.Count; i++ )
 				{
-					_cache.Add(prop.Name, this.GetValue(prop.Name));
+					string propertyName = _parent.ObjectProperties[i].Name;
+					_cache.Add(propertyName, this[propertyName]);
 				}
 			}
 		}
@@ -365,17 +372,138 @@ namespace Csla
 
 		PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes)
 		{
-			return TypeDescriptor.GetProperties(this.Parent.IndexedType, attributes);
+			PropertyDescriptorCollection props = new PropertyDescriptorCollection(null);
+			PropertyDescriptorCollection filteredProps = TypeDescriptor.GetProperties(this.Parent.IndexedType, attributes);
+
+			for (int i = 0; i < filteredProps.Count; i++)
+			{
+				props.Add(new ObjectViewPropertyDescriptor(filteredProps[i]));
+			}
+
+			return props;
 		}
 
 		PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties()
 		{
-			return TypeDescriptor.GetProperties(this.Parent.IndexedType);
+			return this.Parent.ObjectProperties;
 		}
 
 		object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd)
 		{
-			return this.Object;
+			return this;
+		}
+
+		#endregion
+
+		#region DefaultItemObjectView
+
+		internal class DefaultItemObjectView : ObjectView
+		{
+			Dictionary<string, object> _values;
+
+			public DefaultItemObjectView(ObjectListView parent)
+				: base(parent, null, -1)
+			{
+				_values = new Dictionary<string, object>(parent.ObjectProperties.Count);
+
+				for (int i = 0; i < parent.ObjectProperties.Count; i++)
+				{
+					_values.Add(parent.ObjectProperties[i].Name, null);
+				}
+			}
+
+			protected override object GetValue(int index)
+			{
+				return _values[this.Parent.ObjectProperties[index].Name];
+			}
+
+			protected override object GetValue(string name)
+			{
+				return _values[name];
+			}
+
+			protected override void SetValue(int index, object value)
+			{
+				_values[this.Parent.ObjectProperties[index].Name] = value;
+			}
+
+			protected override void SetValue(string name, object value)
+			{
+				_values[name] = value;
+			}
+		}
+
+		#endregion
+
+		#region ObjectViewPropertyDescriptor
+
+		internal class ObjectViewPropertyDescriptor : PropertyDescriptor
+		{
+			private PropertyDescriptor _descr;
+
+			public ObjectViewPropertyDescriptor(PropertyDescriptor descr)
+				: base(descr)
+			{
+				_descr = descr;
+			}
+
+			public override bool CanResetValue(object component)
+			{
+				if (((ObjectView)component).Object != null)
+				{
+					return _descr.CanResetValue(((ObjectView)component).Object);
+				}
+
+				return false;
+			}
+
+			public override Type ComponentType
+			{
+				get { return typeof(ObjectView); }
+			}
+
+			public override object GetValue(object component)
+			{
+				return ((ObjectView)component)[this.Name];
+			}
+
+			public override bool IsReadOnly
+			{
+				get { return _descr.IsReadOnly; }
+			}
+
+			public override Type PropertyType
+			{
+				get { return _descr.PropertyType; }
+			}
+
+			public override void ResetValue(object component)
+			{
+				if (((ObjectView)component).Object != null)
+				{
+					_descr.ResetValue(((ObjectView)component).Object);
+				}
+			}
+
+			public override void SetValue(object component, object value)
+			{
+				((ObjectView)component)[this.Name] = value;
+			}
+
+			public override bool ShouldSerializeValue(object component)
+			{
+				if (((ObjectView)component).Object != null)
+				{
+					return _descr.ShouldSerializeValue(((ObjectView)component).Object);
+				}
+
+				return true;
+			}
+
+			public PropertyDescriptor ObjectPropertyDescriptor
+			{
+				get { return _descr; }
+			}
 		}
 
 		#endregion

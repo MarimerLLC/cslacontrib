@@ -43,7 +43,7 @@ namespace Csla
 		/// </summary>
 		/// <param name="list">The source list.</param>
 		public ObjectListView(IList list)
-			: this(list, null, string.Empty)
+			: this(list, string.Empty, string.Empty)
 		{
 		}
 
@@ -51,9 +51,9 @@ namespace Csla
 		/// Creates a new instance of an ObjectListView
 		/// </summary>
 		/// <param name="list">The source list.</param>
-		/// <param name="sorts">The sorts to apply.</param>
-		public ObjectListView(IList list, ListSortDescriptionCollection sorts)
-			: this(list, sorts, string.Empty)
+		/// <param name="sort">The property or properties, and sort order for the <see cref="Csla.ObjectListView"/>.</param>
+		public ObjectListView(IList list, string sort)
+			: this(list, sort, string.Empty)
 		{
 		}
 
@@ -61,43 +61,9 @@ namespace Csla
 		/// Creates a new instance of an ObjectListView
 		/// </summary>
 		/// <param name="list">The source list.</param>
+		/// <param name="sort">The property or properties, and sort order for the <see cref="Csla.ObjectListView"/>.</param>
 		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList list, string filter)
-			: this(list, null, filter)
-		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of an ObjectListView
-		/// </summary>
-		/// <param name="list">The source list.</param>
-		/// <param name="propertyName">The name of the property by which to sort.</param>
-		/// <param name="direction">The direction by which to sort.</param>
-		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList list, string propertyName, ListSortDirection direction, string filter)
-			: this(list, new ObjectView.ObjectViewPropertyDescriptor(TypeDescriptor.GetProperties(list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType)[propertyName]), direction, filter)
-		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of an ObjectListView
-		/// </summary>
-		/// <param name="list">The source list.</param>
-		/// <param name="property">The property by which to sort.</param>
-		/// <param name="direction">The direction by which to sort.</param>
-		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList list, PropertyDescriptor property, ListSortDirection direction, string filter)
-			: this(list, new ListSortDescriptionCollection(new ListSortDescription[] { new ListSortDescription(property, direction) }), filter)
-		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of an ObjectListView
-		/// </summary>
-		/// <param name="list">The source list.</param>
-		/// <param name="sorts">The sorts to apply.</param>
-		/// <param name="filter">The filter to apply.</param>
-		public ObjectListView(IList list, ListSortDescriptionCollection sorts, string filter)
+		public ObjectListView(IList list, string sort, string filter)
 		{
 			if (filter == null) filter = string.Empty;
 
@@ -133,7 +99,7 @@ namespace Csla
 				_iBindingList.ListChanged += new ListChangedEventHandler(_iBindingList_ListChanged);
 			}
 
-			this.ApplySort(sorts);
+			this.Sort = sort;
 		}
 
 		#endregion
@@ -217,7 +183,7 @@ namespace Csla
 					break;
 				case ListChangedType.Reset:
 					ListSortDescriptionCollection sorts = _sorts;
-					this.ApplySort(sorts);
+					((IBindingListView)this).ApplySort(sorts);
 					break;
 			}
 		}
@@ -534,11 +500,6 @@ namespace Csla
 			get { return _list; }
 		}
 
-		internal PropertyDescriptorCollection ObjectProperties
-		{
-			get { return _objectProperties; }
-		}
-
 		/// <summary>
 		/// Gets or sets whether to include a default item in the ObjectListView.
 		/// </summary>
@@ -576,6 +537,31 @@ namespace Csla
 		internal Type IndexedType
 		{
 			get { return _indexedType; }
+		}
+
+		internal PropertyDescriptorCollection ObjectProperties
+		{
+			get { return _objectProperties; }
+		}
+
+		/// <summary>
+		/// Gets or sets the sort property or properties, and sort order for the <see cref="Csla.ObjectListView"/>
+		/// </summary>
+		public string Sort
+		{
+			get
+			{
+				((IBindingListView)_filteredView).ApplySort(_sorts);
+				return _filteredView.Sort;
+			}
+			set
+			{
+				if (_filteredView.Sort != value)
+				{
+					_filteredView.Sort = value;
+					((IBindingListView)this).ApplySort(((IBindingListView)_filteredView).SortDescriptions);
+				}
+			}
 		}
 		
 		#endregion
@@ -714,7 +700,7 @@ namespace Csla
 		/// Applies a series of sort properties and directions to this ObjectListView.
 		/// </summary>
 		/// <param name="sorts">The sort directions and properties.</param>
-		public void ApplySort(System.ComponentModel.ListSortDescriptionCollection sorts)
+		void IBindingListView.ApplySort(System.ComponentModel.ListSortDescriptionCollection sorts)
 		{
 			_sorts = sorts;
 
@@ -764,7 +750,7 @@ namespace Csla
 		/// <summary>
 		/// Removes the filter on the Csla.ObjectListView.
 		/// </summary>
-		public void RemoveFilter()
+		void IBindingListView.RemoveFilter()
 		{
 			this.Filter = string.Empty;
 		}
@@ -772,7 +758,7 @@ namespace Csla
 		/// <summary>
 		/// Gets the sort properties and directions of the Csla.ObjectListView.
 		/// </summary>
-		public System.ComponentModel.ListSortDescriptionCollection SortDescriptions
+		ListSortDescriptionCollection IBindingListView.SortDescriptions
 		{
 			get { return _sorts; }
 		}
@@ -780,7 +766,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether advanced sorting is supported.
 		/// </summary>
-		public bool SupportsAdvancedSorting
+		bool IBindingListView.SupportsAdvancedSorting
 		{
 			get { return true; }
 		}
@@ -788,7 +774,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether filtering is supported.
 		/// </summary>
-		public bool SupportsFiltering
+		bool IBindingListView.SupportsFiltering
 		{
 			get { return true; }
 		}
@@ -920,12 +906,11 @@ namespace Csla
 		/// </summary>
 		/// <param name="property">The sort property.</param>
 		/// <param name="direction">The sort direction.</param>
-		public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
+		void IBindingList.ApplySort(PropertyDescriptor property, ListSortDirection direction)
 		{
 			if (property == null) throw new ArgumentNullException("property");
-			
-			this.ApplySort(
-				new ListSortDescriptionCollection(new ListSortDescription[] { new ListSortDescription(property, direction) }));
+
+			((IBindingListView)this).ApplySort(new ListSortDescriptionCollection(new ListSortDescription[] { new ListSortDescription(property, direction) }));
 		}
 
 		/// <summary>
@@ -936,7 +921,7 @@ namespace Csla
 		/// <returns>The index of the first item whose property matches the key.</returns>
 		public int Find(string propertyName, object key)
 		{
-			return this.Find(_objectProperties[propertyName], key);
+			return ((IBindingList)this).Find(_objectProperties[propertyName], key);
 		}
 
 		/// <summary>
@@ -945,9 +930,9 @@ namespace Csla
 		/// <param name="property">The property to search.</param>
 		/// <param name="key">The value for which to search.</param>
 		/// <returns>The index of the first item whose property matches the key.</returns>
-		public int Find(PropertyDescriptor property, object key)
+		int IBindingList.Find(PropertyDescriptor property, object key)
 		{
-			if (this.SupportsSearching)
+			if (((IBindingList)this).SupportsSearching)
 			{
 				if (property == null) throw new ArgumentNullException("property");
 
@@ -985,7 +970,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView is sorted.
 		/// </summary>
-		public bool IsSorted
+		bool IBindingList.IsSorted
 		{
 			get { return _sorts != null; }
 		}
@@ -1053,7 +1038,7 @@ namespace Csla
 		/// Removes an index from the source System.ComponentModel.IBindingList.
 		/// </summary>
 		/// <param name="property">The property from which to remove the index.</param>
-		public void RemoveIndex(PropertyDescriptor property)
+		void IBindingList.RemoveIndex(PropertyDescriptor property)
 		{
 			if (_iBindingList != null)
 			{
@@ -1064,11 +1049,11 @@ namespace Csla
 		/// <summary>
 		/// Removes a sort from the Csla.ObjectListView.
 		/// </summary>
-		public void RemoveSort()
+		void IBindingList.RemoveSort()
 		{
 			if (_sorts != null)
 			{
-				this.ApplySort(null);
+				((IBindingListView)this).ApplySort(null);
 				OnListChanged(ListChangedType.Reset, -1);
 			}
 		}
@@ -1108,7 +1093,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView supports change notification.
 		/// </summary>
-		public bool SupportsChangeNotification
+		bool IBindingList.SupportsChangeNotification
 		{
 			get { return true; }
 		}
@@ -1116,7 +1101,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView supports searching.
 		/// </summary>
-		public bool SupportsSearching
+		bool IBindingList.SupportsSearching
 		{
 			get { return true; }
 		}
@@ -1124,7 +1109,7 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the Csla.ObjectListView supports sorting.
 		/// </summary>
-		public bool SupportsSorting
+		bool IBindingList.SupportsSorting
 		{
 			get { return true; }
 		}

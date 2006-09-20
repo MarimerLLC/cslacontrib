@@ -382,7 +382,7 @@ namespace Csla
 		/// <returns>The sorted index of the item.</returns>
 		private int InsertInOrder(ObjectView item, int lowIndex, int highIndex)
 		{
-			if (_sorts == null || _sortIndex.Count == 0)
+			if (_sorts == null || _sorts.Count == 0 || _sortIndex.Count == 0)
 			{
 				_sortIndex.Add(item);
 				return _sortIndex.Count - 1;
@@ -556,7 +556,7 @@ namespace Csla
 			}
 			set
 			{
-				if (_filteredView.Sort != value)
+				if (_filteredView.Sort != value || _sortIndex == null)
 				{
 					_filteredView.Sort = value;
 					((IBindingListView)this).ApplySort(((IBindingListView)_filteredView).SortDescriptions);

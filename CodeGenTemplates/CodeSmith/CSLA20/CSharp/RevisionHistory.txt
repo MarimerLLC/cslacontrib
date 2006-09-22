@@ -4,7 +4,11 @@
 ---------------------------------------------------
 
 History:
-1.0.0	9/7/06
+
+- Enh(RAS): Add support to "write first wins" concurrency when Timestamp field is detected.
+- Fix(RAS): Timestamp field return 1 byte (not 8 byte) on update. (Reported by David).
+- Enh(RAS): On Split-Base, remove criteria parameter on DP create to: protected override void DataPortal_Create(). (3198)
+1.0.0	9/7/06 (Last version for CSLA v2.0.x)
 - Enh(RAS): Add NotUndoable attribute on all delegates.
 - Fix(RAS): Missing override OnDesirialized to call Initialize in EditableRootList. 
 - Fix(RAS): EditableChildList generates Validation.CheckRules in constructor. (2215)

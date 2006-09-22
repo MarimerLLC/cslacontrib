@@ -50,7 +50,7 @@ using Csla.Data;
 <%=Indent(i)%>#region Data Access
 <% if(objInfo.IsGeneratedBase) {%>
 <%=Indent(i)%>[RunLocal]
-<%=Indent(i)%>protected override void DataPortal_Create(Object criteria) { MarkAsChild(); }
+<%=Indent(i)%>protected override void DataPortal_Create() { MarkAsChild(); }
 
 <%}%>
 <%=Indent(i)%><%=objInfo.LocalMethodModifiers%> void Fetch(SafeDataReader dr)

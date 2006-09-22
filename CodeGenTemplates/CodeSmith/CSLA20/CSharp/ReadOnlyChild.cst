@@ -52,7 +52,7 @@ using Csla.Validation;
 <% if(objInfo.IsGeneratedClass) {%>
 <% if(objInfo.IsGeneratedBase) {%>
 <%=Indent(i)%>[RunLocal]
-<%=Indent(i)%>private void DataPortal_Create(Object criteria) { }
+<%=Indent(i)%>private void DataPortal_Create() { }
 <%}%>
 <!-- #INCLUDE FILE="Fetch.inc" -->
 <%}%>

@@ -8,7 +8,7 @@
 <% if(objInfo.PropertyAuthorization == PropertyAccessSecurity.Read 
 	|| objInfo.PropertyAuthorization == PropertyAccessSecurity.Both) { %>
 <%=Indent(i)%>//TODO: Define authorization rules in <%=objInfo.Name%>
-<% foreach(PropertyInfo prop in objInfo.Properties) { %>
+<% foreach(PropertyInfo prop in objInfo.Properties) { if(prop.IsTimestamp) continue; %>
 <%=Indent(i)%>//AuthorizationRules.AllowRead("<%= prop.Name %>", "<%=objInfo.Name%>ReadGroup");
 <% if(prop.Type == "SmartDate") { %>
 <%=Indent(i)%>//AuthorizationRules.AllowRead("<%= prop.Name %>String", "<%=objInfo.Name%>ReadGroup");

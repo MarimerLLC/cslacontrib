@@ -245,7 +245,9 @@ namespace CodeSmith.Csla
             string props = string.Empty;
             foreach (PropertyInfo prop in objInfo.Properties)
             {
-                if (!objInfo.ChildCollection.Contains(prop))
+                //skip child collection until later. 
+                //exclude timestamp, this field only to support concurrency
+                if (!objInfo.ChildCollection.Contains(prop) && !prop.IsTimestamp)
                     props += GetPropertyDeclaration(prop, level);
             }
             foreach (PropertyInfo prop in objInfo.ChildCollection)
@@ -492,6 +494,10 @@ namespace CodeSmith.Csla
             foreach (PropertyInfo prop in obj.Properties)
             {
                 if (!prop.UpdateToDb) continue;
+
+                if(prop.IsTimestamp)   //if timestamp add input parameter to support concurrency
+                    statement += GetParameterStatement(prop, "", "", true, level);
+
                 if (!prop.IsDbComputed)
 				{
                     if (HandleNullableFields && prop.DefaultValue.Length > 0 && !prop.IsRequired && prop.Type != "SmartDate")
@@ -505,7 +511,7 @@ namespace CodeSmith.Csla
 				}
                 else
                 {
-                    if(prop.IsIdentity)
+                    if (prop.IsIdentity)
                         statement += GetParameterStatement(prop, "", "", true, level);
                     else
                         outputStatement += GetParameterStatement(prop, "New", "", false, level);
@@ -543,6 +549,11 @@ namespace CodeSmith.Csla
             }
             statement = Indent(level, true)
                         + DalHelper.ParameterAssignmentStatement(parPrefix + prop.DbColumnName, varName);
+
+            if(prop.IsTimestamp && prop.Type == "byte[]")  //Timestamp datatype converted to byte[]
+                statement += Indent(level, true)
+                        + string.Format("cm.Parameters[\"@{0}\"].SqlDbType = SqlDbType.Timestamp;", parPrefix + prop.DbColumnName);
+
             if (!input)
             {
                 statement += Indent(level, true) 
@@ -1563,6 +1574,10 @@ namespace CodeSmith.Csla
 
                     return false;
                 }
+            }
+            public bool IsTimestamp
+            {
+                get { return _isTimestamp; }
             }
             public bool HasDbColumn
             {

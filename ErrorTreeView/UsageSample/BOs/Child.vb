@@ -77,6 +77,7 @@ Public Class Child
         chld.GrandChildren.Add(gc)
         gc.SomeValue = 2
         chld.ValidationRules.CheckRules()
+        chld.MarkAsChild()
         Return chld
     End Function
 

@@ -60,6 +60,7 @@ Public Class GrandChild
 
     Public Shared Function NewChild() As GrandChild
         Dim chld As New GrandChild
+        chld.MarkAsChild()
         chld.ValidationRules.CheckRules()
         Return chld
     End Function

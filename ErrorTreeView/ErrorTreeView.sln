@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CslaErrorTreeView", "CslaErrorTreeView\CslaErrorTreeView.vbproj", "{25EB476A-A809-4CB6-9ED6-9661395E4EEE}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UsageSample", "UsageSample\UsageSample.vbproj", "{FB90BA26-622A-43FA-A244-CB62231A6C14}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs01.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CslaErrorTreeView\\CslaErrorTreeView.vbproj
+		SccProjectName1 = CslaErrorTreeView
+		SccLocalPath1 = CslaErrorTreeView
+		SccProjectUniqueName2 = UsageSample\\UsageSample.vbproj
+		SccProjectName2 = UsageSample
+		SccLocalPath2 = UsageSample
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{25EB476A-A809-4CB6-9ED6-9661395E4EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25EB476A-A809-4CB6-9ED6-9661395E4EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25EB476A-A809-4CB6-9ED6-9661395E4EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25EB476A-A809-4CB6-9ED6-9661395E4EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB90BA26-622A-43FA-A244-CB62231A6C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB90BA26-622A-43FA-A244-CB62231A6C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB90BA26-622A-43FA-A244-CB62231A6C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB90BA26-622A-43FA-A244-CB62231A6C14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

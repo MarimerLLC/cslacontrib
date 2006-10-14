@@ -20,12 +20,7 @@ namespace Csla
 
 		#region Constructor
 
-		internal ObjectView(ObjectListView parent, object obj, int baseIndex)
-			: this(parent, obj, baseIndex, false)
-		{
-		}
-
-		internal ObjectView(ObjectListView parent, object obj, int baseIndex, bool isNew)
+		private ObjectView(ObjectListView parent, object obj, int baseIndex, bool isNew)
 		{
 			_parent = parent;
 			_object = obj;
@@ -49,6 +44,9 @@ namespace Csla
 		/// <returns>The value at the index.</returns>
 		protected virtual object GetValue(int index)
 		{
+			if (_parent.ObjectProperties.Count == 0)
+				return _object;
+
 			return ((ObjectViewPropertyDescriptor)_parent.ObjectProperties[index]).ObjectPropertyDescriptor.GetValue(this.Object);
 		}
 
@@ -59,6 +57,9 @@ namespace Csla
 		/// <returns>The value of the name.</returns>
 		protected virtual object GetValue(string name)
 		{
+			if (_parent.ObjectProperties.Count == 0)
+				return _object;
+
 			return ((ObjectViewPropertyDescriptor)_parent.ObjectProperties[name]).ObjectPropertyDescriptor.GetValue(this.Object);
 		}
 
@@ -80,6 +81,25 @@ namespace Csla
 		protected virtual void SetValue(string name, object value)
 		{
 			((ObjectViewPropertyDescriptor)_parent.ObjectProperties[name]).ObjectPropertyDescriptor.SetValue(this.Object, value);
+		}
+
+		#endregion
+
+		#region Factory Methods
+
+		internal static ObjectView NewObjectView(ObjectListView parent, object obj, int baseIndex)
+		{
+			return NewObjectView(parent, obj, baseIndex, false);
+		}
+
+		internal static ObjectView NewObjectView(ObjectListView parent, object obj, int baseIndex, bool isNew)
+		{
+			if (parent.NoProperties)
+			{
+				return new NoPropertyObjectView(parent, obj, baseIndex, isNew);
+			}
+
+			return new ObjectView(parent, obj, baseIndex, isNew);
 		}
 
 		#endregion
@@ -373,11 +393,15 @@ namespace Csla
 		PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes)
 		{
 			PropertyDescriptorCollection props = new PropertyDescriptorCollection(null);
-			PropertyDescriptorCollection filteredProps = TypeDescriptor.GetProperties(this.Parent.IndexedType, attributes);
 
-			for (int i = 0; i < filteredProps.Count; i++)
+			if (this.Parent.IndexedType != null)
 			{
-				props.Add(new ObjectViewPropertyDescriptor(filteredProps[i]));
+				PropertyDescriptorCollection filteredProps = TypeDescriptor.GetProperties(this.Parent.IndexedType, attributes);
+
+				for (int i = 0; i < filteredProps.Count; i++)
+				{
+					props.Add(new ObjectViewPropertyDescriptor(filteredProps[i]));
+				}
 			}
 
 			return props;
@@ -402,7 +426,7 @@ namespace Csla
 			Dictionary<string, object> _values;
 
 			public DefaultItemObjectView(ObjectListView parent)
-				: base(parent, null, -1)
+				: base(parent, null, -1, false)
 			{
 				_values = new Dictionary<string, object>(parent.ObjectProperties.Count);
 
@@ -430,6 +454,38 @@ namespace Csla
 			protected override void SetValue(string name, object value)
 			{
 				_values[name] = value;
+			}
+		}
+
+		#endregion
+
+		#region NoPropertyObjectView
+
+		private class NoPropertyObjectView : ObjectView
+		{
+			public NoPropertyObjectView(ObjectListView parent, object obj, int baseIndex, bool isNew)
+				: base(parent, obj, baseIndex, isNew)
+			{
+			}
+
+			protected override object GetValue(int index)
+			{
+				return _parent.List[this.BaseIndex];
+			}
+
+			protected override object GetValue(string name)
+			{
+				return _parent.List[this.BaseIndex];
+			}
+
+			protected override void SetValue(int index, object value)
+			{
+				_parent.List[this.BaseIndex] = value;
+			}
+
+			protected override void SetValue(string name, object value)
+			{
+				_parent.List[this.BaseIndex] = value;
 			}
 		}
 

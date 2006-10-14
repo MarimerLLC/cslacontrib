@@ -12,6 +12,11 @@ namespace Csla
 	/// </summary>
 	/// <author>Brian Criswell</author>
 	/// <license>CREATIVE COMMONS - Attribution 2.5 License http://creativecommons.org/ </license>
+	[
+	DefaultEvent("ListChanged"),
+	Editor("Microsoft.VSDesigner.Data.Design.DataSourceEditor, Microsoft.VSDesigner", "System.Drawing.Design.UITypeEditor, System.Drawing"),
+	DefaultProperty("List")
+	]
 	public class ObjectListView : MarshalByValueComponent, IBindingListView, ITypedList
 	{
 		#region Fields
@@ -19,6 +24,7 @@ namespace Csla
 		// Source list
 		private IList _list;
 		private ObjectView _defaultItem;
+		private bool _noProperties = false;
 
 		// Sorting fields
 		private ListSortDescriptionCollection _sorts;
@@ -26,10 +32,9 @@ namespace Csla
 
 		// Filtering fields
 		private Type _indexedType;
-		private PropertyDescriptorCollection _objectProperties;
-		private DataTable _filteredTable = new DataTable();
+		private PropertyDescriptorCollection _objectProperties = new PropertyDescriptorCollection(null);
 		private DataRow _filteredRow;
-		private DataView _filteredView;
+		private DataView _filteredView = new DataView();
 
 		//IBindingList fields
 		private IBindingList _iBindingList = null;
@@ -37,6 +42,14 @@ namespace Csla
 		#endregion
 
 		#region Constructors
+
+		/// <summary>
+		/// Creates a new instance of an ObjectListView
+		/// </summary>
+		public ObjectListView()
+			: this(null, string.Empty, string.Empty)
+		{
+		}
 
 		/// <summary>
 		/// Creates a new instance of an ObjectListView
@@ -65,39 +78,9 @@ namespace Csla
 		/// <param name="filter">The filter to apply.</param>
 		public ObjectListView(IList list, string sort, string filter)
 		{
-			if (filter == null) filter = string.Empty;
+			this.List = list;
 
-			_list = list;
-			_indexedType = _list.GetType().GetProperty("Item", new Type[] { typeof(int) }).PropertyType;
-			_objectProperties = new PropertyDescriptorCollection(null);
-			PropertyDescriptorCollection props = TypeDescriptor.GetProperties(_indexedType);
-			for (int i = 0; i < props.Count; i++)
-			{
-				_objectProperties.Add(new ObjectView.ObjectViewPropertyDescriptor(props[i]));
-			}
-
-			foreach (PropertyDescriptor prop in _objectProperties)
-			{
-				if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-				{
-					Type nullableType = prop.PropertyType.GetGenericArguments()[0];
-
-					_filteredTable.Columns.Add(prop.Name, prop.PropertyType.GetGenericArguments()[0]);
-				}
-				else
-				    _filteredTable.Columns.Add(prop.Name, prop.PropertyType);
-			}
-
-			_filteredRow = _filteredTable.Rows.Add();
-
-			_filteredView = new DataView(_filteredTable);
 			_filteredView.RowFilter = filter;
-
-			if (list is IBindingList)
-			{
-				_iBindingList = (IBindingList)list;
-				_iBindingList.ListChanged += new ListChangedEventHandler(_iBindingList_ListChanged);
-			}
 
 			this.Sort = sort;
 		}
@@ -120,7 +103,7 @@ namespace Csla
 				case ListChangedType.ItemAdded:
 					if (!_addingItem)
 					{
-						ObjectView addedItem = new ObjectView(this, _list[e.NewIndex], e.NewIndex);
+						ObjectView addedItem = ObjectView.NewObjectView(this, _list[e.NewIndex], e.NewIndex);
 						addedItem.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
 						addedItem.ApplyFilter(_filteredView);
 
@@ -493,16 +476,103 @@ namespace Csla
 		#region Properties
 
 		/// <summary>
-		/// Gets the source list of the ObjectListView.
+		/// Gets or sets the source list of the ObjectListView.
 		/// </summary>
+		[
+		Description("Indicates the list this ObjectListView uses to get data."),
+		RefreshProperties(RefreshProperties.All),
+		Category("Data"),
+		DefaultValue(null),
+		AttributeProvider(typeof(IListSource))
+		]
 		public IList List
 		{
 			get { return _list; }
+			set
+			{
+				if (!object.Equals(_list, value))
+				{
+					if (_iBindingList != null)
+					{
+						_iBindingList.ListChanged -= new ListChangedEventHandler(_iBindingList_ListChanged);
+					}
+
+					_list = null;
+					_noProperties = false;
+					_indexedType = null;
+					_objectProperties = new PropertyDescriptorCollection(null);
+					_iBindingList = null;
+					_filteredRow = null;
+					_filteredView.Table = null;
+
+					if (value != null)
+					{
+						_list = value;
+
+						PropertyDescriptorCollection props;
+
+						if (value is Array)
+						{
+							_indexedType = value.GetType().GetElementType();
+							props = TypeDescriptor.GetProperties(_indexedType);
+						}
+						else
+						{
+							_indexedType = System.Windows.Forms.ListBindingHelper.GetListItemType(value);
+							props = System.Windows.Forms.ListBindingHelper.GetListItemProperties(value, null);
+						}
+						
+						for (int i = 0; i < props.Count; i++)
+						{
+							_objectProperties.Add(new ObjectView.ObjectViewPropertyDescriptor(props[i]));
+						}
+
+						DataTable table = new DataTable("Table");
+
+						foreach (PropertyDescriptor prop in _objectProperties)
+						{
+							if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+							{
+								Type nullableType = prop.PropertyType.GetGenericArguments()[0];
+
+								table.Columns.Add(prop.Name, prop.PropertyType.GetGenericArguments()[0]);
+							}
+							else
+								table.Columns.Add(prop.Name, prop.PropertyType);
+						}
+
+						if (table.Columns.Count == 0)
+						{
+							_noProperties = true;
+							table.Columns.Add("Value", typeof(object));
+						}
+
+						_filteredRow = table.Rows.Add();
+						_filteredView.Table = table;
+
+						if (_noProperties)
+						{
+							_objectProperties.Add(new ObjectView.ObjectViewPropertyDescriptor(TypeDescriptor.GetProperties(_filteredView[0])[0]));
+						}
+					}
+
+					if (value is IBindingList)
+					{
+						_iBindingList = (IBindingList)value;
+						_iBindingList.ListChanged += new ListChangedEventHandler(_iBindingList_ListChanged);
+					}
+				}
+			}
 		}
 
 		/// <summary>
 		/// Gets or sets whether to include a default item in the ObjectListView.
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates whether this ObjectListView should display a default item as the first item in the list."),
+		DefaultValue(false)
+		]
 		public bool IncludeDefault
 		{
 			get
@@ -539,6 +609,11 @@ namespace Csla
 			get { return _indexedType; }
 		}
 
+		internal bool NoProperties
+		{
+			get { return _noProperties; }
+		}
+
 		internal PropertyDescriptorCollection ObjectProperties
 		{
 			get { return _objectProperties; }
@@ -547,6 +622,11 @@ namespace Csla
 		/// <summary>
 		/// Gets or sets the sort property or properties, and sort order for the <see cref="Csla.ObjectListView"/>
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates the name of the properties and the order in which items are returned by this ObjectListView."),
+		DefaultValue("")
+		]
 		public string Sort
 		{
 			get
@@ -712,14 +792,21 @@ namespace Csla
 				}
 			}
 
-			_sortIndex = new List<ObjectView>(_list.Count);
-
-			for (int i = 0; i < _list.Count; i++)
+			if (_list == null)
 			{
-				ObjectView item = new ObjectView(this, _list[i], i);
-				item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
-				item.ApplyFilter(_filteredView);
-				this.InsertInOrder(item, 0, _sortIndex.Count);
+				_sortIndex = new List<ObjectView>();
+			}
+			else
+			{
+				_sortIndex = new List<ObjectView>(_list.Count);
+
+				for (int i = 0; i < _list.Count; i++)
+				{
+					ObjectView item = ObjectView.NewObjectView(this, _list[i], i);
+					item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
+					item.ApplyFilter(_filteredView);
+					this.InsertInOrder(item, 0, _sortIndex.Count);
+				}
 			}
 
 			this.OnListChanged(ListChangedType.Reset, -1);
@@ -728,6 +815,11 @@ namespace Csla
 		/// <summary>
 		/// Gets or sets the expression used to filter which items are viewed in the Csla.ObjectListView.
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates an expression used to filter the items returned by this ObjectListView."),
+		DefaultValue("")
+		]
 		public string Filter
 		{
 			get
@@ -803,10 +895,27 @@ namespace Csla
 		{
 			if (this.AllowNew)
 			{
+				if (_list == null)
+				{
+					throw new InvalidOperationException("Cannot add new items when the list is not set.");
+				}
+
 				try
 				{
 					_addingItem = true;
-					ObjectView item = new ObjectView(this, _iBindingList.AddNew(), _list.Count - 1, true);
+					ObjectView item;
+
+					if (_iBindingList != null)
+					{
+						item = ObjectView.NewObjectView(this, _iBindingList.AddNew(), _list.Count - 1, true);
+					}
+					else
+					{
+						Object obj = Activator.CreateInstance(_indexedType);
+						_list.Add(obj);
+						item = ObjectView.NewObjectView(this, obj, _list.Count - 1, true);
+					}
+
 					item.PropertyChanged += new PropertyChangedEventHandler(ObjectView_PropertyChanged);
 					item.BeginEdit();
 					_sortIndex.Add(item);
@@ -831,6 +940,11 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the source IBindingList allows edits.
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates whether this ObjectListView and the user interface associated with it allows edits."),
+		DefaultValue(true)
+		]
 		public bool AllowEdit
 		{
 			get
@@ -841,7 +955,7 @@ namespace Csla
 				{
 					allowEdit &= _iBindingList.AllowEdit;
 				}
-				else
+				else if(_list != null)
 				{
 					allowEdit &= !_list.IsReadOnly;
 				}
@@ -856,6 +970,11 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the source IBindingList allows new items.
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates whether this ObjectListView and the user interface associated with it allows new items to be added."),
+		DefaultValue(true)
+		]
 		public bool AllowNew
 		{
 			get
@@ -866,7 +985,7 @@ namespace Csla
 				{
 					allowNew &= _iBindingList.AllowNew;
 				}
-				else
+				else if (_list != null)
 				{
 					_allowNew &= !_list.IsReadOnly && !_list.IsFixedSize;
 				}
@@ -881,6 +1000,11 @@ namespace Csla
 		/// <summary>
 		/// Gets whether the source IBindingList allows removing of items.
 		/// </summary>
+		[
+		Category("Data"),
+		Description("Indicates whether this ObjectListView and the user interface associated with it allows items to be removed."),
+		DefaultValue(true)
+		]
 		public bool AllowRemove
 		{
 			get
@@ -891,7 +1015,7 @@ namespace Csla
 				{
 					allowRemove &= _iBindingList.AllowRemove;
 				}
-				else
+				else if (_list != null)
 				{
 					allowRemove &= !_list.IsReadOnly & !_list.IsFixedSize;
 				}
@@ -1081,7 +1205,7 @@ namespace Csla
 		{
 			get
 			{
-				if (_sorts == null)
+				if (_sorts == null || _sorts.Count == 0)
 				{
 					return null;
 				}
@@ -1301,6 +1425,11 @@ namespace Csla
 		/// <param name="index">The index at which to start the copying.</param>
 		public void CopyTo(Array array, int index)
 		{
+			if (_list == null)
+			{
+				throw new InvalidOperationException("Cannot copy while the list is not set.");
+			}
+
 			if (this.Filter.Length == 0)
 			{
 				_list.CopyTo(array, index);
@@ -1317,30 +1446,34 @@ namespace Csla
 		/// <summary>
 		/// Gets the number of elements in the Csla.ObjectListView.
 		/// </summary>
+		[Browsable(false)]
 		public int Count
 		{
 			get
 			{
 				int filteredCount = 0;
 
-				if (this.Filter.Length == 0)
+				if (_list != null)
 				{
-					filteredCount = _list.Count;
-				}
-				else
-				{
-					for (int i = 0; i < _sortIndex.Count; i++)
+					if (this.Filter.Length == 0)
 					{
-						if (_sortIndex[i].Visible)
+						filteredCount = _list.Count;
+					}
+					else
+					{
+						for (int i = 0; i < _sortIndex.Count; i++)
 						{
-							filteredCount++;
+							if (_sortIndex[i].Visible)
+							{
+								filteredCount++;
+							}
 						}
 					}
-				}
 
-				if (this.IncludeDefault)
-				{
-					filteredCount++;
+					if (this.IncludeDefault)
+					{
+						filteredCount++;
+					}
 				}
 
 				return filteredCount;
@@ -1407,7 +1540,16 @@ namespace Csla
 
 		string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
 		{
-			return _indexedType.Name;
+			if (_indexedType != null)
+				return _indexedType.Name;
+
+			if (_list != null && _list.GetType().IsArray)
+			{
+				string name = _list.GetType().Name;
+				return name.Substring(0, name.Length - 2);
+			}
+
+			return string.Empty;
 		}
 
 		#endregion

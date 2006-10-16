@@ -25,7 +25,7 @@ using Csla;
 using Csla.Data;
 using Csla.Validation;
 
-<% if (ClassNamespace != null && ClassNamespace.Length > 0) { %>namespace <%= ClassNamespace %>
+<% if (objInfo.Namespace.Length > 0) { %>namespace <%= objInfo.Namespace %>
 <%=Indent(i++)%>{ 
 <% } %> 
 <% if(!objInfo.IsUserPartial) {%>
@@ -64,4 +64,4 @@ using Csla.Validation;
 <%=Indent(i)%>#endregion //Data Access
 <!-- #INCLUDE FILE="DelegationMethods.inc" -->
 <%=Indent(--i)%>}
-<% if(ClassNamespace != null && ClassNamespace.Length > 0) {%>}<%}%>
+<% if(objInfo.Namespace.Length > 0) {%>}<%}%>

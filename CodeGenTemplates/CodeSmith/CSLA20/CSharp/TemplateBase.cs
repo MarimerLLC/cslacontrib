@@ -51,6 +51,12 @@ namespace CodeSmith.Csla
         //option to minimize use of StackTrace
         static bool MinimizeStackTraceUse = true;
         static bool HandleNullableFields = true;
+        //framework base class
+        const string BusinessBase = "Csla.BusinessBase";
+        const string BusinessListBase = "Csla.BusinessListBase";
+        const string ReadOnlyBase = "Csla.ReadOnlyBase";
+        const string ReadOnlyListBase = "Csla.ReadOnlyListBase";
+        const string NameValueListBase = "Csla.NameValueListBase";
         #endregion //Constants
 
         #region Templates
@@ -372,21 +378,10 @@ namespace CodeSmith.Csla
         private string GetCommonValidationRule(PropertyInfo prop, int level)
         {
             string rules = string.Empty;
-            if (prop.Type == "string")
+            foreach (RuleInfo info in prop.ValidationRules)
             {
-                if (prop.IsRequired)
-                    rules += Indent(level, true)
-                        + string.Format("ValidationRules.AddRule(CommonRules.StringRequired, \"{0}\");", prop.Name);
-
-                if(prop.MaxSize>0)
-                    rules += Indent(level, true)
-                        + string.Format("ValidationRules.AddRule(CommonRules.StringMaxLength, new CommonRules.MaxLengthRuleArgs(\"{0}\", {1}));", prop.Name, prop.MaxSize);
-            }
-            else
-            {
-                if( prop.Type == "SmartDate" && prop.IsRequired)
-                    rules += Indent(level, true)
-                        + string.Format("ValidationRules.AddRule(CommonRules.StringRequired, \"{0}\");", prop.Name + "String");
+                rules += Indent(level, true)
+                    + string.Format("ValidationRules.AddRule({0}, {1});", info.HandlerText, info.ArgumentText);
             }
             if (rules.Length > 0)
             {
@@ -463,10 +458,10 @@ namespace CodeSmith.Csla
 
                 if (!prop.IsDbComputed)
 				{
-                    if (HandleNullableFields && prop.DefaultValue.Length > 0 && !prop.IsRequired && prop.Type != "SmartDate")
+                    if (prop.DefaultValue.Length > 0 && prop.AllowDbNull && prop.Type != "SmartDate")
 						statement += GetDefaultConditionStatement(prop, "", level++);
                     statement += GetParameterStatement(prop, "", "", true, level);
-                    if (HandleNullableFields && prop.DefaultValue.Length > 0 && !prop.IsRequired && prop.Type != "SmartDate")
+                    if (prop.DefaultValue.Length > 0 && prop.AllowDbNull && prop.Type != "SmartDate")
                     {
                         statement += Indent(level - 1, true) + "else";
                         statement += Indent(level--, true) + DalHelper.ParameterAssignmentStatement(prop.DbColumnName, "DBNull.Value");
@@ -500,10 +495,10 @@ namespace CodeSmith.Csla
 
                 if (!prop.IsDbComputed)
 				{
-                    if (HandleNullableFields && prop.DefaultValue.Length > 0 && !prop.IsRequired && prop.Type != "SmartDate")
+                    if (prop.DefaultValue.Length > 0 && prop.AllowDbNull && prop.Type != "SmartDate")
 						statement += GetDefaultConditionStatement(prop, "", level++);
                     statement += GetParameterStatement(prop, "", "", true, level);
-                    if (HandleNullableFields && prop.DefaultValue.Length > 0 && !prop.IsRequired && prop.Type != "SmartDate")
+                    if (prop.DefaultValue.Length > 0 && prop.AllowDbNull && prop.Type != "SmartDate")
                     {
                         statement += Indent(level-1, true) + "else";
                         statement += Indent(level--, true) + DalHelper.ParameterAssignmentStatement(prop.DbColumnName, "DBNull.Value");
@@ -802,12 +797,12 @@ namespace CodeSmith.Csla
         public class ObjectInfo
         {
             #region Template Settings
-            private TransactionalTypes _transactionType;
-            private PropertyAccessSecurity _propertyAuthorization;
-            private bool _useSecurity;
+            private TransactionalTypes _transactionType = TransactionalTypes.None;
+            private PropertyAccessSecurity _propertyAuthorization = PropertyAccessSecurity.Both;
+            private bool _useSecurity = true;
             private CodeGenerationMethod _codeGenMethod = CodeGenerationMethod.Single;
             private GenerationClassType _classType = GenerationClassType.Generated;
-			private CommandSchema _rootCommand = null;
+            private string _baseClass = string.Empty;
             #endregion
 
             #region Parent Properties
@@ -879,6 +874,13 @@ namespace CodeSmith.Csla
             #endregion //Child Properties
 
             #region Properties
+            private string _namespace;
+            public string Namespace
+            {
+                get { return _namespace; }
+                set { _namespace = value; }
+            }
+	
             private string _objectName;
             public string Name
             {
@@ -1169,18 +1171,16 @@ namespace CodeSmith.Csla
                         case ObjectType.EditableRoot:
                         case ObjectType.EditableChild:
                         case ObjectType.EditableSwitchable:
-                            return string.Format(" : Csla.BusinessBase<{0}>", Type);
                         case ObjectType.ReadOnlyRoot:
                         case ObjectType.ReadOnlyChild:
-                            return string.Format(" : Csla.ReadOnlyBase<{0}>", Type);
+                            return string.Format(" : {0}<{1}>", _baseClass, Type);
                         case ObjectType.EditableChildList:
                         case ObjectType.EditableRootList:
-                            return string.Format(" : Csla.BusinessListBase<{0}, {1}>", Type, ChildType);
-                        case ObjectType.NameValueList:
-                            return string.Format(" : Csla.NameValueListBase<{0}, {1}>", ((PropertyInfo)_uniqueProperties[0]).Type, ((PropertyInfo)_properties[1]).Type);
                         case ObjectType.ReadOnlyRootList:
                         case ObjectType.ReadOnlyChildList:
-                            return string.Format(" : Csla.ReadOnlyListBase<{0}, {1}>", Type, ChildType);
+                            return string.Format(" : {0}<{1}, {2}>", _baseClass, Type, ChildType);
+                        case ObjectType.NameValueList:
+                            return string.Format(" : {0}<{2}, {2}>", _baseClass, ((PropertyInfo)_uniqueProperties[0]).Type, ((PropertyInfo)_properties[1]).Type);
                     }
                     return string.Empty;
                 }
@@ -1228,26 +1228,25 @@ namespace CodeSmith.Csla
             {
                 get { return string.Format(DbConnectionFormat, _dbName); }
             }
+            string _fetchCommand = string.Empty;
             public string FetchCommandText
             {
-                get 
-				{
-					if (_rootCommand != null)
-						return _rootCommand.Name;
-					return string.Format(FetchCommandFormat, _objectName); 
-				}
+                get { return _fetchCommand; }
             }
+            string _insertCommand = string.Empty;
             public string InsertCommandText
             {
-                get { return string.Format(InsertCommandFormat, _objectName); }
+                get { return _insertCommand; }
             }
+            string _updateCommand = string.Empty;
             public string UpdateCommandText
             {
-                get { return string.Format(UpdateCommandFormat, _objectName); }
+                get { return _updateCommand; }
             }
+            string _deleteCommand = string.Empty;
             public string DeleteCommandText
             {
-                get { return string.Format(DeleteCommandFormat, _objectName); }
+                get { return _deleteCommand; }
             }
             #endregion
 
@@ -1257,76 +1256,189 @@ namespace CodeSmith.Csla
                 if (!TemplateHelper.IsObjectType(template.CodeTemplateInfo))
                     throw new ArgumentException(string.Format("Template '{0}' is not a business object template type", template.CodeTemplateInfo.FileName));
 
+                Initialize(template);
+
                 string xmlpath = (string)template.GetProperty("XmlFilePath");
                 bool isFromXml = (xmlpath != null && xmlpath.Length > 0);
                 if (isFromXml)
                     LoadFromXml(template);
                 else
-                    LoadFromSchema(template);                  
+                    LoadFromSchema(template);
+
+                //assign base class
+                switch (_objectType)
+                {
+                    case ObjectType.EditableRoot:
+                    case ObjectType.EditableChild:
+                    case ObjectType.EditableSwitchable:
+                        _baseClass = BusinessBase;
+                        break;
+                    case ObjectType.ReadOnlyRoot:
+                    case ObjectType.ReadOnlyChild:
+                        _baseClass = ReadOnlyBase;
+                        break;
+                    case ObjectType.EditableChildList:
+                    case ObjectType.EditableRootList:
+                        _baseClass = BusinessListBase;
+                        break;
+                    case ObjectType.ReadOnlyRootList:
+                    case ObjectType.ReadOnlyChildList:
+                        _baseClass = ReadOnlyListBase;
+                        break;
+                    case ObjectType.NameValueList:
+                        _baseClass = NameValueListBase;
+                        break;
+                }
+
+                //validate object
+                Validate();
             }
 
             private void LoadFromXml(CodeTemplate template)
             {
-                _objectName = (string)template.GetProperty("ObjectName");
-
-                //template settings
-                _transactionType = (TransactionalTypes)template.GetProperty("TransactionalType");
-                _propertyAuthorization = (PropertyAccessSecurity)template.GetProperty("PropertyAuthorization");
-                _useSecurity = (bool)template.GetProperty("AuthorizationRules");
-                _codeGenMethod = (CodeGenerationMethod)template.GetProperty("GenerationMethod");
-                _classType = (GenerationClassType)template.GetProperty("ClassType");
-
                 //read from xml file
                 string path = (string)template.GetProperty("XmlFilePath");
 
                 XmlTextReader xtr = new XmlTextReader(path);
 
+                if(!MoveToObject(xtr, _objectName))
+                    throw new ApplicationException(string.Format("Object {0} does not exist!", _objectName));
+             
+                //read object attributes
+                while (xtr.MoveToNextAttribute())
+	            {
+                    switch (xtr.LocalName.ToLower())
+                    {
+                        case "namespace":
+                            _namespace = xtr.Value;
+                            break;
+                        case "access":                            
+                            _access = xtr.Value;
+                            break;
+                        case "type":
+                            _objectType = (ObjectType)Enum.Parse(typeof(ObjectType), xtr.Value, true);
+                            break;
+                        case "base":
+                            _baseClass = xtr.Value;
+                            break;
+                    }
+	            }
+
+                //read object elements
                 while (xtr.Read())
                 {
-                    if (xtr.NodeType == XmlNodeType.Element && xtr.LocalName.ToLower() == "object")
-                    {
-                        if (xtr.GetAttribute("name") == _objectName)
+                    if (xtr.NodeType == XmlNodeType.EndElement 
+                        && xtr.LocalName.ToLower() == "object")
+                        break;  //reach end of object node
+                    if (xtr.NodeType == XmlNodeType.Element) {
+                        switch (xtr.LocalName.ToLower())
                         {
-                            _objectType = (ObjectType)Enum.Parse(typeof(ObjectType), xtr.GetAttribute("type"), true);
-                            _child = xtr.GetAttribute("child");
-                            _parent = xtr.GetAttribute("parent");
-
-                            //object propertiesTag = xtr.NameTable.Add("properties");
-                            //object propertyTag = xtr.NameTable.Add("property");
-                            while (xtr.Read())
-                            {
-                                if (xtr.NodeType == XmlNodeType.EndElement && xtr.LocalName.ToLower() == "properties")
-                                    break;
-                                if (xtr.NodeType == XmlNodeType.Element && xtr.LocalName.ToLower() == "property")
+                            case "properties":
+                                LoadProperties(xtr); //read properties
+                                break;
+                            case "transactionaltype":
+                                _transactionType = (TransactionalTypes)Enum.Parse(typeof(TransactionalTypes), xtr.ReadElementString());
+                                break;
+                            case "propertyauthorization":
+                                _propertyAuthorization = (PropertyAccessSecurity)Enum.Parse(typeof(PropertyAccessSecurity), xtr.ReadElementString());
+                                break;
+                            case "authorizationrules":
+                                _useSecurity = bool.Parse(xtr.ReadElementString());
+                                break;
+                            case "relationship":
+                                while (xtr.MoveToNextAttribute())
                                 {
-                                    PropertyInfo prop = new PropertyInfo(xtr, this);
-                                    _properties.Add(prop);
-
-                                    if (prop.IsCollection && prop.IsCslaClass)
-                                        _childCollection.Add(prop);
-                                    if (prop.IsPrimaryKey)
-                                        _uniqueProperties.Add(prop);
-                                    if (prop.IsFilterKey)
-                                        _filterProperties.Add(prop);
+                                    switch (xtr.LocalName.ToLower())
+                                    {
+                                        case "parent":
+                                            _parent = xtr.Value;
+                                            break;
+                                        case "child":
+                                            _child = xtr.Value;
+                                            break;
+                                    }
                                 }
-                            }
-
-                            break;  //finish
+                                break;
+                            case "dbcommands":
+                                _dbName = xtr.GetAttribute("DbName");
+                                while (xtr.Read())
+                                {
+                                    if (xtr.NodeType == XmlNodeType.EndElement
+                                        && xtr.LocalName.ToLower() == "dbcommands")
+                                        break;  //reach end of properties node
+                                    if (xtr.NodeType == XmlNodeType.Element)
+                                    {
+                                        switch (xtr.LocalName.ToLower())
+	                                    {
+		                                    case "fetchcommand":
+                                                _fetchCommand = xtr.ReadElementString();
+                                                break;
+                                            case "insertcommand":
+                                                _insertCommand = xtr.ReadElementString();
+                                                break;
+                                            case "updatecommand":
+                                                _updateCommand = xtr.ReadElementString();
+                                                break;
+                                            case "deletecommand":
+                                                _deleteCommand = xtr.ReadElementString();
+                                                break;
+	                                    }
+                                    }
+                                }
+                                break;
                         }
                     }
-                }
+                    
+                }   //whild(xtr.Read())
+
                 xtr.Close();
 
-                //validate object
-                Validate();
+            }
+
+            private bool MoveToObject(XmlTextReader xtr, string objectName)
+            {
+                while (xtr.Read())
+                {
+                    if (xtr.NodeType == XmlNodeType.Element 
+                        && xtr.LocalName.ToLower() == "object")
+                    {
+                        if(xtr["name"] != null && xtr.GetAttribute("name") == objectName)
+                            return true;
+                        if (xtr["Name"] != null && xtr.GetAttribute("Name") == objectName)
+                            return true;
+                    }
+                }
+                return false;
+            }
+
+            private void LoadProperties(XmlTextReader xtr)
+            {
+                while (xtr.Read())
+                {
+                    if (xtr.NodeType == XmlNodeType.EndElement 
+                        && xtr.LocalName.ToLower() == "properties")
+                        break;  //reach end of properties node
+                    if (xtr.NodeType == XmlNodeType.Element 
+                        && xtr.LocalName.ToLower() == "property")
+                    {
+                        PropertyInfo prop = new PropertyInfo(xtr, this);
+                        _properties.Add(prop);
+
+                        if (prop.IsChildCollection)
+                            _childCollection.Add(prop);
+                        if (prop.IsPrimaryKey)
+                            _uniqueProperties.Add(prop);
+                        if (prop.IsFilterKey)
+                            _filterProperties.Add(prop);
+                    }
+                }
             }
 
             private void LoadFromSchema(CodeTemplate template)
             {
                 _objectType = TemplateHelper.ToObjectType(template.CodeTemplateInfo);
 
-                //object, child, and parent name
-                _objectName = (string)template.GetProperty("ObjectName");
+                //child, and parent name
                 if (IsCollection)
                     _child = (string)template.GetProperty("ChildName");
                 if (IsChild)
@@ -1367,6 +1479,7 @@ namespace CodeSmith.Csla
 
 				if (command != null)
 				{
+                    if(resultSetIndex==0) _fetchCommand = command.Name;
                     LoadProperties(command, resultSetIndex, uniqueColumns, filterColumns);
 				}
                 else if (table != null)
@@ -1377,16 +1490,6 @@ namespace CodeSmith.Csla
                 {
                     LoadProperties(view, uniqueColumns, filterColumns);
                 }
-                //template settings
-                _transactionType = (TransactionalTypes)template.GetProperty("TransactionalType");
-                _propertyAuthorization = (PropertyAccessSecurity)template.GetProperty("PropertyAuthorization");
-                _useSecurity = (bool)template.GetProperty("AuthorizationRules");
-                _codeGenMethod = (CodeGenerationMethod)template.GetProperty("GenerationMethod");
-                _classType = (GenerationClassType)template.GetProperty("ClassType");
-				_rootCommand = (CommandSchema)template.GetProperty("RootCommand");
-
-                //validate object
-                Validate();
             }
 
             private void LoadProperties(TableSchema table)
@@ -1433,7 +1536,7 @@ namespace CodeSmith.Csla
                 {
 					bool isUniqueMember = false;
 					bool isFilterMember = false;
-					if (resultSetIndex == 0 && CslaObjectType != ObjectType.NameValueList)
+					if (resultSetIndex == 0 && !IsChild && CslaObjectType != ObjectType.NameValueList)
 					{
 						bool isParameterMember = command.InputParameters.Contains("@" + col.Name);
 						isUniqueMember = isParameterMember && !IsCollection;
@@ -1455,6 +1558,24 @@ namespace CodeSmith.Csla
                         _filterProperties.Add(prop);
                 }
 			}
+            private void Initialize(CodeTemplate template)
+            {
+                _namespace = (string)template.GetProperty("ClassNamespace");
+                _objectName = (string)template.GetProperty("ObjectName");
+
+                //template settings
+                _transactionType = (TransactionalTypes)template.GetProperty("TransactionalType");
+                _propertyAuthorization = (PropertyAccessSecurity)template.GetProperty("PropertyAuthorization");
+                _useSecurity = (bool)template.GetProperty("AuthorizationRules");
+                _codeGenMethod = (CodeGenerationMethod)template.GetProperty("GenerationMethod");
+                _classType = (GenerationClassType)template.GetProperty("ClassType");
+
+                //db commands
+                _fetchCommand = string.Format(FetchCommandFormat, _objectName);
+                _insertCommand = string.Format(InsertCommandFormat, _objectName);
+                _updateCommand = string.Format(UpdateCommandFormat, _objectName);
+                _deleteCommand = string.Format(DeleteCommandFormat, _objectName);
+            }
             private void Validate()
             {
                 if (_objectName == null || _objectName.Length == 0)
@@ -1482,15 +1603,13 @@ namespace CodeSmith.Csla
             private bool _isIdentity = false;
             private bool _isPrimaryKey = false;
             private bool _isFilterKey = false;
-            private bool _isRequired = false;
-            private bool _isCollection = false;
-            private bool _isCslaClass = false;
-            private int _maxSize = -1;
-
+            private bool _allowDbNull = false;
+            private bool _isChildCollection = false;
             private bool _isReadOnly = false;
             private bool _isComputed = false;
             private bool _isTimestamp = false;
-            private bool _updateToDb = true;
+
+            private ArrayList _validationRules = new ArrayList();
             public string Name
             {
                 get { return _name; }
@@ -1546,9 +1665,8 @@ namespace CodeSmith.Csla
                     //parent is read only or object is read only
                     //identity column or part of primary key column(s)
                     //collection object or csla child object
-                    if (_parent.IsReadOnly || _isReadOnly || IsIdentity || IsPrimaryKey 
-                                    || IsCollection || IsCslaClass
-                                    || _isTimestamp || _isComputed)
+                    if (_parent.IsReadOnly || _isReadOnly || _isIdentity || _isPrimaryKey 
+                                    || _isChildCollection || _isTimestamp || _isComputed)
                         return true;
                     return false;
                 }
@@ -1569,7 +1687,7 @@ namespace CodeSmith.Csla
             {
                 get
                 {
-                    if (IsIdentity || _isTimestamp || _isComputed) 
+                    if (_isIdentity || _isTimestamp || _isComputed) 
                         return true;
 
                     return false;
@@ -1585,23 +1703,19 @@ namespace CodeSmith.Csla
             }
             public bool UpdateToDb
             {
-                get { return _updateToDb && HasDbColumn; }
+                get { return !_isReadOnly && HasDbColumn; }
             }
-            public bool IsRequired
+            public bool AllowDbNull
             {
-                get { return _isRequired; }
+                get { return HandleNullableFields && _allowDbNull; }
             }
-            public bool IsCollection
+            public bool IsChildCollection
             {
-                get { return _isCollection; }
+                get { return _isChildCollection; }
             }
-            public bool IsCslaClass
+            public ArrayList ValidationRules
             {
-                get { return _isCslaClass; }
-            }
-            public int MaxSize
-            {
-                get { return _maxSize; }
+                get { return _validationRules; }
             }
             public PropertyInfo(DataObjectBase column, ObjectInfo parent)
             {
@@ -1620,8 +1734,7 @@ namespace CodeSmith.Csla
                 _parent = parent;
                 _name = cslaCollName;
                 _type = cslaCollType;
-                _isCslaClass = true;
-                _isCollection = true;
+                _isChildCollection = true;
                 if(!parent.IsReadOnly)
                     _defaultValue = string.Format("{0}.New{0}()", _type);
             }
@@ -1647,40 +1760,41 @@ namespace CodeSmith.Csla
                         case "dbcolumnname":
                             _dbColumnName = xtr.Value;
                             break;
-                        case "updatetodb":
-                            _updateToDb = bool.Parse(xtr.Value);
-                            break;
                         case "isidentity":
                             _isIdentity = bool.Parse(xtr.Value);
                             break;
                         case "isprimarykey":
                             _isPrimaryKey = bool.Parse(xtr.Value);
                             break;
-                        case "isfilterkey":
+                        case "isfilterkey": //
                             _isFilterKey = bool.Parse(xtr.Value);
                             break;
-                        case "isrequired":
-                            _isRequired = bool.Parse(xtr.Value);
+                        case "allowDbNull":
+                            _allowDbNull = bool.Parse(xtr.Value);
                             break;
                         case "isreadonly":
                             _isReadOnly = bool.Parse(xtr.Value);
                             break;
-                        case "iscomputed":
-                            _isComputed = bool.Parse(xtr.Value);
-                            break;
-                        case "maxsize":
-                            _maxSize = int.Parse(xtr.Value);
-                            break;
-                        case "iscollection":
-                            _isCollection = bool.Parse(xtr.Value);
-                            break;
-                        case "iscslaclass":
-                            _isCslaClass = bool.Parse(xtr.Value);
-                            break;
-                        default:
+                        case "ischildcollection":
+                            _isChildCollection = bool.Parse(xtr.Value);
                             break;
                     }
 	            }
+                xtr.MoveToElement();
+                if (!xtr.IsEmptyElement)
+                {
+                    while (xtr.Read())
+                    {
+                        if (xtr.NodeType == XmlNodeType.EndElement
+                            && xtr.LocalName.ToLower() == "property")
+                            break;  //reach end of property node
+                        if (xtr.NodeType == XmlNodeType.Element
+                            && xtr.LocalName.ToLower() == "validationrules")
+                        {
+                            LoadValidationRules(xtr);
+                        }
+                    }
+                }
                 if (_name == string.Empty)
                     throw new Exception("Name is required in property");
                 if (_type == string.Empty)
@@ -1688,6 +1802,12 @@ namespace CodeSmith.Csla
 
                 if (_defaultValue.Length == 0)
                     _defaultValue = CsHelper.GetDefaultValue(_type);
+                //check for timestamp
+                if (_type.ToLower() == "timestamp")
+                {
+                    _type = "byte[]";
+                    _isTimestamp = true;
+                }
             }
             private void Load(DataObjectBase col)
             {
@@ -1702,15 +1822,134 @@ namespace CodeSmith.Csla
                     _isPrimaryKey = ((ColumnSchema)col).IsPrimaryKeyMember;
                     _isFilterKey = ((ColumnSchema)col).IsForeignKeyMember;
                 }
-                _isRequired = !col.AllowDBNull;
+                _allowDbNull = col.AllowDBNull;
                 _isComputed = CsHelper.IsComputed(col);
                 _isTimestamp = CsHelper.IsTimestamp(col);
-                //fixsize string is <= 8000
-                if (_type=="string" && col.Size <= 8000 && col.NativeType!="text" && col.NativeType!="ntext") 
-                    _maxSize = col.Size;
+
+                //required string
+                if (_allowDbNull == false && (_type == "string" || _type == "SmartDate"))
+                    _validationRules.Add(new RuleInfo(this, CommonRuleHandler.StringRequired, string.Empty, 0));
+                //fixsize string is <= 8000, add max length rule
+                if (_type == "string" && col.Size > 0 && col.Size <= 8000 && col.NativeType != "text" && col.NativeType != "ntext")
+                    _validationRules.Add(new RuleInfo(this, CommonRuleHandler.StringMaxLength, col.Size.ToString(), 0));
+                //email
+                if (_type == "string" && _name.ToLower().IndexOf("email")>=0)
+                    _validationRules.Add(new RuleInfo(this, CommonRuleHandler.RegExMatch, "Email", 0));
+            }
+            private void LoadValidationRules(XmlTextReader xtr)
+            {
+                while (xtr.Read())
+                {
+                    if (xtr.NodeType == XmlNodeType.EndElement
+                        && xtr.LocalName.ToLower() == "validationrules")
+                        break;  //reach end of property node
+                    if (xtr.NodeType == XmlNodeType.Element
+                        && Enum.IsDefined(typeof(CommonRuleHandler), xtr.LocalName))
+                    {
+                        RuleInfo rule = new RuleInfo(this, xtr);
+                        _validationRules.Add(rule);
+                    }
+                }
             }
         }
         #endregion //Property Class
+
+        #region RuleInfo
+        public class RuleInfo
+        {
+            private string _targetName;
+            private string _targetType;
+            private CommonRuleHandler _handler;
+            private string _argument;
+            private int _priority;
+
+            public CommonRuleHandler Handler
+            {
+                get { return _handler; }
+            }
+            public string HandlerText
+            {
+                get
+                {
+                    if (_handler == CommonRuleHandler.GenericsMaxValue)
+                        return string.Format("CommonRules.MaxValue<{0}>", _targetType);
+                    if (_handler == CommonRuleHandler.GenericsMinValue)
+                        return string.Format("CommonRules.MinValue<{0}>", _targetType);
+                    return "CommonRules." + _handler.ToString();
+                }
+            }
+            public string ArgumentText
+            {
+                get
+                {
+                    string argValue = _argument;    //for generic rule
+                    if(_targetType.ToLower() == "smartdate")
+                        argValue = string.Format("new SmartDate(\"{0}\")", _argument);
+                    else if(_targetType.ToLower() == "string")
+                        argValue = string.Format("\"{0}\"", _argument);
+
+                    switch (_handler)
+                    {
+                        case CommonRuleHandler.StringRequired:
+                            return string.Format("\"{0}\"", _targetName);
+                        case CommonRuleHandler.StringMaxLength:
+                            return string.Format("new CommonRules.MaxLengthRuleArgs(\"{0}\", {1})", _targetName, _argument);
+                        case CommonRuleHandler.IntegerMinValue:
+                            return string.Format("new CommonRules.IntegerMinValueRuleArgs(\"{0}\", {1})", _targetName, _argument);
+                        case CommonRuleHandler.IntegerMaxValue:
+                            return string.Format("new CommonRules.IntegerMaxValueRuleArgs(\"{0}\", {1})", _targetName, _argument);
+                        case CommonRuleHandler.GenericsMinValue:
+                            return string.Format("new CommonRules.MinValueRuleArgs<{0}>(\"{1}\", {2})", _targetType, _targetName, argValue);
+                        case CommonRuleHandler.GenericsMaxValue:
+                            return string.Format("new CommonRules.MaxValueRuleArgs<{1}>(\"{0}\", {1})", _targetType, _targetName, argValue);
+                        case CommonRuleHandler.RegExMatch:
+                            if ("SSN,Email".IndexOf(_argument) >= 0)
+                                return string.Format("new CommonRules.RegExRuleArgs(\"{0}\", CommonRules.RegExPatterns.{1})", _targetName, _argument);
+                            else
+                                return string.Format("new CommonRules.RegExRuleArgs(\"{0}\", @\"{1}\")", _targetName, _argument);
+                        default:
+                            return string.Empty;
+                    }
+                }
+            }
+            public int Priority
+            {
+                get { return _priority; }
+            }
+            public RuleInfo(PropertyInfo target, CommonRuleHandler handler, string argument, int priority)
+            {
+                _targetName = target.Name;
+                _targetType = target.Type;
+                _handler = handler;
+                _argument = argument;
+                _priority = priority;
+                
+                if (_handler == CommonRuleHandler.StringRequired && _targetType == "SmartDate")
+                {
+                    _targetType = "string";
+                    _targetName += "String";
+                }
+            }
+            public RuleInfo(PropertyInfo target, XmlTextReader xtr) 
+            {
+                _targetName = target.Name;
+                _targetType = target.Type;
+                _handler = (CommonRuleHandler)Enum.Parse(typeof(CommonRuleHandler), xtr.LocalName);
+                _priority = 0;
+                _argument = xtr.ReadElementString();
+
+                if (_handler == CommonRuleHandler.StringRequired && _targetType == "SmartDate")
+                {
+                    _targetType = "string";
+                    _targetName += "String";
+                }
+            }
+        }
+        public enum CommonRuleHandler
+        {
+            StringRequired, StringMaxLength, IntegerMinValue, IntegerMaxValue, GenericsMinValue, GenericsMaxValue, RegExMatch
+        }
+        #endregion
 
         #region Helpers
 

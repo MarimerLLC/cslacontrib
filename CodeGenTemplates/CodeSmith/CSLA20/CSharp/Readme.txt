@@ -1,14 +1,14 @@
 ---------------------------------------------------
-  CSLA 2.0 CodeSmith Templates for C#
-  Version: 1.0.0 (release)
-  Released: September 7, 2006
+  CSLA 2.x CodeSmith Templates for C#
+  Version: 1.0.1
+  Released: October 4, 2006
   Author: Ricky A. Supit (rsupit@hotmail.com)
   Download Site: http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=CSLAcontrib
   Workspace was moved from: http://workspaces.gotdotnet.com/cslacstemplate
   
 ---------------------------------------------------
 
-This is a collection of CodeSmith templates to generate CSLA 2.0 business object for C#.  I completely rewrote the 1.x version in order to support code generation from xml file.  In addition to support xml data source, there are numbers of new features that was added such as view as data source, and partial class generation. 
+This is a collection of CodeSmith templates to generate CSLA 2.x business object for C#.  I completely rewrote the 1.x version in order to support code generation from xml file.  In addition to support xml data source, there are numbers of new features that was added such as view as data source, and partial class generation. 
 
 Unlike version 1.x, these templates no longer used TableSchema and ColumnSchema directly as data source to generate Csla business object. The current template uses custom classes called ObjectInfo and PropertyInfo. This implementation permits one template to have multiple data sources such as table, view, and xml file.
 

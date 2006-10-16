@@ -1,11 +1,13 @@
-<%@ CodeTemplate Src="TemplateBase.cs" Inherits="CodeSmith.Csla.TemplateBase" Language="C#" TargetLanguage="C#" Description="Generates a CSLA Editable Root Object." %>
-<%@ Assembly Name="SchemaExplorer" %>
+<%@ CodeTemplate Language="C#" TargetLanguage="C#" Description="Generates a CSLA Objects using Xml datasource." %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Assembly Name="System.Design" %>
 <%@ Assembly Name="System.Xml" %>
 <%@ Import Namespace="System.Xml" %>
 <%@ Import Namespace="System.IO" %>
 <%@ Property Name="OutputToFile" Type="System.Boolean" Optional="false" Category="0. Render Options" Description="Required - True to generate file, or False to preview on the screen" %>
+<%@ Property Name="Generate" Type="GenerationOption" Optional="false" Category="0. Render Options" Description="Required - Choose to generate either user class, generated class, or both" %>
+<%@ Property Name="OverrideIfExist" Type="System.Boolean" Optional="false" Default="true" Category="0. Render Options" Description="Required - True to over ride if file already exist, False to skip if file already exist." %>
+<% LoadObjects(); %>
 <script runat="template">
 	private string _xmlPath = "";
 	[Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor)),
@@ -25,91 +27,142 @@
 		get {return _outputDirectory;}
 		set {_outputDirectory= value;}
 	}
-</script>
-
-<% LoadObjects(); %>
-
-<script runat="template">
-public void LoadObjects() 
-{
-    XmlTextReader xtr = new XmlTextReader(_xmlPath);
-    while (xtr.Read())
-    {
-        if (xtr.NodeType == XmlNodeType.Element && 
-				xtr.LocalName.ToLower() == "object")
-        {
-			 //render first object
-			 string objectType = xtr.GetAttribute("type");
-			 string objectName = xtr.GetAttribute("name");
-		     
-			 OutputSubTemplate(objectName, objectType, true);
-        }
-    }
-    xtr.Close();
-}
-
-public void OutputSubTemplate(string objectName, string cslaObjectType, bool overwriteFile)
-{
-	//validate first, make sure all required properties are filled
-	//if(!Validate(table, template)) return;
 	
-	CodeTemplate subTemplate = TemplateHelper.GetCompiledTemplate(CodeTemplateInfo.DirectoryName + cslaObjectType + ".cst");
-	if(subTemplate == null) return;
+	private CodeGenerationMethod _generationMethod = CodeGenerationMethod.SplitPartial;
+	private string _projectNamespace = string.Empty;
 
-	// assign properties		
-	subTemplate.SetProperty("XmlFilePath", _xmlPath);
-	subTemplate.SetProperty("ObjectName", objectName);
-	subTemplate.SetProperty("ClassNamespace", ClassNamespace);
-	subTemplate.SetProperty("ClassType", ClassType);
-	subTemplate.SetProperty("GenerationMethod", GenerationMethod);
-	subTemplate.SetProperty("AuthorizationRules", AuthorizationRules);
-	subTemplate.SetProperty("PropertyAuthorization", PropertyAuthorization);
-	subTemplate.SetProperty("TransactionalType", TransactionalType);
-	
-	
-	// Output to screen
-	subTemplate.Render(Response);
-	
-	if(OutputToFile) 
+	public void LoadObjects() 
 	{
-		string fileName = GetSourcePath() + GetSourceFileName(objectName);
+		XmlTextReader xtr = new XmlTextReader(_xmlPath);
+		while (xtr.Read())
+		{
+			if (xtr.NodeType == XmlNodeType.EndElement && xtr.LocalName.ToLower() == "cslaproject")
+				break;  //reach end of csla project node
+			if (xtr.NodeType == XmlNodeType.Element	&& xtr.LocalName.ToLower() == "generationmethod")
+			{
+				_generationMethod = (CodeGenerationMethod)Enum.Parse(typeof(CodeGenerationMethod), xtr.ReadElementString());
+			}
+			if (xtr.NodeType == XmlNodeType.Element	&& xtr.LocalName.ToLower() == "projectname")
+			{
+				_projectNamespace = xtr.ReadElementString();
+			}
+			if (xtr.NodeType == XmlNodeType.Element && 
+					xtr.LocalName.ToLower() == "object")
+			{
+				string objectName = string.Empty;
+				string objectType = string.Empty;
+				while (xtr.MoveToNextAttribute()) 
+				{
+					switch (xtr.LocalName.ToLower())
+					{
+						case "name": 
+							objectName = xtr.Value;
+							break;
+						case "type":
+							objectType = xtr.Value;
+							break;
+					}
+				}
+				if(objectName.Length>0 && objectType.Length>0)
+					OutputSubTemplate(objectName, objectType, OverrideIfExist);
+			}
+		}
+		xtr.Close();
+	}
+
+	public void OutputSubTemplate(string objectName, string cslaObjectType, bool overwriteFile)
+	{
+		CodeTemplate subTemplate = GetCompiledTemplate(CodeTemplateInfo.DirectoryName + cslaObjectType + ".cst");
+		if(subTemplate == null) return;
+
+		// assign properties		
+		subTemplate.SetProperty("XmlFilePath", _xmlPath);
+		subTemplate.SetProperty("ClassNamespace", _projectNamespace);
+		subTemplate.SetProperty("ObjectName", objectName);
+
+		subTemplate.SetProperty("GenerationMethod", _generationMethod);
+		
+		string fileName = string.Empty;
+		
 		try 
 		{
-			subTemplate.RenderToFile(fileName, overwriteFile);
+			if (Generate == GenerationOption.GeneratedClass || Generate == GenerationOption.All) {
+				subTemplate.SetProperty("ClassType", GenerationClassType.Generated);
+				if(OutputToFile) {
+					fileName = GetSourcePath() + GetSourceFileName(objectName, true);
+					Response.WriteLine("{0}: Start", objectName);
+					subTemplate.RenderToFile(fileName, overwriteFile);
+					Response.WriteLine("{0}: Complete, file: {1}", objectName, fileName);
+				}
+				else
+					subTemplate.Render(Response);
+					
+			}
+			if (Generate == GenerationOption.UserClass || Generate == GenerationOption.All && _generationMethod != CodeGenerationMethod.Single) {
+				subTemplate.SetProperty("ClassType", GenerationClassType.User);
+				if(OutputToFile) {
+					fileName = GetSourcePath() + GetSourceFileName(objectName, false);
+					Response.WriteLine("{0}: Start", objectName);
+					subTemplate.RenderToFile(fileName, overwriteFile);
+					Response.WriteLine("{0}: Complete, file: {1}", objectName, fileName);
+				}
+				else
+					subTemplate.Render(Response);
+					
+			}
 		}
 		catch(Exception ex) 
 		{
-			Response.WriteLine("Error Rendering To File: " + ex.Message);
-			Response.WriteLine("- " + fileName);
+			Response.WriteLine("Error Rendering {0}: {1}", objectName, ex.Message);
+			Response.WriteLine("- {0}", fileName);
 		}
 	}
-}
 
-
-// determine output file name based on Language, template name, and table name
-private string GetSourceFileName(string objectName)	//todo:get from template instead.
-{
-	string fileName = objectName;
-	if(ClassType == GenerationClassType.Generated) 
+	private CodeTemplate GetCompiledTemplate(string templatePath)
 	{
-		if(GenerationMethod == CodeGenerationMethod.SplitBase)
-			fileName += "Base";
-		else if(GenerationMethod == CodeGenerationMethod.SplitPartial)
-			fileName += ".Generated";
+
+		CodeTemplateCompiler compiler = new CodeTemplateCompiler(templatePath);
+		compiler.Compile();
+
+		if (compiler.Errors.Count > 0)
+		{
+			string errString = "Error Compiling Template\r\n";
+			errString += "- " + templatePath + "\r\n";
+
+			foreach (System.CodeDom.Compiler.CompilerError err in compiler.Errors)
+			{   
+				errString += err.ErrorText + "\r\n";
+			}
+			throw new ApplicationException(errString);
+		}
+
+		return compiler.CreateInstance();
+
 	}
-	return fileName + ".cs";
-}
 
-private string GetSourcePath()
-{
-	string path = OutputDirectory.Trim();
+	private string GetSourceFileName(string objectName, bool isGeneratedClass)	
+	{
+		string fileName = objectName;
+		if (!isGeneratedClass) return fileName + ".cs";
+		if (_generationMethod == CodeGenerationMethod.SplitPartial)
+			fileName += ".Generated";
+		else if (_generationMethod == CodeGenerationMethod.SplitBase)
+			fileName += ".Base";
+		return fileName + ".cs";
+	}
 
-	path += path.EndsWith("\\")? "":"\\";
+	private string GetSourcePath()
+	{
+		string path = OutputDirectory.Trim();
 
-	//check if path not exist, create folder
-	if(!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
+		path += path.EndsWith("\\")? "":"\\";
 
-	return path;
-}
+		//check if path not exist, create folder
+		if(!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 
+		return path;
+	}
+	public enum GenerationOption { All, GeneratedClass, UserClass}
+	public enum CodeGenerationMethod { Single, SplitPartial, SplitBase }
+	public enum GenerationClassType { Generated, User }
 </script>

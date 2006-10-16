@@ -22,7 +22,7 @@ using System.Data.SqlClient;
 using Csla;
 using Csla.Data;
 
-<% if (ClassNamespace != null && ClassNamespace.Length > 0) { %>namespace <%= ClassNamespace %>
+<% if (objInfo.Namespace.Length > 0) { %>namespace <%= objInfo.Namespace %>
 <%=Indent(i++)%>{ 
 <% } %> 
 <% if(!objInfo.IsUserPartial) {%>
@@ -179,4 +179,4 @@ using Csla.Data;
 <%=Indent(i)%>#endregion //Delegation Methods
 <%}%>
 <%=Indent(--i)%>}
-<% if(ClassNamespace != null && ClassNamespace.Length > 0) {%>}<%}%>
+<% if(objInfo.Namespace.Length > 0) {%>}<%}%>

@@ -1,10 +1,20 @@
 ---------------------------------------------------
-  CSLA 2.0 CodeSmith Templates for C#
+  CSLA 2.x CodeSmith Templates for C#
   Author: Ricky A. Supit (rsupit@hotmail.com)
 ---------------------------------------------------
 
 History:
-
+- Enh(RAS): Add Email validation when column name is string and contain word email.
+- Enh(RAS): Rename IsRequired in PropertyInfo to AllowDbNull, move HandleNullableFields inside property.
+- Enh(RAS): Define base class as constants to allow user to change when use custom base class. 
+- Enh(RAS): Deprecate IsCollection and IsCslaClass in PropertyInfo, replace with IsChildCollection.
+- Fix(RAS): Unable to define unique key on child of collection object, when using RootCommand.
+- Enh(RAS): Add xml schema. Old xml data source won't validate against this xsd, therefore require modification.
+- Enh(RAS): Add ValidationRules property in PropertyInfo; a collection of RuleInfo.
+- Enh(RAS): Remove PropertyInfo.MaxSize, use ValidationRules instead.
+- Enh(RAS): GetCommonValidationRule, change to generate validation rules based on PropertyInfo.ValidationRules
+- Enh(RAS): Add Namespace property in ObjectInfo, generate name space from this property.
+1.0.1	10/4/06 Targeting CSLA 2.1
 - Enh(RAS): Add support to "write first wins" concurrency when Timestamp field is detected.
 - Fix(RAS): Timestamp field return 1 byte (not 8 byte) on update. (Reported by David).
 - Enh(RAS): On Split-Base, remove criteria parameter on DP create to: protected override void DataPortal_Create(). (3198)

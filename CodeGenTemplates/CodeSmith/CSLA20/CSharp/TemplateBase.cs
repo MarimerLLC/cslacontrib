@@ -1,6 +1,6 @@
 #region 
 //==============================================================================================
-// CSLA 2.0 CodeSmith Templates for C#
+// CSLA 2.x CodeSmith Templates for C#
 // Author: Ricky A. Supit (rsupit@hotmail.com)
 //
 // This software is provided free of charge. Feel free to use and modify anyway you want it.
@@ -1769,7 +1769,7 @@ namespace CodeSmith.Csla
                         case "isfilterkey": //
                             _isFilterKey = bool.Parse(xtr.Value);
                             break;
-                        case "allowDbNull":
+                        case "allowdbnull":
                             _allowDbNull = bool.Parse(xtr.Value);
                             break;
                         case "isreadonly":
@@ -1901,7 +1901,7 @@ namespace CodeSmith.Csla
                         case CommonRuleHandler.GenericsMinValue:
                             return string.Format("new CommonRules.MinValueRuleArgs<{0}>(\"{1}\", {2})", _targetType, _targetName, argValue);
                         case CommonRuleHandler.GenericsMaxValue:
-                            return string.Format("new CommonRules.MaxValueRuleArgs<{1}>(\"{0}\", {1})", _targetType, _targetName, argValue);
+                            return string.Format("new CommonRules.MaxValueRuleArgs<{0}>(\"{1}\", {2})", _targetType, _targetName, argValue);
                         case CommonRuleHandler.RegExMatch:
                             if ("SSN,Email".IndexOf(_argument) >= 0)
                                 return string.Format("new CommonRules.RegExRuleArgs(\"{0}\", CommonRules.RegExPatterns.{1})", _targetName, _argument);

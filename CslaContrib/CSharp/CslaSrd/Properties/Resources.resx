@@ -117,6 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ruleIntegerMaxValue" xml:space="preserve">
+    <value>{ruleProperty} can not exceed {maxValue}.</value>
+    <comment>Descriptive explanation/error message for the IntegerMaxValue rule.</comment>
+  </data>
+  <data name="ruleIntegerMinValue" xml:space="preserve">
+    <value>{ruleProperty} can not be less than {minValue}.</value>
+    <comment>Descriptive explanation/error message for the IntegerMinValue rule.</comment>
+  </data>
+  <data name="ruleNoDuplicates" xml:space="preserve">
+    <value>{ruleProperty} must be unique.</value>
+    <comment>Descriptive explanation/error message for the NoDuplicates rule.</comment>
+  </data>
+  <data name="ruleStringMaxLength" xml:space="preserve">
+    <value>{ruleProperty} can not exceed {maxLength} characters.</value>
+    <comment>Descriptive explanation/error message for the StringMaxLength rule.</comment>
+  </data>
+  <data name="ruleStringRequired" xml:space="preserve">
+    <value>{ruleProperty} is required.</value>
+    <comment>Descriptive explanation/error message for the StringRequired rule.</comment>
+  </data>
   <data name="StringToBoolException" xml:space="preserve">
     <value>String value can not be converted to a Boolean</value>
   </data>

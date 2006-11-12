@@ -61,6 +61,51 @@ namespace CslaSrd.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {ruleProperty} can not exceed {maxValue}..
+        /// </summary>
+        internal static string ruleIntegerMaxValue {
+            get {
+                return ResourceManager.GetString("ruleIntegerMaxValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {ruleProperty} can not be less than {minValue}..
+        /// </summary>
+        internal static string ruleIntegerMinValue {
+            get {
+                return ResourceManager.GetString("ruleIntegerMinValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {ruleProperty} must be unique..
+        /// </summary>
+        internal static string ruleNoDuplicates {
+            get {
+                return ResourceManager.GetString("ruleNoDuplicates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {ruleProperty} can not exceed {maxLength} characters..
+        /// </summary>
+        internal static string ruleStringMaxLength {
+            get {
+                return ResourceManager.GetString("ruleStringMaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {ruleProperty} is required..
+        /// </summary>
+        internal static string ruleStringRequired {
+            get {
+                return ResourceManager.GetString("ruleStringRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String value can not be converted to a Boolean.
         /// </summary>
         internal static string StringToBoolException {

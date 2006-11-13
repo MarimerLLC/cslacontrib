@@ -7,8 +7,8 @@ using Csla.Core;
 namespace CslaSrd
 {
     [Serializable()]
-    public abstract class SrdBusinessListBase<T, C> : Csla.BusinessListBase<T, C>
-        where T : SrdBusinessListBase<T, C>
+    public abstract class RuleBusinessListBase<T, C> : Csla.BusinessListBase<T, C>
+        where T : RuleBusinessListBase<T, C>
         where C : RuleBusinessBase<C>, IEditableBusinessObject
     {
 

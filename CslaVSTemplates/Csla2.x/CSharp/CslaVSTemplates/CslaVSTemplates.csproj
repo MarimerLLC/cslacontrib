@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B8455329-6A9B-456E-A309-069D7A1EF342}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CslaTemplates</RootNamespace>
+    <AssemblyName>CslaTemplates</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Compile Include="CommandObject.cs" />
+    <Compile Include="EditableChild.cs" />
+    <Compile Include="EditableChildList.cs" />
+    <Compile Include="EditableRoot.cs" />
+    <Compile Include="EditableRootList.cs" />
+    <Compile Include="NameValueList.cs" />
+    <Compile Include="ReadOnlyList.cs" />
+    <Compile Include="ReadOnlyRoot.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CommandObject.vstemplate" />
+    <Content Include="ReadOnlyRoot.vstemplate" />
+    <Content Include="ReadOnlyList.vstemplate" />
+    <Content Include="NameValueList.vstemplate" />
+    <Content Include="EditableRootList.vstemplate" />
+    <Content Include="EditableRoot.vstemplate" />
+    <Content Include="EditableChildList.vstemplate" />
+    <Content Include="EditableChild.vstemplate" />
+  </ItemGroup>
+</Project>

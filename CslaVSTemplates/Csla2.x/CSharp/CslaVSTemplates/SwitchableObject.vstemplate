@@ -1,0 +1,27 @@
+<VSTemplate Version="2.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Csla SwitchableObject Template</Name>
+    <Description>Csla SwitchableObject template</Description>
+    <Icon Package="{FAE04EC1-301F-11d3-BF4B-00C04F79EFBC}" ID="4515" />
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <DefaultName>SwitchableObject.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Data</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>System.Xml</Assembly>
+			</Reference>
+			<Reference>
+				<Assembly>Csla</Assembly>
+			</Reference>
+		</References>
+    <ProjectItem ReplaceParameters="true">SwitchableObject.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

@@ -110,13 +110,25 @@ namespace $rootnamespace$
         }
         private void DataPortal_Fetch( Criteria criteria )
         {
+            _id = criteria.Id;
+
             RaiseListChangedEvents = false;
             // TODO: load values
-            using( SqlDataReader dr = null )
+            using( SqlConnection cn = new SqlConnection( ConfigurationManager.ConnectionStrings[DATABASE_NAME].ConnectionString ) )
             {
-                while( dr.Read() )
+                cn.Open();
+                using( SqlCommand cm = cn.CreateCommand() )
                 {
-                    this.Add( EditableChild.GetEditableChild( dr ) );
+                    cm.CommandType = CommandType.StoredProcedure;
+                    cm.CommandText = "usp$safeitemrootname$ByID";
+                    cm.Parameters.AddWithValue( "@ID", criteria.Id );
+                    using( SafeDataReader dr = new SafeDataReader( cm.ExecuteReader() ) )
+                    {
+                        while( dr.Read() )
+                        {
+                            this.Add( EditableChild.GetEditableChild( dr ) );
+                        }
+                    }
                 }
             }
             RaiseListChangedEvents = true;

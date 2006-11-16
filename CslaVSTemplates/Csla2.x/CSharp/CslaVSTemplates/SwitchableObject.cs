@@ -7,7 +7,7 @@ using Csla;
 namespace Templates
 {
   [Serializable()]
-  class SwitchableObject : BusinessBase<SwitchableObject>
+  class $safeitemrootname$ : BusinessBase<$safeitemrootname$>
   {
     #region Business Methods
 
@@ -91,39 +91,39 @@ namespace Templates
 
     #region Factory Methods
 
-    public static SwitchableObject NewSwitchableRoot()
+    public static $safeitemrootname$ New$safeitemrootname$()
     {
-      return DataPortal.Create<SwitchableObject>(
+      return DataPortal.Create<$safeitemrootname$>(
         new RootCriteria());
     }
 
-    internal static SwitchableObject NewSwitchableChild()
+    internal static $safeitemrootname$ NewSwitchableChild()
     {
-      return DataPortal.Create<SwitchableObject>(
+      return DataPortal.Create<$safeitemrootname$>(
         new ChildCriteria());
     }
 
-    public static SwitchableObject GetSwitchableRoot(int id)
+    public static $safeitemrootname$ GetSwitchableRoot(int id)
     {
-      return DataPortal.Fetch<SwitchableObject>(
+      return DataPortal.Fetch<$safeitemrootname$>(
         new RootCriteria(id));
     }
 
-    internal static SwitchableObject GetSwitchableChild(
+    internal static $safeitemrootname$ GetSwitchableChild(
       SqlDataReader dr)
     {
-      return new SwitchableObject(dr);
+      return new $safeitemrootname$(dr);
     }
 
-    public static void DeleteSwitchableObject(int id)
+    public static void Delete$safeitemrootname$(int id)
     {
       DataPortal.Delete(new RootCriteria(id));
     }
 
-    private SwitchableObject()
+    private $safeitemrootname$()
     { /* Require use of factory methods */ }
 
-    private SwitchableObject(SqlDataReader dr)
+    private $safeitemrootname$(SqlDataReader dr)
     {
       Fetch(dr);
     }

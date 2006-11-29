@@ -245,6 +245,7 @@ namespace $rootnamespace$
                     using (SqlCommand cm = cn.CreateCommand())
                     {
                         cm.CommandText = "usp$safeitemrootname$Update";
+                        cm.Parameters.AddWithValue("@$safeitemrootname$ID", _$safeitemrootname$Id);
                         DoInsertUpdate(cm);
                     }
                 }
@@ -253,7 +254,6 @@ namespace $rootnamespace$
         private void DoInsertUpdate(SqlCommand cm)
         {
             cm.CommandType = CommandType.StoredProcedure;
-            cm.Parameters.AddWithValue("@$safeitemrootname$ID", _$safeitemrootname$Id);
             //cm.Parameters.AddWithValue("@SpecialServicerFee", _SpecialServicerFee);
             //cm.Parameters.AddWithValue("@PrincipalRecoveryFee", _PrincipalRecoveryFee);
             //cm.Parameters.AddWithValue("@LiquidationFee", _LiquidationFee);

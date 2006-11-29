@@ -166,7 +166,7 @@ namespace $rootnamespace$
                 {
                     cm.CommandType = CommandType.StoredProcedure;
                     cm.CommandText = "usp$safeitemrootname$Delete";
-                    cm.Parameters.AddWithValue( "@$safeitemrootname$ID", _TransactionServicerID );
+                    cm.Parameters.AddWithValue( "@$safeitemrootname$ID", _id );
                     cm.ExecuteNonQuery();
                 }
             }
@@ -176,7 +176,6 @@ namespace $rootnamespace$
         private void DoInsertUpdate( SqlCommand cm )
         {
             cm.CommandType = CommandType.StoredProcedure;
-            //cm.Parameters.AddWithValue( "@$safeitemrootname$ListID", _TransactionServicerID );
             //todo:
             cm.ExecuteNonQuery();
             //_timestamp = (byte[])cm.Parameters["@newLastChanged"].Value;

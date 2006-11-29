@@ -245,7 +245,7 @@ namespace $rootnamespace$
                     using (SqlCommand cm = cn.CreateCommand())
                     {
                         cm.CommandText = "usp$safeitemrootname$Update";
-                        cm.Parameters.AddWithValue("@$safeitemrootname$ID", _$safeitemrootname$Id);
+                        cm.Parameters.AddWithValue("@$safeitemrootname$ID", _Id);
                         DoInsertUpdate(cm);
                     }
                 }

@@ -150,6 +150,7 @@ namespace $rootnamespace$
                 using( SqlCommand cm = cn.CreateCommand() )
                 {
                     cm.CommandText = "usp$safeitemrootname$Insert";
+                    cm.Parameters.AddWithValue("@$safeitemrootname$ID", _Id);
                     DoInsertUpdate( cm );
                 }
             }

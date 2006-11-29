@@ -121,6 +121,7 @@ private void SetProperties(CodeTemplate template)
 	//Object
 	template.SetProperty("ClassNamespace", ClassNamespace);
 	template.SetProperty("ObjectName", ObjectName);
+	template.SetProperty("BaseClass", BaseClass);
 	if(Template.ToString().IndexOf("Child")>=0 && Template.ToString().IndexOf("Editable")>=0)
 		template.SetProperty("ParentName", ParentName);
 	if(Template.ToString().IndexOf("List")>=0)

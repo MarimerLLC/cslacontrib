@@ -4,6 +4,10 @@
 ---------------------------------------------------
 
 History:
+1.1.0	11/28/06 (Release Candidate)
+- Fix(RAS): NameValueList's constraint generate description property data type instead of primary key data type.
+- Enh(RAS): Add BaseClass property and make base class constants as fall back value. (6007)
+- Fix(RAS): Empty ValidationRules node causes read incorrectly advances to subsequent nodes.
 - Enh(RAS): Add auto decrement unique id on editable child to support data binding.
 - Enh(RAS): Add Email validation when column name is string and contain word email.
 - Enh(RAS): Rename IsRequired in PropertyInfo to AllowDbNull, move HandleNullableFields inside property.

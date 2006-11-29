@@ -106,6 +106,15 @@ namespace CodeSmith.Csla
             set { _classNamespace = value; }
         }
 
+        private string _baseClass = "";
+        [CodeTemplateProperty(CodeTemplatePropertyOption.Optional),
+        Category("1. Object"),
+        Description("Optional - The customized base class that the generated class will inherit from.")]
+        public string BaseClass
+        {
+            get { return _baseClass; }
+            set { _baseClass = value; }
+        }
         #endregion //Object Definition
 
         #region Object Options
@@ -1180,7 +1189,7 @@ namespace CodeSmith.Csla
                         case ObjectType.ReadOnlyChildList:
                             return string.Format(" : {0}<{1}, {2}>", _baseClass, Type, ChildType);
                         case ObjectType.NameValueList:
-                            return string.Format(" : {0}<{2}, {2}>", _baseClass, ((PropertyInfo)_uniqueProperties[0]).Type, ((PropertyInfo)_properties[1]).Type);
+                            return string.Format(" : {0}<{1}, {2}>", _baseClass, ((PropertyInfo)_uniqueProperties[0]).Type, ((PropertyInfo)_properties[1]).Type);
                     }
                     return string.Empty;
                 }
@@ -1265,29 +1274,32 @@ namespace CodeSmith.Csla
                 else
                     LoadFromSchema(template);
 
-                //assign base class
-                switch (_objectType)
+                if (_baseClass.Length == 0)
                 {
-                    case ObjectType.EditableRoot:
-                    case ObjectType.EditableChild:
-                    case ObjectType.EditableSwitchable:
-                        _baseClass = BusinessBase;
-                        break;
-                    case ObjectType.ReadOnlyRoot:
-                    case ObjectType.ReadOnlyChild:
-                        _baseClass = ReadOnlyBase;
-                        break;
-                    case ObjectType.EditableChildList:
-                    case ObjectType.EditableRootList:
-                        _baseClass = BusinessListBase;
-                        break;
-                    case ObjectType.ReadOnlyRootList:
-                    case ObjectType.ReadOnlyChildList:
-                        _baseClass = ReadOnlyListBase;
-                        break;
-                    case ObjectType.NameValueList:
-                        _baseClass = NameValueListBase;
-                        break;
+                    //assign base class
+                    switch (_objectType)
+                    {
+                        case ObjectType.EditableRoot:
+                        case ObjectType.EditableChild:
+                        case ObjectType.EditableSwitchable:
+                            _baseClass = BusinessBase;
+                            break;
+                        case ObjectType.ReadOnlyRoot:
+                        case ObjectType.ReadOnlyChild:
+                            _baseClass = ReadOnlyBase;
+                            break;
+                        case ObjectType.EditableChildList:
+                        case ObjectType.EditableRootList:
+                            _baseClass = BusinessListBase;
+                            break;
+                        case ObjectType.ReadOnlyRootList:
+                        case ObjectType.ReadOnlyChildList:
+                            _baseClass = ReadOnlyListBase;
+                            break;
+                        case ObjectType.NameValueList:
+                            _baseClass = NameValueListBase;
+                            break;
+                    }
                 }
 
                 //validate object
@@ -1562,6 +1574,7 @@ namespace CodeSmith.Csla
             {
                 _namespace = (string)template.GetProperty("ClassNamespace");
                 _objectName = (string)template.GetProperty("ObjectName");
+                _baseClass = (string)template.GetProperty("BaseClass");
 
                 //template settings
                 _transactionType = (TransactionalTypes)template.GetProperty("TransactionalType");
@@ -1838,6 +1851,7 @@ namespace CodeSmith.Csla
             }
             private void LoadValidationRules(XmlTextReader xtr)
             {
+                if (xtr.IsEmptyElement) return;
                 while (xtr.Read())
                 {
                     if (xtr.NodeType == XmlNodeType.EndElement

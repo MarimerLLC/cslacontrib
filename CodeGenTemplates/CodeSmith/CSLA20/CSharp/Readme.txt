@@ -1,6 +1,6 @@
 ---------------------------------------------------
   CSLA 2.x CodeSmith Templates for C#
-  Version: 1.0.1
+  Version: 1.1.0 RC
   Released: October 4, 2006
   Author: Ricky A. Supit (rsupit@hotmail.com)
   Download Site: http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=CSLAcontrib

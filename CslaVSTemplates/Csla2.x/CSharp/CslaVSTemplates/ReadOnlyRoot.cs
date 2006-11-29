@@ -125,8 +125,36 @@ namespace $rootnamespace$
         }
         private void DataPortal_Fetch( Criteria criteria )
         {
-            // TODO: load values
             _id = criteria.Id;
+
+            RaiseListChangedEvents = false;
+            IsReadOnly = false;
+            // TODO: load values
+            using (SqlConnection cn = new SqlConnection(
+                ConfigurationManager.ConnectionStrings[DATABASE_NAME].ConnectionString))
+            {
+                cn.Open();
+                using (SqlCommand cm = cn.CreateCommand())
+                {
+                    cm.CommandType = CommandType.StoredProcedure;
+                    cm.CommandText = "uspGet$safeitemrootname$ByID";
+                    cm.Parameters.AddWithValue("@$safeitemrootname$ID", criteria.Id);
+
+                    using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+                    {
+                        dr.Read();
+                        this._Id = criteria.Id;
+                        //this._SpecialServicerFee = dr.GetFloat("SpecialServicerFee");
+                        //this._PrincipalRecoveryFee = dr.GetFloat("PrincipalRecoveryFee");
+                        //this._LiquidationFee = dr.GetFloat("LiquidationFee");
+                        //this._CorrectedMLFee = dr.GetFloat("CorrectedMLFee");
+                        //this._OtherFee = dr.GetFloat("OtherFee");
+                        //this._SSFeeAccrualMethod = dr.GetString("SSFeeAccrualMethod");
+                    }
+                }
+            }
+            IsReadOnly = true;
+            RaiseListChangedEvents = true;
         }
         #endregion
     }

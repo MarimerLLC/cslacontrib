@@ -41,9 +41,9 @@ namespace CslaSrd
         private const bool _minValue = false;
         private const bool _maxValue = true;
 
-        private bool   _bool;
-        private bool   _initialized;
-        private bool   _emptyIsMax;
+        private bool _bool;
+        private bool _initialized;
+        private bool _emptyIsMax;
         private string _format;
 
         #region Constructors
@@ -58,8 +58,8 @@ namespace CslaSrd
         /// <param name="emptyIsMin">Whether to compare an empty value as the minimum or maximum value.</param>
         public SmartBool(bool emptyIsMin)
         {
-            _emptyIsMax  = !emptyIsMin;
-            _format      = null;
+            _emptyIsMax = !emptyIsMin;
+            _format = null;
             _initialized = false;
             if (_emptyIsMax)
             {
@@ -183,7 +183,25 @@ namespace CslaSrd
         public string Text
         {
             get { return BoolToString(this.Bool, FormatString, !_emptyIsMax); }
-            set { this.Bool = StringToBool(value, !_emptyIsMax); }
+            set
+            {
+                if (value == String.Empty)
+                {
+                    _initialized = false;
+                    if (_emptyIsMax)
+                    {
+                        _bool = _maxValue;
+                    }
+                    else
+                    {
+                        _bool = _minValue;
+                    }
+                }
+                else
+                {
+                    this.Bool = StringToBool(value, !_emptyIsMax); 
+                }
+            }
         }
 
         #endregion
@@ -418,8 +436,7 @@ namespace CslaSrd
         /// <param name="FormatString">The format string used to format the bool into text.</param>
         /// <param name="EmptyIsMin">Indicates whether an empty bool is the min or max bool value.</param>
         /// <returns>Text representation of the bool value.</returns>
-        public static string BoolToString(
-          bool value, string formatString, bool emptyIsMin)
+        public static string BoolToString(bool value, string formatString, bool emptyIsMin)
         {
             if (emptyIsMin && value == _minValue)
                 return string.Empty;

@@ -168,20 +168,29 @@ namespace Templates
 
     private void DataPortal_Fetch(RootCriteria criteria)
     {
-      // TODO: create data reader to load values
-      using (SqlDataReader dr = null)
-      {
-        DoFetch(dr);
-      }
+        using( SqlConnection cn = new SqlConnection( ConfigurationManager.ConnectionStrings[DATABASE_NAME].ConnectionString ) )
+        {
+            cn.Open();
+            using( SqlCommand cm = cn.CreateCommand() )
+            {
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.CommandText = "usp$safeitemrootname$ByID";
+                cm.Parameters.AddWithValue( "@ID", criteria.Id );
+                using( SafeDataReader dr = new SafeDataReader( cm.ExecuteReader() ) )
+                {
+                    DoFetch(dr);
+                }
+            }
+        }
     }
 
-    private void Fetch(SqlDataReader dr)
+    private void Fetch(SafeDataReader dr)
     {
       MarkAsChild();
       DoFetch(dr);
     }
 
-    private void DoFetch(SqlDataReader dr)
+    private void DoFetch(SafeDataReader dr)
     {
       // TODO: load values
     }

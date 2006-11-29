@@ -220,6 +220,7 @@ namespace $rootnamespace$
                     }
                 }
             }
+            MarkOld();
         }
         protected override void DataPortal_Insert()
         {
@@ -245,7 +246,7 @@ namespace $rootnamespace$
                     using (SqlCommand cm = cn.CreateCommand())
                     {
                         cm.CommandText = "usp$safeitemrootname$Update";
-                        cm.Parameters.AddWithValue("@$safeitemrootname$ID", _Id);
+                        cm.Parameters.AddWithValue("@$safeitemrootname$ID", _id);
                         DoInsertUpdate(cm);
                     }
                 }

@@ -140,6 +140,9 @@
   <data name="StringToBoolException" xml:space="preserve">
     <value>String value can not be converted to a Boolean</value>
   </data>
+  <data name="StringToFloatException" xml:space="preserve">
+    <value>String value can not be converted to a float</value>
+  </data>
   <data name="StringToInt16Exception" xml:space="preserve">
     <value>String value can not be converted to an Int16</value>
   </data>
@@ -151,6 +154,9 @@
   </data>
   <data name="ValueNotSmartBoolException" xml:space="preserve">
     <value>Value is not a SmartBool</value>
+  </data>
+  <data name="ValueNotSmartFloatException" xml:space="preserve">
+    <value>Value is nto a SmartFloat</value>
   </data>
   <data name="ValueNotSmartInt16Exception" xml:space="preserve">
     <value>Value is not a SmartInt16</value>

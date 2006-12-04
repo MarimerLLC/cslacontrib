@@ -182,7 +182,15 @@ namespace CslaSrd
         /// </remarks>
         public string Text
         {
-            get { return BoolToString(this.Bool, FormatString, !_emptyIsMax); }
+            get {   if (this.IsEmpty)
+                    {
+                        return String.Empty;
+                    }
+                    else
+                    {
+                        return _bool.ToString();
+                    }
+                }
             set
             {
                 if (value == String.Empty)
@@ -199,7 +207,21 @@ namespace CslaSrd
                 }
                 else
                 {
-                    this.Bool = StringToBool(value, !_emptyIsMax); 
+                    string upperValue = value.ToUpper();
+                    if (upperValue == "TRUE")
+                    {
+                        _initialized = true;
+                        _bool = true;
+                    }
+                    else if (upperValue == "FALSE")
+                    {
+                        _initialized = true;
+                        _bool = false;
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid value (" + value + ") supplied.");
+                    }
                 }
             }
         }
@@ -360,91 +382,91 @@ namespace CslaSrd
             return new SmartBool(value, emptyIsMin);
         }
 
-        /// <summary>
-        /// Converts a text bool representation into a Bool value.
-        /// </summary>
-        /// <remarks>
-        /// An empty string is assumed to represent an empty bool. An empty bool
-        /// is returned as the MinValue of the Bool datatype.
-        /// </remarks>
-        /// <param name="Value">The text representation of the bool.</param>
-        /// <returns>A Bool value.</returns>
-        public static bool StringToBool(string value)
-        {
-            return StringToBool(value, true);
-        }
+        ///// <summary>
+        ///// Converts a text bool representation into a Bool value.
+        ///// </summary>
+        ///// <remarks>
+        ///// An empty string is assumed to represent an empty bool. An empty bool
+        ///// is returned as the MinValue of the Bool datatype.
+        ///// </remarks>
+        ///// <param name="Value">The text representation of the bool.</param>
+        ///// <returns>A Bool value.</returns>
+        //public static bool StringToBool(string value)
+        //{
+        //    return StringToBool(value, true);
+        //}
 
-        /// <summary>
-        /// Converts a text bool representation into a Bool value.
-        /// </summary>
-        /// <remarks>
-        /// An empty string is assumed to represent an empty bool. An empty bool
-        /// is returned as the MinValue or MaxValue of the Bool datatype depending
-        /// on the EmptyIsMin parameter.
-        /// </remarks>
-        /// <param name="Value">The text representation of the bool.</param>
-        /// <param name="EmptyIsMin">Indicates whether an empty bool is the min or max bool value.</param>
-        /// <returns>A Bool value.</returns>
-        public static bool StringToBool(string value, bool emptyIsMin)
-        {
-            bool tmp;
-            if (String.IsNullOrEmpty(value))
-            {
-                if (emptyIsMin)
-                    return _minValue;
-                else
-                    return _maxValue;
-            }
-            else if (bool.TryParse(value, out tmp))
-            {
-                return tmp;
-            }
-            else
-            {
-                string lint = value.Trim().ToLower();
-                throw new ArgumentException(Resources.StringToBoolException);
-            }
-        }
+        ///// <summary>
+        ///// Converts a text bool representation into a Bool value.
+        ///// </summary>
+        ///// <remarks>
+        ///// An empty string is assumed to represent an empty bool. An empty bool
+        ///// is returned as the MinValue or MaxValue of the Bool datatype depending
+        ///// on the EmptyIsMin parameter.
+        ///// </remarks>
+        ///// <param name="Value">The text representation of the bool.</param>
+        ///// <param name="EmptyIsMin">Indicates whether an empty bool is the min or max bool value.</param>
+        ///// <returns>A Bool value.</returns>
+        //public static bool StringToBool(string value, bool emptyIsMin)
+        //{
+        //    bool tmp;
+        //    if (String.IsNullOrEmpty(value))
+        //    {
+        //        if (emptyIsMin)
+        //            return _minValue;
+        //        else
+        //            return _maxValue;
+        //    }
+        //    else if (bool.TryParse(value, out tmp))
+        //    {
+        //        return tmp;
+        //    }
+        //    else
+        //    {
+        //        string lint = value.Trim().ToLower();
+        //        throw new ArgumentException(Resources.StringToBoolException);
+        //    }
+        //}
 
-        /// <summary>
-        /// Converts a bool value into a text representation.
-        /// </summary>
-        /// <remarks>
-        /// The bool is considered empty if it matches the min value for
-        /// the Bool datatype. If the bool is empty, this
-        /// method returns an empty string. Otherwise it returns the bool
-        /// value formatted based on the FormatString parameter.
-        /// </remarks>
-        /// <param name="Value">The bool value to convert.</param>
-        /// <param name="FormatString">The format string used to format the bool into text.</param>
-        /// <returns>Text representation of the bool value.</returns>
-        public static string BoolToString(bool value, string formatString)
-        {
-            return BoolToString(value, formatString, true);
-        }
+        ///// <summary>
+        ///// Converts a bool value into a text representation.
+        ///// </summary>
+        ///// <remarks>
+        ///// The bool is considered empty if it matches the min value for
+        ///// the Bool datatype. If the bool is empty, this
+        ///// method returns an empty string. Otherwise it returns the bool
+        ///// value formatted based on the FormatString parameter.
+        ///// </remarks>
+        ///// <param name="Value">The bool value to convert.</param>
+        ///// <param name="FormatString">The format string used to format the bool into text.</param>
+        ///// <returns>Text representation of the bool value.</returns>
+        //public static string BoolToString(bool value, string formatString)
+        //{
+        //    return BoolToString(value, formatString, true);
+        //}
 
-        /// <summary>
-        /// Converts a bool value into a text representation.
-        /// </summary>
-        /// <remarks>
-        /// Whether the bool value is considered empty is determined by
-        /// the EmptyIsMin parameter value. If the bool is empty, this
-        /// method returns an empty string. Otherwise it returns the bool
-        /// value formatted based on the FormatString parameter.
-        /// </remarks>
-        /// <param name="Value">The bool value to convert.</param>
-        /// <param name="FormatString">The format string used to format the bool into text.</param>
-        /// <param name="EmptyIsMin">Indicates whether an empty bool is the min or max bool value.</param>
-        /// <returns>Text representation of the bool value.</returns>
-        public static string BoolToString(bool value, string formatString, bool emptyIsMin)
-        {
-            if (emptyIsMin && value == _minValue)
-                return string.Empty;
-            else if (!emptyIsMin && value == _maxValue)
-                return string.Empty;
-            else
-                return string.Format("{0:" + formatString + "}", value);
-        }
+        ///// <summary>
+        ///// Converts a bool value into a text representation.
+        ///// </summary>
+        ///// <remarks>
+        ///// Whether the bool value is considered empty is determined by
+        ///// the EmptyIsMin parameter value. If the bool is empty, this
+        ///// method returns an empty string. Otherwise it returns the bool
+        ///// value formatted based on the FormatString parameter.
+        ///// </remarks>
+        ///// <param name="Value">The bool value to convert.</param>
+        ///// <param name="FormatString">The format string used to format the bool into text.</param>
+        ///// <param name="EmptyIsMin">Indicates whether an empty bool is the min or max bool value.</param>
+        ///// <returns>Text representation of the bool value.</returns>
+        //public static string BoolToString(bool value, string formatString, bool emptyIsMin)
+        //{
+        //    if (emptyIsMin && value == _minValue)
+        //        return string.Empty;
+        //    else if (!emptyIsMin && value == _maxValue)
+        //        return string.Empty;
+        //    else
+        //        return string.Format("{0:" + formatString + "}", value);
+        //}
 
         #endregion
 
@@ -493,7 +515,37 @@ namespace CslaSrd
         /// <returns>A value indicating if the comparison bool is less than, equal to or greater than this bool.</returns>
         public int CompareTo(string value)
         {
-            return this.Bool.CompareTo(StringToBool(value, !_emptyIsMax));
+            if (value.Length == 0)
+            {
+                if (this.IsEmpty == true)
+                {
+                    return 0;
+                }
+                else if (this.EmptyIsMin == true)
+                {
+                    return this.Bool.CompareTo(false);
+                }
+                else 
+                {
+                    return this.Bool.CompareTo(true);
+                }              
+            }
+            else 
+            {
+                string upperValue = value.ToUpper();
+                if (upperValue == "TRUE")
+                {
+                    return this.Bool.CompareTo(true);
+                }
+                else if (upperValue == "FALSE")
+                {
+                    return this.Bool.CompareTo(false);
+                }
+                else
+                {
+                    throw new Exception ("Invalid value (" + value + ") supplied.");
+                }
+            }
         }
 
         /// <summary>

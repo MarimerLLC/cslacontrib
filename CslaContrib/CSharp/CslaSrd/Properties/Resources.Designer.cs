@@ -115,6 +115,15 @@ namespace CslaSrd.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to String value can not be converted to a float.
+        /// </summary>
+        internal static string StringToFloatException {
+            get {
+                return ResourceManager.GetString("StringToFloatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String value can not be converted to an Int16.
         /// </summary>
         internal static string StringToInt16Exception {
@@ -147,6 +156,15 @@ namespace CslaSrd.Properties {
         internal static string ValueNotSmartBoolException {
             get {
                 return ResourceManager.GetString("ValueNotSmartBoolException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value is nto a SmartFloat.
+        /// </summary>
+        internal static string ValueNotSmartFloatException {
+            get {
+                return ResourceManager.GetString("ValueNotSmartFloatException", resourceCulture);
             }
         }
         

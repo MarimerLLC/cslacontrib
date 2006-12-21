@@ -109,7 +109,7 @@ namespace Csla
 
 						if (addedItem.Visible)
 						{
-							this.OnListChanged(ListChangedType.ItemAdded, this.InsertInOrder(addedItem, 0, _sortIndex.Count));
+							this.OnListChanged(ListChangedType.ItemAdded, this.FilteredIndex(this.InsertInOrder(addedItem, 0, _sortIndex.Count)));
 						}
 						else
 						{
@@ -471,6 +471,36 @@ namespace Csla
 			throw new IndexOutOfRangeException();
 		}
 
+		/// <summary>
+		/// Gets the filtered index of an item given a sorted but not filtered index.
+		/// </summary>
+		/// <param name="sortedIndex">The sorted index.</param>
+		/// <returns>The filtered index or -1 if the item is not visible.</returns>
+		private int FilteredIndex(int sortedIndex)
+		{
+			if (!_sortIndex[sortedIndex].Visible)
+			{
+				return -1;
+			}
+
+			int filteredIndex = -1;
+
+			for (int i = 0; i <= sortedIndex; i++)
+			{
+				if (_sortIndex[i].Visible)
+				{
+					filteredIndex++;
+				}
+			}
+
+			if (_defaultItem != null)
+			{
+				filteredIndex++;
+			}
+
+			return filteredIndex;
+		}
+
 		#endregion
 
 		#region Properties
@@ -519,7 +549,18 @@ namespace Csla
 						else
 						{
 							_indexedType = System.Windows.Forms.ListBindingHelper.GetListItemType(value);
-							props = System.Windows.Forms.ListBindingHelper.GetListItemProperties(value, null);
+
+							if (_indexedType.Equals(typeof(object)))
+							{
+								props = System.Windows.Forms.ListBindingHelper.GetListItemProperties(value);
+
+								if (props.Count > 0)
+								{
+									_indexedType = props[0].ComponentType;
+								}
+							}
+
+							props = TypeDescriptor.GetProperties(_indexedType);
 						}
 						
 						for (int i = 0; i < props.Count; i++)
@@ -1519,8 +1560,18 @@ namespace Csla
 
 			if (null == listAccessors)
 			{
+				pdc = new PropertyDescriptorCollection(null);
+				BrowsableAttribute browsable = new BrowsableAttribute(true);
+
 				// Return properties in sort order.
-				pdc = _objectProperties;
+				for (int i = 0; i < _objectProperties.Count; i++)
+				{
+					PropertyDescriptor prop = _objectProperties[i];
+					if (prop.Attributes.Contains(browsable))
+					{
+						pdc.Add(prop);
+					}
+				}
 			}
 			else
 			{

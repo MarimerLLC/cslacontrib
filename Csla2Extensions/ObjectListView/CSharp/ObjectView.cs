@@ -182,6 +182,8 @@ namespace Csla
 				return _visible;
 			}
 
+			string filter = filteredView.RowFilter;
+			filteredView.RowFilter = string.Empty;
 			System.Data.DataRow row = filteredView.Table.Rows[0];
 
 			for (int i = 0; i < this.Parent.ObjectProperties.Count; i++)
@@ -199,6 +201,7 @@ namespace Csla
 				}
 			}
 
+			filteredView.RowFilter = filter;
 			_visible = filteredView.Count > 0;
 
 			return _visible;

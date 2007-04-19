@@ -1,4 +1,13 @@
 
+NOTE:
+I do not have team studio at work, and that's what I've been told to use to load this project up in CslaContrib.
+It pretty regularly loses the connection information.
+I've mistakenly placed the new version of the project in a sub-directory of the old project.
+I have no idea how to fix that in CslaContrib.
+So, the contents of this directory are the "real" CslaSrd project, not the directory above this.
+Sorry for the confusion!
+
+
 CslaSrd is a set of extensions to the Csla v2.1 framework.
 
 We like the SmartDate class so much that we've added these classes:

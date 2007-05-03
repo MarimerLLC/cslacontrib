@@ -1,0 +1,18 @@
+# Microsoft Developer Studio Project File - Database Project
+Begin DataProject = "PTData"
+   MSDTVersion = "80"
+   SccProjectName = "SAK"
+   SccLocalPath = "SAK"
+   SccAuxPath = "SAK"
+   SccProvider = "SAK"
+   Begin DBRefFolder = "Database References"
+   End
+   Begin Folder = "PTracker"
+      Script = "Data.SQL"
+      Script = "Tables.SQL"
+   End
+   Begin Folder = "Security"
+      Script = "Data.SQL"
+      Script = "Tables.SQL"
+   End
+End

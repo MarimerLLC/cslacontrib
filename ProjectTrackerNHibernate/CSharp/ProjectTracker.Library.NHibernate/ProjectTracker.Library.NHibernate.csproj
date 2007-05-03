@@ -1,0 +1,124 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectTracker.Library</RootNamespace>
+    <AssemblyName>ProjectTracker.Library.NHibernate</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.1.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.1, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=1.0.2.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Mapping.Attributes, Version=1.0.2.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate.Mapping.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables, Version=1.0.2.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Nullables.dll</HintPath>
+    </Reference>
+    <Reference Include="Nullables.NHibernate, Version=1.0.2.0, Culture=neutral, PublicKeyToken=154fdcb44c4484fc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Nullables.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\Role.Csla.cs" />
+    <Compile Include="Admin\Role.NH.cs" />
+    <Compile Include="Admin\Roles.Csla.cs" />
+    <Compile Include="Admin\Roles.NH.cs" />
+    <Compile Include="Assignment.Csla.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database.NH.cs" />
+    <Compile Include="Framework\ProjectTrackerBusinessBase.cs" />
+    <Compile Include="Framework\ProjectTrackerBusinessListBase.cs" />
+    <Compile Include="Framework\ProjectTrackerNameValueListBase.cs" />
+    <Compile Include="Framework\ProjectTrackerReadOnlyBase.cs" />
+    <Compile Include="Framework\ProjectTrackerReadOnlyListBase.cs" />
+    <Compile Include="Framework\SecurityReadOnlyBase.cs" />
+    <Compile Include="Project.Csla.cs" />
+    <Compile Include="Project.NH.cs" />
+    <Compile Include="ProjectInfo.NH.cs" />
+    <Compile Include="ProjectList.NH.cs" />
+    <Compile Include="ProjectResource.Csla.cs" />
+    <Compile Include="ProjectResource.NH.cs" />
+    <Compile Include="ProjectResources.Csla.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.Csla.cs" />
+    <Compile Include="Resource.NH.cs" />
+    <Compile Include="ResourceAssignment.Csla.cs" />
+    <Compile Include="ResourceAssignment.NH.cs" />
+    <Compile Include="ResourceAssignments.Csla.cs" />
+    <Compile Include="ResourceAssignments.NH.cs" />
+    <Compile Include="ResourceInfo.NH.cs" />
+    <Compile Include="ResourceList.NH.cs" />
+    <Compile Include="RoleList.NH.cs" />
+    <Compile Include="Security\PTIdentity.NH.cs" />
+    <Compile Include="Security\PTIdentityRole.cs" />
+    <Compile Include="Security\PTPrincipal.cs" />
+    <Compile Include="Security\PTIdentity.Csla.cs" />
+    <Compile Include="Security\PTIdentityList.NH.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Csla.NHibernate\Csla.NHibernate.csproj">
+      <Project>{98B24D54-5ED6-4E03-9FE2-AA19E00AF30A}</Project>
+      <Name>Csla.NHibernate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

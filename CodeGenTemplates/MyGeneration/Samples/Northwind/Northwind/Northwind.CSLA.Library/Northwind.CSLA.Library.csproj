@@ -1,0 +1,127 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2F4D21BC-A7E6-49D9-BBE4-50303D6E3556}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Northwind.CSLA.Library</RootNamespace>
+    <AssemblyName>Northwind.CSLA.Library</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.4.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\csla21cs\csla20cs-2.1.4-070223\csla20cs\csla20cs\Csla\bin\Debug\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Log4Net\log4net-1.2.10\bin\net\2.0\release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extension\PropertyDescriptor.cs" />
+    <Compile Include="Generated\Category.cs" />
+    <Compile Include="Generated\CategoryInfo.cs" />
+    <Compile Include="Generated\CategoryInfoList.cs" />
+    <Compile Include="Generated\CategoryProduct.cs" />
+    <Compile Include="Generated\CategoryProducts.cs" />
+    <Compile Include="Generated\ChildEmployees.cs" />
+    <Compile Include="Generated\CommonRules.cs" />
+    <Compile Include="Generated\Customer.cs" />
+    <Compile Include="Generated\CustomerCustomerCustomerDemo.cs" />
+    <Compile Include="Generated\CustomerCustomerCustomerDemos.cs" />
+    <Compile Include="Generated\CustomerCustomerDemo.cs" />
+    <Compile Include="Generated\CustomerCustomerDemoInfo.cs" />
+    <Compile Include="Generated\CustomerCustomerDemoInfoList.cs" />
+    <Compile Include="Generated\CustomerDemographic.cs" />
+    <Compile Include="Generated\CustomerDemographicCustomerCustomerDemo.cs" />
+    <Compile Include="Generated\CustomerDemographicCustomerCustomerDemos.cs" />
+    <Compile Include="Generated\CustomerDemographicInfo.cs" />
+    <Compile Include="Generated\CustomerDemographicInfoList.cs" />
+    <Compile Include="Generated\CustomerInfo.cs" />
+    <Compile Include="Generated\CustomerInfoList.cs" />
+    <Compile Include="Generated\CustomerOrder.cs" />
+    <Compile Include="Generated\CustomerOrders.cs" />
+    <Compile Include="Generated\Database.cs" />
+    <Compile Include="Generated\Employee.cs" />
+    <Compile Include="Generated\EmployeeEmployeeTerritories.cs" />
+    <Compile Include="Generated\EmployeeEmployeeTerritory.cs" />
+    <Compile Include="Generated\EmployeeInfo.cs" />
+    <Compile Include="Generated\EmployeeInfoList.cs" />
+    <Compile Include="Generated\EmployeeOrder.cs" />
+    <Compile Include="Generated\EmployeeOrders.cs" />
+    <Compile Include="Generated\EmployeeTerritory.cs" />
+    <Compile Include="Generated\EmployeeTerritoryInfo.cs" />
+    <Compile Include="Generated\EmployeeTerritoryInfoList.cs" />
+    <Compile Include="Generated\Order.cs" />
+    <Compile Include="Generated\OrderDetail.cs" />
+    <Compile Include="Generated\OrderDetailInfo.cs" />
+    <Compile Include="Generated\OrderDetailInfoList.cs" />
+    <Compile Include="Generated\OrderInfo.cs" />
+    <Compile Include="Generated\OrderInfoList.cs" />
+    <Compile Include="Generated\OrderOrderDetail.cs" />
+    <Compile Include="Generated\OrderOrderDetails.cs" />
+    <Compile Include="Generated\Product.cs" />
+    <Compile Include="Generated\ProductInfo.cs" />
+    <Compile Include="Generated\ProductInfoList.cs" />
+    <Compile Include="Generated\ProductOrderDetail.cs" />
+    <Compile Include="Generated\ProductOrderDetails.cs" />
+    <Compile Include="Generated\PropertyDescriptor.cs" />
+    <Compile Include="Generated\Region.cs" />
+    <Compile Include="Generated\RegionInfo.cs" />
+    <Compile Include="Generated\RegionInfoList.cs" />
+    <Compile Include="Generated\RegionTerritories.cs" />
+    <Compile Include="Generated\RegionTerritory.cs" />
+    <Compile Include="Generated\Shipper.cs" />
+    <Compile Include="Generated\ShipperInfo.cs" />
+    <Compile Include="Generated\ShipperInfoList.cs" />
+    <Compile Include="Generated\ShipperOrder.cs" />
+    <Compile Include="Generated\ShipperOrders.cs" />
+    <Compile Include="Generated\Supplier.cs" />
+    <Compile Include="Generated\SupplierInfo.cs" />
+    <Compile Include="Generated\SupplierInfoList.cs" />
+    <Compile Include="Generated\SupplierProduct.cs" />
+    <Compile Include="Generated\SupplierProducts.cs" />
+    <Compile Include="Generated\Territory.cs" />
+    <Compile Include="Generated\TerritoryEmployeeTerritories.cs" />
+    <Compile Include="Generated\TerritoryEmployeeTerritory.cs" />
+    <Compile Include="Generated\TerritoryInfo.cs" />
+    <Compile Include="Generated\TerritoryInfoList.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

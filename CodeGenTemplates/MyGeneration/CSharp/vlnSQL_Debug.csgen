@@ -287,15 +287,6 @@ public class GeneratedGui : DotNetScriptGui
 ##|BODY_TAG_END %>
 ##|BODY_BEGIN
 <%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Globalization %><%
-// ========================================================================
-// Copyright 2006 - Volian Enterprises, Inc. All rights reserved.          
-// Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
-// ------------------------------------------------------------------------
-// $Workfile: $     $Revision: $                                           
-// $Author: $   $Date: $                                                   
-//                                                                         
-// $History: $                                                             
-// ========================================================================
 public class GeneratedTemplate : DotNetScriptTemplate
 {
 	public GeneratedTemplate(ZeusContext context) : base(context) {}

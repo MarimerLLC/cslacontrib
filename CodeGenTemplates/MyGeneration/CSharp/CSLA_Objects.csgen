@@ -70,8 +70,6 @@ public class GeneratedGui : DotNetScriptGui
 			dbConnection.Width = 150;
 			dbConnection.Top = memberPrefix.Top;
 			dbConnection.Left = memberPrefix.Left + memberPrefix.Width + 10;
-						 
-	
 			GuiCheckBox chkGenerateMain = MakeGuiCheckBox( "chkGenerateMain", "Main", true, "Create Main Object",100 );
 			GuiCheckBox chkFKList = MakeGuiCheckBox( "chkFKList", "FK List", true, "Create FK List Object" ,70,chkGenerateMain,100,0);
 			GuiCheckBox chkFKItem = MakeGuiCheckBox( "chkFKItem", "FK Item", true, "Create FK Item Object" ,70,chkFKList,0,-1);

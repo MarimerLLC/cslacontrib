@@ -1,0 +1,11 @@
+MyGeneration Templates
+vlnCSLA_SQL.csgen - SQL Stored Procedures including a purge procedure to purge the database of all data.
+CSLA_Objects.csgen - CSLA Objects - Should be placed in a "Generated" folder.  Extensions can be placed in an extension folder.
+vlnSQL_List.csgen - Converts SQL Stored Procedures from a database into individual files for comparison purposes.
+vlnSQL_Debug.csgen - A tool for debugging templates and generating indexes to match ForeignKeys.
+
+MyGeneration Settings: On the default settings form:
+
+Driver: Microsoft SQL Server
+Language: C#
+Database Target Mapping: SQLClient

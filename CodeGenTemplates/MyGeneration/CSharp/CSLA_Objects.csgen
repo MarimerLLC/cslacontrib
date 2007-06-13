@@ -1,0 +1,4523 @@
+﻿##|TYPE Template
+##|UNIQUEID ce9c6b98-62fe-4a36-9a31-cd33b283f574
+##|TITLE CSLA Business Objects
+##|NAMESPACE CSLA_21
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE C#
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+<%#NAMESPACE System, System.Text, System.Collections, Zeus, Zeus.UserInterface, Zeus.DotNetScript %>
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui( ZeusGuiContext context ) : base( context ) {}
+	private bool bInitializing=false;
+	public override void Setup()
+	{
+		bInitializing = true;
+		if ( !input.Contains( "chooseTables" ) || !input.Contains( "txtPath" ) ||
+				( !input.Contains( "chkClass" ) && !input.Contains( "chkNaming" ) ) )
+		{
+			if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.ReadInputFromCache(context);
+			ui.Title = "CSLA Object Mapping";
+			ui.Width = 600;
+			ui.Height = 660;
+	
+			// Grab default output path
+			string sOutputPath = "";
+			
+			if( input.Contains( "defaultOutputPath" ) ) 
+			{
+				sOutputPath = input["defaultOutputPath"].ToString();
+			}
+			//int top=0;
+			// Setup Folder selection input control.
+			GuiLabel label1 = ui.AddLabel( "label1", "Select the output path:", "Select the output path in the field below." );
+			label1.Width = 200;
+			GuiTextBox outputPath = ui.AddTextBox( "outputPath", sOutputPath, "Select the Output Path." );
+			outputPath.Width = 450;
+			GuiFilePicker selectPath = ui.AddFilePicker( "selectPath", "Select Path", "Select the Output Path.", "outputPath", true );
+			selectPath.Top = outputPath.Top;
+			selectPath.Width = 100;
+			selectPath.Left = outputPath.Left + outputPath.Width + 20;
+			
+			// Setup Database selection combobox.
+			GuiLabel label4 = ui.AddLabel( "label4", "Select a database:", "Select a database in the dropdown below." );
+			label4.Width = 250;
+			GuiComboBox chooseDatabase = ui.AddComboBox( "chooseDatabase", "Select a database." );
+			chooseDatabase.Width = 250;
+			// Namespace
+			GuiLabel label2 = ui.AddLabel( "label2", "Namespace: ",  "Provide your objects namespace." );
+			label2.Width = 280;
+			GuiTextBox classNamespace = ui.AddTextBox( "classNamespace", "Volian.CSLA.Library", "Provide your objects namespace." );				
+			classNamespace.Width = 280;
+			
+						GuiLabel label3 = ui.AddLabel( "label3", "Member prefix: ", "Provide your Prefix." );
+			label3.Width = 100;
+			label3.Top = label2.Top;
+			label3.Left = label2.Width + 20;
+			GuiTextBox memberPrefix = ui.AddTextBox( "memberPrefix", "_", "" );
+			memberPrefix.Width = 100;
+			memberPrefix.Top = classNamespace.Top;
+			memberPrefix.Left = classNamespace.Width + 20;
+					 
+			GuiLabel label3A = ui.AddLabel( "label3A", "dbConnection: ", "Provide a Connection." );
+			label3A.Width = 150;
+			label3A.Top = label3.Top;
+			label3A.Left = label3.Left+label3.Width + 10;
+			GuiTextBox dbConnection = ui.AddTextBox( "dbConnection", "VEPROMS", "" );
+			dbConnection.Width = 150;
+			dbConnection.Top = memberPrefix.Top;
+			dbConnection.Left = memberPrefix.Left + memberPrefix.Width + 10;
+						 
+	
+			GuiCheckBox chkGenerateMain = MakeGuiCheckBox( "chkGenerateMain", "Main", true, "Create Main Object",100 );
+			GuiCheckBox chkFKList = MakeGuiCheckBox( "chkFKList", "FK List", true, "Create FK List Object" ,70,chkGenerateMain,100,0);
+			GuiCheckBox chkFKItem = MakeGuiCheckBox( "chkFKItem", "FK Item", true, "Create FK Item Object" ,70,chkFKList,0,-1);
+			GuiCheckBox chkInfoList = MakeGuiCheckBox( "chkInfoList", "Info List", true, "Create FK Info List Object" ,70,chkFKItem,0,-1);
+			GuiCheckBox chkInfo = MakeGuiCheckBox( "chkInfo", "Info", true, "Create Info Object" ,70,chkInfoList,0,-1);
+			GuiCheckBox chkPartBM = MakeGuiCheckBox("chkPartBM","Business Methods",true,"Create Business Methods",130,chkGenerateMain,170,0);
+			GuiCheckBox chkPartDA = MakeGuiCheckBox("chkPartDA","Data Access",true,"Create Data Access",130,chkGenerateMain,300,0);
+			GuiCheckBox chkPartVR = MakeGuiCheckBox("chkPartVR","Validation Rules",true,"Create Validation Rules",130,chkPartBM,0,-1);
+			GuiCheckBox chkPartEX = MakeGuiCheckBox("chkPartEX","Exists",true,"Create Exists",130,chkPartDA,0,-1);
+			GuiCheckBox chkPartAR = MakeGuiCheckBox("chkPartAR","Authorization Rules",true,"Create Authorization Rules",130,chkPartVR,0,-1);
+			GuiCheckBox chkPartDF = MakeGuiCheckBox("chkPartDF","Defaults",true,"Create Defaults",130,chkPartEX,0,-1);
+			GuiCheckBox chkPartFM = MakeGuiCheckBox("chkPartFM","Factory Methods",true,"Create Factory Methods",130,chkPartAR,0,-1);
+			GuiCheckBox chkPartCM = MakeGuiCheckBox("chkPartCM","Component Model",true,"Create Component Model Interface",130,chkGenerateMain,430,0);
+			GuiCheckBox chkPartL4N = MakeGuiCheckBox("chkPartL4N","Log4Net",true,"Create Log4Net Code",130,chkPartCM,0,-1);
+			GuiCheckBox chkVolian = MakeGuiCheckBox("chkVolian","Volian Header",true,"Add Header",130,chkPartL4N,0,-1);
+			GuiCheckBox chkDatabase = MakeGuiCheckBox("chkDatabase","Database.cs",true,"Create Database Object",130,chkGenerateMain,0,50);
+			GuiCheckBox chkPartEXT = MakeGuiCheckBox("chkPartEXT","Extension Sample",true,"Create Extensions",130,chkPartDF,0,-1);
+			GuiCheckBox chkCreateFiles = MakeGuiCheckBox( "chkCreateFiles", "Create Code Files", true, "Create Code Files" ,150);
+			GuiCheckBox chkDebug = MakeGuiCheckBox("chkDebug","Debug Output",true,"Add Debug",130,chkCreateFiles,150,0);
+			chkDebug.Checked = false;
+			GuiTextBox tbDebug = ui.AddTextBox( "tbDebug", "", "Start Date" );
+			tbDebug.Top = chkDebug.Top;
+			tbDebug.Width = 150;
+			tbDebug.Left = chkDebug.Left + 150;
+			GuiLabel label7 = ui.AddLabel( "label7", "Select tables:", "Select tables from the listbox below." );
+			//label7.Top = chkEqualsHashCode.Top + 20;
+			GuiListBox chooseTables = ui.AddListBox( "chooseTables", "Select tables." );
+			chooseTables.Height = 120;
+	
+			// Setup Views selection multi-select listbox.
+			GuiLabel label8 = ui.AddLabel( "label8", "Select views:", "Select views from the listbox below." );
+			GuiListBox chooseViews = ui.AddListBox( "chooseViews", "Select views." );
+			chooseViews.Height = 120;
+			
+			// Attach the onchange event to the cmbDatabases control.
+			setupDatabaseDropdown( chooseDatabase );
+			chooseDatabase.AttachEvent( "onchange", "chooseDatabase_onchange" );
+	
+			ui.ShowGui = true;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+		bInitializing = false;
+	}
+	public void setupDatabaseDropdown( GuiComboBox Databases )
+	{
+		try 
+		{	
+			if( MyMeta.IsConnected )
+			{
+				Databases.BindData( MyMeta.Databases );
+				if( MyMeta.DefaultDatabase != null ) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables( Databases.SelectedValue );
+					bindViews( Databases.SelectedValue );
+				}
+			}
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindTables( string sDatabase )
+	{
+		int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData( db.Tables );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindViews( string sDatabase )
+	{
+		int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData( db.Views );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void chooseDatabase_onchange( GuiComboBox control )
+	{
+		int count = 0;
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+		bindTables( cmbDatabases.SelectedText );
+		bindViews( cmbDatabases.SelectedText );
+		GuiTextBox dbConnection = ui["dbConnection"] as GuiTextBox;
+		dbConnection.Text=cmbDatabases.SelectedText;
+		GuiTextBox classNamespace = ui["classNamespace"] as GuiTextBox;
+		classNamespace.Text=cmbDatabases.SelectedText + ".CSLA.Library";
+	}
+	<%#FILE MakeGuiCheckBox.cs %>
+	
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Globalization %><%
+// ========================================================================
+// Copyright 2007 - Volian Enterprises, Inc. All rights reserved.          
+// Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
+// ------------------------------------------------------------------------
+// $Workfile: $     $Revision: $                                           
+// $Author: $   $Date: $                                                   
+//                                                                         
+// $History: $                                                             
+// ========================================================================
+public class GeneratedTemplate : DotNetScriptTemplate
+{
+	private ArrayList _selectedTables;
+	private ArrayList _selectedViews;
+	private ArrayList _classList;
+	private ArrayList _duplicateList;
+	private ArrayList _PropDescList;
+	private string _dbName;
+	private string _tableName;
+	private string _className;
+	private string _exportPath;
+	private string _nameSpace;
+	private string _prefix;
+	private string _dbConnection;
+	private string _subclassName;
+	private string _refreshMine;
+	private ITable _workingTable;
+	private Hashtable dicRead;
+	//private Hashtable dicReadI;
+	private bool _chkGenerateMain; 
+	private bool _chkFKList; 
+	private bool _chkFKItem; 
+	private bool _chkInfoList; 
+	private bool _chkInfo; 
+	private bool _chkCreateFiles; 
+	private bool _chkPartBM;
+	private bool _chkPartDA;
+	private bool _chkPartVR;
+	private bool _chkPartEX;
+	private bool _chkPartAR;
+	private bool _chkPartDF;
+	private bool _chkPartFM;
+	private bool _chkPartEXT;
+	private bool _chkPartCM;
+	private bool _chkDatabase;
+	private bool _chkPartL4N;
+	private bool _chkDebug;
+	private bool _chkVolian;
+	private string _tbDebug;
+	private bool _doOldParent=false;
+	
+	public bool AddToClassList(string className)
+	{
+		if(_classList.Contains(className))
+		{
+			_duplicateList.Add(className);
+			return false;
+		}
+		else
+		{
+			_classList.Add(className);
+			return true;
+		}
+	}
+	public delegate bool Filter(IColumn column);
+	public string Debug(string str)
+	{
+	if(_chkDebug && str.CompareTo(_tbDebug) >= 0)return "/**** MyGeneration Debug " + str + " ****/";
+	return "";
+	}
+	public string DebugLine(string str)
+	{
+	if(_chkDebug && str.CompareTo(_tbDebug) >= 0)return "\r\n/**** MyGeneration Debug " + str + " ****/";
+	return "";
+	}
+	public void SaveFile()
+	{
+		if(_chkCreateFiles)
+		{
+			output.save( Path.Combine( _exportPath, _className + ".cs" ), false );
+			output.clear();
+		}
+	}
+	public GeneratedTemplate( ZeusContext context ) : base( context ) {}
+
+	public override void Render()
+	{
+		if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.SaveInputToCache(context);
+		try{
+			InitializeDictionaries();
+			_dbName = input["chooseDatabase"].ToString();
+			_PropDescList = new ArrayList();
+			_selectedTables = input["chooseTables"] as ArrayList;
+			_selectedViews = input["chooseViews"] as ArrayList;
+			_exportPath = input["outputPath"].ToString();
+			_nameSpace = input["classNamespace"].ToString();
+			_prefix = input["memberPrefix"].ToString();
+			_dbConnection = input["dbConnection"].ToString();
+			_chkGenerateMain=(bool)input["chkGenerateMain"];
+			_chkFKList=(bool)input["chkFKList"];
+			_chkFKItem=(bool)input["chkFKItem"];
+			_chkInfoList=(bool)input["chkInfoList"];
+			_chkInfo=(bool)input["chkInfo"];
+			_chkCreateFiles=(bool)input["chkCreateFiles"];
+			_chkPartBM=(bool)input["chkPartBM"];
+			_chkPartDA=(bool)input["chkPartDA"];
+			_chkPartVR=(bool)input["chkPartVR"];
+			_chkPartEX=(bool)input["chkPartEX"];
+			_chkPartAR=(bool)input["chkPartAR"];
+			_chkPartDF=(bool)input["chkPartDF"];
+			_chkPartFM=(bool)input["chkPartFM"];
+			_chkPartEXT=(bool)input["chkPartEXT"];
+			_chkPartCM=(bool)input["chkPartCM"];
+			_chkPartL4N=(bool)input["chkPartL4N"];
+			_chkDatabase=(bool)input["chkDatabase"];
+			_chkDebug=(bool)input["chkDebug"];
+			_chkVolian=(bool)input["chkVolian"];
+			_tbDebug=(string)input["tbDebug"];
+			_classList=new ArrayList();
+			_duplicateList=new ArrayList();
+			if(_chkDatabase)GenerateDatabase();
+			foreach( string _newTable in _selectedTables )
+			{
+				_workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+				GenerateClassFiles( _workingTable );
+			}
+			GeneratePropertyDescriptor();
+			GenerateCommonRules();
+			if(_duplicateList.Count > 0)
+			{
+				WriteLine("Duplicate Classes");
+				foreach(string s in _duplicateList)
+				{
+					WriteLine("[{0}]",s);
+				}
+			}
+			//foreach( string _newView in _selectedViews )
+			//{
+			//	IView _workingView = MyMeta.Databases[_dbName].Views[_newView];
+			//		GenerateClassFiles( _workingView.Columns, _className);
+			//}
+		}
+		catch(Exception ex)
+		{
+			output.write(ex.Message);
+		}
+	}
+	private void InitializeDictionaries()
+	{
+		dicRead = new Hashtable();
+		dicRead["Guid"]="{fmember} = dr.GetGuid(\"{fname}\");";
+		dicRead["string"]="{fmember} = dr.GetString(\"{fname}\");";
+		dicRead["SmartDate"]="{fmember} = dr.GetSmartDate(\"{fname}\").Text;";
+		dicRead["DateTime"]="{fmember} = dr.GetDateTime(\"{fname}\");";
+		dicRead["timestamp"]="dr.GetBytes(\"{fname}\", 0, {fmember}, 0, 8);";
+		dicRead["image"]="{fmember} = (byte[])dr.GetValue(\"{fname}\");";
+		dicRead["int"]="{fmember} = dr.GetInt32(\"{fname}\");";
+		dicRead["Int32"]="{fmember} = dr.GetInt32(\"{fname}\");";
+		dicRead["Int16"]="{fmember} = dr.GetInt16(\"{fname}\");";
+		dicRead["Int16"]="{fmember} = dr.GetInt16(\"{fname}\");";
+		dicRead["Int64"]="{fmember} = dr.GetInt64(\"{fname}\");";
+		dicRead["byte"]="{fmember} = dr.GetByte(\"{fname}\");";
+		dicRead["char"]="{fmember} = dr.GetChar(\"{fname}\");";
+		dicRead["double"]="{fmember} = dr.GetDouble(\"{fname}\");";
+		dicRead["float"]="{fmember} = dr.GetFloat(\"{fname}\");";
+		dicRead["decimal"]="{fmember} = dr.GetDecimal(\"{fname}\");";
+		dicRead["bool"]="{fmember} = dr.GetBoolean(\"{fname}\");";
+		dicRead["long"]="{fmember} = dr.GetInt64(\"{fname}\");";
+		dicRead["int?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["Int32?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["Int16?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["Int16?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["Int64?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["byte?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["char?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["double?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["float?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["decimal?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["bool?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["long?"]="{fmember} = ({ctype})dr.GetValue(\"{fname}\");";
+		dicRead["DateTime?"]="if(!dr.IsDBNull(dr.GetOrdinal(\"{fname}\"))) {fmember} = dr.GetDateTime(\"{fname}\");";
+	}
+	private void GenerateClassFiles(ITable tbl)
+	{
+		if(_chkGenerateMain)GenerateMainClass(tbl);
+		Hashtable dicAlias = new Hashtable();
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			if(tbl == fk.PrimaryTable)
+			{
+				if(!IsPrimaryKey(fk))
+				{
+					//string sAlias = GetAlias(dicAlias,fk.ForeignTable);
+					string sAlias = GetAlias(fk);
+					if(_chkFKList)GenerateFKListClass(fk,sAlias);
+					if(_chkFKItem && fk.PrimaryTable != fk.ForeignTable )GenerateFKClass(fk,sAlias);
+				}
+			}
+		}
+		if(_chkInfoList && !OneToOne(tbl))GenerateInfoListClass(tbl);
+		if(_chkInfo)GenerateInfoClass(tbl);
+	}
+//	private void ShowForeignKey(ForeignKey fk)
+//	{
+//		output.writeln("Primary " + fk.PrimaryTable.Name);
+//		foreach(IColumn col in fk.PrimaryColumns)output.writeln("  " + col.Name + " " + col.IsInPrimaryKey.ToString());
+//		output.writeln(" Foreign " + fk.ForeignTable.Name);
+//		foreach(IColumn col in fk.ForeignColumns)output.writeln("  " + col.Name + " " + col.IsInPrimaryKey.ToString());
+//	}
+	private void GenerateMainClass( ITable tbl )
+	{
+		_className = ClassName( tbl );
+		_PropDescList.Add(_className);
+		if(!AddToClassList(_className))return;
+		_tableName = tbl.Alias;
+		vlnHeader("\r\nusing System.Collections.Generic;\r\nusing Csla.Validation;");
+		string sInterface="";
+		if(_chkPartCM)
+		{
+			//sInterface = ", ICustomTypeDescriptor";
+%>
+	[TypeConverter(typeof(<%=_className%>Converter))]<%
+		}
+%>
+	public partial class <%=_className%> : BusinessBase<<%=_className%>><%=sInterface%>, IDisposable, IVEHasBrokenRules
+	{<%
+		vlnRefreshInfo();
+		vlnCollection(tbl,UniqueIndexes(tbl),false);
+		if(_chkPartBM)vlnBusinessMethods(tbl.Columns);
+		if(_chkPartVR)vlnValidationRules(tbl.Columns);
+		if(_chkPartAR)vlnAuthorizationRules(tbl.Columns);
+		if(_chkPartFM)vlnFactoryMethods(tbl.Columns);
+		if(_chkPartDA)vlnDataAccessPortal(tbl.Columns);
+		if(_chkPartEX)vlnExists(tbl.Columns);
+		if(_chkPartDF)vlnDefaults(tbl.Columns);
+		vlnFooterCM("");
+		if(_chkPartEXT)vlnExtension(tbl.Columns);
+		SaveFile();
+	}
+	private void GenerateFKListClass(IForeignKey fk,string sAlias)
+	{
+		_className =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable )+sAlias;
+		_className = FKClassesName(fk)+sAlias;
+		if(!AddToClassList(_className))return;
+		if(fk.PrimaryTable == fk.ForeignTable)
+			_subclassName =  ClassName( fk.PrimaryTable);
+		else
+			_subclassName =  ClassName( fk.PrimaryTable) + ClassName( fk.ForeignTable )+sAlias;
+		_tableName =  "//TODO: No Table Name";
+		vlnHeader("\r\nusing Csla.Validation;");
+		string sInterface = "";
+		if(_chkPartCM)
+		{
+			sInterface = ", ICustomTypeDescriptor";
+%>
+	[TypeConverter(typeof(<%=_className%>Converter))]<%
+		}
+%>
+	public partial class <%=_className%> : BusinessListBase<<%=_className%>, <%=_subclassName%>><%=sInterface%>, IVEHasBrokenRules
+	{<%
+		if(_chkPartBM)vlnBusinessMethodsFKList(fk,sAlias);
+		if(_chkPartVR)vlnValidationRulesFKList(fk,sAlias);
+		if(_chkPartFM)vlnFactoryMethodsFKList(fk,sAlias);
+		if(_chkPartDA)vlnDataAccessPortalFKList(fk,sAlias);
+		vlnFooterCM(ClassesName( fk.ForeignTable ) + sAlias);
+		SaveFile();
+	}
+	private void GenerateFKClass(IForeignKey fk,string sAlias)
+	{
+		_className =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		_PropDescList.Add(_className);
+		if(!AddToClassList(_className))return;
+		_tableName =  fk.ForeignTable.Alias;
+		vlnHeader("\r\nusing Csla.Validation;");
+		string sInterface="";
+		if(_chkPartCM)
+		{
+			//sInterface = ", ICustomTypeDescriptor";
+%>
+	[TypeConverter(typeof(<%=_className%>Converter))]<%
+		}
+%>
+	public partial class <%=_className%> : BusinessBase<<%=_className%>><%=sInterface%>, IVEHasBrokenRules
+	{<%
+		if(_chkPartBM)vlnBusinessMethodsFKItem(fk,sAlias);
+		if(_chkPartVR)vlnValidationRulesFKItem(fk,sAlias);
+		if(_chkPartAR)vlnAuthorizationRulesFKItem(fk,sAlias);
+		if(_chkPartFM)vlnFactoryMethodsFKItem(fk,sAlias);
+		if(_chkPartDA)vlnDataAccessPortalFKItem(fk,sAlias);
+		if(_chkPartDF)vlnDefaults(fk.ForeignTable.Columns);
+		vlnFooterCM("");
+		if(_chkPartEXT)vlnExtension(fk.ForeignTable.Columns);
+		SaveFile();
+	}
+	private void vlnFooterCM(string displayName)
+	{
+		if(_chkPartCM)
+		{
+			if(displayName!="")vlnComponentModelFKList();
+%>
+	} // Class<%
+			if(displayName!="")vlnPropertyDescriptorFKList();
+			if(displayName!="")vlnConvertorFKList(displayName);
+			else vlnConvertorFKItem();
+%>
+} // Namespace
+<%
+		}
+		else
+		{
+%>
+	} // Class
+} // Namespace
+<%
+		}
+	}
+	private void GenerateInfoListClass( ITable tbl )
+	{
+		_className = ClassName( tbl ) + "InfoList";
+		if(!AddToClassList(_className))return;
+		_tableName = tbl.Alias;
+		_subclassName =  ClassName( tbl ) + "Info";
+		vlnHeader("\r\nusing System.Collections.Generic;");
+		string sInterface="";
+		if(_chkPartCM)
+		{
+			sInterface = ", ICustomTypeDescriptor";
+%>
+	[TypeConverter(typeof(<%=_className%>Converter))]<%
+		}
+%>
+	public partial class <%=_className%> : ReadOnlyListBase<<%=_className%>, <%=_subclassName%>><%=sInterface%>, IDisposable
+	{<%
+		if(_chkPartBM)
+		{
+%>
+		#region Business Methods
+		internal new IList<<%=_subclassName%>> Items
+		{ get { return base.Items; } }
+		public void AddEvents()
+		{
+			foreach (<%=_subclassName%> tmp in this)
+			{
+				tmp.Changed += new <%=_subclassName%>Event(tmp_Changed);
+			}
+		}
+		void tmp_Changed(object sender)
+		{
+			for (int i = 0; i < Count; i++)
+			{
+				if (base[i] == sender)
+					this.OnListChanged(new ListChangedEventArgs(ListChangedType.ItemChanged, i));
+			}
+		}
+		public void Dispose()
+		{
+			foreach (<%=_subclassName%> tmp in this)
+			{
+				tmp.Changed -= new <%=_subclassName%>Event(tmp_Changed);
+			}
+		}
+		#endregion<%}
+		if(_chkPartFM)vlnFactoryMethodsInfoList(tbl.Columns);
+		if(_chkPartDA)vlnDataAccessPortalInfoList(tbl.Columns);
+		vlnFooterCM(ClassesName( tbl ) );
+		SaveFile();
+	}
+	private void GenerateInfoClass( ITable tbl )
+	{
+		_className = ClassName( tbl ) + "Info";
+		_PropDescList.Add(_className);
+		if(!AddToClassList(_className))return;
+		_tableName = tbl.Alias;
+		vlnHeader("\r\nusing System.Collections.Generic;","\r\n\tpublic delegate void " + _className + "Event(object sender);");
+		string sInterface="";
+		if(_chkPartCM)
+		{
+			//sInterface = ", ICustomTypeDescriptor";
+%>
+	[TypeConverter(typeof(<%=_className%>Converter))]<%
+		}
+%>
+	public partial class <%=_className%> : ReadOnlyBase<<%=_className%>><%=sInterface%>, IDisposable
+	{
+		public event <%=_className%>Event Changed;
+		private void OnChange()
+		{
+			if (Changed != null) Changed(this);
+		}<%
+		vlnCollection(tbl,new ArrayList(),true);
+		if(_chkPartBM)vlnBusinessMethodsInfo(tbl.Columns);
+		if(_chkPartFM)vlnFactoryMethodsInfo(tbl.Columns);
+		if(_chkPartDA)vlnDataAccessPortalInfo(tbl.Columns);
+		vlnInfoExtension(tbl.Columns);//20070410
+		vlnFooterCM("");
+		SaveFile();
+	}
+	private void vlnHeader()
+	{
+		vlnHeader("");
+	}
+	private void vlnHeader(string sUsing)
+	{
+		vlnHeader(sUsing,"");
+	}
+	private void vlnHeader(string sUsing,bool serialize)
+	{
+		vlnHeader(sUsing,"",serialize);
+	}
+	private void vlnHeader(string sUsing,string sDelegate)
+	{
+		vlnHeader(sUsing,sDelegate,true);
+	}
+	private void vlnHeader(string sUsing,string sDelegate,bool serialize)
+	{
+		if(chkVolian){
+%>// ========================================================================
+// Copyright 2007 - Volian Enterprises, Inc. All rights reserved.          
+// Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
+// ------------------------------------------------------------------------
+// $Workfile: $     $Revision: $                                           
+// $Author: $   $Date: $                                                   
+//                                                                         
+// $History: $                                                             
+// ========================================================================
+<%
+		}
+%>
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using Csla;
+using Csla.Data;
+using System.Configuration;
+using System.IO;<%
+		if(_chkPartCM)
+		{
+%>
+using System.ComponentModel;<%
+		}
+%><%=sUsing%>
+namespace <%=_nameSpace%>
+{<%=sDelegate%>
+	/// <summary>
+	///	<%=_className%> Generated by MyGeneration using the CSLA Object Mapping template
+	/// </summary><%
+		if(serialize)
+		{
+%>
+	[Serializable()]<%
+		}
+	}
+	private bool IsPrimaryKey(IIndex ind)
+	{
+		IColumns colsi = ind.Columns;
+		IColumns colsp = ind.Table.PrimaryKeys;
+		if(colsi.Count != colsp.Count)return false;
+		for(int i=0;i<colsi.Count;i++)
+		{
+			if(colsi[i]!=colsp[i])
+				return false;
+		}
+		return true;
+	}
+	private ArrayList UniqueIndexes(ITable tbl)
+	{
+		ArrayList retval = new ArrayList();
+		foreach(Index ind in tbl.Indexes)
+		{
+			if(!IsPrimaryKey(ind) && ind.Unique)
+			{
+				retval.Add(ind);		
+			}
+		}
+		return retval;
+	}
+	private void vlnCollection(ITable tbl,ArrayList uniqueIndexes,bool bInfo)
+	{
+		string pKey = FormatColumns("tmp.{prop}.ToString()",tbl.PrimaryKeys," + \"_\" + ","");
+		string pKey2 = FormatColumns("{local}.ToString()",tbl.PrimaryKeys," + \"_\" + ","");
+		string pKeys = FormatColumns("{local}",tbl.PrimaryKeys,", ","");
+		string pKeysType = FormatColumns("{ctype} {local}",tbl.PrimaryKeys,", ","");
+%>
+		#region Collection
+		protected static List<<%=_className%>> _AllList = new List<<%=_className%>>();
+		private static Dictionary<string, <%=_className%>> _AllByPrimaryKey = new Dictionary<string, <%=_className%>>();<%
+		//ArrayList uniqueIndexes=UniqueIndexes(tbl);
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+%>
+		private static Dictionary<string, <%=_className%>> _AllBy<%=sBy%> = new Dictionary<string, <%=_className%>>();<%
+		}
+%>
+		private static void ConvertListToDictionary()
+		{
+			List<<%=_className%>> remove = new List<<%=_className%>>();
+			foreach (<%=_className%> tmp in _AllList)
+			{
+				_AllByPrimaryKey[<%=pKey%>]=tmp; // Primary Key<%
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			string sKey = FormatColumns("tmp.{prop}.ToString()",ind.Columns," + \"_\" + ","");
+%>
+				_AllBy<%=sBy%>[<%=sKey%>] = tmp; // Unique Index<%
+		}
+%>
+				remove.Add(tmp);
+			}
+			foreach (<%=_className%> tmp in remove)
+				_AllList.Remove(tmp);
+		}<%
+		if(bInfo && !OneToOne(_workingTable))
+		{
+%>
+		internal static void AddList(<%=_className%>List lst)
+		{
+			foreach (<%=_className%> item in lst) _AllList.Add(item);
+		}<%
+		}
+%>
+		public static <%=_className%> GetExistingByPrimaryKey(<%=pKeysType%>)
+		{
+			ConvertListToDictionary();
+			string key = <%=pKey2%>;
+			if (_AllByPrimaryKey.ContainsKey(key)) return _AllByPrimaryKey[key]; 
+			return null;
+		}<%
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			string sKey = FormatColumns("{local}.ToString()",ind.Columns," + \"_\" + ","");
+			string sKeysType = FormatColumns("{ctype} {local}",ind.Columns,", ","");
+			string sKeys = FormatColumns("{local}",ind.Columns,", ","");
+%>
+		public static <%=_className%> GetExistingBy<%=sBy%>(<%=sKeysType%>)
+		{
+			ConvertListToDictionary();
+			string key = <%=sKey%>;
+			if (_AllBy<%=sBy%>.ContainsKey(key)) return _AllBy<%=sBy%>[key];
+			return null;
+		}<%
+		}
+%>
+		#endregion<%
+	}
+	private void vlnBusinessMethods(IColumns Columns )
+	{
+%>
+		#region Business Methods
+		private string _ErrorMessage = string.Empty;
+		public string ErrorMessage
+		{
+			get { return _ErrorMessage; }
+		}<%
+		vlnProperties(Columns);
+		//vlnRelatedItems(Columns);
+		vlnToString(Columns);
+		vlnGetIDValue(_workingTable.PrimaryKeys);
+%>
+		#endregion<%
+	}
+	private string ParentCheck(IColumn col)  // 20070221 - Logic to check for parent value
+	{
+		IForeignKey pfk = FKParentFK(col.Table);
+		if(pfk == null)return null;
+		IColumn relCol = RelatedColumnF(col,pfk);
+		if(relCol==null) return null;
+		return FormatColumn("\r\n\t\t\t\tif (_" + ParentName(pfk) + " != null) return _" + ParentName(pfk) + ".{prop};",relCol); 
+	}
+	private void vlnProperties(IColumns Columns)
+	{
+		// Create all properties
+		foreach(IColumn col in Columns)
+		{
+			bool bReadOnly = col.IsInPrimaryKey || col.IsAutoKey || col.IsComputed;
+//			bool bRelatedObject = true;
+			vlnIdentity(col);
+//			string sParentCheck = ParentCheck(col);
+//			if(sParentCheck != null)
+//			{
+//				bReadOnly=true;
+//				bRelatedObject=false;
+//			}
+			// Need logic to handle parent child
+			string sParentCheck="";
+			if(IsRelObj(col))
+				sParentCheck =FormatColumn("\r\n\t\t\t\tif ({!member} != null) {member} = {!member}.{!column};",col);
+			vlnProperty(CSLAType( col ),MemberName(col)
+				,PropertyName(col),InitializeValue( col ),GetDescription(col),bReadOnly || IsRelObj(col),col.IsInPrimaryKey,false,null,sParentCheck,null);
+//			if(bRelatedObject)
+			vlnRelObjProperty(col,bReadOnly,false);
+		}
+		// Add Foreign Key Properties - This should be controllable
+//		foreach(IColumn field in Columns)
+//		{
+//			if( field.IsInForeignKey && field.IsInPrimaryKey)
+//			{
+				//A column that's in a fk and in the pk represents a fk relationship
+				//from another table, a one-to-many relationship.  (This might be 
+				//a bad assumption for a table with a composite primary key.)
+				//... and then we have to add collections for the foreign tables.
+				string sExtDirty="";
+				string sExtValid="";
+//				foreach( IForeignKey fk in field.ForeignKeys )
+				Hashtable dicAlias = new Hashtable();
+				foreach(IForeignKey fk in _workingTable.ForeignKeys)
+				{
+					if(fk.PrimaryTable == _workingTable){
+						//string sAlias = GetAlias(dicAlias,fk.ForeignTable);
+						string sAlias = GetAlias(fk);
+//							string sList = _className + ClassesName( fk.ForeignTable );
+						if(!IsPrimaryKey(fk)){
+							string sList = FKClassName(fk );
+							string sLists = FKClassesName(fk );
+							vlnProperty("int",MemberName(sList) + sAlias + "Count" ,sList + sAlias + "Count", " = 0;",
+								"Count of " + sLists + " for this " + ClassName(_workingTable)  + Debug("20070501.3"),true,false,false,null,null,null);
+							//vlnProperty(sLists+sAlias,MemberName(sLists)+sAlias,sLists + sAlias,
+							//" = " + sLists+sAlias + ".New();","Related Field" + Debug("20070501.2"),true,false,true,fk,null,null);
+							vlnProperty(sLists+sAlias,MemberName(sLists)+sAlias,sLists + sAlias,
+							" = null;","Related Field" + Debug("20070501.2"),true,false,true,fk,null,null);
+							//sExtDirty += " || " + MemberName(sLists+sAlias) + ".IsDirty";
+							//sExtValid += " && " + MemberName(sLists+sAlias) + ".IsValid";
+							sExtDirty += string.Format(" || ({0} == null? false : {0}.IsDirty)",MemberName(sLists+sAlias));
+							sExtValid += string.Format(" && ({0} == null? true : {0}.IsValid)",MemberName(sLists+sAlias));
+						} else {
+							string sItem = ClassName(fk.ForeignTable);
+							//vlnProperty(sItem+sAlias, MemberName("My" + sItem)+sAlias,"My" + sItem + sAlias,
+							//" = My" + sItem+sAlias + ".New();","Related Field",true,false,true,fk,null);
+							string sCheck = string.Format("\r\n\t\t\t\tif ( {0} == null) {0} = {1}.New({2});",
+								MemberName("My" + sItem)+sAlias, sItem, FormatColumns("{member}",fk.PrimaryColumns,", ",""));
+							vlnProperty(sItem+sAlias, MemberName("My" + sItem)+sAlias,"My" + sItem + sAlias,
+							" = null;","Related Field" + Debug("20070501.1"),true,false,true,fk,sCheck,null);
+							bool bReq = !fk.ForeignColumns[0].IsNullable;
+							sExtDirty += string.Format(" || ({0} == null? false : {0}.IsDirty)",MemberName("My" + sItem+sAlias));
+							sExtValid += string.Format(" && ({0} == null? true : {0}.IsValid)",MemberName("My" + sItem+sAlias));
+						}
+					}
+					else // 
+					{
+						if(IsPrimaryKey1(fk) && !IsPrimaryKey(fk)){
+							bool bReq = !fk.ForeignColumns[0].IsNullable;
+							string sClass = ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk);
+							//sExtDirty += string.Format(" || ({0} == null? " + bReq.ToString().ToLower() + " : {0}.IsDirty)",MemberName("My" + sClass));
+							//sExtValid += string.Format(" && ({0} == null? " + (!bReq).ToString().ToLower() + " : {0}.IsValid)",MemberName("My" + sClass));
+							sExtDirty += string.Format(" || ({0} == null? false : {0}.IsDirty)",MemberName("My" + sClass));
+							sExtValid += string.Format(" && ({0} == null? true : {0}.IsValid)",MemberName("My" + sClass));
+						}
+					}
+				}
+				if(sExtDirty!="")vlnDirty(sExtDirty);
+				//if(sExtValid!="")vlnOverride("Valid",sExtValid);
+				vlnValid(sExtValid);
+//			}
+//		}
+	}
+	private void vlnDirty(string sExtension)
+	{
+	%>
+		public override bool IsDirty
+		{
+			get { return base.IsDirty<%=sExtension%>; }
+		}<%
+	}
+	private void vlnValid(string sExtension)
+	{
+	%>
+		public override bool IsValid
+		{
+			get { return (IsNew && !IsDirty ? true : base.IsValid)<%=sExtension%>; }
+		}<%
+	}
+	private void vlnIdentity(IColumn column)
+	{
+		if(column.IsAutoKey)
+		{
+		string sProp=FormatColumn("{prop}",column);
+%>
+		private static int _next<%=sProp%> = -1;
+		public static int Next<%=sProp%>
+		{
+			get { return _next<%=sProp%>--; }
+		}<%
+		}
+	}
+	private void vlnLazyLoad(string sType,string sMemberName,string sPropertyName,IForeignKey fk)
+	{
+		if(fk==null)return;
+		if(OneToOne(fk.ForeignTable))return;
+		string sBy = FormatColumns("{name}",fk.ForeignColumns,"_","");
+		string sKeys=FormatColumns("{prop}",fk.PrimaryColumns,", ","");
+		string sRelClass=FKClassesName(fk) + GetAlias(fk);
+		string sClassName=MemberName(FKClassName(fk) + GetAlias(fk));//20070207
+%>
+				if(<%=sClassName%>Count > 0 && <%=sMemberName%> == null)
+					<%=sMemberName%> = <%=sType%>.GetBy<%=sBy%>(<%=sKeys%>);
+				else if(<%=sMemberName%> == null)
+					<%=sMemberName%> = <%=sRelClass%>.New();<%
+	}
+	private void vlnProperty(string sType,string sMemberName,string sPropertyName,string sDefault,string sDescription,bool bReadOnly,bool bPrimaryKey,bool bCompModel,IForeignKey fk,string sParentCheck,string sParentCheck2)
+	{
+		string suffix = (sPropertyName==_className?"Fld":"");
+%>
+		private <%=ReturnType(sType)%> <%=sMemberName%><%=suffix%><%=sDefault%><%
+		if(!sDefault.EndsWith("timestamp")){
+		if(sDescription != ""){
+%>
+		/// <summary>
+		/// <%=sDescription%>
+		/// </summary><%
+		}
+		if(_chkPartCM && bCompModel)
+		{
+%>
+		[TypeConverter(typeof(<%=sType%>Converter))]<%
+		}
+		if(bPrimaryKey){
+%>
+		[System.ComponentModel.DataObjectField(true, true)]<%
+		}
+%>
+		public <%=ReturnType(sType)%> <%=sPropertyName%><%=suffix%>
+		{
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+			get
+			{
+				CanReadProperty(true);<%vlnLazyLoad(sType,sMemberName,sPropertyName,fk);%><%=sParentCheck%>
+				return <%=sMemberName%><%=suffix%><%=ReturnMember(sType)%>;
+			}<%
+			if(!bReadOnly){  
+			switch(sType)
+				{
+					case "SmartDate":
+%>
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+			set
+			{
+				CanWriteProperty(true);
+				if (value == null) value = string.Empty;
+				<%=sMemberName%><%=suffix%> = value;
+				try
+				{
+					SmartDate tmp = new SmartDate(value);
+					if (<%=sMemberName%><%=suffix%> != tmp.ToString())
+					{
+						<%=sMemberName%><%=suffix%> = tmp.ToString();
+						// TODO: Any Cross Property Validation
+					}
+				}
+				catch
+				{
+				}
+				PropertyHasChanged();
+			}<%
+						break;
+					default:
+%>
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+			set
+			{
+				CanWriteProperty(true);<%
+			if(sType=="string"){
+%>
+				if (value == null) value = string.Empty;<%
+			}
+%>
+				if (<%=sMemberName%><%=suffix%> != value)
+				{
+					<%=sMemberName%><%=suffix%><%=ReturnMember(sType)%> = value;<%=sParentCheck2%>
+					PropertyHasChanged();
+				}
+			}<%
+						break;
+				}
+			}
+%>
+		}<%
+		}	
+
+	}
+	private void vlnToString(IColumns Columns)
+	{
+%>
+		// TODO: Replace base <%=_className%>.ToString function as necessary
+		/// <summary>
+		/// Overrides Base ToString
+		/// </summary>
+		/// <returns>A string representation of current <%=_className%></returns>
+		//public override string ToString()
+		//{
+		//  return base.ToString();
+		//}<%
+	}
+	private void vlnGetIDValue(IColumns Columns)
+	{
+		string keyID="";
+		string sep="(";
+		if(Columns.Count==1){
+			keyID=MemberName(Columns[0]);
+		}
+		else
+		{
+			foreach(IColumn field in Columns)
+			{
+				keyID+=sep+MemberName(field)+ ".ToString()";
+				sep="+\".\"+";
+			}
+			keyID+=").GetHashCode()";
+		}
+%>
+		// TODO: Check <%=_className%>.GetIdValue to assure that the ID returned is unique
+		/// <summary>
+		/// Overrides Base GetIdValue - Used internally by CSLA to determine equality
+		/// </summary>
+		/// <returns>A Unique ID for the current <%=_className%></returns>
+		protected override object GetIdValue()
+		{
+			return <%=keyID%>;
+		}<%
+	}
+	private string extName
+	{
+		get {return _className + "Extension";}
+	}
+	private string extMName
+	{
+		get {return MemberName(_className + "Extension");}
+	}
+	private void vlnValidationRules(IColumns Columns )
+	{
+%>
+		#region ValidationRules
+		[NonSerialized]
+		private bool _CheckingBrokenRules=false;
+		public IVEHasBrokenRules HasBrokenRules
+		{<%=Debug("20070509.vlnValidationRules")%>
+			get {
+				if(_CheckingBrokenRules)return null;
+				if ((IsDirty || !IsNew) && BrokenRulesCollection.Count > 0) return this;
+				try
+				{
+					_CheckingBrokenRules=true;
+					IVEHasBrokenRules hasBrokenRules = null;<%
+		vlnBrokenRuleObjects(Columns);
+%>
+					return hasBrokenRules;
+				}
+				finally
+				{
+					_CheckingBrokenRules=false;
+				}
+			}
+		}
+		public BrokenRulesCollection BrokenRules
+		{
+			get
+			{
+				IVEHasBrokenRules hasBrokenRules = HasBrokenRules;
+				if (this.Equals(hasBrokenRules)) return BrokenRulesCollection;
+				return (hasBrokenRules != null ? hasBrokenRules.BrokenRules : null);
+			}
+		}
+		protected override void AddBusinessRules()
+		{<%
+		foreach(IColumn field in Columns)
+		{
+			if(field.LanguageType=="string")
+			{
+				vlnAddRequired(field);
+				if(field.CharacterMaxLength < 2147483647)
+				vlnAddMaxLength(PropertyName(field),field.CharacterMaxLength);
+			}
+			if(CSLAType( field )=="SmartDate")
+			{
+				vlnAddRequired(field);
+				string sName = PropertyName(field);
+%>
+			ValidationRules.AddRule<<%=_className%>>(<%=sName%>Valid, "<%=sName%>");<%
+			}
+				string sObjectRequired = RequiredRelatedColumn(field);
+				if(sObjectRequired != null)
+				{
+%>
+			ValidationRules.AddRule(CommonRules.Required, "<%=sObjectRequired%>");<%
+				}
+		}
+%>
+			//ValidationRules.AddDependantProperty("x", "y");
+			<%=extMName%>.AddValidationRules(ValidationRules);
+			// TODO:  Add other validation rules
+		}
+		protected override void AddInstanceBusinessRules()
+		{
+			<%=extMName%>.AddInstanceValidationRules(ValidationRules);
+			// TODO:  Add other validation rules
+		}<%
+		foreach(IColumn field in Columns)
+		{
+			if(CSLAType( field )=="SmartDate")
+			{
+				string sName = PropertyName(field);
+				string sMember = MemberName(field);
+%>
+		private static bool <%=sName%>Valid(<%=_className%> target, Csla.Validation.RuleArgs e)
+		{
+			try
+			{
+				DateTime tmp = SmartDate.StringToDate(target.<%=sMember%>);
+			}
+			catch
+			{
+				e.Description = "Invalid Date";
+				return false;
+			}
+			return true;
+		}<%
+			}
+		}
+%>
+		// Sample data comparison validation rule
+		//private bool StartDateGTEndDate(object target, Csla.Validation.RuleArgs e)
+		//{
+		//	if (_started > _ended)
+		//	{
+		//		e.Description = "Start date can't be after end date";
+		//		return false;
+		//	}
+		//	else
+		//		return true;
+		//}
+		#endregion<%
+	}
+	private void vlnAddRequired(IColumn column)
+	{
+		string sName = PropertyName(column);
+		if(!column.IsNullable)
+		{
+%>
+			ValidationRules.AddRule(
+				Csla.Validation.CommonRules.StringRequired, "<%=sName%>");<%	
+		}
+	}
+	private void vlnAddMaxLength(string sName,int maxlen)
+	{
+%>
+			ValidationRules.AddRule(
+				Csla.Validation.CommonRules.StringMaxLength,
+				new Csla.Validation.CommonRules.MaxLengthRuleArgs("<%=sName%>", <%=maxlen.ToString()%>));<%	}
+	private void vlnAuthorizationRules(IColumns Columns )
+	{
+%>
+		#region Authorization Rules
+		protected override void AddAuthorizationRules()
+		{
+			//TODO: Who can read/write which fields<%
+		foreach(IColumn field in Columns)
+		{
+			if(field.DataTypeName != "timestamp"){
+%>
+			//AuthorizationRules.AllowRead(<%=PropertyName(field)%>, "<Role(s)>");<%			
+			}
+		}
+		foreach(IColumn field in Columns)
+		{
+			if(!(field.IsInPrimaryKey || field.IsAutoKey || field.IsComputed))
+			{
+%>
+			//AuthorizationRules.AllowWrite(<%=PropertyName(field)%>, "<Role(s)>");<%			
+			}
+		}
+%>
+			<%=extMName%>.AddAuthorizationRules(AuthorizationRules);
+		}
+		protected override void AddInstanceAuthorizationRules()
+		{
+			//TODO: Who can read/write which fields
+			<%=extMName%>.AddInstanceAuthorizationRules(AuthorizationRules);
+		}
+		public static bool CanAddObject()
+		{
+			// TODO: Can Add Authorization
+			//return Csla.ApplicationContext.User.IsInRole("ProjectManager");
+			return true;
+		}
+		public static bool CanGetObject()
+		{
+			// TODO: CanGet Authorization
+			return true;
+		}
+		public static bool CanDeleteObject()
+		{
+			// TODO: CanDelete Authorization
+			//bool result = false;
+			//if (Csla.ApplicationContext.User.IsInRole("ProjectManager"))result = true;
+			//if (Csla.ApplicationContext.User.IsInRole("Administrator"))result = true;
+			//return result;
+			return true;
+		}
+		public static bool CanEditObject()
+		{
+			// TODO: CanEdit Authorization
+			//return Csla.ApplicationContext.User.IsInRole("ProjectManager");
+			return true;
+		}
+		#endregion<%
+	}
+	private bool MatchingColumns(IList cols1,IList cols2)
+	{
+		if(cols1.Count != cols2.Count)return false;
+		ArrayList cols=new ArrayList();
+		foreach(IColumn col in cols1)cols.Add(col.Name);
+		foreach(IColumn col in cols2)cols.Remove(col.Name);
+		return cols.Count==0;
+	}
+	private void vlnFactoryMethods(IColumns Columns )
+	{
+		string pKeys=FormatColumns("{prop}.ToString()",_workingTable.PrimaryKeys," + \"_\" + ");
+		string sKeys=FormatColumns("{local}",_workingTable.PrimaryKeys,", ");
+		string sKeysTypes=FormatColumns("{ctype} {local}",_workingTable.PrimaryKeys,", ");;
+		ArrayList reqList = ReqList(Columns);
+		ArrayList makeList = MakeList(Columns);
+		ArrayList makeList2 = MakeList2(Columns);
+		ArrayList makeList3 = MakeList3(Columns);
+		ArrayList makeList4 = MakeList4(Columns);
+		Hashtable dicCheck = new Hashtable();
+		IForeignKey fkParent = FKParentFK(_workingTable);
+		string sParent = ParentName(fkParent);
+		dicCheck["DateTime"]=
+			"if ({local} >= new DateTime(1753, 1, 1) && {local} <= new DateTime(9999, 12, 31)) tmp.{prop} = {local};";
+		dicCheck["DateTime?"]=
+			"if ({local} != null && ((DateTime){local}) >= new DateTime(1753, 1, 1) && ((DateTime){local}) <= new DateTime(9999, 12, 31)) tmp.{prop} = {local};";
+		dicCheck["string"]=
+			"if ({local} != null && {local} != string.Empty) tmp.{prop} = {local};";
+%>
+		#region Factory Methods
+		public int CurrentEditLevel
+		{ get { return EditLevel; } }
+		protected <%=_className%>()
+		{/* require use of factory methods */
+			_AllList.Add(this);
+		}
+		public void Dispose()
+		{
+			_AllList.Remove(this);
+			_AllByPrimaryKey.Remove(<%=pKeys%>);<%
+		ArrayList uniqueIndexes=UniqueIndexes(_workingTable);
+		IIndex makeIndex=null;
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			string sKey = FormatColumns("{prop}.ToString()",ind.Columns," + \"_\" + ","");
+			if(MatchingColumns(ind.Columns,makeList))makeIndex=ind;
+%>
+			_AllBy<%=sBy%>.Remove(<%=sKey%>);<%
+		}
+		string sMakeListParamTypes = "";
+		string sMakeListParams = "";
+		string sSetTmp = "";
+		string sParentCheck = "";
+%>
+		}
+		public static <%=_className%> New()
+		{
+			if (!CanAddObject())
+				throw new System.Security.SecurityException("User not authorized to add a <%=_className%>");
+			try
+			{
+				return DataPortal.Create<<%=_className%>>();
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.New", ex);
+			}
+		}<%
+		// if makelist != reqlist create a new for reqlist
+		if(!SameList(makeList,reqList) && reqList.Count > 0)
+		{
+			BuildLists(reqList,ref sMakeListParamTypes, ref sMakeListParams, ref sSetTmp, ref sParentCheck);
+			BuildNew(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck);		
+		}
+		BuildLists(makeList,ref sMakeListParamTypes, ref sMakeListParams, ref sSetTmp, ref sParentCheck);		
+		BuildNew(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck );		
+		BuildMake(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck + Debug("20070427.3"),makeIndex);
+		if(!SameList(makeList,makeList4) && !SameList(reqList,makeList4) && makeList4.Count > 0)
+		{
+			BuildLists(makeList4,ref sMakeListParamTypes, ref sMakeListParams, ref sSetTmp, ref sParentCheck);		
+			BuildNew(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck);		
+			BuildMake(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck + Debug("20070427.4"),makeIndex);
+		}
+	if(makeList3.Count > 0)
+		{
+%>
+		public static <%=_className%> Make<%=_className%>(<%=FormatColumns("{rtype} {local}",makeList2,", ","")%>)
+		{<%=DebugLine("20070427.1")%>
+			<%=_className%> tmp = <%=_className%>.New(<%=FormatColumns("{local}",makeList,", ","")%>);
+<%=FormatColumns(dicCheck,makeList3,"\r\n","\t\t\t")%>
+			tmp = tmp.Save();
+			return tmp;
+		}<%
+		}
+		string sExtra1= "";
+		string sExtra2= "";
+		if(FKParent(_workingTable)){
+			sExtra1=", " + _className + " " + ParentName(fkParent).ToLower();
+			sExtra2=", " + ParentName(fkParent).ToLower();
+		}
+		if(OneToOne(_workingTable) && !SameList(makeList,_workingTable.PrimaryKeys) && !SameList(reqList,_workingTable.PrimaryKeys) && !SameList(makeList4,_workingTable.PrimaryKeys))
+		{
+			BuildLists(_workingTable.PrimaryKeys,ref sMakeListParamTypes, ref sMakeListParams, ref sSetTmp, ref sParentCheck);		
+			sSetTmp += "\r\n\t\t\ttmp.MarkClean();";
+			sSetTmp += "\r\n\t\t\ttmp.MarkAsChild();";
+			BuildNew(sMakeListParamTypes,sMakeListParams,sSetTmp,sParentCheck);		
+		}
+%>
+		public static <%=_className%> Get(<%=sKeysTypes%>)
+		{
+			if (!CanGetObject())
+				throw new System.Security.SecurityException("User not authorized to view a <%=_className%>");
+			try
+			{
+				<%=_className%> tmp = GetExistingByPrimaryKey(<%=sKeys%>);
+				if (tmp == null)
+				{
+					tmp = DataPortal.Fetch<<%=_className%>>(new PKCriteria(<%=sKeys%>));
+					_AllList.Add(tmp);
+				}
+				if (tmp.ErrorMessage == "No Record Found") tmp = null;
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Get", ex);
+			}
+		}<%
+		//IForeignKey fkParent = FKParentFK(_workingTable);
+		if(fkParent != null && _doOldParent)
+		{
+			string parKeys = FormatColumns("{member}",fkParent.ForeignColumns,", ");
+%>
+		public <%=_className%> Get<%=sParent%>()
+		{
+			if (!CanGetObject())
+				throw new System.Security.SecurityException("User not authorized to view a <%=_className%>");
+			try
+			{
+				<%=_className%> tmp = GetExistingByPrimaryKey(<%=parKeys%>);
+				if (tmp == null)
+				{
+					tmp = DataPortal.Fetch<<%=_className%>>(new <%=sParent%>Criteria(<%=parKeys%>));
+					_AllList.Add(tmp);
+				}
+				if (tmp.ErrorMessage == "No Record Found") tmp = null;
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Get", ex);
+			}
+		}<%
+		}
+//  GetByUniqueIndex() 
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			string sKeyType = FormatColumns("{ctype} {local}",ind.Columns,", ","");
+			string sKey = FormatColumns("{local}",ind.Columns,", ","");
+%>
+		private static <%=_className%> GetBy<%=sBy%>(<%=sKeyType%>)
+		{
+			if (!CanGetObject())
+				throw new System.Security.SecurityException("User not authorized to view a <%=_className%>");
+			try
+			{
+				<%=_className%> tmp = GetExistingBy<%=sBy%>(<%=sKey%>);
+				if (tmp == null)
+				{
+					tmp=DataPortal.Fetch<<%=_className%>>(new <%=sBy%>Criteria(<%=sKey%>));
+					_AllList.Add(tmp);
+				}
+				if (tmp.ErrorMessage == "No Record Found") tmp = null;
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.GetBy<%=sBy%>", ex);
+			}
+		}<%
+		}
+%>
+		public static <%=_className%> Get(SafeDataReader dr<%=sExtra1%>)
+		{
+			if (dr.Read()) return new <%=_className%>(dr<%=sExtra2%>);
+			return null;
+		}
+		internal <%=_className%>(SafeDataReader dr)
+		{
+			ReadData(dr);
+		}<%
+		if(FKParent(_workingTable)){
+%>
+		private <%=_className%>(SafeDataReader dr<%=sExtra1%>)
+		{
+			ReadData(dr);
+			MarkAsChild();
+		}<%
+		}
+%>
+		public static void Delete(<%=sKeysTypes%>)
+		{
+			if (!CanDeleteObject())
+				throw new System.Security.SecurityException("User not authorized to remove a <%=_className%>");
+			try
+			{
+				DataPortal.Delete(new PKCriteria(<%=sKeys%>));
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Delete", ex);
+			}
+		}
+		public override <%=_className%> Save()
+		{
+			if (IsDeleted && !CanDeleteObject())
+				throw new System.Security.SecurityException("User not authorized to remove a <%=_className%>");
+			else if (IsNew && !CanAddObject())
+				throw new System.Security.SecurityException("User not authorized to add a <%=_className%>");
+			else if (!CanEditObject())
+				throw new System.Security.SecurityException("User not authorized to update a <%=_className%>");
+			try
+			{
+				BuildRefreshList();
+				<%=_className%> <%=LocalName(_className)%> = base.Save();
+				_AllList.Add(<%=LocalName(_className)%>);//Refresh the item in AllList
+				ProcessRefreshList();
+				return <%=LocalName(_className)%>;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on CSLA Save", ex);
+			}
+		}
+		#endregion<%
+	}
+	private void BuildNew(string sMakeListParamTypes, string sMakeListParams, string sSetTmp, string sParentCheck)
+	{
+	%>
+		public static <%=_className%> New(<%=sMakeListParamTypes%>)
+		{
+			<%=_className%> tmp = <%=_className%>.New();
+<%=sSetTmp%>
+			return tmp;
+		}<%
+	}
+	private void BuildMake(string sMakeListParamTypes, string sMakeListParams, string sSetTmp, string sParentCheck,IIndex makeIndex)
+	{
+	%>
+		public static <%=_className%> Make<%=_className%>(<%=sMakeListParamTypes%>)
+		{<%=DebugLine("20070427.2")%><%
+		if(makeIndex != null)
+		{
+%>
+			<%=_className%> tmp = null;
+			<%=sParentCheck%>tmp = GetBy<%=FormatColumns("{prop}",makeIndex.Columns,"_","")%>(<%=FormatColumns("{!localcolumn}",makeIndex.Columns,", ","")%>);
+			if (tmp != null) return tmp;// It does exist, return it.
+			tmp = <%=_className%>.New(<%=sMakeListParams%>);<%
+		}
+		else
+		{
+%>
+			<%=_className%> tmp = <%=_className%>.New(<%=sMakeListParams%>);<%
+		}
+%>
+			if (tmp.IsSavable)
+				tmp = tmp.Save();
+			else
+			{
+				Csla.Validation.BrokenRulesCollection brc = tmp.ValidationRules.GetBrokenRules();
+				tmp._ErrorMessage = "Failed Validation:";
+				foreach (Csla.Validation.BrokenRule br in brc)
+				{
+					tmp._ErrorMessage += "\r\n\tFailure: " + br.RuleName;
+				}
+			}
+			return tmp;
+		}<%
+	}
+	private void vlnRefreshInfo()
+	{
+		string sClass = ClassName(_workingTable);
+		string sClasses = ClassesName(_workingTable);
+		string sDeclare = "\t\tprivate List<" + sClass + "> _Refresh" + sClasses + " = new List<" + sClass + ">();";
+		string sReset = "\t\t\t_Refresh" + sClasses + " = new List<" + sClass + ">();";
+		string sCheck = "\t\t\tif (IsDirty)\r\n\t\t\t\trefresh" + sClasses + ".Add(this);";
+		string sRefreshDeclare = "List<" + sClass + "> refresh" + sClasses;
+		string sRefreshRelated = "refresh" + sClasses;
+		string sRefreshRelated1 = "_Refresh" + sClasses;
+		string sProcess = "\t\t\tforeach (" + sClass + " tmp in _Refresh" + sClasses + ")\r\n\t\t\t{\r\n\t\t\t\t" +
+			sClass + "Info.Refresh(tmp);";
+		foreach(IForeignKey fk in _workingTable.ForeignKeys) // 20070220
+		{
+			if(_workingTable != fk.PrimaryTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+			{
+				sProcess += string.Format("\r\n\t\t\t\tif(tmp._My{1} != null) {0}Info.Refresh(tmp._My{1});",ClassName(fk.PrimaryTable.Name),ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk));
+			}
+		}
+		sProcess += "\r\n\t\t\t}";
+		Hashtable dicAlias = new Hashtable();		
+		foreach(IForeignKey fk in _workingTable.ForeignKeys) // 20070220
+		{
+			if(fk.PrimaryTable == fk.ForeignTable) // Parent Child
+			{
+				sCheck += "\r\n\t\t\tif (_" + ChildName(fk) + sClasses + " != null && _" + ChildName(fk) + sClasses + ".IsDirty)\r\n\t\t\t{\r\n\t\t\t\tforeach (" + sClass +
+					" tmp in _" + ChildName(fk) + sClasses + ")\r\n\t\t\t\t{\r\n\t\t\t\t\ttmp.AddToRefreshList(" +
+					"{{refreshRelated}});\r\n\t\t\t\t}\r\n\t\t\t}";
+			}
+			else
+			{
+				if(!IsPrimaryKey(fk) && _workingTable == fk.PrimaryTable){
+					//string sAlias = GetAlias(dicAlias,fk.ForeignTable);
+					string sAlias = GetAlias(fk);
+					string sItem = ClassName(fk.ForeignTable);
+					string sFItem = ClassName(_workingTable) + ClassName(fk.ForeignTable) + sAlias;
+					string sFItems = ClassName(_workingTable) + ClassesName(fk.ForeignTable) + sAlias;
+					sDeclare += "\r\n\t\tprivate List<" + sFItem + "> _Refresh" + sFItems + " = new List<" + sFItem + ">();";
+					sReset += "\r\n\t\t\t_Refresh" + sFItems + " = new List<" + sFItem + ">();";
+					sRefreshRelated += ", refresh" + sFItems;
+					sRefreshRelated1 += ", _Refresh" + sFItems;
+					sRefreshDeclare += ", List<" + sFItem + "> refresh" + sFItems;
+					sCheck += "\r\n\t\t\tif (" + MemberName(sFItems) + " != null && " + MemberName(sFItems) + ".IsDirty)\r\n\t\t\t{\r\n\t\t\t\tforeach (" + sFItem +
+						" tmp in " + MemberName(sFItems) + ")\r\n\t\t\t\t{\r\n\t\t\t\t\tif(tmp.IsDirty)refresh" + sFItems +
+						".Add(tmp);\r\n\t\t\t\t}\r\n\t\t\t}";
+					sProcess += "\r\n\t\t\tforeach (" + sFItem + " tmp in _Refresh" + sFItems + ")\r\n\t\t\t{\r\n\t\t\t\t" +
+						sItem + "Info.Refresh(" + (ForeignPrimary(fk)?"this, ":"") + "tmp);\r\n\t\t\t}";
+				}
+			}
+		}
+		sCheck = sCheck.Replace("{{refreshRelated}}",sRefreshRelated);
+%>
+		#region Refresh
+<%=sDeclare%>
+		private void AddToRefreshList(<%=sRefreshDeclare%>)
+		{
+<%=sCheck%>
+		}
+		private void BuildRefreshList()
+		{
+<%=sReset%>
+			AddToRefreshList(<%=sRefreshRelated1%>);
+		}
+		private void ProcessRefreshList()
+		{
+<%=sProcess%>
+		}
+		#endregion<%
+	}
+	private void ReadOnlyProperties(IColumns columns)
+	{
+		output.write(FormatColumns("\t\t\tprivate {ctype} {member};\r\n" +
+			"\t\t\tpublic {ctype} {prop}\r\n\t\t\t{ get { return {member}; } }"
+			,columns,"\r\n"));
+	}
+	private void vlnPKCriteria()
+	{
+// PKCriteria
+%>
+		[Serializable()]
+		protected class PKCriteria
+		{
+<%
+// Loop through Primary Keys
+//		string sep="";
+		string sValues=FormatColumns("\t\t\t\t{member} = {local};",_workingTable.PrimaryKeys,"\r\n");
+		string sKeysTypes=FormatColumns("{ctype} {local}",_workingTable.PrimaryKeys,", ");
+//		foreach(IColumn field in _workingTable.PrimaryKeys)
+//		{
+//			sKeysTypes+=sep + FormatColumn("{ctype} {member}",field);
+//			sValues+= FormatColumn("\t\t\t\t{member}={@};\r\n",field);
+//			sep=", ";			
+//		}
+		ReadOnlyProperties(_workingTable.PrimaryKeys);
+%>
+			public PKCriteria(<%=sKeysTypes%>)
+			{
+<%=sValues%>
+			}
+		}<%
+	}
+	private void vlnReadData(IColumns cols,bool bEditable)
+	{
+		IList cols2=cols;
+		if(!bEditable)cols2=NotTimestamp(cols);
+%>
+		private void ReadData(SafeDataReader dr)
+		{
+			Database.LogInfo("<%=_className%>.ReadData", GetHashCode());
+			try
+			{
+<%=FormatColumns(dicRead,cols2,"\r\n","\t\t\t\t")%><%
+			//Hashtable dicAlias = new Hashtable();
+			foreach(IForeignKey FK in _workingTable.ForeignKeys)
+			{
+				if(FK.PrimaryTable == _workingTable && !IsPrimaryKey(FK))
+				{
+					string sAlias = GetAlias(FK);
+					string sClass = FKClassName(FK);
+					string sField = FKFieldName(FK);
+%>
+				<%=MemberName(sClass)+ sAlias%>Count = dr.GetInt32("<%=sField + sAlias%>Count");<%			
+				}
+			}
+			if(bEditable){
+%>
+				MarkOld();<%
+			}
+%>
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.ReadData", ex);
+				_ErrorMessage = ex.Message;
+				throw new DbCslaException("<%=_className%>.ReadData", ex);
+			}
+		}<%
+	}
+	private void vlnDataAccessPortal(IColumns Columns )
+	{
+%>
+		#region Data Access Portal<%
+		vlnPKCriteria();
+// Parent Criteria 
+		IForeignKey fkParent = FKParentFK(_workingTable);
+		string sParent = ParentName(fkParent);
+		if(fkParent != null && _doOldParent)
+		{
+			string parKeys = FormatColumns("{member}",fkParent.ForeignColumns,", ");
+			string parValues=FormatColumns("\t\t\t\t{member} = {local};",fkParent.ForeignColumns,"\r\n");
+			string parKeysTypes=FormatColumns("{ctype} {local}",fkParent.ForeignColumns,", ");
+%>
+		[Serializable()]
+		private class <%=sParent%>Criteria
+		{
+<%ReadOnlyProperties(fkParent.ForeignColumns);%>
+			public <%=sParent%>Criteria(<%=parKeysTypes%>)
+			{
+<%=parValues%>
+			}
+		}<%
+		}
+// Unique Criteria 
+		ArrayList uniqueIndexes=UniqueIndexes(_workingTable);
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			string indKeyTypes = FormatColumns("{ctype} {local}",ind.Columns,", ","");
+			string indValues=FormatColumns("\t\t\t\t{member} = {local};",ind.Columns,"\r\n");
+%>
+		[Serializable()]
+		private class <%=sBy%>Criteria
+		{
+<%ReadOnlyProperties(ind.Columns);%>
+			public <%=sBy%>Criteria(<%=indKeyTypes%>)
+			{
+<%=indValues%>
+			}
+		}<%
+		}
+// DataPortal_Create
+%>
+		// TODO: If Create needs to access DB - It should not be marked RunLocal
+		[RunLocal()]
+		private new void DataPortal_Create()
+		{
+<%=FormatColumns("{member} = new Guid();",Guid(Columns),"\r\n","\t\t\t")%><%=FormatColumns("{member} = Next{prop};",AutoKey(Columns),"\r\n","\t\t\t")%>
+			// Database Defaults
+<%=FormatColumns("{member} = " + extMName + ".Default{prop};",HasDefaults(Columns),"\r\n","\t\t\t")%>
+			// TODO: Add any defaults that are necessary
+			ValidationRules.CheckRules();
+		}<%
+		vlnReadData(Columns,true);
+		vlnDataPortalFetch("PK",_workingTable.PrimaryKeys,_className,true);
+//		IForeignKey fkParent = FKParentFK(_workingTable);
+		if(fkParent != null && _doOldParent)
+		{
+//		string sParent = ParentName(fkParent);
+			vlnDataPortalFetch(sParent,fkParent.ForeignColumns,sParent + _className,false);
+		}
+		foreach(IIndex ind in uniqueIndexes)
+		{
+			string sBy = FormatColumns("{name}",ind.Columns,"_","");
+			vlnDataPortalFetch(sBy,ind.Columns,_className + "By" + sBy,false);
+		}
+		string sUpdateMyList="";
+		foreach(IForeignKey fk in _workingTable.ForeignKeys) // 20070220
+		{
+			if(_workingTable != fk.PrimaryTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+			{
+				sUpdateMyList += string.Format("\r\n\t\t\t\tif(_My{0} != null) _My{0}.Update();",ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk));
+			}
+		}
+// DataPortal_Insert
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		protected override void DataPortal_Insert()
+		{
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					ApplicationContext.LocalContext["cn"] = cn;
+					SQLInsert();
+					// removing of item only needed for local data portal
+					if (ApplicationContext.ExecutionLocation == ApplicationContext.ExecutionLocations.Client)
+						ApplicationContext.LocalContext.Remove("cn");
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Insert", ex);
+				_ErrorMessage = ex.Message;
+				throw new DbCslaException("<%=_className%>.DataPortal_Insert", ex);
+			}
+			finally
+			{
+				Database.LogInfo("<%=_className%>.DataPortal_Insert", GetHashCode());
+			}
+		}
+		[Transactional(TransactionalTypes.TransactionScope)]
+		internal void SQLInsert()
+		{
+			if (!this.IsDirty) return;
+			try
+			{<%=sUpdateMyList%>
+				SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+				using (SqlCommand cm = cn.CreateCommand())
+				{
+					cm.CommandType = CommandType.StoredProcedure;
+					cm.CommandText = "add<%=_className%>";
+					// Input All Fields - Except Calculated Columns<%
+		foreach(IColumn column in Columns)
+		{
+			if((!column.IsAutoKey) && (!column.IsComputed))
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\t{ifLogicP}cm.Parameters.AddWithValue(\"{@}\", {?dbprefix}{Parent}{?dbsuffix});",column));// 20070316
+			}	
+		}
+%>
+					// Output Calculated Columns<%
+		foreach(IColumn column in Columns)
+		{
+			if((column.IsAutoKey) || (column.IsComputed))
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\tSqlParameter param{member} = new SqlParameter(\"{@new}\", {sqltype});",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tparam{member}.Direction = ParameterDirection.Output;",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tcm.Parameters.Add(param{member});",column));
+			}	
+		}
+%>
+					// TODO: Define any additional output parameters
+					cm.ExecuteNonQuery();
+					// Save all values being returned from the Procedure<%
+		foreach(IColumn column in Columns)
+		{
+			if((column.IsAutoKey) || (column.IsComputed))
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\t{member} = ({ctype})cm.Parameters[\"{@new}\"].Value;",column));
+			}	
+		}
+%>
+				}
+				MarkOld();
+				// update child objects<%
+		foreach(IColumn field in Columns)
+		{
+			if( field.IsInForeignKey && field.IsInPrimaryKey)
+			{
+				//A column that's in a fk and in the pk represents a fk relationship
+				//from another table, a one-to-many relationship.  (This might be 
+				//a bad assumption for a table with a composite primary key.)
+				//... and then we have to add collections for the foreign tables.
+				foreach( IForeignKey fk in field.ForeignKeys )
+				{
+					if(fk.PrimaryTable == _workingTable){
+						string sObjName;
+						if(!IsPrimaryKey(fk)){
+							sObjName = FKClassesName( fk ) + GetAlias(fk);
+%>
+				if (<%=MemberName(sObjName)%> != null) <%=MemberName(sObjName)%>.Update(this);<%
+						} 
+						else 
+						{
+							sObjName = ClassName( fk.ForeignTable );
+%>
+				if (<%=MemberName("My" + sObjName)%> != null) <%=MemberName("My" + sObjName)%>.Update(this);<%
+						}
+					}
+				}
+			}
+		}
+%>
+				Database.LogInfo("<%=_className%>.SQLInsert", GetHashCode());
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.SQLInsert", ex);
+				_ErrorMessage = ex.Message;
+				throw new DbCslaException("<%=_className%>.SQLInsert", ex);
+			}
+		}<%
+// Add
+		string sKeysTypesI="";
+		string sKeysI="";
+		string sValuesI="";
+		string sepi="";
+		foreach(IColumn column in Columns)
+		{
+			if((!column.IsComputed))
+			{
+				if(!column.IsAutoKey){
+					sValuesI+=FormatColumn("\r\n\t\t\t\t\t{ifLogicL}cm.Parameters.AddWithValue(\"{@}\", {parent}{?dbtype});",column);
+				}
+				if(IsParentCol(column)){
+					sKeysTypesI+=sepi + _className + " my" + ParentName(column.ForeignKeys[0]);
+					sKeysI+=sepi + "my" + ParentName(column.ForeignKeys[0]);
+				}
+				else
+				{
+					sKeysTypesI+=sepi + FormatColumn("{?ref}{!type} {!local}",column);
+					sKeysI+=sepi + FormatColumn("{?ref}{member}",column);
+				}
+				sepi=", ";
+			}	
+		}
+		string sRetval = (IsTimestamp(Columns).Count > 0 ? "byte[]" : "void");
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		public static <%=sRetval%> Add(SqlConnection cn, <%=sKeysTypesI%>)
+		{
+			Database.LogInfo("<%=_className%>.Add", 0);
+			try
+			{
+				using (SqlCommand cm = cn.CreateCommand())
+				{
+					cm.CommandType = CommandType.StoredProcedure;
+					cm.CommandText = "add<%=_className%>";
+					// Input All Fields - Except Calculated Columns<%=sValuesI%>
+					// Output Calculated Columns<%
+		foreach(IColumn column in Columns)
+		{
+			if((column.IsAutoKey) || (column.IsComputed))
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\tSqlParameter param{member} = new SqlParameter(\"{@new}\", {sqltype});",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tparam{member}.Direction = ParameterDirection.Output;",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tcm.Parameters.Add(param{member});",column));
+			}
+		}
+%>
+					// TODO: Define any additional output parameters
+					cm.ExecuteNonQuery();
+					// Save all values being returned from the Procedure<%
+		IColumn tsCol=null;
+		foreach(IColumn column in Columns)
+		{
+			if((column.IsAutoKey) || (column.IsComputed))
+			{
+				if(column.DataTypeName=="timestamp")tsCol=column;
+				else output.write(FormatColumn("\r\n\t\t\t\t\t{local} = ({ctype})cm.Parameters[\"{@new}\"].Value;",column));
+			}	
+		}
+		if(tsCol != null)
+			output.write(FormatColumn("\r\n\t\t\t\t\treturn ({ctype})cm.Parameters[\"{@new}\"].Value;",tsCol));
+		else
+			output.write("\r\n\t\t\t// No Timestamp value to return");
+%>
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.Add", ex);
+				throw new DbCslaException("<%=_className%>.Add", ex);
+			}
+		}<%
+// DataPortal_Update
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		protected override void DataPortal_Update()
+		{
+			if (!IsDirty) return;	// If not dirty - nothing to do
+			Database.LogInfo("<%=_className%>.DataPortal_Update", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					ApplicationContext.LocalContext["cn"] = cn;
+					SQLUpdate();
+					// removing of item only needed for local data portal
+					if (ApplicationContext.ExecutionLocation == ApplicationContext.ExecutionLocations.Client)
+						ApplicationContext.LocalContext.Remove("cn");
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Update", ex);
+				_ErrorMessage = ex.Message;
+				if (!ex.Message.EndsWith("has been edited by another user.")) throw ex;
+			}
+		}
+		[Transactional(TransactionalTypes.TransactionScope)]
+		internal void SQLUpdate()
+		{
+			if (!IsDirty) return;	// If not dirty - nothing to do
+			Database.LogInfo("<%=_className%>.SQLUpdate", GetHashCode());
+			try
+			{<%=sUpdateMyList%>
+				SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+				if (base.IsDirty)
+				{
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "update<%=_className%>";
+						// All Fields including Calculated Fields<%
+		foreach(IColumn column in Columns)
+		{
+			output.write(FormatColumn("\r\n\t\t\t\t\t\t{ifLogicP}cm.Parameters.AddWithValue(\"{@}\", {?dbprefix}{Parent}{?dbsuffix});",column));
+		}
+%>
+						// Output Calculated Columns<%
+		foreach(IColumn column in Columns)
+		{
+			if(column.IsComputed)
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\t\tSqlParameter param{member} = new SqlParameter(\"{@new}\", {sqltype});",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\t\tparam{member}.Direction = ParameterDirection.Output;",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\t\tcm.Parameters.Add(param{member});",column));
+			}	
+		}
+%>
+						// TODO: Define any additional output parameters
+						cm.ExecuteNonQuery();
+						// Save all values being returned from the Procedure<%
+		foreach(IColumn column in Columns)
+		{
+			if(column.IsComputed)
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\t\t{member} = ({ctype})cm.Parameters[\"{@new}\"].Value;",column));
+			}	
+		}
+%>
+					}
+				}
+				MarkOld();
+				// use the open connection to update child objects<%
+		foreach(IColumn field in Columns)
+		{
+			if( field.IsInForeignKey && field.IsInPrimaryKey)
+			{
+				//A column that's in a fk and in the pk represents a fk relationship
+				//from another table, a one-to-many relationship.  (This might be 
+				//a bad assumption for a table with a composite primary key.)
+				//... and then we have to add collections for the foreign tables.
+				foreach( IForeignKey fk in field.ForeignKeys )
+				{
+					if(fk.PrimaryTable == _workingTable){
+					string sObjName;
+						if(!IsPrimaryKey(fk)){
+							sObjName = FKClassesName( fk ) + GetAlias( fk );
+%>
+				if (<%=MemberName(sObjName)%> != null) <%=MemberName(sObjName)%>.Update(this);<%
+						 } 
+						else 
+						{
+							sObjName = ClassName( fk.ForeignTable );
+%>
+				if (<%=MemberName("My" + sObjName)%> != null) <%=MemberName("My" + sObjName)%>.Update(this);<%
+						}
+					}
+				}
+			}
+		}
+%>
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.SQLUpdate", ex);
+				_ErrorMessage = ex.Message;
+				if (!ex.Message.EndsWith("has been edited by another user.")) throw ex;
+			}
+		}<%
+// Update
+		string sKeysTypesU="";
+		string sKeysU="";
+		string sValuesU="";
+		string sepu="";
+		foreach(IColumn column in Columns)
+		{
+			//if((!column.IsComputed))
+			//{
+			// Commentted out the following two lines for Permissions
+			//	if(!column.IsAutoKey)
+					sValuesU+=FormatColumn("\r\n\t\t\t\t\t{ifLogicL}cm.Parameters.AddWithValue(\"{@}\", {parent}{?dbtype});",column);
+				if(IsParentCol(column)){
+					sKeysTypesU+=sepi + _className + " my" + sParent;
+					sKeysU+=sepi + "my" + sParent;
+				}
+				else
+				{
+					sKeysTypesU+=sepu + FormatColumn("{?ref}{!type} {!local}",column);
+					sKeysU+=sepu + FormatColumn("{?ref}{member}",column); 
+				}
+				sepu=", ";
+			//}	
+		}
+		if(OneToOne(_workingTable)) // 20070314
+		{
+			IForeignKey fk = _workingTable.PrimaryKeys[0].ForeignKeys[0];
+			string sPrimaryTable = ClassName(fk.PrimaryTable);
+			string sPrimaryLocal = LocalName(sPrimaryTable);
+			string sInsert="";
+			string sUpdate="";
+	//		string sDelete="";
+			string sTimestamp="";
+			sepu="";
+			sepi="";
+			foreach(IColumn column in fk.ForeignTable.Columns)
+			{
+				if(column.DataTypeName=="timestamp")
+					sTimestamp=FormatColumn("{member} = ",column);
+				if(!IsIn(column,fk.ForeignColumns))
+				{				
+					string sRef = ParentRef(column);
+					if(sRef==null)sRef=FormatColumn("{?ref}{?dbprefix}{!propmember}{?dbsuff}",column);
+						sUpdate+=sepu+sRef;
+						sepu=", ";
+						if(!column.IsComputed)// && !column.IsAutoKey
+						{
+							sInsert+=sepi+sRef;
+							sepi=", ";
+						}
+					}
+					else
+					{
+						string sRef = FormatColumn("{?dbprefix}{rmember}{?dbsuff}",RelatedColumn(column,fk));
+						sInsert+=sepi + sRef;
+						sUpdate+=sepu + sRef;
+						sepi=", ";
+						sepu=", ";
+						//sepd=", ";
+					}
+				}
+%>
+		internal void Update(<%=sPrimaryTable%> <%=sPrimaryLocal%>)
+		{
+			if (!this.IsDirty) return;
+			if (base.IsDirty)
+			{
+			SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+			if (IsNew)
+				<%=sTimestamp%><%=_className%>.Add(cn, <%=sInsert%>);
+			else
+				<%=sTimestamp%><%=_className%>.Update(cn, <%=sUpdate%>);
+			MarkOld();
+			}
+		}<%
+		}
+		else // 20070314
+		{
+//			IForeignKey fk = _workingTable.PrimaryKeys[0].ForeignKeys[0];
+//			string sPrimaryTable = ClassName(fk.PrimaryTable);
+//			string sPrimaryLocal = LocalName(sPrimaryTable);
+			string sInsert="";
+			string sUpdate="";
+			string sTimestamp="";
+			sepu="";
+			sepi="";
+			foreach(IColumn column in Columns)
+			{
+				if(column.DataTypeName=="timestamp")
+					sTimestamp=FormatColumn("{member} = ",column);
+				string sRef = FormatColumn("{?ref}{?dbprefix}{!member}{?dbsuff}",column);
+				if(!column.IsComputed)// && !column.IsAutoKey
+				{
+					sInsert+=sepi+sRef;
+					sepi=", ";
+				}
+				sUpdate+=sepu + sRef;
+				sepi=", ";
+				sepu=", ";
+			}
+%>
+		internal void Update()
+		{
+			if (!this.IsDirty) return;
+			if (base.IsDirty)
+			{
+				SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+				if (IsNew)
+					<%=sTimestamp%><%=_className%>.Add(cn, <%=sInsert%>);
+				else
+					<%=sTimestamp%><%=_className%>.Update(cn, <%=sUpdate%>);
+				MarkOld();
+			}<%
+			vlnChildObjects(Columns);
+%>
+		}<%
+		}
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		public static <%=sRetval%> Update(SqlConnection cn, <%=sKeysTypesU%>)
+		{
+			Database.LogInfo("<%=_className%>.Update", 0);
+			try
+			{
+				using (SqlCommand cm = cn.CreateCommand())
+				{
+					cm.CommandType = CommandType.StoredProcedure;
+					cm.CommandText = "update<%=_className%>";
+					// Input All Fields - Except Calculated Columns<%=sValuesU%>
+					// Output Calculated Columns<%
+		foreach(IColumn column in Columns)
+		{
+			if(column.IsComputed)
+			{
+				output.write(FormatColumn("\r\n\t\t\t\t\tSqlParameter param{member} = new SqlParameter(\"{@new}\", {sqltype});",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tparam{member}.Direction = ParameterDirection.Output;",column));
+				output.write(FormatColumn("\r\n\t\t\t\t\tcm.Parameters.Add(param{member});",column));
+			}	
+		}
+%>
+					// TODO: Define any additional output parameters
+					cm.ExecuteNonQuery();
+					// Save all values being returned from the Procedure<%
+		tsCol=null;
+		foreach(IColumn column in Columns)
+		{
+			if(column.IsComputed)
+			{
+				if(column.DataTypeName=="timestamp")tsCol=column;
+				else output.write(FormatColumn("\r\n\t\t\t\t\t{local} = ({ctype})cm.Parameters[\"{@new}\"].Value;",column));
+			}	
+		}
+		if(tsCol != null)
+			output.write(FormatColumn("\r\n\t\t\t\t\treturn ({ctype})cm.Parameters[\"{@new}\"].Value;",tsCol));
+		else
+			output.write("\r\n\t\t\t\t// No Timestamp value to return");
+%>
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.Update", ex);
+				throw new DbCslaException("<%=_className%>.Update", ex);
+			}
+		}<%
+// DataPortal_DeleteSelf
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		protected override void DataPortal_DeleteSelf()
+		{
+			DataPortal_Delete(new PKCriteria(<%=FormatColumns("{member}",_workingTable.PrimaryKeys,", ")%>));
+		}<%
+// DataPortal_Delete
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		private void DataPortal_Delete(PKCriteria criteria)
+		{
+			Database.LogInfo("<%=_className%>.DataPortal_Delete", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "delete<%=_className%>";<%
+			output.write(FormatColumns("\r\n\t\t\t\t\t\t{ifLogic@}cm.Parameters.AddWithValue(\"{@}\", criteria.{prop}{?dbtype});"
+			,_workingTable.PrimaryKeys,""));
+%>
+						cm.ExecuteNonQuery();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Delete", ex);
+				_ErrorMessage = ex.Message;
+				throw new DbCslaException("<%=_className%>.DataPortal_Delete", ex);
+			}
+		}<%
+// Delete
+		string sKeysTypesD="";
+		string sValuesD="";
+		string sepd="";
+		foreach(IColumn column in _workingTable.PrimaryKeys)
+		{
+			sValuesD+=FormatColumn("\r\n\t\t\t\t\t{ifLogicL}cm.Parameters.AddWithValue(\"{@}\", {local}{?dbtype});",column);
+			sKeysTypesD+=sepd + FormatColumn("{ctype} {local}",column);
+			sepd=", ";
+		}
+%>
+		[Transactional(TransactionalTypes.TransactionScope)]
+		public static void Remove(SqlConnection cn, <%=sKeysTypesD%>)
+		{
+			Database.LogInfo("<%=_className%>.Remove", 0);
+			try
+			{
+				using (SqlCommand cm = cn.CreateCommand())
+				{
+					cm.CommandType = CommandType.StoredProcedure;
+					cm.CommandText = "delete<%=_className%>";
+					// Input PK Fields<%=sValuesD%>
+					// TODO: Define any additional output parameters
+					cm.ExecuteNonQuery();
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.Remove", ex);
+				throw new DbCslaException("<%=_className%>.Remove", ex);
+			}
+		}
+		#endregion<%
+	}
+private void vlnChildObjects(IColumns Columns)
+{
+	foreach(IColumn field in Columns)
+	{
+		if( field.IsInForeignKey && field.IsInPrimaryKey)
+		{
+			//A column that's in a fk and in the pk represents a fk relationship
+			//from another table, a one-to-many relationship.  (This might be 
+			//a bad assumption for a table with a composite primary key.)
+			//... and then we have to add collections for the foreign tables.
+			foreach( IForeignKey fk in field.ForeignKeys )
+			{
+				if(fk.PrimaryTable == _workingTable)
+				{
+					string sObjName;
+					if(!IsPrimaryKey(fk)){ // Items that use this table's Primary Key
+						sObjName = FKClassesName( fk ) + GetAlias( fk );
+%>
+			if (<%=MemberName(sObjName)%> != null) <%=MemberName(sObjName)%>.Update(this);<%
+					}
+					else
+					{
+						sObjName = ClassName( fk.ForeignTable );
+%>
+			if (<%=MemberName("My" + sObjName)%> != null) <%=MemberName("My" + sObjName)%>.Update(this);<%
+					}
+				}
+			}
+		}
+	}
+}
+private void vlnBrokenRuleObjects(IColumns Columns)
+{
+	foreach(IColumn field in Columns)
+	{
+		if( field.IsInForeignKey && field.IsInPrimaryKey)
+		{
+			//A column that's in a fk and in the pk represents a fk relationship
+			//from another table, a one-to-many relationship.  (This might be 
+			//a bad assumption for a table with a composite primary key.)
+			//... and then we have to add collections for the foreign tables.
+			foreach( IForeignKey fk in field.ForeignKeys )
+			{
+				if(fk.PrimaryTable == _workingTable)
+				{
+					string sObjName;
+					if(!IsPrimaryKey(fk))
+					{ // Items that use this table's Primary Key
+						sObjName = FKClassesName( fk ) + GetAlias(fk);
+%>
+				if (<%=MemberName(sObjName)%> != null && (hasBrokenRules = <%=MemberName(sObjName)%>.HasBrokenRules) != null) return hasBrokenRules;<%
+					}
+					else
+					{
+						string sMemberName = MemberName("My" + ClassName( fk.ForeignTable )+ GetNewAlias(fk,fk));
+%>
+				if (<%=sMemberName%> != null && (hasBrokenRules = <%=sMemberName%>.HasBrokenRules) != null) return hasBrokenRules;<%
+					}
+				}
+			}
+		}
+		else
+		{
+			foreach( IForeignKey fk in field.ForeignKeys )
+			{
+				if(fk.PrimaryTable != _workingTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+				{
+					string sMemberName  = MemberName("My" + ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk));
+%>
+				if (<%=sMemberName%> != null && (hasBrokenRules = <%=sMemberName%>.HasBrokenRules) != null) return hasBrokenRules;<%
+				}
+			}
+		}
+	}
+}
+private void vlnBrokenRuleObjects(IForeignKey myFk)
+{
+	IColumns Columns=myFk.ForeignTable.Columns;
+	// Exclude one to one & ForeignKey Relationship
+	foreach(IColumn field in Columns)
+	{
+		if( !field.IsInForeignKey || !field.IsInPrimaryKey)
+		{
+			foreach( IForeignKey fk in field.ForeignKeys )
+			{
+				if(fk.PrimaryTable != _workingTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+				{
+					string sMemberName  = MemberName("My" + ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk));
+%>
+				if (<%=sMemberName%> != null && (hasBrokenRules = <%=sMemberName%>.HasBrokenRules) != null) return hasBrokenRules;<%
+				}
+			}
+		}
+	}
+}
+private void vlnTest(IForeignKey myFk) // 20070517
+{
+	IColumns Columns=myFk.ForeignTable.Columns;
+	// Exclude one to one & ForeignKey Relationship
+	foreach(IColumn field in Columns)
+	{
+		if(!field.IsInForeignKey || !field.IsInPrimaryKey)
+		{
+			foreach( IForeignKey fk in field.ForeignKeys )
+			{
+				if(fk.PrimaryTable != _workingTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+				{
+					string sMemberName  = MemberName("My" + ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk));
+%>
+				if (<%=sMemberName%> != null && (hasBrokenRules = <%=sMemberName%>.HasBrokenRules) != null) return hasBrokenRules;<%
+				}
+			}
+		}
+	}
+}
+private string RequiredRelatedColumn(IColumn field)
+{
+	if(!field.IsInPrimaryKey && !field.IsNullable)
+	{
+		foreach( IForeignKey fk in field.ForeignKeys )
+		{
+			if(fk.PrimaryTable != _workingTable && IsPrimaryKey1(fk) && !IsPrimaryKey(fk))
+			{
+				return  "My" + ClassName(fk.PrimaryTable.Name) + GetNewAlias(fk,fk);
+			}
+		}
+	}
+	return null;
+}
+private void vlnDataPortalFetch(string sPrefix,IColumns cols,string sql,bool getChildren)
+	{
+// DataPortal_Fetch
+%>
+		private void DataPortal_Fetch(<%=sPrefix%>Criteria criteria)
+		{
+			Database.LogInfo("<%=_className%>.DataPortal_Fetch", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					ApplicationContext.LocalContext["cn"] = cn;
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "get<%=sql%>";<%
+		output.write(FormatColumns("\r\n\t\t\t\t\t\t{ifLogic@}cm.Parameters.AddWithValue(\"{@}\", criteria.{prop}{?dbtype});"
+			,cols,""));
+%>
+						using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+						{
+							if (!dr.Read())
+							{
+								_ErrorMessage = "No Record Found";
+								return;
+							}
+							ReadData(dr);<%
+		// Read members 
+		//output.write(FormatColumns(dicRead,Columns,"","\r\n\t\t\t\t\t\t\t"));
+		//dicRead1 = new Hashtable();
+		//dicRead1["timestamp"]="\r\n\t\t\t\t\t\tdr.GetBytes(\"{name}\", 0, {member}, 0, 8);";// TODO: Need to handle TimeStamp
+		//output.write(FormatColumns(dicRead1,Columns,""));
+//			if(_workingTable != fk.ForeignTable)
+//				FKSelect(fk,tbl);
+		// TODO: Fix This  See Below
+//		foreach(IColumn field in Columns)
+//		{
+//			if( field.IsInForeignKey && field.IsInPrimaryKey)
+//			{
+				//A column that's in a fk and in the pk represents a fk relationship
+				//from another table, a one-to-many relationship.  (This might be 
+				//a bad assumption for a table with a composite primary key.)
+				//... and then we have to add collections for the foreign tables.
+//				foreach( IForeignKey fk in field.ForeignKeys )
+		if(getChildren)
+		{
+			Hashtable dicAlias = new Hashtable();
+			foreach(IForeignKey fk in _workingTable.ForeignKeys)
+					{
+						if(fk.PrimaryTable == _workingTable){
+							//string sAlias = GetAlias(dicAlias,fk.ForeignTable);
+							string sAlias = GetAlias(fk);
+							string sObjName="";
+							if(!IsPrimaryKey(fk)){
+								sObjName = FKClassesName( fk ) + GetAlias(fk);
+								string sExtra = FKAndString(_className, fk, ", this" );
+//							else
+//								sObjName = ClassName( fk.ForeignTable );
+							if(fk.PrimaryTable != fk.ForeignTable){
+%>
+							// load child objects
+							dr.NextResult();
+							<%=MemberName(sObjName)%> = <%=sObjName%>.Get(dr<%=sExtra%>);<%
+								}
+							}
+							else
+							{
+								sObjName = ClassName( fk.ForeignTable );
+%>
+							// load child objects
+							dr.NextResult();
+							<%=MemberName("My" + sObjName)%> = <%=sObjName%>.Get(dr);<%
+//							if (<%=MemberName("My" + sObjName) + sAlias == null)
+//								=MemberName("My" + sObjName) + sAlias = <%=sObjName.New(=FormatColumns("criteria.{prop}",fk.ForeignTable.PrimaryKeys,", ","")
+							}
+						}
+					}
+				}
+//			}
+//		}
+%>
+						}
+					}
+					// removing of item only needed for local data portal
+					if (ApplicationContext.ExecutionLocation == ApplicationContext.ExecutionLocations.Client)
+						ApplicationContext.LocalContext.Remove("cn");
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Fetch", ex);
+				_ErrorMessage = ex.Message;
+				throw new DbCslaException("<%=_className%>.DataPortal_Fetch", ex);
+			}
+		}<%
+	}
+	private void vlnExists(IColumns Columns )
+	{
+		string sValues=FormatColumns("\t\t\t\t{member} = {local};",_workingTable.PrimaryKeys,"\r\n");
+		string sKeysTypes=FormatColumns("{ctype} {local}",_workingTable.PrimaryKeys,", ");
+		string sKeys=FormatColumns("{local}",_workingTable.PrimaryKeys,", ");
+		string sDeclare=FormatColumns("\r\n\t\t\tprivate {ctype} {member};",_workingTable.PrimaryKeys,"");
+		string sParams=FormatColumns("\r\n\t\t\t\t\t\t\t{ifLogicP}cm.Parameters.AddWithValue(\"{@}\", {?dbprefix}{member}{?dbsuffix});",_workingTable.PrimaryKeys,"");;
+%>
+		#region Exists
+		public static bool Exists(<%=sKeysTypes%>)
+		{
+			ExistsCommand result;
+			try
+			{
+				result = DataPortal.Execute<ExistsCommand>(new ExistsCommand(<%=sKeys%>));
+				return result.Exists;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Exists", ex);
+			}
+		}
+		[Serializable()]
+		private class ExistsCommand : CommandBase
+		{<%=sDeclare%>
+			private bool _exists;
+			public bool Exists
+			{
+				get { return _exists; }
+			}
+			public ExistsCommand(<%=sKeysTypes%>)
+			{
+<%=sValues%>
+			}
+			protected override void DataPortal_Execute()
+			{
+				Database.LogInfo("<%=_className%>.DataPortal_Execute", GetHashCode());
+				try
+				{
+					using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+					{
+						cn.Open();
+						using (SqlCommand cm = cn.CreateCommand())
+						{
+							cm.CommandType = CommandType.StoredProcedure;
+							cm.CommandText = "exists<%=_className%>";<%=sParams%>
+							int count = (int)cm.ExecuteScalar();
+							_exists = (count > 0);
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Database.LogException("<%=_className%>.DataPortal_Execute", ex);
+					throw new DbCslaException("<%=_className%>.DataPortal_Execute", ex);
+				}
+			}
+		}
+		#endregion<%
+	}
+	private void vlnInfoExtension(IColumns columns)
+	{
+%>
+		// Standard Refresh
+		#region extension
+		<%=_className%>Extension <%=MemberName(_className)%>Extension = new <%=_className%>Extension();
+		[Serializable()]
+		partial class <%=_className%>Extension : extensionBase {}
+		[Serializable()]
+		class extensionBase
+		{
+			// Default Refresh
+			public virtual void Refresh(<%=_className%> tmp) { }
+		}
+		#endregion<%
+	}
+	private void vlnDefaults(IColumns columns)
+	{
+%>
+		// Standard Default Code
+		#region extension
+		<%=extName%> <%=extMName%> = new <%=extName%>();
+		[Serializable()]
+		partial class <%=extName%> : extensionBase
+		{
+		}
+		[Serializable()]
+		class extensionBase
+		{
+			// Default Values<%
+		foreach(IColumn column in HasDefaults(columns))
+		{
+			string sConvert ="{default}";
+			if(FormatColumn("{rtype}",column).StartsWith("bool"))sConvert="Convert.ToBoolean({default})";
+%>
+			public virtual <%=FormatColumn("{rtype} Default{prop}",column)%>
+			{
+				get { return <%=FormatColumn(sConvert,column)%>; }
+			}<%
+		}
+%>
+			// Authorization Rules
+			public virtual void AddAuthorizationRules(Csla.Security.AuthorizationRules rules)
+			{
+				// Needs to be overriden to add new authorization rules
+			}
+			// Instance Authorization Rules
+			public virtual void AddInstanceAuthorizationRules(Csla.Security.AuthorizationRules rules)
+			{
+				// Needs to be overriden to add new authorization rules
+			}
+			// Validation Rules
+			public virtual void AddValidationRules(Csla.Validation.ValidationRules rules)
+			{
+				// Needs to be overriden to add new validation rules
+			}
+			// InstanceValidation Rules
+			public virtual void AddInstanceValidationRules(Csla.Validation.ValidationRules rules)
+			{
+				// Needs to be overriden to add new validation rules
+			}
+		}
+		#endregion<%
+		}
+		private void vlnExtension(IColumns columns)
+		{
+%>
+
+//// The following is a sample Extension File.  You can use it to create <%=_className%>Ext.cs
+//using System;
+//using System.Collections.Generic;
+//using System.Text;
+//using Csla;
+
+//namespace <%=_nameSpace%>
+//{
+//  public partial class <%=_className%>
+//  {
+//    partial class <%=_className%>Extension : extensionBase
+//    {
+//      // TODO: Override automatic defaults<%
+			foreach(IColumn column in HasDefaults(columns))
+			{
+%>
+//      public virtual <%=FormatColumn("{ctype} Default{prop}",column)%>
+//      {
+//        get { return <%=FormatColumn("{default}",column)%>; }
+//      }<%
+		}
+%>
+//      public new void AddAuthorizationRules(Csla.Security.AuthorizationRules rules)
+//      {
+//        //rules.AllowRead(Dbid, "<Role(s)>");
+//      }
+//      public new void AddInstanceAuthorizationRules(Csla.Security.AuthorizationRules rules)
+//      {
+//        //rules.AllowInstanceRead(Dbid, "<Role(s)>");
+//      }
+//      public new void AddValidationRules(Csla.Validation.ValidationRules rules)
+//      {
+//        rules.AddRule(
+//          Csla.Validation.CommonRules.StringMaxLength,
+//          new Csla.Validation.CommonRules.MaxLengthRuleArgs("Name", 100));
+//      }
+//      public new void AddInstanceValidationRules(Csla.Validation.ValidationRules rules)
+//      {
+//        rules.AddInstanceRule(/* Instance Validation Rule */);
+//      }
+//    }
+//  }
+//}
+<%
+	}
+	//private bool IsValueType( string type )
+	//{
+	//	switch( type )
+	//	{
+	//		case "sbyte":
+	//		case "byte":
+	//		case "short":
+	//		case "ushort":
+	//		case "int":
+	//		case "uint":
+	//		case "long":
+	//		case "ulong":
+	//		case "char":
+	//		case "float":
+	//		case "double":
+	//		case "bool":
+	//		case "decimal":
+	//		case "DateTime":
+	//			return true;
+	//			break;
+	//			
+	//		default:
+	//			return false;
+	//			break;
+	//	}
+	//}
+	
+	
+	private void vlnBusinessMethodsFKList(IForeignKey fk,string sAlias)
+	{
+%>
+		#region Business Methods
+		private string _ErrorMessage = string.Empty;
+		public string ErrorMessage
+		{
+			get { return _ErrorMessage; }
+		}<%
+		//string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		//string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sFkClassListName =  _className;
+		string sFkClassName =  _subclassName;
+		string slName=LocalName(ClassName(fk.ForeignTable));
+		ArrayList fkCols = new ArrayList();
+		//output.write("\r\n// FK.P " + fk.PrimaryTable.Name + " FK.F " +fk.ForeignTable.Name); 
+		bool bManyToMany = false;
+//		if(fk.ForeignTable != fk.PrimaryTable)
+//		{
+//			foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+//			{
+//				//output.write("\r\n// PK.P " + pk.PrimaryTable.Name + " PK.F " +pk.ForeignTable.Name);
+//				if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable != pk.ForeignTable && ForeignRequired(pk))
+//				{
+//					foreach(IColumn col in pk.ForeignColumns){
+//						//output.write("\r\n// col " + col.Name + " IsInPrimaryKey " + col.IsInPrimaryKey.ToString()); 
+//						//if(col.IsInPrimaryKey)
+//						if(!col.IsNullable){
+//							fkCols.Add(col);
+//						}
+//					}
+//				}
+//			}
+//		}
+		foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+			if(!bManyToMany && ManyToMany(_workingTable,fk,pk))
+			{
+				bManyToMany = true;
+				foreach(IColumn col in pk.ForeignColumns)
+					if(!col.IsNullable) fkCols.Add(col);
+			}
+		}
+//		fkCols = new ArrayList();
+		if(fkCols.Count == 0){
+//			bManyToMany = false;
+%>
+		// One To Many<%
+			foreach(IColumn col in fk.ForeignTable.PrimaryKeys)
+			{
+				if(!IsIn(col,fk.ForeignColumns))
+					fkCols.Add(col);
+			}
+		}
+		else
+		{
+%>
+		// Many To Many<%
+		}
+			string sTestTypes = FormatColumns("{!type}",fkCols,", ");
+			string sFkKeysTypes = FormatColumns("{!type} {!local}",fkCols,", ");
+			string sFkKeys = FormatColumns("{!local}",fkCols,", ");
+			string sFkCheck = FormatColumns(slName +".{prop} == {!localcolumn}",fkCols," && ");
+			string sReqKeysCheck= "";
+			string sKeysTypes="";
+			string sKeys="";
+			//string sValues="";
+			//string sValues2="";
+			//string sep="";
+			string sep2="";
+			string sep3="";
+			string reqKeys="";
+			string reqKeysTypes="";
+			ArrayList reqCols = new ArrayList();
+			ArrayList uniqueChildren = FindUniqueChildren(fk);
+			bool bParentRef=false;
+			foreach(IColumn column in fk.ForeignTable.Columns)
+			{
+				if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+				{
+					// 20070220
+					// sKeysTypes+=sep+FormatColumn("{ctype} {local}",column);
+					// sKeys+=sep+FormatColumn("{local}",column);
+					if(!IsIn(column,fk.ForeignColumns))
+					{
+						sKeysTypes+=sep2+FormatColumn("{!type} {!local}",column);
+						sKeys+=sep2+FormatColumn("{!local}",column);
+						sReqKeysCheck+=sep3+FormatColumn(slName +".{prop} == {local}",column);
+						reqKeys+=sep2+FormatColumn("{!local}",column);
+						reqKeysTypes+=sep2+FormatColumn("{!type} {!local}",column);
+						reqCols.Add(column);
+						sep2=", ";
+						sep3=" && ";
+					} else {
+						if(!bParentRef && FKParentFK(_workingTable) == fk){
+//							WriteLine("\r\n\r\n// 20070305 Column {0}\r\n",column.Name);
+							reqKeys="my"+ParentName(fk)+sep2+reqKeys;
+							reqKeysTypes=FormatColumn("{ParentType}",column)+sep2+reqKeysTypes;
+							sep2=", ";
+							bParentRef=true;
+						}
+					}
+					//sValues+=sep+RelatedObject(column);
+					//sValues2+=sep+RelatedObjectType(column);
+					//sep=", ";
+				}
+			}
+			string reqKeysContain = (SameList(reqCols,fkCols)?sFkKeys:reqKeys);
+			IList uniqueMatch = FindUnique(uniqueChildren,reqCols);
+//			WriteLine("\r\n//20070302 - {0}", uniqueMatch);
+//			if(uniqueMatch != null)WriteLine("\r\n//20070302 - {0}", uniqueMatch[0]);
+			string newString = (fkCols.Count==1 && sTestTypes == "int" ? "new " : "");
+%>
+		public <%=newString%><%=sFkClassName%> this[<%=sFkKeysTypes%>]
+		{
+			get
+			{
+				foreach (<%=sFkClassName%> <%=slName%> in this)
+					if (<%=sFkCheck%>)
+						return <%=slName%>;
+				return null;
+			}
+		}
+		public new System.Collections.Generic.IList<<%=sFkClassName%>> Items
+		{
+			get { return base.Items; }
+		}
+		public <%=sFkClassName%> GetItem(<%=sFkKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in this)
+				if (<%=sFkCheck%>)
+					return <%=slName%>;
+			return null;
+		}<%
+		if(bManyToMany)
+		{
+			if(reqKeys!=""){ // Has Required Fields
+%>
+		public <%=sFkClassName%> Add(<%=reqKeysTypes%>)// Many to Many with required fields
+		{
+			if (!Contains(<%=sFkKeys%>))
+			{
+				<%=sFkClassName%> <%=slName%> =	<%=sFkClassName%>.New(<%=reqKeys%>);
+				this.Add(<%=slName%>);
+				return <%=slName%>;
+			}
+			else
+				throw new InvalidOperationException("<%=slName%> already exists");
+		}<%
+			}
+			else
+			{
+				if(uniqueMatch != null)
+				{
+%>
+		public <%=sFkClassName%> Add(<%=reqKeysTypes%>)// Many to Many with unique fields
+		{
+			if (!Contains(<%=FormatColumns("{local}",uniqueMatch,", ","")%>))
+			{
+				<%=sFkClassName%> <%=slName%> = <%=sFkClassName%>.New(<%=reqKeys%>);
+				this.Add(<%=slName%>);
+				return <%=slName%>;
+			}
+			else
+				throw new InvalidOperationException("<%=slName%> already exists");
+		}<%
+				}
+				else
+				{
+%>
+		public <%=sFkClassName%> Add(<%=reqKeysTypes%>)// Many to Many with no required fields
+		{
+			<%=sFkClassName%> <%=slName%> =	<%=sFkClassName%>.New(<%=reqKeys%>);
+			this.Add(<%=slName%>);
+			return <%=slName%>;
+		}<%
+				}
+			}
+		}
+		else // One to Many
+		{
+			// If Child add parent 20070221
+			
+			string sParent = "";
+			string sParentUse = "";
+			//if("Child" + ClassesName(sFkClassName) == _className)
+			//{
+			//	sParent = sFkClassName + " parent, ";
+			//	sParentUse = "parent, ";
+			//}
+				if(uniqueMatch != null)
+				{
+%>
+		public <%=sFkClassName%> Add(<%=reqKeysTypes%>) // One to Many with unique fields
+		{
+			if (!Contains(<%=FormatColumns("{local}",uniqueMatch,", ","")%>))
+			{
+				<%=sFkClassName%> <%=slName%> = <%=sFkClassName%>.New(<%=reqKeys%>);
+				this.Add(<%=slName%>);
+				return <%=slName%>;
+			}
+			else
+				throw new InvalidOperationException("<%=slName%> already exists");
+		}<%
+				}
+				else
+				{
+%>
+		public <%=sFkClassName%> Add(<%=sParent%><%=sKeysTypes%>) // One to Many 
+		{
+			 <%=sFkClassName%> <%=slName%> = <%=sFkClassName%>.New(<%=sParentUse%><%=sKeys%>);
+			 this.Add(<%=slName%>);
+			 return <%=slName%>;
+		}<%
+			}
+		}
+%>
+		public void Remove(<%=sFkKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in this)
+			{
+				if (<%=sFkCheck%>)
+				{
+					Remove(<%=slName%>);
+					break;
+				}
+			}
+		}
+		public bool Contains(<%=sFkKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in this)
+				if (<%=sFkCheck%>)
+					return true;
+			return false;
+		}
+		public bool ContainsDeleted(<%=sFkKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in DeletedList)
+				if (<%=sFkCheck%>)
+					return true;
+			return false;
+		}<%
+		foreach(IList lst in uniqueChildren){
+			if(!SameTypes(lst,fkCols)){ // Has Required Fields 20070302
+				string sLstKeysTypes = FormatColumns("{ctype} {local}",lst,", ");
+//				string sKeys = FormatColumns("{local}",lst,", ");
+				string sLstCheck = FormatColumns(slName +".{prop} == {local}",lst," && ");
+%>
+		public bool Contains(<%=sLstKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in this)
+				if (<%=sLstCheck%>)
+					return true;
+			return false;
+		}
+		public bool ContainsDeleted(<%=sLstKeysTypes%>)
+		{
+			foreach (<%=sFkClassName%> <%=slName%> in DeletedList)
+				if (<%=sLstCheck%>)
+					return true;
+			return false;
+		}<%
+			}
+		}
+%>
+		#endregion<%
+	}
+	private void vlnFactoryMethodsFKList(IForeignKey fk,string sAlias)
+	{
+		//string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		//string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sFkClassListName =  _className;
+		string sFkClassName =  _subclassName;
+		string sExtra1="";
+		string sExtra2="";
+		if(fk.PrimaryTable == fk.ForeignTable){
+			sExtra1=", " + _subclassName + " parent";
+			sExtra2=", parent";
+		}
+
+%>
+		#region Factory Methods
+		internal static <%=sFkClassListName%> New()
+		{
+			return new <%=sFkClassListName%>();
+		}
+		internal static <%=sFkClassListName%> Get(SafeDataReader dr<%=sExtra1%>)
+		{
+			return new <%=sFkClassListName%>(dr<%=sExtra2%>);
+		}<%
+//		if(fk.PrimaryTable==fk.ForeignTable)
+//		{
+			// Get Children 20070205
+			string sBy = FormatColumns("{name}",fk.ForeignColumns,"_","");
+			string sKeyTypes = FormatColumns("{ctype} {local}",fk.ForeignColumns,",","");
+			string sKeys = FormatColumns("{local}",fk.ForeignColumns,",","");
+%>
+		public static <%=sFkClassListName%> GetBy<%=sBy%>(<%=sKeyTypes%>)
+		{
+			try
+			{
+				return DataPortal.Fetch<<%=sFkClassListName%>>(new <%=sBy%>Criteria(<%=sKeys%>));
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=sFkClassListName%>.GetBy<%=sBy%>", ex);
+			}
+		}<%
+//		}
+%>
+		private <%=sFkClassListName%>()
+		{
+			MarkAsChild();
+		}
+		internal <%=sFkClassListName%>(SafeDataReader dr<%=sExtra1%>)
+		{
+			MarkAsChild();
+			Fetch(dr<%=sExtra2%>);
+		}
+		#endregion<%
+	}
+	private void vlnDataAccessPortalFKList(IForeignKey fk,string sAlias)
+	{
+		//string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		//string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sFkClassListName =  _className;
+		string sFkClassName =  _subclassName;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+		string sExtra1="";
+		string sExtra2="";
+		if(fk.PrimaryTable == fk.ForeignTable){
+			sExtra1=", " + _subclassName + " parent";
+			sExtra2=", parent";
+		}
+%>
+		#region Data Access Portal
+		// called to load data from the database
+		private void Fetch(SafeDataReader dr<%=sExtra1%>)
+		{
+			this.RaiseListChangedEvents = false;
+			while (dr.Read())
+				this.Add(<%=sFkClassName%>.Get(dr<%=sExtra2%>));
+			this.RaiseListChangedEvents = true;
+		}<%
+		string sClassF = ClassName(fk.ForeignTable);
+		string sClassP = FormatColumns("{name}",fk.ForeignColumns,"_","");
+		string sBy = ClassesName(fk.ForeignTable) + "By" + FormatColumns("{name}",fk.ForeignColumns,"_","");
+		if(fk.ForeignTable == fk.PrimaryTable)sBy = ChildName(fk) + ClassesName(_workingTable);
+		string sKeyTypes = FormatColumns("{ctype} {local}",fk.ForeignColumns,",","");
+%>
+		[Serializable()]
+		private class <%=sClassP%>Criteria
+		{
+			public <%=sClassP%>Criteria(<%=sKeyTypes%>)
+			{
+<%=FormatColumns("{member} = {local};",fk.ForeignColumns,"\r\n","\t\t\t\t")%>
+			}<%
+		foreach(IColumn c in fk.ForeignColumns)
+		{
+			string sMember=FormatColumn("{member}",c);
+			string sProp=FormatColumn("{prop}",c);
+			string sType=FormatColumn("{ctype}",c);
+%>
+			private <%=sType%> <%=sMember%>;
+			public <%=sType%> <%=sProp%>
+			{
+				get { return <%=sMember%>; }
+				set { <%=sMember%> = value; }
+			}<%
+		}
+%>
+		}
+		private void DataPortal_Fetch(<%=sClassP%>Criteria criteria)
+		{
+			this.RaiseListChangedEvents = false;
+			Database.LogInfo("<%=_className%>.DataPortal_Fetch<%=sClassP%>", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "get<%=sBy%>";
+						<%=FormatColumns("{ifLogic@}cm.Parameters.AddWithValue(\"{@}\", " + "criteria.{prop});",fk.ForeignColumns,"\r\n\t\t\t","")%>
+						using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+						{
+							while (dr.Read()) this.Add(new <%=_subclassName%>(dr));
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Fetch<%=sClassP%>", ex);
+				throw new DbCslaException("<%=_className%>.DataPortal_Fetch", ex);
+			}
+			this.RaiseListChangedEvents = true;
+		}<%
+		
+		// Insert 20070205a
+%>
+		internal void Update(<%=sPrimaryTable%> <%=sPrimaryLocal%>)
+		{
+			this.RaiseListChangedEvents = false;
+			try
+			{
+				// update (thus deleting) any deleted child objects
+				foreach (<%=sFkClassName%> obj in DeletedList)
+					obj.Delete();// TODO: Should this be SQLDelete
+				// now that they are deleted, remove them from memory too
+				DeletedList.Clear();
+				// add/update any current child objects
+				foreach (<%=sFkClassName%> obj in this)
+				{<%
+// Logic changes for children
+		if(fk.PrimaryTable == fk.ForeignTable)
+		{
+%>
+					if (obj.IsNew)
+						obj.SQLInsert();
+					else
+						obj.SQLUpdate();<%
+		} else {
+%>
+					if (obj.IsNew)
+						obj.Insert(<%=sPrimaryLocal%>);
+					else
+						obj.Update(<%=sPrimaryLocal%>);<%
+		}
+%>
+				}
+			}
+			finally
+			{
+				this.RaiseListChangedEvents = true;
+			}
+		}
+		#endregion<%
+	}
+	private void vlnComponentModelFKList()
+	{
+%>
+		#region ICustomTypeDescriptor impl
+		public String GetClassName()
+		{ return TypeDescriptor.GetClassName(this, true); }
+		public AttributeCollection GetAttributes()
+		{ return TypeDescriptor.GetAttributes(this, true); }
+		public String GetComponentName()
+		{ return TypeDescriptor.GetComponentName(this, true); }
+		public TypeConverter GetConverter()
+		{ return TypeDescriptor.GetConverter(this, true); }
+		public EventDescriptor GetDefaultEvent()
+		{ return TypeDescriptor.GetDefaultEvent(this, true); }
+		public PropertyDescriptor GetDefaultProperty()
+		{ return TypeDescriptor.GetDefaultProperty(this, true); }
+		public object GetEditor(Type editorBaseType)
+		{ return TypeDescriptor.GetEditor(this, editorBaseType, true); }
+		public EventDescriptorCollection GetEvents(Attribute[] attributes)
+		{ return TypeDescriptor.GetEvents(this, attributes, true); }
+		public EventDescriptorCollection GetEvents()
+		{ return TypeDescriptor.GetEvents(this, true); }
+		public object GetPropertyOwner(PropertyDescriptor pd)
+		{ return this; }
+		/// <summary>
+		/// Called to get the properties of this type. Returns properties with certain
+		/// attributes. this restriction is not implemented here.
+		/// </summary>
+		/// <param name="attributes"></param>
+		/// <returns></returns>
+		public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+		{ return GetProperties(); }
+		/// <summary>
+		/// Called to get the properties of this type.
+		/// </summary>
+		/// <returns></returns>
+		public PropertyDescriptorCollection GetProperties()
+		{
+			// Create a collection object to hold property descriptors
+			PropertyDescriptorCollection pds = new PropertyDescriptorCollection(null);
+			// Iterate the list 
+			for (int i = 0; i < this.Items.Count; i++)
+			{
+				// Create a property descriptor for the item and add to the property descriptor collection
+				<%=_className%>PropertyDescriptor pd = new <%=_className%>PropertyDescriptor(this, i);
+				pds.Add(pd);
+			}
+			// return the property descriptor collection
+			return pds;
+		}
+		#endregion<%
+	}
+	private void vlnPropertyDescriptorFKList1()
+	{
+%>
+	#region Property Descriptor
+	/// <summary>
+	/// Summary description for CollectionPropertyDescriptor.
+	/// </summary>
+	public partial class <%=_className%>PropertyDescriptor : PropertyDescriptor
+	{
+		private <%=_subclassName%> _Item = null;
+		public <%=_className%>PropertyDescriptor(<%=_className%> collection, int index):base("#" + index.ToString(), null)
+		{
+			_Item = collection.Items[index];
+		}
+		public override bool CanResetValue(object component)
+		{ return true; }
+		public override Type ComponentType
+		{
+			get { return _Item.GetType(); }
+		}
+		public override object GetValue(object component)
+		{ return _Item; }
+		public override bool IsReadOnly
+		{
+			get { return false; }
+		}
+		public override Type PropertyType
+		{
+			get { return _Item.GetType(); }
+		}
+		public override void ResetValue(object component)
+		{ ;}
+		public override bool ShouldSerializeValue(object component)
+		{ return true; }
+		public override void SetValue(object component, object value)
+		{ /*_Item = value*/;}
+
+		//public override AttributeCollection Attributes
+		//{
+		//  get
+		//  {
+		//    return new AttributeCollection(null);
+		//  }
+		//}
+		//public override string DisplayName
+		//{
+		//  get { return this.collection.Items[index].ToString(); }
+		//}
+		//public override string Description
+		//{
+		//  get
+		//  { return this.collection.Items[index].ToString(); }
+		//}
+		//public override string Name
+		//{
+		//  get { return "#" + index.ToString(); }
+		//}
+	}
+	#endregion<%
+	}
+	private void vlnPropertyDescriptorFKList()
+	{
+%>
+	#region Property Descriptor
+	/// <summary>
+	/// Summary description for CollectionPropertyDescriptor.
+	/// </summary>
+	public partial class <%=_className%>PropertyDescriptor : vlnListPropertyDescriptor
+	{
+		private <%=_subclassName%> Item { get { return (<%=_subclassName%>) _Item;} }
+		public <%=_className%>PropertyDescriptor(<%=_className%> collection, int index):base(collection, index){;}
+	}
+	#endregion<%
+	}
+	private void vlnListPropertyDescriptor()
+	{
+	%>
+	public partial class vlnListPropertyDescriptor : PropertyDescriptor
+	{
+		protected object _Item = null;
+		public vlnListPropertyDescriptor(System.Collections.IList collection, int index)
+			: base("#" + index.ToString(), null)
+		{ _Item = collection[index]; }
+		public override bool CanResetValue(object component)
+		{ return true; }
+		public override Type ComponentType
+		{ get { return _Item.GetType(); } }
+		public override object GetValue(object component)
+		{ return _Item; }
+		public override bool IsReadOnly
+		{ get { return false; } }
+		public override Type PropertyType
+		{ get { return _Item.GetType(); } }
+		public override void ResetValue(object component)
+		{ ;}
+		public override bool ShouldSerializeValue(object component)
+		{ return true; }
+		public override void SetValue(object component, object value)
+		{ /*_Item = value*/;}
+		//public override AttributeCollection Attributes
+		//{ get { return new AttributeCollection(null); } }
+		public override string DisplayName
+		{ get { return _Item.ToString(); } }
+		public override string Description
+		{ get { return _Item.ToString(); } }
+		public override string Name
+		{ get { return _Item.ToString(); } }
+	} // Class<%
+	}
+	private void vlnConvertorFKList(string sDisplayName)
+	{
+%>
+	#region Converter
+	internal class <%=_className%>Converter : ExpandableObjectConverter
+	{
+		public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destType)
+		{
+			if (destType == typeof(string) && value is <%=_className%>)
+			{
+				// Return department and department role separated by comma.
+				return ((<%=_className%>) value).Items.Count.ToString() + " <%=sDisplayName%>";
+			}
+			return base.ConvertTo(context, culture, value, destType);
+		}
+	}
+	#endregion<%
+	}
+	private void vlnBusinessMethodsFKItem(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+%>
+		#region Business Methods
+		private string _ErrorMessage = string.Empty;
+		public string ErrorMessage
+		{
+			get { return _ErrorMessage; }
+		}<%
+	// Foreign Key Table Fields
+	string sKey="";
+	string sep="";
+	foreach(IColumn column in fk.ForeignTable.Columns)
+	{
+		if(!IsIn(column,fk.ForeignColumns))
+		{				
+			bool bReadOnly = column.IsInPrimaryKey || column.IsAutoKey || column.IsComputed;
+			string sCheck=(IsRelObj(column)?FormatColumn("\r\n\t\t\t\tif ({!member} != null) {member} = {!member}.{!column};",column):null);
+			vlnProperty(CSLAType( column ),MemberName(column)
+				,PropertyName(column),InitializeValue( column ),GetDescription(column),bReadOnly || IsRelObj(column),column.IsInPrimaryKey,false,null,sCheck,null);
+			vlnRelObjProperty(column,bReadOnly,false);
+			if(column.IsInPrimaryKey){
+				sKey+=sep+MemberName(column);
+				sep=".ToString() + ";
+			}
+		}
+		if((sep != "") && (sKey.IndexOf(sep) > 0))
+			sKey="(" + sKey + ".ToString()).GetHashCode()";
+	}
+	// Foreign Key Related Table Fields  // 20070220
+	Hashtable dicAlias = new Hashtable();
+	foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+	{
+		if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable  && pk.PrimaryTable.Name != pk.ForeignTable.Name && ForeignRequired(pk))
+		{
+			//sAlias = GetAlias(dicAlias,pk.PrimaryTable);
+			sAlias = GetAlias(pk);
+			foreach(IColumn column in pk.PrimaryTable.Columns)
+			{
+				if((!IsIn(column,pk.PrimaryColumns)) && (column.DataTypeName != "timestamp"))
+				{		
+					string sProp = ClassName(pk.PrimaryTable) + sAlias + "_" + PropertyName(column);
+					vlnProperty(CSLAType( column ),MemberName(sProp)
+						,sProp,InitializeValue( column ),GetDescription(column),true,column.IsInPrimaryKey,false,null,null,null);
+				} 
+			}
+		}
+	}
+//	if (sKey == "")sKey="base.GetIdValue()";
+%>
+		// TODO: Check <%=sFkClassName%>.GetIdValue to assure that the ID returned is unique
+		/// <summary>
+		/// Overrides Base GetIdValue - Used internally by CSLA to determine equality
+		/// </summary>
+		/// <returns>A Unique ID for the current <%=sFkClassName%></returns>
+		protected override object GetIdValue()
+		{
+			return <%=sKey%>;
+		}
+		// TODO: Replace base <%=sFkClassName%>.ToString function as necessary
+		/// <summary>
+		/// Overrides Base ToString
+		/// </summary>
+		/// <returns>A string representation of current <%=sFkClassName%></returns>
+		//public override string ToString()
+		//{
+		//  return base.ToString();
+		//}<%
+		// IsValid and IsDirty
+		string sExtDirty = "";
+		string sExtValid = "";
+		foreach(IColumn col in fk.ForeignTable.Columns)
+		{
+			string sColumn = RequiredRelatedColumn(col);
+			if(sColumn != null){
+				sExtDirty += string.Format(" || ({0} == null ? true : {0}.IsDirty)",MemberName(sColumn));
+				sExtValid += string.Format(" && ({0} == null ? false : {0}.IsValid)",MemberName(sColumn));
+			}
+		}
+		if(sExtDirty!="")vlnDirty(sExtDirty);
+		if(sExtValid!="")vlnValid(sExtValid);
+%>
+		#endregion<%
+	}
+	private void vlnValidationRulesFKList(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName;
+		if( fk.PrimaryTable == fk.ForeignTable)
+			sFkClassName =  ClassName( fk.ForeignTable ) + sAlias;
+		else
+			sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		//string sPrimaryLocal = LocalName(sPrimaryTable);
+		string sPrimaryLocal = LocalName(sFkClassName);
+%>
+		#region ValidationRules
+		public IVEHasBrokenRules HasBrokenRules
+		{<%=Debug("20070509.vlnValidationRulesFKList")%>
+			get
+			{
+				IVEHasBrokenRules hasBrokenRules=null;
+				foreach(<%=sFkClassName%> <%=sPrimaryLocal%> in this)
+					if ((hasBrokenRules = <%=sPrimaryLocal%>.HasBrokenRules) != null) return hasBrokenRules;
+				return hasBrokenRules;
+			}
+		}
+		public BrokenRulesCollection BrokenRules
+		{
+			get
+			{
+			IVEHasBrokenRules hasBrokenRules = HasBrokenRules;
+			return (hasBrokenRules != null ? hasBrokenRules.BrokenRules : null);
+			}
+		}
+		#endregion<%
+	}
+	private void vlnValidationRulesFKItem(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+%>
+		#region ValidationRules
+		[NonSerialized]
+		private bool _CheckingBrokenRules=false;
+		public IVEHasBrokenRules HasBrokenRules
+		{<%=Debug("20070509.vlnValidationRulesFKItem")%>
+			get
+			{
+				if(_CheckingBrokenRules)return null;
+				if (BrokenRulesCollection.Count > 0) return this;
+				try
+				{
+					_CheckingBrokenRules=true;
+				 IVEHasBrokenRules hasBrokenRules = null;<%
+			vlnBrokenRuleObjects(fk);
+%>
+				 return hasBrokenRules;
+				}
+				finally
+				{
+					_CheckingBrokenRules=false;
+				}
+			}
+		}
+		public BrokenRulesCollection BrokenRules
+		{
+			get
+			{
+				IVEHasBrokenRules hasBrokenRules = HasBrokenRules;
+				if (this.Equals(hasBrokenRules)) return BrokenRulesCollection;
+				return (hasBrokenRules != null ? hasBrokenRules.BrokenRules : null);
+			}
+		}
+		protected override void AddBusinessRules()
+		{<%
+		foreach(IColumn column in fk.ForeignTable.Columns)
+		{
+			if(!(IsIn(column,fk.ForeignColumns) || column.IsInPrimaryKey || column.IsAutoKey || column.IsComputed))
+			{				
+				if(column.LanguageType=="string")
+				{
+					vlnAddRequired(column);
+					if(column.CharacterMaxLength < 2147483647)
+					vlnAddMaxLength(PropertyName(column),column.CharacterMaxLength);
+				}
+				if(CSLAType( column )=="SmartDate")
+				{
+					vlnAddRequired(column);
+					string sName = PropertyName(column);
+%>
+			ValidationRules.AddRule<<%=_className%>>(<%=sName%>Valid, "<%=sName%>");<%
+				}
+				string sObjectRequired = RequiredRelatedColumn(column);
+				if(sObjectRequired != null)
+				{
+%>
+			ValidationRules.AddRule(CommonRules.Required, "<%=sObjectRequired%>");<%
+				}
+			}
+		}
+%>
+			// TODO:  Add other validation rules
+		}<%
+		foreach(IColumn column in fk.ForeignTable.Columns)
+		{
+			if(!(IsIn(column,fk.ForeignColumns) || column.IsInPrimaryKey || column.IsAutoKey || column.IsComputed))
+			{				
+				if(CSLAType( column )=="SmartDate")
+				{
+					string sName = PropertyName(column);
+					string sMember = MemberName(column);
+%>
+		private static bool <%=sName%>Valid(<%=_className%> target, Csla.Validation.RuleArgs e)
+		{
+			try
+			{
+				DateTime tmp = SmartDate.StringToDate(target.<%=sMember%>);
+			}
+			catch
+			{
+				e.Description = "Invalid Date";
+				return false;
+			}
+			return true;
+		}<%
+				}
+			}
+		}
+%>
+		// Sample data comparison validation rule
+		//private bool StartDateGTEndDate(object target, Csla.Validation.RuleArgs e)
+		//{
+		//	if (_started > _ended)
+		//	{
+		//		e.Description = "Start date can't be after end date";
+		//		return false;
+		//	}
+		//	else
+		//		return true;
+		//}
+		#endregion<%
+	}
+	private void vlnAuthorizationRulesFKItem(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+%>
+		#region Authorization Rules
+		protected override void AddAuthorizationRules()
+		{
+			//TODO: Who can read/write which fields<%
+		foreach(IColumn column in fk.ForeignTable.Columns)
+		{
+			if(!(IsIn(column,fk.ForeignColumns)) && column.DataTypeName != "timestamp")
+			{				
+%>
+			//AuthorizationRules.AllowRead(<%=PropertyName(column)%>, "<Role(s)>");<%			
+				if(!(column.IsInPrimaryKey || column.IsAutoKey || column.IsComputed))
+				{
+%>
+			//AuthorizationRules.AllowWrite(<%=PropertyName(column)%>, "<Role(s)>");<%			
+				}
+			}
+		}
+%>
+		}
+		public static bool CanAddObject()
+		{
+			// TODO: Can Add Authorization
+			//return Csla.ApplicationContext.User.IsInRole("ProjectManager");
+			return true;
+		}
+		public static bool CanGetObject()
+		{
+			// TODO: CanGet Authorization
+			return true;
+		}
+		public static bool CanDeleteObject()
+		{
+			// TODO: CanDelete Authorization
+			//bool result = false;
+			//if (Csla.ApplicationContext.User.IsInRole("ProjectManager"))result = true;
+			//if (Csla.ApplicationContext.User.IsInRole("Administrator"))result = true;
+			//return result;
+			return true;
+		}
+		public static bool CanEditObject()
+		{
+			// TODO: CanEdit Authorization
+			//return Csla.ApplicationContext.User.IsInRole("ProjectManager");
+			return true;
+		}
+		#endregion<%
+	}
+	private void vlnFactoryMethodsFKItem(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+		string sKeysTypes="";
+		string sKeys="";
+		string sValues="";
+		string sValues2="";
+		string sep="";
+		string sInit="";
+		string sep2="";
+		Hashtable dicAlias = new Hashtable();
+		ArrayList pks = new ArrayList();
+		foreach(IColumn column in fk.ForeignTable.Columns)
+		{
+			if(!IsIn(column,fk.ForeignColumns))
+			{				
+				if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+				{
+					sKeysTypes+=sep+FormatColumn("{!type} {!local}",column);
+					sKeys+=sep+FormatColumn("{!local}",column);
+					if(IsRelObj(column))
+						sValues+=sep + FormatColumn("{!local}",column); // 20070301						
+					else
+						sValues+=sep+RelatedObject(fk,column);
+					if(IsRelObj(column))
+						sValues2+=sep + FormatColumn("{!type} {!local}",column); // 20070301						
+					else
+						sValues2+=sep + RelatedObjectType2(fk,column); // 20070301
+					foreach(IForeignKey pk in column.ForeignKeys)
+						if(!pks.Contains(pk))
+						{
+							pks.Add(pk.Name);
+							//sValues2+=" /* " + pk.Name + " */ ";
+						}
+					sep=", ";
+					if(!column.IsInForeignKey || IsRelObj(column)){
+						//if(CSLAType(column)=="SmartDate")
+						//	sInit+=sep2 + FormatColumn("\t\t{member} = new SmartDate({local});",column);
+						//else
+						if(IsRelObj(column))
+							sInit+=sep2 + FormatColumn("\t\t\t{!member}  = {!local};",column);							
+						else
+							sInit+=sep2 + FormatColumn("\t\t\t{member}  = {local};",column);
+						sep2="\r\n";
+					}
+					else
+					{
+						IForeignKey pk = column.ForeignKeys[0];
+						if(pk == FKParentFK(column.Table))
+						{
+							IColumn colf = RelatedColumnF(column,pk);
+							if(colf != null){
+								sInit+=sep2 + FormatColumn("\t\t\t{member}  = ",column) + FormatColumn("{rmember};",colf);
+								sep2="\r\n";
+							}
+						}
+					}
+				}
+			}
+		}
+		// Foreign Key Related Table Fields
+		//Hashtable dicAlias = new Hashtable();
+		foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+			if(pks.Contains(pk.Name) && pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable.Name != pk.ForeignTable.Name && pk.Name != fk.Name && ForeignRequired(pk))
+			{
+				//sAlias = GetAlias(dicAlias,pk.PrimaryTable);
+				sAlias = GetNewAlias(fk,pk);
+				foreach(IColumn column in pk.PrimaryTable.Columns)
+				{
+					IColumn col = RelatedColumn(column,pk);
+					col =col.Table.Columns[col.Name];
+					if(!IsRelObj(col))
+					{
+						string sProp = ClassName(pk.PrimaryTable) + sAlias + "_" + PropertyName(column);
+						string sLocal = LocalName(ClassName(pk.PrimaryTable))+ sAlias;
+						string sMember = MemberName(sProp);
+						if(IsIn(column,pk.PrimaryColumns))
+						{
+							sInit+=sep2 + "\t\t\t" + MemberName(RelatedColumn(column,pk)) + " = " + sLocal + "." + PropertyName(column) + ";";
+							sep2="\r\n";
+						}
+						else
+						{
+							if(pk.PrimaryTable != fk.PrimaryTable)
+							{
+								if(column.DataTypeName != "timestamp"){
+									if(CSLAType(column)=="SmartDate")
+										sInit+=sep2 + "\t\t\t" + sMember + " = new SmartDate(" + sLocal + "." + PropertyName(column) + ");";
+									else
+										sInit+=sep2 + "\t\t\t" + sMember + " = " + sLocal + "." + PropertyName(column) + ";";
+									sep2="\r\n";
+								}
+							} 
+						}
+					}
+				}
+			}
+			else
+			{
+				// WriteLine("pk={0} f={1} p={2}",pk.Name,pk.ForeignTable.Name,pk.PrimaryTable.Name);
+			}
+		}
+%>
+		#region Factory Methods
+		public int CurrentEditLevel
+		{ get { return EditLevel; } }
+		internal static <%=sFkClassName%> New(<%=sKeysTypes%>)
+		{
+			return new <%=sFkClassName%>(<%=sValues%>);
+		}
+		internal static <%=sFkClassName%> Get(SafeDataReader dr)
+		{
+			return new <%=sFkClassName%>(dr);
+		}
+		public <%=sFkClassName%>()
+		{
+			MarkAsChild();
+<%=FormatColumns("{member} = {class}.Next{prop};",AutoKey(fk),"\r\n","\t\t\t")%>
+<%=FormatColumns("{member} = " + extMName + ".Default{prop};",HasDefaults(fk),"\r\n","\t\t\t")%>
+			ValidationRules.CheckRules();
+		}<%
+	if(sValues2 != "") {
+		//if(sInit=="")sInit = "// No Initialization";
+		//else sInit = "// Initialization\r\n" + sInit;
+%>
+		private <%=sFkClassName%>(<%=sValues2%>)
+		{
+			MarkAsChild();
+			// TODO: Add any initialization & defaults
+<%=FormatColumns("{member} = " + extMName + ".Default{prop};",HasDefaults(fk),"\r\n","\t\t\t")%>
+<%=sInit%>
+			ValidationRules.CheckRules();
+		}<%
+		}
+%>
+		internal <%=sFkClassName%>(SafeDataReader dr)
+		{
+			MarkAsChild();
+			Fetch(dr);
+		}
+		#endregion<%
+	}
+	private void vlnDataAccessPortalFKItem(IForeignKey fk,string sAlias)
+	{
+		string sFkClassListName =  ClassName( fk.PrimaryTable ) + ClassesName( fk.ForeignTable ) + sAlias;
+		string sFkClassName =  ClassName( fk.PrimaryTable ) + ClassName( fk.ForeignTable ) + sAlias;
+		string sPrimaryTable = ClassName( fk.PrimaryTable );
+		string sPrimaryLocal = LocalName(sPrimaryTable);
+		IColumn colf1 = fk.ForeignColumns[0];
+		colf1=colf1.Table.Columns[colf1.Name];
+		sPrimaryLocal = FormatColumn("{!local}",colf1);
+		string sClassName = ClassName( fk.ForeignTable );
+		//string sKeysTypes="";
+		//string sKeys="";
+		//string sValues="";
+		//string sValues2="";
+		string sepi="";
+		string sepu="";
+		string sepd="";
+		string sepr="";
+		string sRead="";
+		string sInsert="";
+		string sUpdate="";
+		string sDelete="";
+		string sTimestamp="";
+				try
+				{
+					foreach(IColumn column in fk.ForeignTable.Columns)
+					{
+						if(column.DataTypeName=="timestamp")
+							sTimestamp=FormatColumn("{member} = ",column);
+						if(!IsIn(column,fk.ForeignColumns))
+						{				
+							sRead+=sepr+FormatColumn(dicRead,column,"\t\t\t\t","");
+							sepr="\r\n";
+							string sRef = ParentRef(column);
+							if(sRef==null)
+							{
+								if(column.IsComputed || column.IsAutoKey)
+									sRef=FormatColumn("ref {?dbprefix}{member}{?dbsuff}",column);
+								else
+									//if(column.IsInPrimaryKey) // 20070326
+									//	sRef=FormatColumn("{?dbprefix}{!membercolumn}{?dbsuff}",column);// 20070323
+									//else
+									if(FormatColumn("{!type}",column)==ClassName(fk.ForeignTable))
+										sRef=FormatColumn("{?dbprefix}{!membercolumn}{?dbsuff}",column);// 20070326
+									else
+										sRef=FormatColumn("{?dbprefix}{!member}{?dbsuff}",column);// 20070326
+							}
+							sUpdate+=sepu + sRef;
+							sepu=", ";
+							if(!column.IsComputed)// && !column.IsAutoKey
+							{
+								sInsert+=sepi+sRef;
+								sepi=", ";
+							}
+						}
+						else
+						{
+							string sRef;
+							if(IsRelObj(column))
+								sRef = FormatColumn("{?dbprefix}{!local}{?dbsuff}",column);
+							else
+								sRef = FormatColumn("{?dbprefix}{rmember}{?dbsuff}",RelatedColumn(column,fk));
+							sInsert+=sepi + sRef;
+							sUpdate+=sepu + sRef;
+							sepi=", ";
+							sepu=", ";
+							//sepd=", ";
+						}
+					}
+					foreach(IColumn column in fk.ForeignTable.PrimaryKeys)
+					{
+						if(IsIn(column,fk.ForeignColumns))
+							sDelete+=sepd+FormatColumn("{!localcolumn}",column);
+							//sDelete+=sepd+FormatColumn("/*1*/{rmember}",RelatedColumn(column,fk));
+						else
+							sDelete+=sepd+FormatColumn("{member}",column);
+						sepd=", ";
+					}
+				}
+				catch(Exception ex)
+				{
+					output.write("\r\n>>>ERROR>>>> " + ex.Message);
+				}
+		// Foreign Key Related Table Fields
+		Hashtable dicAlias = new Hashtable();
+		foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+			if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable  && pk.PrimaryTable != pk.ForeignTable && ForeignRequired(pk))
+			{
+				//sAlias = GetAlias(dicAlias,pk.PrimaryTable);
+				sAlias = GetAlias(pk);
+				//foreach(IColumn col in pk.PrimaryColumns)
+				//{
+				//}
+				foreach(IColumn column in pk.PrimaryTable.Columns)
+				{
+					if(!IsIn(column,pk.PrimaryColumns) && column.DataTypeName != "timestamp" && !column.IsInPrimaryKey)
+					{				
+						sRead+=sepr+FormatColumn(dicRead,column,"\t\t\t\t",sAlias);
+						sepr="\r\n";
+					}
+				}
+			}
+		}
+%>
+		#region Data Access Portal
+		private void Fetch(SafeDataReader dr)
+		{
+			Database.LogInfo("<%=_subclassName%>.FetchDR", GetHashCode());
+			try
+			{
+<%=sRead%>
+			}
+			catch (Exception ex) // FKItem Fetch
+			{
+				Database.LogException("<%=_subclassName%>.FetchDR", ex);
+				throw new DbCslaException("<%=_subclassName%>.Fetch", ex);
+			}
+			MarkOld();
+		}
+		internal void Insert(<%=sPrimaryTable%> <%=sPrimaryLocal%>)
+		{
+			// if we're not dirty then don't update the database
+			if (!this.IsDirty) return;
+			SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+			<%=sTimestamp%><%=sClassName%>.Add(cn, <%=sInsert%>);
+			MarkOld();
+		}
+		internal void Update(<%=sPrimaryTable%> <%=sPrimaryLocal%>)
+		{
+			// if we're not dirty then don't update the database
+			if (!this.IsDirty) return;
+			SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+			<%=sTimestamp%><%=sClassName%>.Update(cn, <%=sUpdate%>);
+			MarkOld();
+		}
+		internal void DeleteSelf(<%=sPrimaryTable%> <%=sPrimaryLocal%>)
+		{
+			// if we're not dirty then don't update the database
+			if (!this.IsDirty) return;
+			// if we're new then don't update the database
+			if (this.IsNew) return;
+			SqlConnection cn = (SqlConnection)ApplicationContext.LocalContext["cn"];
+			<%=sClassName%>.Remove(cn, <%=sDelete%>);
+			MarkNew();
+		}
+		#endregion<%
+	}
+	private void vlnConvertorFKItem()
+	{
+%>
+	#region Converter
+	internal class <%=_className%>Converter : ExpandableObjectConverter
+	{
+		public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destType)
+		{
+			if (destType == typeof(string) && value is <%=_className%>)
+			{
+				// Return the ToString value
+				return ((<%=_className%>)value).ToString();
+			}
+			return base.ConvertTo(context, culture, value, destType);
+		}
+	}
+	#endregion<%
+	}
+	private void vlnFactoryMethodsInfoList(IColumns columns)
+	{
+%>
+		#region Factory Methods
+		/// <summary>
+		/// Return a list of all projects.
+		/// </summary>
+		public static <%=_className%> Get()
+		{
+			try
+			{
+				<%=_className%> tmp = DataPortal.Fetch<<%=_className%>>();
+				<%=_subclassName%>.AddList(tmp);
+				tmp.AddEvents();
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Get", ex);
+			}
+		}<%
+// ForeignKeys - List Foreign Keys - May want to create stored procedures
+%>
+		// TODO: Add alternative gets - 
+		//public static <%=_className%> Get(<criteria>)
+		//{
+		//	try
+		//	{
+		//  	return DataPortal.Fetch<<%=_className%>>(new FilteredCriteria(<criteria>));
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		throw new DbCslaException("Error on <%=_className%>.Get", ex);
+		//	}
+		//}<%
+		ProcessFKAlias(_workingTable,new ProcessFK(FKGet));
+//		ArrayList lstByNames = new ArrayList();
+//		foreach(IForeignKey FK in _workingTable.ForeignKeys)
+//		{
+//			if(FK.ForeignTable == _workingTable)
+//			{
+//				if(!lstByNames.Contains(FK.PrimaryTable.Name))
+//				{
+//					FKGet(FK);
+//					lstByNames.Add(FK.PrimaryTable.Name);
+//				}
+//			}
+//		}	
+%>
+		private <%=_className%>()
+		{ /* require use of factory methods */ }
+		#endregion<%
+	}
+	private void FKGet(IForeignKey FK,string sAlias)
+	{
+		//string sBy = ClassName(FK.PrimaryTable) + sAlias;
+		//string sKeyTypes = FormatColumns("{ctype} {local}",FK.PrimaryTable.PrimaryKeys,",","");
+		//string sKeys = FormatColumns("{local}",FK.PrimaryTable.PrimaryKeys,",","");
+		string sBy = FormatColumns("{name}",FK.ForeignColumns,"_","");
+		string sBy2 = "By" + sBy;
+		if(FK.PrimaryTable == FK.ForeignTable)sBy2=ChildrenName(FK);
+		string sKeyTypes = FormatColumns("{ctype} {local}",FK.ForeignColumns,",","");
+		string sKeys = FormatColumns("{local}",FK.ForeignColumns,",","");
+%>
+		public static <%=_className%> Get<%=sBy2%>(<%=sKeyTypes%>)
+		{
+			try
+			{
+				<%=_className%> tmp = DataPortal.Fetch<<%=_className%>>(new <%=sBy%>Criteria(<%=sKeys%>));
+				<%=_subclassName%>.AddList(tmp);
+				tmp.AddEvents();
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Get<%=sBy2%>", ex);
+			}
+		}<%
+	}
+	private void vlnDataAccessPortalInfoList(IColumns columns)
+	{ 
+%>
+		#region Data Access Portal
+		private void DataPortal_Fetch()
+		{
+			this.RaiseListChangedEvents = false;
+			Database.LogInfo("<%=_className%>.DataPortal_Fetch", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "get<%=ClassesName(_workingTable)%>";
+						using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+						{
+							IsReadOnly = false;
+							while (dr.Read()) this.Add(new <%=_subclassName%>(dr));
+							IsReadOnly = true;
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Fetch", ex);
+				throw new DbCslaException("<%=_className%>.DataPortal_Fetch", ex);
+			}
+			this.RaiseListChangedEvents = true;
+		}<%
+		ProcessFKAlias(_workingTable,new ProcessFK(FKFetch));
+//		ArrayList lstTableNames = new ArrayList();
+//		foreach(IForeignKey FK in _workingTable.ForeignKeys)
+//		{
+//			if(FK.ForeignTable == _workingTable)
+//			{
+//				if(!lstTableNames.Contains(FK.PrimaryTable.Name))
+//				{
+//					FKFetch(FK);
+//					lstTableNames.Add(FK.PrimaryTable.Name);
+//				}
+//			}
+//		}
+%>
+		#endregion<%
+	}
+	private void FKFetch(IForeignKey FK,string sAlias)
+	{
+		string sClassF = ClassName(FK.ForeignTable);
+		//string sClassP = ClassName(FK.PrimaryTable)+sAlias;
+		//string sBy = ForeignKeyName(FK);
+		//string sKeyTypes = FormatColumns("{ctype} {local}",FK.PrimaryTable.PrimaryKeys,",","");
+		string sClassP = FormatColumns("{name}",FK.ForeignColumns,"_","");
+		string sBy = ClassesName(_workingTable) + "By" + FormatColumns("{name}",FK.ForeignColumns,"_","");
+		if(FK.ForeignTable == FK.PrimaryTable)sBy = ChildName(FK) + ClassesName(_workingTable);
+		string sKeyTypes = FormatColumns("{ctype} {local}",FK.ForeignColumns,",","");
+		//string sKeys = FormatColumns("{local}",FK.ForeignColumns,",","");
+%>
+		[Serializable()]
+		private class <%=sClassP%>Criteria
+		{
+			public <%=sClassP%>Criteria(<%=sKeyTypes%>)
+			{
+<%=FormatColumns("{member} = {local};",FK.ForeignColumns,"\r\n","\t\t\t\t")%>
+			}<%
+		foreach(IColumn c in FK.ForeignColumns)
+		{
+			string sMember=FormatColumn("{member}",c);
+			string sProp=FormatColumn("{prop}",c);
+			string sType=FormatColumn("{ctype}",c);
+%>
+			private <%=sType%> <%=sMember%>;
+			public <%=sType%> <%=sProp%>
+			{
+				get { return <%=sMember%>; }
+				set { <%=sMember%> = value; }
+			}<%
+		}
+%>
+		}
+		private void DataPortal_Fetch(<%=sClassP%>Criteria criteria)
+		{
+			this.RaiseListChangedEvents = false;
+			Database.LogInfo("<%=_className%>.DataPortal_Fetch<%=sClassP%>", GetHashCode());
+			try
+			{
+				using (SqlConnection cn = Database.<%=_dbConnection%>_SqlConnection)
+				{
+					using (SqlCommand cm = cn.CreateCommand())
+					{
+						cm.CommandType = CommandType.StoredProcedure;
+						cm.CommandText = "get<%=sBy%>";
+						<%=FormatColumns("{ifLogic@}cm.Parameters.AddWithValue(\"{@}\", " + "criteria.{prop});",FK.ForeignColumns,"\r\n\t\t\t","")%>
+						using (SafeDataReader dr = new SafeDataReader(cm.ExecuteReader()))
+						{
+							IsReadOnly = false;
+							while (dr.Read()) this.Add(new <%=_subclassName%>(dr));
+							IsReadOnly = true;
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.DataPortal_Fetch<%=sClassP%>", ex);
+				throw new DbCslaException("<%=_className%>.DataPortal_Fetch", ex);
+			}
+			this.RaiseListChangedEvents = true;
+		}<%
+	}
+	private void vlnRelObjProperty(IColumn column,bool bReadOnly,bool bInfo)
+	{
+		if(IsRelObj(column))
+		{
+			string sProp=RelObjProp(column);
+			string sMember=MemberName(sProp);
+			string sCheck=FormatColumn("\r\n\t\t\t\tif ({!member} == null && {member} != {!empty}) {!member} = {!type}" + (bInfo?"Info":"") + ".Get({!typecast}{member});",column);
+			string sCheck2=null;
+			if(column.IsNullable)
+				sCheck2=FormatColumn("\r\n\t\t\t\t\t{member} = (value == null ? null : ({ctype}) value.{!column});",column);
+			vlnProperty(RelObjType( column ) + (bInfo?"Info":"") ,sMember
+				,sProp,";"+DebugLine("20070501.4"),"",bReadOnly,column.IsInPrimaryKey,false,null,sCheck,sCheck2);
+			if(sProp.StartsWith("My"))_refreshMine += string.Format("\t\t\t{0} = null;\r\n",sMember);
+		}
+	}
+	private void vlnBusinessMethodsInfo(IColumns columns)
+	{
+		_refreshMine="";
+//		string sMember = MemberName(sEditable);
+//		string sLocal = LocalName(sEditable);
+//		string sPKeys = FormatColumns(sLocal + ".{prop}",_workingTable.PrimaryKeys,", ","");
+%>
+		#region Business Methods
+		private string _ErrorMessage = string.Empty;
+		public string ErrorMessage
+		{
+			get { return _ErrorMessage; }
+		}
+		protected <%=ClassName( _workingTable )%> _Editable;
+		private IVEHasBrokenRules HasBrokenRules
+		{
+			get
+			{
+				IVEHasBrokenRules hasBrokenRules = null;
+				if (_Editable != null)
+					hasBrokenRules = _Editable.HasBrokenRules;
+				return hasBrokenRules;
+			}
+		}<%
+		//vlnInfoParent(_workingTable);//20070208
+		foreach(IColumn column in ExcludedColumns(columns,new Filter(Computed)))
+		{
+			string sCheck=(IsRelObj(column)?FormatColumn("\r\n\t\t\t\tif ({!member} != null) {member} = {!member}.{!column};",column):null);
+			vlnProperty(CSLAType( column ),MemberName(column)
+				,PropertyName(column),InitializeValue( column ),GetDescription(column),true,column.IsInPrimaryKey,false,null,sCheck,null);
+			vlnRelObjProperty(column,true,true);
+		}
+		Hashtable dicAlias = new Hashtable();
+		foreach(IForeignKey FK in _workingTable.ForeignKeys)
+		{
+			if(FK.PrimaryTable == _workingTable)
+			{
+				//string sAlias = GetAlias(dicAlias,FK.ForeignTable);
+				string sAlias = GetAlias(FK);
+				string sClass = FKClassName(FK);
+				string sClasses = FKClassesName(FK);
+				vlnProperty("int",MemberName(sClass) + sAlias + "Count" ,sClass + sAlias + "Count", " = 0;",
+					"Count of " + sClasses + " for this " + ClassName(_workingTable),true,false,false,null,null,null);
+				if(!OneToOne(FK.ForeignTable))
+					FKPropertyList(ClassName(FK.ForeignTable),sClasses,FK,sAlias);
+				else
+					FKPropertyInfo(ClassName(FK.ForeignTable),sClasses,FK,sAlias);
+			}
+		}
+
+		vlnToString(columns);
+		vlnGetIDValue(_workingTable.PrimaryKeys);		
+%>
+		#endregion<%
+	}
+	private void FKPropertyList(string sClass,string sClasses,IForeignKey FK,string sAlias)
+	{
+		string sKeys = FormatColumns("{member}",FK.PrimaryColumns,",","");
+		string sMember = MemberName(sClasses) + sAlias;
+		string sCountMember = MemberName(SingularName(sClasses)) + sAlias + "Count";
+		string sBy = FKBy(FK);
+		string sProp = sClasses + sAlias;
+		//_refreshMine += string.Format("\t\t\t{0} = null;\r\n",sMember);
+%>
+		private <%=sClass%>InfoList <%=sMember%> = null;
+		[TypeConverter(typeof(<%=sClass%>InfoListConverter))]
+		public <%=sClass%>InfoList <%=sProp%>
+		{<%=DebugLine("20070427.5")%>
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+			get
+			{
+				CanReadProperty(true);
+				if (<%=sCountMember%> > 0 && <%=sMember%> == null)
+					<%=sMember%> = <%=sClass%>InfoList.Get<%=sBy%>(<%=sKeys%>);
+				return <%=sMember%>;
+			}
+		}<%
+	}
+	private void FKPropertyInfo(string sClass,string sClasses,IForeignKey FK,string sAlias)
+	{
+		string sKeys = FormatColumns("{member}",FK.PrimaryColumns,",","");
+		string sMember = MemberName("My" + sClass) + sAlias;
+		string sCountMember = MemberName(SingularName(sClasses)) + sAlias + "Count";
+		string sBy = FKBy(FK);
+		string sProp = "My" + sClass + sAlias;
+		_refreshMine += string.Format("\t\t\t{0} = null;\r\n",sMember);
+%>
+		private <%=sClass%>Info <%=sMember%> = null;
+		[TypeConverter(typeof(<%=sClass%>InfoConverter))]
+		public <%=sClass%>Info <%=sProp%>
+		{<%=DebugLine("20070427.6")%>
+			[System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+			get
+			{
+				CanReadProperty(true);
+				if (<%=sCountMember%> > 0 && <%=sMember%> == null)
+					<%=sMember%> = <%=sClass%>Info.Get(<%=sKeys%>);
+				return <%=sMember%>;
+			}
+		}<%
+	}
+	private void vlnFactoryMethodsInfo(IColumns columns)
+	{
+		string sKeys = FormatColumns("{local}",_workingTable.PrimaryKeys,", ","");
+		string sKeyTypes = FormatColumns("{ctype} {local}",_workingTable.PrimaryKeys,", ","");
+		string sEditable = ClassName(_workingTable.Name);
+		string sEdMember = MemberName(sEditable);
+		string sEdLocal = LocalName(sEditable);
+		string sPKeys = FormatColumns("{member}",_workingTable.PrimaryKeys,", ","");
+		string sRefKeys = FormatColumns("{prop}.ToString()",_workingTable.PrimaryKeys," + \"_\" + ","");;//20070215
+		string sTmpKeys = FormatColumns("tmp.{prop}",_workingTable.PrimaryKeys,", ","");
+%>
+		#region Factory Methods
+		private <%=_className%>()
+		{/* require use of factory methods */
+			_AllList.Add(this);
+		}
+		public void Dispose()
+		{
+			_AllList.Remove(this);
+			_AllByPrimaryKey.Remove(<%=sRefKeys%>);
+		}
+		public virtual <%=ClassName( _workingTable )%> Get()
+		{<%=DebugLine("20070502.1")%>
+			return _Editable = <%=sEditable%>.Get(<%=sPKeys%>);
+		}
+		public static void Refresh(<%=ClassName( _workingTable )%> tmp)
+		{
+			<%=_className%> tmpInfo = GetExistingByPrimaryKey(<%=sTmpKeys%>);
+			if (tmpInfo == null) return;
+			tmpInfo.RefreshFields(tmp);
+		}
+		private void RefreshFields(<%=ClassName( _workingTable )%> tmp)
+		{<%
+			foreach(IColumn col in Updatable(_workingTable))
+			{
+				output.write(FormatColumn("\r\n\t\t\t{member} = tmp.{prop};",col));
+			}
+%>
+			<%=MemberName(_className)%>Extension.Refresh(this);
+<%=_refreshMine%>			OnChange();// raise an event
+		}<%
+		Hashtable dicAlias = new Hashtable();		// 20070216
+		foreach(IForeignKey fk in _workingTable.ForeignKeys)
+		{
+			if(_workingTable != fk.PrimaryTable  && !IsPrimaryKey(fk)) //20070220
+			{
+				//string sClass=ClassName(fk.PrimaryTable)+ClassName(fk.ForeignTable)+GetAlias(dicAlias,fk.PrimaryTable);
+				string sClass=ClassName(fk.PrimaryTable)+ClassName(fk.ForeignTable)+GetAlias(fk);
+				// 20070326 - Need to add an object reference
+				string sPrefix = "";
+				string sTmpKeys2 = sTmpKeys;
+				if(ForeignPrimary(fk))
+				{
+					string sOther = ClassName(fk.PrimaryTable);
+					sPrefix = ClassName(fk.PrimaryTable) + " my" + ClassName(fk.PrimaryTable) + ", ";
+					string ssep="";
+					sTmpKeys2="";
+					foreach(IColumn col in _workingTable.PrimaryKeys)
+					{
+						//WriteLine("\r\n//!type = '{0}', sOther = '{1}', Col.Name = '{2}'", FormatColumn("{!type}",col), sOther, col.Name);
+						if(FormatColumn("{!type}",col)==sOther)
+							sTmpKeys2 += ssep + FormatColumn("{!localcolumn}",col);
+						else
+							sTmpKeys2 += ssep + FormatColumn("tmp.{prop}",col);
+						ssep=", ";
+					}
+				}
+%>
+		public static void Refresh(<%=sPrefix%><%=sClass%> tmp)
+		{
+			<%=_className%> tmpInfo = GetExistingByPrimaryKey(<%=sTmpKeys2%>);
+			if (tmpInfo == null) return;
+			tmpInfo.RefreshFields(tmp);
+		}
+		private void RefreshFields(<%=sClass%> tmp)
+		{<%
+				foreach(IColumn col in Updatable(_workingTable))
+				{
+					if(!IsIn(col,fk.ForeignColumns))
+					{
+%>
+			<%=FormatColumn("{member} = tmp.{prop};",col)%><%
+					}
+				}
+%>
+			<%=MemberName(_className)%>Extension.Refresh(this);
+<%=_refreshMine%>			OnChange();// raise an event
+		}<%
+			}
+		}
+%>
+		public static <%=_className%> Get(<%=sKeyTypes%>)
+		{
+			//if (!CanGetObject())
+			//  throw new System.Security.SecurityException("User not authorized to view a <%=ClassName(_workingTable)%>");
+			try
+			{
+				<%=_className%> tmp = GetExistingByPrimaryKey(<%=sKeys%>);
+				if (tmp == null)
+				{
+					tmp = DataPortal.Fetch<<%=_className%>>(new PKCriteria(<%=sKeys%>));
+					_AllList.Add(tmp);
+				}
+				if (tmp.ErrorMessage == "No Record Found")<%
+		if(!OneToOne(_workingTable)){
+%> tmp = null;<%
+		} else {
+%>
+				{
+<%=FormatColumns("tmp.{member} = {local};",_workingTable.PrimaryKeys,"\r\n","\t\t\t\t\t")%>
+				}<%
+		}
+%>
+				return tmp;
+			}
+			catch (Exception ex)
+			{
+				throw new DbCslaException("Error on <%=_className%>.Get", ex);
+			}
+		}
+		#endregion<%
+	}
+	private void vlnDataAccessPortalInfo(IColumns columns)
+	{
+%>
+		#region Data Access Portal
+		internal <%=_className%>(SafeDataReader dr)
+		{
+			Database.LogInfo("<%=_className%>.Constructor", GetHashCode());
+			try
+			{
+				ReadData(dr);
+			}
+			catch (Exception ex)
+			{
+				Database.LogException("<%=_className%>.Constructor", ex);
+				throw new DbCslaException("<%=_className%>.Constructor", ex);
+			}
+		}<%
+		vlnPKCriteria();
+		vlnReadData(columns,false);
+		vlnDataPortalFetch("PK",_workingTable.PrimaryKeys,ClassName(_workingTable),false);
+%>
+		#endregion<%
+	}
+	public void GeneratePropertyDescriptor()
+	{
+		_className="PropertyDescriptor";
+		vlnHeader("\r\nusing Csla.Validation;");
+		vlnListPropertyDescriptor();
+		vlnIVEHasBrokenRules();
+%>
+} // Namespace
+// The following are samples of ToString overrides<%
+		foreach(string sClass in _PropDescList)
+		{
+%>
+//	public partial class <%=sClass%>
+//	{ public override string ToString() { return string.Format("{0}", _Name); } }<%
+		}
+		SaveFile();
+	}
+	public void GenerateCommonRules()
+	{
+		_className="CommonRules";
+		vlnHeader("\r\nusing Csla.Validation;\r\nusing System.Reflection;",false);
+%>
+	public static class CommonRules
+	{
+		public static bool Required(object target, Csla.Validation.RuleArgs e)
+		{
+			PropertyInfo propertyInfoObj = target.GetType().GetProperty(e.PropertyName);
+			if (propertyInfoObj == null) return true;
+			if (propertyInfoObj.GetValue(target, null) == null)
+			{
+				e.Description = e.PropertyName + " is a required field";
+				return false;
+			}
+			return true;
+		}
+	}
+}<%
+		SaveFile();
+	}
+	public void vlnIVEHasBrokenRules()
+	{
+%>
+	public interface IVEHasBrokenRules
+	{
+		IVEHasBrokenRules HasBrokenRules { get; }
+		BrokenRulesCollection BrokenRules	{ get; }
+	}<%
+	}
+	public void GenerateDatabase()
+	{
+		_className="Database";
+		vlnHeader("\r\nusing System.Diagnostics;");
+%>
+	public static partial class Database
+	{<%
+		if(_chkPartL4N)
+		{
+%>
+		#region Log4Net
+		private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		public static log4net.ILog Log
+		{
+			get { return log; }
+		}
+		#endregion<%
+		}
+%>
+		public static void LogException(string s,Exception ex)
+		{<%
+		if(_chkPartL4N)
+		{
+%>
+			if (log.IsErrorEnabled)log.Error(s,ex);<%
+		}
+%>
+			int i = 0;
+			Console.WriteLine("Error - {0}", s);
+			for (; ex != null; ex = ex.InnerException)
+			{
+				Console.WriteLine("{0}{1} - {2}", "".PadLeft(++i * 2), ex.GetType().ToString(), ex.Message);
+			}
+		}
+		private static bool _LoggingInfo = true;
+		public static bool LoggingInfo
+		{
+			get { return _LoggingInfo; }
+			set { _LoggingInfo = value; }
+		}
+		static System.Diagnostics.Process _CurrentProcess = System.Diagnostics.Process.GetCurrentProcess();
+		public static void LogInfo(string s,int hashCode)
+		{<%
+		if(_chkPartL4N)
+		{
+%>
+			if (_LoggingInfo && log.IsInfoEnabled) 
+				log.InfoFormat("{0} MB [{1}] {2}",_CurrentProcess.WorkingSet/1000000,hashCode,s);<%
+		}
+		else
+		{
+%>
+			if (_LoggingInfo) 
+				Console.WriteLine("{0} MB [{1}] {2}",_CurrentProcess.WorkingSet/1000000,hashCode,s);<%
+		}
+%>
+		}
+		public static void LogInfoFormat(string format, params object [] objs)
+		{<%
+		if(_chkPartL4N)
+		{
+%>
+			if (log.IsInfoEnabled)
+				log.InfoFormat("{0} MB {1}", _CurrentProcess.WorkingSet / 1000000, string.Format(format,objs));<%
+		}
+		else
+		{
+%>
+			if (_LoggingInfo) 
+				Console.WriteLine("{0} MB {1}", _CurrentProcess.WorkingSet / 1000000, string.Format(format,objs));<%
+		}
+%>
+		}
+		public static string <%=_dbConnection%>_Connection
+		{
+			get
+			{
+				DateTime.Today.ToLongDateString();
+				ConnectionStringSettings cs = ConfigurationManager.ConnectionStrings["<%=_dbConnection%>"];
+				if (cs == null)
+				{
+					throw new ApplicationException("Database.cs Could not find connection <%=_dbConnection%>");
+				}
+				return cs.ConnectionString;
+			}
+		}
+		public static SqlConnection <%=_dbConnection%>_SqlConnection
+		{
+			get
+			{
+				string strConn = <%=_dbConnection%>_Connection; // If failure - Fail (Don't try to catch)
+				// Attempt to make a connection 
+				try
+				{
+					SqlConnection cn = new SqlConnection(strConn);
+					cn.Open();
+					return cn;
+				}
+				catch (SqlException exsql)
+				{
+					const string strAttachError = "An attempt to attach an auto-named database for file ";
+					if (exsql.Message.StartsWith(strAttachError))
+					{// Check to see if the file is missing
+						string sFile = exsql.Message.Substring(strAttachError.Length);
+						sFile = sFile.Substring(0, sFile.IndexOf(" failed"));
+						//	"An attempt to attach an auto-named database for file <mdf file> failed"
+						if (strConn.ToLower().IndexOf("user instance=true") < 0)
+						{
+							throw new ApplicationException("Connection String missing attribute: User Instance=True");
+						}
+						if (System.IO.File.Exists(sFile))
+						{
+							throw new ApplicationException("Database file " + sFile + " Cannot be opened\r\n", exsql);
+						}
+						else
+						{
+							throw new FileNotFoundException("Database file " + sFile + " Not Found", exsql);
+						}
+					}
+					else
+					{
+						throw new ApplicationException("Failure on Connect", exsql);
+					}
+				}
+				catch (Exception ex)// Throw Application Exception on Failure
+				{
+					LogException("Connection Error", ex);
+					throw new ApplicationException("Failure on Connect", ex);
+				}
+			}
+		}
+		public static void PurgeData()
+		{
+			try
+			{
+				SqlConnection cn = <%=_dbConnection%>_SqlConnection;
+				SqlCommand cmd = new SqlCommand("purgedata", cn);
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandTimeout = 0;
+				cmd.ExecuteNonQuery();
+			}
+			catch (Exception ex)
+			{
+				LogException("Purge Error", ex);
+				throw new ApplicationException("Failure on Purge", ex);
+			}
+		}
+	}
+	public class DbCslaException : Exception
+	{
+		internal DbCslaException(string message, Exception innerException):base(message,innerException){;}
+		internal DbCslaException(string message) : base(message) { ;}
+		internal DbCslaException() : base() { ;}
+	} // Class
+} // Namespace
+<%
+	SaveFile();
+	}
+%><%#FILE NamingConvention.cs%><%
+%><%#FILE ForeignKeyProcessing.cs%><%
+%><%#FILE WriteLine.cs%><%
+%><%#FILE FilteredColumns.cs%><%
+%><%#FILE FormatColumns.cs%><%
+}// Bottom of Namespace
+%>
+##|BODY_END

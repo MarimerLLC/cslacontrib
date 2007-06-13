@@ -1,0 +1,722 @@
+﻿##|TYPE Template
+##|UNIQUEID d6b504d5-d9c6-42fe-8819-07780ea72506
+##|TITLE CSLA Stored Procedures - Volian
+##|NAMESPACE CSLA_21
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE Transact-SQL
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui(ZeusContext context) : base(context) {}
+
+	//-----------------------------------------
+	// The User Interface Entry Point
+	//-----------------------------------------
+	public override void Setup()
+	{
+		if ( !input.Contains( "chooseTables" ) || !input.Contains( "txtPath" ) ||
+				( !input.Contains( "chkClass" ) && !input.Contains( "chkNaming" ) ) )
+		{
+			if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.ReadInputFromCache(context);
+			ui.Title = "CSLA Object Mapping";
+			ui.Width = 600;
+			ui.Height = 660;
+			GuiLabel label1 = ui.AddLabel( "label1", "Select the output path:", "Select the output path in the field below." );
+			//label1.Width = 200;
+			GuiTextBox outputPath = ui.AddTextBox( "outputPath", GetDefault("defaultOutputPath"), "Select the Output Path." );
+			outputPath.Width = 450;
+			GuiFilePicker selectPath = ui.AddFilePicker( "selectPath", "Select Path", "Select the Output Path.", "outputPath", true );
+			selectPath.Top = outputPath.Top;
+			selectPath.Width = 100;
+			selectPath.Left = outputPath.Left + outputPath.Width + 20;
+			
+			GuiLabel label2 = ui.AddLabel( "label2", "Namespace: ",  "Provide your objects namespace." );
+			label2.Width = 280;
+			GuiTextBox classNamespace = ui.AddTextBox( "classNamespace", "Volian.Object.Library", "Provide your objects namespace." );				
+			classNamespace.Width = 280;
+			
+            GuiLabel label3 = ui.AddLabel( "label3", "Member prefix: ", "Provide your member prefix." );
+			label3.Width = 100;
+			label3.Top = label2.Top;
+			label3.Left = label2.Width + 20;
+			GuiTextBox memberPrefix = ui.AddTextBox( "memberPrefix", "_", "Provide your member prefix." );
+			memberPrefix.Width = 100;
+			memberPrefix.Top = classNamespace.Top;
+			memberPrefix.Left = classNamespace.Width + 20;
+           
+			GuiLabel label3A = ui.AddLabel( "label3A", "dbConnection: ", "Provide a Connection Name." );
+			label3A.Width = 150;
+			label3A.Top = label3.Top;
+			label3A.Left = label3.Left+label3.Width + 10;
+			GuiTextBox dbConnection = ui.AddTextBox( "dbConnection", "VEPROMS", "Provide a Connection Name." );
+			dbConnection.Width = 150;
+			dbConnection.Top = memberPrefix.Top;
+			dbConnection.Left = memberPrefix.Left + memberPrefix.Width + 10;
+             
+			// Setup Database selection combobox.
+			GuiLabel label4 = ui.AddLabel( "label4", "Select a database:", "Select a database in the dropdown below." );
+			label4.Width = 280;
+			GuiComboBox chooseDatabase = ui.AddComboBox( "chooseDatabase", "Select a database." );
+			chooseDatabase.Width = 280;
+			
+			GuiCheckBox chkSelect = MakeGuiCheckBox( "chkSelect", "Select All", true, "Select All Records",100 );
+			GuiCheckBox chkUpdate = MakeGuiCheckBox( "chkUpdate", "Update One", true, "Update One Record" ,150,chkSelect,150,0);
+			GuiCheckBox chkFiles = MakeGuiCheckBox( "chkFiles", "Files", true, "Create Files" ,150,chkUpdate,200,0);
+			GuiCheckBox chkInsert = MakeGuiCheckBox( "chkInsert", "Insert One", true, "Insert One Record" ,150,chkSelect,0,-1);
+			GuiCheckBox chkDelete = MakeGuiCheckBox( "chkDelete", "Delete One", true, "Delete One Record" ,150,chkInsert,150,0);
+			GuiCheckBox chkSelectPK = MakeGuiCheckBox( "chkSelectPK", "Select One", true, "Select One Record" ,150,chkInsert,0,-1);
+			GuiCheckBox chkExists = MakeGuiCheckBox("chkExists","Exists",true,"Check Record Exists",150,chkSelectPK,150,0);
+			GuiCheckBox chkPurge = MakeGuiCheckBox("chkPurge","Purge",true,"Purge All Data",150,chkSelectPK,0,-1);
+			GuiCheckBox chkSelectFKs = MakeGuiCheckBox("chkSelectFKs","Select Group",true,"Select by Foreign Key",150,chkPurge,150,0);
+
+			// Setup Tables selection multi-select listbox.
+			GuiLabel label7 = ui.AddLabel( "label7", "Select tables:", "Select tables from the listbox below." );
+			//label7.Top = chkEqualsHashCode.Top + 20;
+			GuiListBox chooseTables = ui.AddListBox( "chooseTables", "Select tables." );
+			chooseTables.Height = 120;
+	
+			// Setup Views selection multi-select listbox.
+			GuiLabel label8 = ui.AddLabel( "label8", "Select views:", "Select views from the listbox below." );
+			GuiListBox chooseViews = ui.AddListBox( "chooseViews", "Select views." );
+			chooseViews.Height = 120;
+			
+			// Attach the onchange event to the cmbDatabases control.
+			setupDatabaseDropdown( chooseDatabase );
+			chooseDatabase.AttachEvent( "onchange", "chooseDatabase_onchange" );
+			
+			ui.ShowGui = true;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+	}
+	public void setupDatabaseDropdown( GuiComboBox Databases )
+	{
+		try 
+		{	
+			if( MyMeta.IsConnected )
+			{
+				Databases.BindData( MyMeta.Databases );
+				if( MyMeta.DefaultDatabase != null ) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables( Databases.SelectedValue );
+					bindViews( Databases.SelectedValue );
+				}
+			}
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindTables( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData(db.Tables);
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindViews( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData( db.Views );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void chooseDatabase_onchange( GuiComboBox control )
+	{
+		//int count = 0;
+
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+	
+		bindTables( cmbDatabases.SelectedText );
+		bindViews( cmbDatabases.SelectedText );
+		GuiTextBox dbConnection = ui["dbConnection"] as GuiTextBox;
+		dbConnection.Text=cmbDatabases.SelectedText;
+		GuiTextBox classNamespace = ui["classNamespace"] as GuiTextBox;
+		classNamespace.Text=cmbDatabases.SelectedText + ".Object.Library";
+	}
+	private string GetDefault(string sName)
+	{
+		if( input.Contains( sName ) ) 
+		{
+			return input[sName].ToString();
+		}
+		return "";
+	}
+	<%#FILE MakeGuiCheckBox.cs %>
+
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Globalization %><%
+public class GeneratedTemplate : DotNetScriptTemplate
+{
+	public GeneratedTemplate(ZeusContext context) : base(context) {}
+	// Members
+	private string _dbName;
+	private ArrayList _selectedTables;
+	private ArrayList _selectedViews;
+	private string _exportPath;
+	private string _nameSpace;
+	private string _prefix;
+	private string _dbConnection;
+	private string _tableName;
+	private string _className="";
+	private ITable _workingTable;
+	//private Hashtable dicRead;
+	//private Hashtable dicReadI;
+	public void SaveFile(string sProc)
+	{
+		if((bool)input["chkFiles"]){
+			output.save( Path.Combine( _exportPath, sProc + ".SQL" ), false );
+			//output.writeln("--" + Path.Combine( _exportPath, "CSLA.SQL" ));
+			output.clear();
+		}
+	}
+	public delegate bool Filter(IColumn column);
+	//---------------------------------------------------
+	// Render() is where you want to write your logic    
+	//---------------------------------------------------
+	public override void Render()
+	{
+		if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.SaveInputToCache(context);
+		InitializeMembers();
+		if((bool)input["chkPurge"])SQLPurge();
+		foreach(string sTable in _selectedTables)
+		{
+			ITable tbl = MyMeta.Databases[_dbName].Tables[sTable];
+			_workingTable=tbl;
+			if((bool)input["chkSelect"])SQLSelect(tbl);// Load all records
+			if((bool)input["chkUpdate"])SQLUpdate(tbl);// Update single record based upon Primary Key
+			if((bool)input["chkInsert"])SQLInsert(tbl);// Insert single record
+			if((bool)input["chkDelete"])SQLDelete(tbl);// Delete single record based upon Primary Key
+			if((bool)input["chkSelectPK"])SQLSelectPK(tbl);// Load one record by Primary Key
+			if((bool)input["chkSelectPK"])SQLSelectUnique(tbl);// Load one record by Primary Key
+			if((bool)input["chkSelectPK"])SQLSelectParent(tbl);// Load one record by Primary Key
+			if((bool)input["chkExists"])SQLExists(tbl);// Check for existance by Primary Key
+			if((bool)input["chkSelectFKs"])SQLSelectFKs(tbl);// Load all records by Foreign Keys
+			//SQLIndexes(tbl);
+		}
+		_exportPath = input["outputPath"].ToString();
+		//SaveFile();
+	}
+	private void SQLIndexes(ITable tbl)
+	{
+		foreach(IIndex ind in tbl.Indexes)
+		{
+			if(!ind.Name.StartsWith("PK_"))
+			{
+				output.writeln(ind.Name);
+				foreach(IColumn col in ind.Columns)
+				{
+					output.writeln(" " + col.Name);
+				}
+			}
+		}
+	}
+	private IColumn IntegerIdentity(ITable tbl)
+	{
+		if(tbl.PrimaryKeys.Count == 1){
+			IColumn c = tbl.PrimaryKeys[0];
+			if(c.IsAutoKey && c.DataTypeName != "Guid")return c;
+		}
+		return null;
+	}
+	private void SQLPurge()
+	{
+		StartProc("purgeData");
+		%>
+AS<%
+		ArrayList toProcess = new ArrayList();
+		ArrayList processed = new ArrayList();
+		foreach(string sTable in _selectedTables)
+		{
+			toProcess.Add(MyMeta.Databases[_dbName].Tables[sTable]);
+		}
+		while(toProcess.Count > processed.Count)
+		{
+			int pCount = processed.Count;
+			foreach(ITable tbl in toProcess)
+			{
+				if(!processed.Contains(tbl))
+				{
+					int count=0;
+					IColumn colid = IntegerIdentity(tbl);
+					string sSeed = (colid==null?"0":(colid.AutoKeySeed - colid.AutoKeyIncrement).ToString());
+//					output.writeln(string.Format("111 - {0} - {1},{2}",colid.Name,colid.AutoKeySeed,colid.AutoKeyIncrement));
+					string sWhere = "";
+					foreach(ForeignKey fk in tbl.ForeignKeys)
+					{
+						if(fk.PrimaryTable.Name == tbl.Name)
+						{
+							if(fk.ForeignTable.Name != tbl.Name)
+							{
+								if(toProcess.Contains(fk.ForeignTable) && !processed.Contains(fk.ForeignTable))
+									count++;
+							}
+							else
+							{
+							//	sWhere = string.Format(" WHERE {0} <> {1}",colid.Name,colid.AutoKeySeed); 
+							//	sSeed = (colid==null?"0":(colid.AutoKeySeed + colid.AutoKeyIncrement).ToString());
+//						//		output.writeln(string.Format("222 - {0} - {1},{2}",colid.Name,colid.AutoKeySeed,colid.AutoKeyIncrement));
+							}
+						}
+					}
+					if(count == 0)
+					{
+%>
+	delete from [<%=tbl.Name%>]<%=sWhere%><%
+						// Need logic to only do this for identity columns
+						if(colid != null)
+						{
+%>
+	dbcc checkident([<%=tbl.Name%>],reseed,<%=sSeed%>)<%
+						}
+						processed.Add(tbl);
+					}
+				}
+			}
+			if(processed.Count ==pCount)return;
+		}
+		EndProc("purgeData");
+	}
+	private void InitializeMembers()
+	{
+		_dbName = input["chooseDatabase"].ToString();
+		_selectedTables = input["chooseTables"] as ArrayList;
+		_selectedViews = input["chooseViews"] as ArrayList;
+		_exportPath = input["outputPath"].ToString();
+		_nameSpace = input["classNamespace"].ToString();
+		_prefix = input["memberPrefix"].ToString();
+		_dbConnection = input["dbConnection"].ToString();
+	}
+	//----------------------------------------------------------------------
+	// Select
+	//----------------------------------------------------------------------
+	private void SQLSelect(ITable tbl)
+	{
+		string sproc = "get" + ClassesName(tbl); 	
+		StartProc(sproc);
+%>
+AS
+	SELECT
+<%=FormatColumns("[{name}]",tbl.Columns,",\r\n","\t\t")%><%=FKCounts(tbl)%>
+	FROM [<%=tbl.Name%>]<%
+		EndProc(sproc);
+	}
+	private string FKCounts(ITable tbl)
+	{
+		string retval="";
+		Hashtable dicAlias = new Hashtable();
+		foreach(ForeignKey FK in tbl.ForeignKeys)
+		{
+			if(FK.PrimaryTable == tbl)
+			{
+				//string sAlias = GetAlias(dicAlias,FK.ForeignTable);
+				string sAlias = GetAlias(FK);
+				string sep="";
+				string sAliasFK = FK.ForeignTable.Name;
+				string sAliasFK2 = "";
+				if(FK.PrimaryTable == FK.ForeignTable)
+				{
+					sAliasFK=ChildrenName(FK);
+					sAliasFK2=" [" + sAliasFK + "]";
+				}
+				retval += ",\r\n\t\t(SELECT COUNT(*) FROM [" + FK.ForeignTable.Name + "]" + sAliasFK2 + " WHERE ";
+				for(int i=0;i<FK.PrimaryColumns.Count;i++)
+				{
+					retval += sep + "[" + sAliasFK + "].[" + FK.ForeignColumns[i].Name + "]=[" +
+						FK.PrimaryTable.Name + "].[" + FK.PrimaryColumns[i].Name + "]";
+					sep = " AND ";
+				}
+				//retval += ") [" + ClassName(FK.ForeignTable)+ sAlias + "Count]";
+				retval += ") [" + FKCountName(tbl,FK,sAlias) + "Count]";
+			}
+		}
+		return retval;
+	}
+	
+	//----------------------------------------------------------------------
+	// Update
+	//----------------------------------------------------------------------
+	private void SQLUpdate(ITable tbl)
+	{
+		if(tbl.PrimaryKeys.Count == tbl.Columns.Count)
+		{
+			// No Columns other than Primary Key Columns - Nothing to Update
+			// Instead of Update - Do a Delete followed by an Insert
+%>
+	-- Update cannot be performed on <%=tbl.Name%> since it doesn't contain
+	-- any columns that are not part of the Primary Key
+<%
+			return;
+		}
+		string sproc = "update" + ClassName(tbl); 	
+		StartProc(sproc);
+		%>
+(
+<%=FormatColumns("{@} {dtype}{?null}",tbl.Columns,",\r\n","\t")%><%=FormatColumns("{@new} {dtype} output",Computed(tbl),"",",\r\n\t")%>
+)
+AS
+	UPDATE [<%=tbl.Name%>]
+		SET
+<%=FormatColumns("[{name}]={@}",Updatable(tbl),",\r\n","\t\t\t")%>
+		WHERE <%=FormatColumns("[{name}]={@}",NotUpdatable(tbl)," AND ","")%>
+	IF @@ROWCOUNT = 0
+	BEGIN
+		IF NOT exists(select * from [<%=tbl.Name%>] WHERE <%=FormatColumns("[{name}]={@}",PrimaryKey(tbl)," AND ","")%>)
+			RAISERROR('<%=ClassName(tbl)%> record has been deleted by another user', 16, 1)
+		ELSE           	
+			RAISERROR('<%=ClassName(tbl)%> has been edited by another user', 16, 1)            	
+	END
+<%
+		if(Computed(tbl).Count > 0){
+%>
+		SELECT <%=FormatColumns("{@new}=[{name}]",Computed(tbl),",\r\n","\t\t")%>	
+		FROM [<%=tbl.Name%>] WHERE <%=FormatColumns("[{name}]={@}",tbl.PrimaryKeys," AND ","")%>		
+<%
+		}
+		EndProc(sproc);
+	}
+	//----------------------------------------------------------------------
+	// Insert
+	//----------------------------------------------------------------------
+	private void SQLInsert(ITable tbl)
+	{
+		string sproc = "add" + ClassName(tbl);
+		StartProc(sproc);
+%>
+(
+<%=FormatColumns("{@} {dtype}{?null}",Insertable(tbl),",\r\n","\t")%><%=FormatColumns("{@new} {dtype} output",NotInsertable(tbl),"",",\r\n\t")%>
+)
+AS
+	INSERT INTO [<%=tbl.Name%>]
+	(
+<%=FormatColumns("[{name}]",Insertable(tbl),",\r\n","\t\t")%>
+	)
+	VALUES
+	(
+<%=FormatColumns("{@}",Insertable(tbl),",\r\n","\t\t")%>
+	)
+<%=FormatColumns("SELECT {@new}= SCOPE_IDENTITY()",AutoKey(tbl),"\r\n","\t")%><%
+		// Update Output Values
+		ArrayList cmp = Computed(tbl);
+		if(cmp.Count > 0){
+%>
+	SELECT <%=FormatColumns("{@new}=[{name}]",cmp,"\r\n","\t\t")%>
+		FROM [<%=tbl.Name%>] WHERE <%=FormatColumns("[{name}]={@key}",tbl.PrimaryKeys," AND ","")%><%
+		}
+		EndProc(sproc);
+	}
+	//----------------------------------------------------------------------
+	// Delete
+	//----------------------------------------------------------------------
+	private void SQLDelete(ITable tbl)
+	{
+		string sproc = "delete" + ClassName(tbl);	
+		StartProc(sproc);
+%>
+(
+<%=FormatColumns("{@} {dtype}",tbl.PrimaryKeys,",\r\n","\t")%>
+)
+AS<%
+	foreach(IForeignKey fk in tbl.ForeignKeys)
+	{
+		if(tbl != fk.ForeignTable)
+		{
+%>
+	DELETE [<%=fk.ForeignTable.Name%>]
+		WHERE<%
+			string sep = " ";
+			for(int j=0;j<fk.ForeignColumns.Count;j++)
+			{
+				output.write(sep + "[" + fk.ForeignColumns[j].Name + "]=" + ParameterName(fk.PrimaryColumns[j]));
+				sep = ", ";
+			}
+		}
+	}
+%>
+	DELETE [<%=tbl.Name%>]
+		WHERE <%=FormatColumns("[{name}] = {@}",tbl.PrimaryKeys," AND ","")%><%
+		EndProc(sproc);
+	}
+	//----------------------------------------------------------------------
+	// SelectPK
+	//----------------------------------------------------------------------
+	private void SQLSelectPK(ITable tbl)
+	{
+		string sproc = "get" + ClassName(tbl); 	
+		StartProc(sproc);
+		%>
+(
+<%=FormatColumns("{@} {dtype}",tbl.PrimaryKeys,",\r\n","\t")%>
+)
+AS
+	SELECT
+<%=FormatColumns("[{name}]",tbl.Columns,",\r\n","\t\t")%><%=FKCounts(tbl)%>
+	FROM [<%=tbl.Name%>]
+	WHERE <%=FormatColumns("[{name}]={@}",tbl.PrimaryKeys," AND ","")%><%
+		// Need to loop through foreign keys and select related records
+		FKSelects(tbl);
+		EndProc(sproc);
+	}
+	private bool IsPrimaryKey(IIndex ind)
+	{
+		IColumns colsi = ind.Columns;
+		IColumns colsp = ind.Table.PrimaryKeys;
+		if(colsi.Count != colsp.Count)return false;
+		for(int i=0;i<colsi.Count;i++)
+		{
+			if(colsi[i]!=colsp[i])
+				return false;
+		}
+		return true;
+	}
+	//----------------------------------------------------------------------
+	// SelectUnique
+	//----------------------------------------------------------------------
+	private void SQLSelectUnique(ITable tbl)
+	{
+		foreach(IIndex ind in tbl.Indexes)
+		{
+			if(!IsPrimaryKey(ind) && ind.Unique)
+			{
+				string sproc = "get" + ClassName(tbl) + "By" + FormatColumns("{name}",ind.Columns,"_",""); 	
+				StartProc(sproc);
+				%>(
+<%=FormatColumns("{@} {dtype}",ind.Columns,",\r\n","\t")%>
+)
+AS
+	SELECT
+<%=FormatColumns("[{name}]",tbl.Columns,",\r\n","\t\t")%><%=FKCounts(tbl)%>
+	FROM [<%=tbl.Name%>]
+	WHERE <%=FormatColumns("[{name}]={@}",ind.Columns," AND ","")%><%
+		// Need to loop through foreign keys and select related records
+				EndProc(sproc);
+			}
+		}
+	}
+	//----------------------------------------------------------------------
+	// SelectParent
+	//----------------------------------------------------------------------
+	private void SQLSelectParent(ITable tbl)
+	{
+		if(!FKParent(tbl))return;
+		IForeignKey fk = FKParentFK(tbl);
+		string sproc = "get" + ParentName(fk) + ClassName(tbl); 	
+		StartProc(sproc);
+		%>(
+<%=FormatColumns("{@} {dtype}",fk.ForeignColumns,",\r\n","\t")%>
+)
+AS
+	SELECT
+<%=FormatColumns("[{name}]",tbl.Columns,",\r\n","\t\t")%><%=FKCounts(tbl)%>
+	FROM [<%=tbl.Name%>]
+	WHERE<%
+		string sep="";
+		for(int i = 0; i<fk.ForeignColumns.Count; i++)
+		{
+		%>
+		<%=FormatColumn("[{name}]=",fk.PrimaryColumns[i])%><%=FormatColumn("{@}",fk.ForeignColumns[i])%><%=sep%><%
+			sep=" AND";
+		}
+		EndProc(sproc);
+	}
+	//----------------------------------------------------------------------
+	// Exists
+	//----------------------------------------------------------------------
+	private void SQLExists(ITable tbl)
+	{
+		string sproc = "exists" + ClassName(tbl); 	
+		StartProc(sproc);
+		%>
+(
+<%=FormatColumns("{@} {dtype}",tbl.PrimaryKeys,",\r\n","\t")%>
+)
+	AS
+	SELECT COUNT(*)
+	FROM [<%=tbl.Name%>] WHERE <%=FormatColumns("[{name}]={@}",tbl.PrimaryKeys," AND ","")%><%
+		EndProc(sproc);
+	}
+	//----------------------------------------------------------------------
+	// SelectFKs
+	//----------------------------------------------------------------------
+	private void SQLSelectFKs(ITable tbl)
+	{
+		Hashtable dicAlias = new Hashtable();
+		foreach(IForeignKey FK in tbl.ForeignKeys)
+		{
+			if(tbl == FK.ForeignTable)
+			{
+				//string sAlias = GetAlias(dicAlias,FK.PrimaryTable);
+				string sAlias = GetAlias(FK);
+				SQLSelectFK(tbl,FK,sAlias);
+			}
+		}
+	}
+	private void SQLSelectFKChild(ITable tbl, IForeignKey FK,string sAlias)
+	{
+		string sproc = "get" + FKSelectName(tbl,FK,sAlias);	
+		StartProc(sproc);
+%>
+(
+<%=FormatColumns2("{@} {dtype}",FK,",\r\n","\t")%>
+)
+AS
+	SELECT
+<%=FormatColumns("[{name}]",tbl.Columns,",\r\n","\t\t")%><%=FKCounts(tbl)%>
+	FROM [<%=tbl.Name%>] WHERE <%=FormatColumns2("[{fkname}]={@}",FK," AND ","")%> AND <%=FormatColumns2("[{!column}]<>{@}",FK," AND ","")%><%
+		EndProc(sproc);
+	}
+	private void SQLSelectFK(ITable tbl, IForeignKey FK,string sAlias)
+	{
+		if(FK.PrimaryTable == FK.ForeignTable){
+			SQLSelectFKChild(tbl,FK,sAlias);
+		}
+		else
+		{
+			//string sproc = "get" + FKSelectName(tbl,FK,sAlias);	
+			string sproc = "get" + FKSelectName(tbl,FK,"");	
+			StartProc(sproc);
+%>
+(
+<%=FormatColumns2("{@} {dtype}",FK,",\r\n","\t")%>
+)
+AS<%
+			string sWhere = "\r\n\tWHERE\r\n\t\t" + FormatColumns2("[{fktable}].[{fkname}]={@}",FK," AND ","");
+			FKSelect(FK,(FK.PrimaryTable==tbl?FK.ForeignTable:FK.PrimaryTable),FKCounts(tbl),sWhere);
+			EndProc(sproc);
+		}
+	}
+	private void StartProc(string sproc)
+	{
+		// Drop and recreate
+%>
+/****** Object:  StoredProcedure [<%=sproc%>] ******/
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[<%=sproc%>]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+    DROP PROCEDURE [<%=sproc%>];
+GO
+	
+CREATE PROCEDURE [dbo].[<%=sproc%>]
+<%
+	}
+	private void EndProc(string sproc)
+	{
+%>
+	RETURN
+GO
+-- Display the status of Proc creation
+IF (@@Error = 0) PRINT 'Procedure Creation: <%=sproc%> Succeeded'
+ELSE PRINT 'Procedure Creation: <%=sproc%> Error on Creation'
+GO
+<%
+	SaveFile(sproc);
+	}
+	private void FKSelects(ITable tbl)
+	{
+		foreach(ForeignKey fk in tbl.ForeignKeys)
+		{
+//			WriteLine("\r\n--ForeignKey - {0} - {1}\r\n",fk.Name,IsPrimaryKey(fk));
+			if(tbl != fk.ForeignTable)
+				//if(!IsPrimaryKey(fk)) - This was removed so that one to one relationships would return records.
+					FKSelect(fk,tbl,"",BuildWhere(fk));
+		}
+	}
+	private void FKSelect(IForeignKey fk, ITable tbl, string sCounts,string sWhere)
+	{
+		string sjoin="";
+		string ssep="";
+		Hashtable dicAlias = new Hashtable();
+%>
+
+	SELECT
+<%=FormatFKColumns("[{tbl}].[{name}]",fk,",\r\n","\t\t",ref ssep)%><%
+		foreach(ForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+//			if(ManyToMany(tbl,fk,pk))
+			if(tbl != pk.PrimaryTable && fk.ForeignTable == pk.ForeignTable && pk.PrimaryTable != pk.ForeignTable && ForeignRequired(pk))
+			{
+				//string sAlias=GetAlias(dicAlias,pk.PrimaryTable);
+				string sAlias=GetAlias(pk);
+				string sJoinAdd = BuildJoin(pk,sAlias);
+				if(sJoinAdd != null) // Only add related tables that are associated with a required field
+				{
+					sjoin += sJoinAdd;
+%><%=FormatPKColumns("[{tbl}].[{name}] [{fname}]",pk,",\r\n","\t\t",ref ssep,sAlias)%><%
+				}
+			}
+		}
+%><%=sCounts%>
+	FROM [<%=fk.ForeignTable.Name%>]<%=sjoin%><%=sWhere%>
+<%
+	}
+/*
+	private string DefineAlias(IForeignKey pk,Hashtable dicAlias)
+	{
+		if(((int)dicAlias[pk.PrimaryTable.Name])==0)return "";
+		return "[" + pk.PrimaryTable.Name + "_" + dicAlias[pk.PrimaryTable.Name].ToString() + "]";
+	}
+	private string UseAlias(string tblname,Hashtable dicAlias)
+	{
+		if(((int)dicAlias[tblname])==0)return tblname;
+		return tblname + "_" + dicAlias[tblname].ToString();
+		
+	}
+*/
+	private string BuildJoin(IForeignKey pk,string sAlias)
+	{
+		string sjoin="\r\n\t\tJOIN [" + pk.PrimaryTable.Name + "] " + (sAlias==""?"":"[" + pk.PrimaryTable.Name + sAlias + "]") + " ON";
+		for(int j=0;j<pk.PrimaryColumns.Count;j++)
+		{
+			sjoin += "\r\n\t\t\t[" + pk.PrimaryTable.Name + sAlias + "].[" + pk.PrimaryColumns[j].Name + "]="
+				+ "[" + pk.ForeignTable.Name + "].[" + pk.ForeignColumns[j].Name + "]";
+		}
+		return sjoin;
+	}
+	private string BuildWhere(IForeignKey fk)
+	{
+		string swhere="\r\n\tWHERE";
+		for(int j=0;j<fk.PrimaryColumns.Count;j++)
+		{
+			swhere += "\r\n\t\t[" + fk.ForeignTable.Name + "].[" + fk.ForeignColumns[j].Name 
+				+ "]=" + ParameterName(fk.PrimaryColumns[j]);
+		}
+		return swhere;
+	}
+%><%#FILE NamingConvention.cs%><%
+%><%#FILE ForeignKeyProcessing.cs%><%
+%><%#FILE FilteredColumns.cs%><%
+%><%#FILE FormatColumns.cs%><%
+%><%#FILE WriteLine.cs%><%
+}
+%>
+##|BODY_END

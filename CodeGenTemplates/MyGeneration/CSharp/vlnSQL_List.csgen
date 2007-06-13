@@ -1,0 +1,340 @@
+﻿##|TYPE Template
+##|UNIQUEID ad80d306-3f72-4b18-a21e-3e543240152a
+##|TITLE List Stored Procedures - Volian
+##|NAMESPACE CSLA_21
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE Transact-SQL
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui(ZeusContext context) : base(context) {}
+
+	//-----------------------------------------
+	// The User Interface Entry Point
+	//-----------------------------------------
+	public override void Setup()
+	{
+		if ( !input.Contains( "chooseTables" ) || !input.Contains( "txtPath" ) ||
+				( !input.Contains( "chkClass" ) && !input.Contains( "chkNaming" ) ) )
+		{
+			if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.ReadInputFromCache(context);
+			ui.Title = "CSLA Object Mapping";
+			ui.Width = 600;
+			ui.Height = 660;
+			GuiLabel label1 = ui.AddLabel( "label1", "Select the output path:", "Select the output path in the field below." );
+			//label1.Width = 200;
+			GuiTextBox outputPath = ui.AddTextBox( "outputPath", GetDefault("defaultOutputPath"), "Select the Output Path." );
+			outputPath.Width = 450;
+			GuiFilePicker selectPath = ui.AddFilePicker( "selectPath", "Select Path", "Select the Output Path.", "outputPath", true );
+			selectPath.Top = outputPath.Top;
+			selectPath.Width = 100;
+			selectPath.Left = outputPath.Left + outputPath.Width + 20;
+			
+			GuiLabel label2 = ui.AddLabel( "label2", "Namespace: ",  "Provide your objects namespace." );
+			label2.Width = 280;
+			GuiTextBox classNamespace = ui.AddTextBox( "classNamespace", "Volian.Object.Library", "Provide your objects namespace." );				
+			classNamespace.Width = 280;
+			
+            GuiLabel label3 = ui.AddLabel( "label3", "Member prefix: ", "Provide your member prefix." );
+			label3.Width = 100;
+			label3.Top = label2.Top;
+			label3.Left = label2.Width + 20;
+			GuiTextBox memberPrefix = ui.AddTextBox( "memberPrefix", "_", "Provide your member prefix." );
+			memberPrefix.Width = 100;
+			memberPrefix.Top = classNamespace.Top;
+			memberPrefix.Left = classNamespace.Width + 20;
+           
+			GuiLabel label3A = ui.AddLabel( "label3A", "dbConnection: ", "Provide a Connection Name." );
+			label3A.Width = 150;
+			label3A.Top = label3.Top;
+			label3A.Left = label3.Left+label3.Width + 10;
+			GuiTextBox dbConnection = ui.AddTextBox( "dbConnection", "VEPROMS", "Provide a Connection Name." );
+			dbConnection.Width = 150;
+			dbConnection.Top = memberPrefix.Top;
+			dbConnection.Left = memberPrefix.Left + memberPrefix.Width + 10;
+             
+			// Setup Database selection combobox.
+			GuiLabel label4 = ui.AddLabel( "label4", "Select a database:", "Select a database in the dropdown below." );
+			label4.Width = 280;
+			GuiComboBox chooseDatabase = ui.AddComboBox( "chooseDatabase", "Select a database." );
+			chooseDatabase.Width = 280;
+			
+			GuiCheckBox chkSelect = MakeGuiCheckBox( "chkSelect", "Select All", true, "Select All Records",100 );
+			GuiCheckBox chkUpdate = MakeGuiCheckBox( "chkUpdate", "Update One", true, "Update One Record" ,150,chkSelect,150,0);
+			GuiCheckBox chkFiles = MakeGuiCheckBox( "chkFiles", "Files", true, "Create Files" ,150,chkUpdate,200,0);
+			GuiCheckBox chkInsert = MakeGuiCheckBox( "chkInsert", "Insert One", true, "Insert One Record" ,150,chkSelect,0,-1);
+			GuiCheckBox chkDelete = MakeGuiCheckBox( "chkDelete", "Delete One", true, "Delete One Record" ,150,chkInsert,150,0);
+			GuiCheckBox chkDrop = MakeGuiCheckBox( "chkDrop", "Drop", true, "Drop Procedures" ,150,chkDelete,200,0);
+			GuiCheckBox chkSelectPK = MakeGuiCheckBox( "chkSelectPK", "Select One", true, "Select One Record" ,150,chkInsert,0,-1);
+			GuiCheckBox chkExists = MakeGuiCheckBox("chkExists","Exists",true,"Check Record Exists",150,chkSelectPK,150,0);
+			GuiCheckBox chkPurge = MakeGuiCheckBox("chkPurge","Purge",true,"Purge All Data",150,chkSelectPK,0,-1);
+			GuiCheckBox chkSelectFKs = MakeGuiCheckBox("chkSelectFKs","Select Group",true,"Select by Foreign Key",150,chkPurge,150,0);
+
+			// Setup Tables selection multi-select listbox.
+			GuiLabel label7 = ui.AddLabel( "label7", "Select tables:", "Select tables from the listbox below." );
+			//label7.Top = chkEqualsHashCode.Top + 20;
+			GuiListBox chooseTables = ui.AddListBox( "chooseTables", "Select tables." );
+			chooseTables.Height = 120;
+	
+			// Setup Views selection multi-select listbox.
+			GuiLabel label8 = ui.AddLabel( "label8", "Select views:", "Select views from the listbox below." );
+			GuiListBox chooseViews = ui.AddListBox( "chooseViews", "Select views." );
+			chooseViews.Height = 120;
+			
+			// Attach the onchange event to the cmbDatabases control.
+			setupDatabaseDropdown( chooseDatabase );
+			chooseDatabase.AttachEvent( "onchange", "chooseDatabase_onchange" );
+			
+			ui.ShowGui = true;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+	}
+	public void setupDatabaseDropdown( GuiComboBox Databases )
+	{
+		try 
+		{	
+			if( MyMeta.IsConnected )
+			{
+				Databases.BindData( MyMeta.Databases );
+				if( MyMeta.DefaultDatabase != null ) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables( Databases.SelectedValue );
+					bindViews( Databases.SelectedValue );
+				}
+			}
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindTables( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData(db.Tables);
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindViews( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData( db.Views );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void chooseDatabase_onchange( GuiComboBox control )
+	{
+		//int count = 0;
+
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+	
+		bindTables( cmbDatabases.SelectedText );
+		bindViews( cmbDatabases.SelectedText );
+		GuiTextBox dbConnection = ui["dbConnection"] as GuiTextBox;
+		dbConnection.Text=cmbDatabases.SelectedText;
+		GuiTextBox classNamespace = ui["classNamespace"] as GuiTextBox;
+		classNamespace.Text=cmbDatabases.SelectedText + ".Object.Library";
+	}
+	private string GetDefault(string sName)
+	{
+		if( input.Contains( sName ) ) 
+		{
+			return input[sName].ToString();
+		}
+		return "";
+	}
+	<%#FILE MakeGuiCheckBox.cs %>
+
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Globalization %><%
+// ========================================================================
+// Copyright 2006 - Volian Enterprises, Inc. All rights reserved.          
+// Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
+// ------------------------------------------------------------------------
+// $Workfile: $     $Revision: $                                           
+// $Author: $   $Date: $                                                   
+//                                                                         
+// $History: $                                                             
+// ========================================================================
+public class GeneratedTemplate : DotNetScriptTemplate
+{
+	public GeneratedTemplate(ZeusContext context) : base(context) {}
+	// Members
+	private string _dbName;
+	private ArrayList _selectedTables;
+	private ArrayList _selectedViews;
+	private string _exportPath;
+	private string _nameSpace;
+	private string _prefix;
+	private string _dbConnection;
+	private string _tableName;
+	private string _className="";
+	private ITable _workingTable;
+	//private Hashtable dicRead;
+	//private Hashtable dicReadI;
+	public void SaveFile(string sFile)
+	{
+		if((bool)input["chkFiles"]){	
+			output.save( Path.Combine( _exportPath, sFile + ".SQL" ), false );
+			//output.writeln("--" + Path.Combine( _exportPath, "CSLA.SQL" ));
+			output.clear();
+		}
+	}
+	//private bool IsPrimaryKey(IForeignKey fk)
+	//{
+	//	bool retval=true;
+	//	foreach(IColumn c in fk.ForeignColumns)retval &= c.IsInPrimaryKey;
+	//	return retval;
+	//}
+	public delegate bool Filter(IColumn column);
+	//---------------------------------------------------
+	// Render() is where you want to write your logic    
+	//---------------------------------------------------
+	public override void Render()
+	{
+		if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.SaveInputToCache(context);
+		//InitializeMembers();
+		_exportPath = input["outputPath"].ToString();
+		_dbName = input["chooseDatabase"].ToString();
+		IDatabase db = MyMeta.Databases[_dbName];
+		SaveProcs(db);
+		//SaveTables(db);
+	}
+	private void SaveProcs(IDatabase db)
+	{
+		foreach(IProcedure ip in db.Procedures)
+		{
+			if(ip.Schema != "sys"){
+				string sName = ip.Name;
+				if((bool)input["chkDrop"]){
+					if(sName.Contains("sp_")==false && sName.Contains("fn_")==false)
+						output.writeln("Drop procedure [" + sName + "]");
+				} else {
+					if(sName.Contains("sp_")==false && sName.Contains("fn_")==false)
+					{
+%>
+/****** Object:  StoredProcedure [<%=sName%>] ******/
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[<%=sName%>]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+    DROP PROCEDURE [<%=sName%>];
+GO
+	
+<%
+					output.write(ip.ProcedureText.TrimEnd("\r\n".ToCharArray()).Replace(" \r\n","\r\n"));
+%>
+GO
+-- Display the status of Proc creation
+IF (@@Error = 0) PRINT 'Procedure Creation: <%=sName%> Succeeded'
+ELSE PRINT 'Procedure Creation: <%=sName%> Error on Creation'
+GO
+<%
+						SaveFile(ip.Name);
+					}
+				}
+			}
+		}
+	}
+	private void ShowColumns(IColumns cols,int indent,string title)
+	{
+		output.writeln(string.Format("{0}{1}","".PadRight(indent),title));
+		foreach(IColumn col in cols)
+		{
+			output.writeln(string.Format("{0}{1} {2}{3}{4}","".PadRight(indent+2),col.Name,col.DataTypeNameComplete,
+			(col.IsInPrimaryKey?" PK":""),(col.IsInForeignKey?" FK":"")));
+			ShowProperties(col.AllProperties,indent+2);
+		}
+	}
+	private void ShowProperties(IPropertyCollection prps, int indent)
+	{
+		if(prps.Count == 0)return;
+		output.writeln(string.Format("{0}Properties:","".PadRight(indent)));
+		foreach(IProperty prp in prps)
+		{
+			output.writeln(string.Format("{0}{1}={2}","".PadRight(indent+2),prp.Key,prp.Value));
+		}
+	}
+	private bool IsPrimaryKey(IIndex ind)
+	{
+		IColumns colsi = ind.Columns;
+		IColumns colsp = ind.Table.PrimaryKeys;
+		if(colsi.Count != colsp.Count)return false;
+		for(int i=0;i<colsi.Count;i++)
+		{
+			if(colsi[i]!=colsp[i])
+				return false;
+		}
+		return true;
+	}
+	private void SaveTables(IDatabase db)
+	{
+		foreach(ITable tbl in db.Tables)
+		{
+			ShowTable(tbl);
+			SaveFile("Table_" + tbl.Name);
+		}
+	}
+	private void ShowTable(ITable tbl)
+	{
+		output.writeln(string.Format("Table {0}",tbl.Name));
+		ShowProperties(tbl.AllProperties,2);
+		ShowColumns(tbl.Columns,2,"Columns:");
+		ShowColumns(tbl.PrimaryKeys,2,"Primary Key:");
+		output.writeln("  Foreign Keys:");
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			output.writeln(string.Format("    Name: {0} Primary Table: {1}.{2} Foreign Table: {3}"
+			,fk.Name,fk.PrimaryTable.Name,fk.PrimaryKeyName,fk.ForeignTable.Name));
+			ShowColumns(fk.PrimaryColumns,6,"Primary Columns:");
+			ShowColumns(fk.ForeignColumns,6,"Foreign Columns:");
+			//ShowRequiredColumns(fk.ForeignTable.Columns,6,"Required Foreign Columns:");
+		}
+		output.writeln("  Indexes:");
+		foreach(IIndex ind in tbl.Indexes)
+		{
+			if(!IsPrimaryKey(ind))
+			{
+				output.writeln(string.Format("    Name: {0} ",ind.Name,(ind.Unique?" Unique":"")));
+				ShowProperties(ind.AllProperties,6);
+				ShowColumns(ind.Columns,6,"Columns:");		
+			}
+		}
+	}
+%><%#FILE NamingConvention.cs%><%
+%><%#FILE ForeignKeyProcessing.cs%><%
+%><%#FILE FilteredColumns.cs%><%
+%><%#FILE FormatColumns.cs%><%
+%><%#FILE WriteLine.cs%><%
+}
+%>
+##|BODY_END

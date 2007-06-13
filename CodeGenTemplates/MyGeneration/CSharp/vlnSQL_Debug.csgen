@@ -1,0 +1,1194 @@
+﻿##|TYPE Template
+##|UNIQUEID 97ec3dfd-e032-4457-bf04-af1114b66bff
+##|TITLE Debug Data Connection
+##|NAMESPACE CSLA_21
+##|SOURCE_TYPE Source
+##|OUTPUT_LANGUAGE Transact-SQL
+##|GUI_ENGINE .Net Script
+##|GUI_LANGUAGE C#
+##|GUI_BEGIN
+
+public class GeneratedGui : DotNetScriptGui
+{
+	public GeneratedGui(ZeusContext context) : base(context) {}
+
+	//-----------------------------------------
+	// The User Interface Entry Point
+	//-----------------------------------------
+	public override void Setup()
+	{
+		if ( !input.Contains( "chooseTables" ) || !input.Contains( "txtPath" ) ||
+				( !input.Contains( "chkClass" ) && !input.Contains( "chkNaming" ) ) )
+		{
+			if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.ReadInputFromCache(context);
+			ui.Title = "CSLA Object Mapping";
+			ui.Width = 600;
+			ui.Height = 660;
+			GuiLabel label1 = ui.AddLabel( "label1", "Select the output path:", "Select the output path in the field below." );
+			//label1.Width = 200;
+			GuiTextBox outputPath = ui.AddTextBox( "outputPath", GetDefault("defaultOutputPath"), "Select the Output Path." );
+			outputPath.Width = 450;
+			GuiFilePicker selectPath = ui.AddFilePicker( "selectPath", "Select Path", "Select the Output Path.", "outputPath", true );
+			selectPath.Top = outputPath.Top;
+			selectPath.Width = 100;
+			selectPath.Left = outputPath.Left + outputPath.Width + 20;
+			
+			GuiLabel label2 = ui.AddLabel( "label2", "Namespace: ",  "Provide your objects namespace." );
+			label2.Width = 280;
+			GuiTextBox classNamespace = ui.AddTextBox( "classNamespace", "Volian.Object.Library", "Provide your objects namespace." );				
+			classNamespace.Width = 280;
+			
+            GuiLabel label3 = ui.AddLabel( "label3", "Member prefix: ", "Provide your member prefix." );
+			label3.Width = 100;
+			label3.Top = label2.Top;
+			label3.Left = label2.Width + 20;
+			GuiTextBox memberPrefix = ui.AddTextBox( "memberPrefix", "_", "Provide your member prefix." );
+			memberPrefix.Width = 100;
+			memberPrefix.Top = classNamespace.Top;
+			memberPrefix.Left = classNamespace.Width + 20;
+           
+			GuiLabel label3A = ui.AddLabel( "label3A", "dbConnection: ", "Provide a Connection Name." );
+			label3A.Width = 150;
+			label3A.Top = label3.Top;
+			label3A.Left = label3.Left+label3.Width + 10;
+			GuiTextBox dbConnection = ui.AddTextBox( "dbConnection", "VEPROMS", "Provide a Connection Name." );
+			dbConnection.Width = 150;
+			dbConnection.Top = memberPrefix.Top;
+			dbConnection.Left = memberPrefix.Left + memberPrefix.Width + 10;
+             
+			// Setup Database selection combobox.
+			GuiLabel label4 = ui.AddLabel( "label4", "Select a database:", "Select a database in the dropdown below." );
+			label4.Width = 280;
+			GuiComboBox chooseDatabase = ui.AddComboBox( "chooseDatabase", "Select a database." );
+			chooseDatabase.Width = 280;
+			
+			GuiCheckBox chkDetail = MakeGuiCheckBox( "chkDetail", "MakeList & FK", true, "Show MakeList and FK",100 );
+			chkDetail.Checked = false;
+			GuiCheckBox chkColumns = MakeGuiCheckBox( "chkColumns", "Columns", true, "Show Columns" ,150,chkDetail,200,0);
+			chkColumns.Checked = false;
+			GuiCheckBox chkFKCalc1 = MakeGuiCheckBox( "chkFKCalc1", "FK Calc 1", true, "FK Calc 1" ,150,chkDetail,400,0);
+			chkFKCalc1.Checked = false;
+			GuiCheckBox chkUnique = MakeGuiCheckBox( "chkUnique", "Unique", true, "Unique Indexes" ,150,chkDetail,0, -1);
+			chkUnique.Checked = false;
+			GuiCheckBox chkFKCalc2 = MakeGuiCheckBox( "chkFKCalc2", "FK Calc 2", true, "FK Calc 2" ,150,chkDetail,200, -1);
+			chkFKCalc2.Checked = false;
+			GuiCheckBox chkColumns2 = MakeGuiCheckBox("chkColumns2","PrimFK",true,"Primary Foreign Key",150,chkDetail,400, -1);
+			chkColumns2.Checked = false;
+			GuiCheckBox chkRelated = MakeGuiCheckBox("chkRelated","Related",true,"Related",150,chkDetail,0,-2);
+			chkRelated.Checked = false;
+			GuiCheckBox chkOne2One = MakeGuiCheckBox("chkOne2One","One to One",true,"One to Many and One to One",150,chkDetail,200, -2);
+			chkOne2One.Checked = false;
+			GuiCheckBox chkIndexes = MakeGuiCheckBox("chkIndexes","Indexes",true,"Compare Foreign Keys to Indexes",150,chkDetail,400, -2);
+			chkIndexes.Checked = false;
+			GuiCheckBox chkInternal = MakeGuiCheckBox("chkInternal","Internal",true,"Internal Relationships",150,chkDetail, 0, -3);
+			chkInternal.Checked = false;
+			GuiCheckBox chkAlias = MakeGuiCheckBox("chkAlias","Alias",true,"Aliases",150,chkDetail, 200, -3);
+			chkAlias.Checked = false;
+			GuiCheckBox chkNames = MakeGuiCheckBox("chkNames","Names",true,"Names",150,chkDetail, 400, -3);
+			chkNames.Checked = false;
+			// Setup Tables selection multi-select listbox.
+			GuiLabel label7 = ui.AddLabel( "label7", "Select tables:", "Select tables from the listbox below." );
+			//label7.Top = chkInternal.Top + 20;
+			GuiListBox chooseTables = ui.AddListBox( "chooseTables", "Select tables." );
+			chooseTables.Height = 120;
+	
+			// Setup Views selection multi-select listbox.
+			GuiLabel label8 = ui.AddLabel( "label8", "Select views:", "Select views from the listbox below." );
+			GuiListBox chooseViews = ui.AddListBox( "chooseViews", "Select views." );
+			chooseViews.Height = 80;
+			
+			// Attach the onchange event to the cmbDatabases control.
+			setupDatabaseDropdown( chooseDatabase );
+			GuiLabel labelTest = ui.AddLabel( "labelTest", "Status: Select CheckBox to Run",  "Checkbox must be selected first" );
+			chooseDatabase.AttachEvent( "onchange", "chooseDatabase_onchange" );
+			chkDetail.AttachEvent( "onclick", "checkbox_onclick" );
+			chkColumns.AttachEvent( "onclick", "checkbox_onclick" );
+			chkFKCalc1.AttachEvent( "onclick", "checkbox_onclick" );
+			chkUnique.AttachEvent( "onclick", "checkbox_onclick" );
+			chkFKCalc2.AttachEvent( "onclick", "checkbox_onclick" );
+			chkColumns2.AttachEvent( "onclick", "checkbox_onclick" );
+			chkRelated.AttachEvent( "onclick", "checkbox_onclick" );
+			chkOne2One.AttachEvent( "onclick", "checkbox_onclick" );
+			chkIndexes.AttachEvent( "onclick", "checkbox_onclick" );
+			chkInternal.AttachEvent( "onclick", "checkbox_onclick" );
+			chkAlias.AttachEvent( "onclick", "checkbox_onclick" );
+			chkNames.AttachEvent( "onclick", "checkbox_onclick" );
+			chooseTables.AttachEvent( "onchange", "chooseTable_onclick" );
+			ui.ShowGui = true;
+			GuiButton btnOK = ui.AddButton( "OK", "OK", "Generate Code" );
+			btnOK.ClosesForm = true;
+			btnOK.Enabled = false;
+		}
+		else 
+		{
+			ui.ShowGui = false;
+		}
+	}
+	public void setupDatabaseDropdown( GuiComboBox Databases )
+	{
+		try 
+		{	
+			if( MyMeta.IsConnected )
+			{
+				Databases.BindData( MyMeta.Databases );
+				if( MyMeta.DefaultDatabase != null ) 
+				{
+					Databases.SelectedValue = MyMeta.DefaultDatabase.Alias;
+					bindTables( Databases.SelectedValue );
+					bindViews( Databases.SelectedValue );
+				}
+			}
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindTables( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstTables = ui["chooseTables"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstTables.BindData(db.Tables);
+		}
+		catch
+		{
+		}
+	}
+	
+	public void bindViews( string sDatabase )
+	{
+		//int count = 0;
+	
+		GuiListBox lstViews = ui["chooseViews"] as GuiListBox;
+		
+		try 
+		{	
+			IDatabase db = MyMeta.Databases[sDatabase];
+			lstViews.BindData( db.Views );
+		}
+		catch
+		{
+		}
+	}
+	
+	public void chooseDatabase_onchange( GuiComboBox control )
+	{
+		//int count = 0;
+
+		GuiComboBox cmbDatabases = ui["chooseDatabase"] as GuiComboBox;
+	
+		bindTables( cmbDatabases.SelectedText );
+		bindViews( cmbDatabases.SelectedText );
+		GuiTextBox dbConnection = ui["dbConnection"] as GuiTextBox;
+		dbConnection.Text=cmbDatabases.SelectedText;
+		GuiTextBox classNamespace = ui["classNamespace"] as GuiTextBox;
+		classNamespace.Text=cmbDatabases.SelectedText + ".Object.Library";
+		Status = string.Format("chooseDatabase_onchange");
+	}
+	private string Status
+	{
+		set
+		{
+			GuiLabel labelTest = ui["labelTest"] as GuiLabel;
+			labelTest.Text = value;
+		}
+	}
+	private GuiButton btnOK
+	{
+		get
+		{
+			foreach(IGuiControl ctrl in ui)
+			{
+				if(ctrl.GetType().Name == "GuiButton"){
+					return ctrl as GuiButton;
+				}
+			}
+			return null;
+		}
+	}
+	public void SetupOkButton()
+	{
+		Status = string.Format("checkBox_onchange");
+		GuiCheckBox chkDetail= ui["chkDetail"] as GuiCheckBox;
+		GuiCheckBox chkColumns= ui["chkColumns"] as GuiCheckBox;
+		GuiCheckBox chkFKCalc1= ui["chkFKCalc1"] as GuiCheckBox;
+		GuiCheckBox chkUnique= ui["chkUnique"] as GuiCheckBox;
+		GuiCheckBox chkFKCalc2= ui["chkFKCalc2"] as GuiCheckBox;
+		GuiCheckBox chkColumns2= ui["chkColumns2"] as GuiCheckBox;
+		GuiCheckBox chkRelated= ui["chkRelated"] as GuiCheckBox;
+		GuiCheckBox chkOne2One= ui["chkOne2One"] as GuiCheckBox;
+		GuiCheckBox chkIndexes= ui["chkIndexes"] as GuiCheckBox;
+		GuiCheckBox chkInternal= ui["chkInternal"] as GuiCheckBox;
+		GuiCheckBox chkAlias= ui["chkAlias"] as GuiCheckBox;
+		GuiCheckBox chkNames= ui["chkNames"] as GuiCheckBox;
+		GuiLabel labelTest = ui["labelTest"] as GuiLabel;
+		string status = "";
+		if(chkDetail.Checked)status+=", " + chkDetail.Text;
+		if(chkColumns.Checked)status+=", " + chkColumns.Text;
+		if(chkFKCalc1.Checked)status+=", " + chkFKCalc1.Text;
+		if(chkUnique.Checked)status+=", " + chkUnique.Text;
+		if(chkFKCalc2.Checked)status+=", " + chkFKCalc2.Text;
+		if(chkColumns2.Checked)status+=", " + chkColumns2.Text;
+		if(chkRelated.Checked)status+=", " + chkRelated.Text;
+		if(chkOne2One.Checked)status+=", " + chkOne2One.Text;
+		if(chkIndexes.Checked)status+=", " + chkIndexes.Text;
+		if(chkInternal.Checked)status+=", " + chkInternal.Text;
+		if(chkAlias.Checked)status+=", " + chkAlias.Text;
+		if(chkNames.Checked)status+=", " + chkNames.Text;
+		if(status == "")
+		{
+			btnOK.Enabled = false;
+			Status="Status: Select CheckBox to Run";
+		}
+		else
+		{
+			GuiListBox lb = ui["chooseTables"] as GuiListBox;
+			if(lb.SelectedItems.Count > 0)
+			{
+				btnOK.Enabled = true;
+				Status = string.Format("Will process: {0} {1}",status.Substring(2),lb.SelectedItems.Count);
+			}
+			else
+			{
+				Status = "Select one or more tables to process.";
+				btnOK.Enabled = false;
+			}
+		}
+	}
+	public void checkbox_onclick( GuiCheckBox control )
+	{
+		SetupOkButton();
+	}
+	public void chooseTable_onclick( GuiListBox control )
+	{
+		SetupOkButton();
+	}
+	private string GetDefault(string sName)
+	{
+		if( input.Contains( sName ) ) 
+		{
+			return input[sName].ToString();
+		}
+		return "";
+	}
+	<%#FILE MakeGuiCheckBox.cs %>
+
+}
+##|GUI_END
+##|BODY_MODE Markup
+##|BODY_ENGINE .Net Script
+##|BODY_LANGUAGE C#
+##|BODY_TAG_START <%
+##|BODY_TAG_END %>
+##|BODY_BEGIN
+<%#NAMESPACE System.IO, System.Text, System.Text.RegularExpressions, System.Globalization %><%
+// ========================================================================
+// Copyright 2006 - Volian Enterprises, Inc. All rights reserved.          
+// Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
+// ------------------------------------------------------------------------
+// $Workfile: $     $Revision: $                                           
+// $Author: $   $Date: $                                                   
+//                                                                         
+// $History: $                                                             
+// ========================================================================
+public class GeneratedTemplate : DotNetScriptTemplate
+{
+	public GeneratedTemplate(ZeusContext context) : base(context) {}
+	// Members
+	private string _dbName;
+	private ArrayList _selectedTables;
+	private ArrayList _selectedViews;
+	private string _exportPath;
+	private string _nameSpace;
+	private string _prefix="_";
+	private string _dbConnection;
+	private string _tableName;
+	private string _className="";
+	private ITable _workingTable;
+	private Hashtable dicIndexes;
+	private Hashtable dicDrop;
+	//private Hashtable dicRead;
+	//private Hashtable dicReadI;
+	//public void SaveFile(string sProc)
+	//{
+	//	output.save( Path.Combine( _exportPath, sProc + ".SQL" ), false );
+	//	//output.writeln("--" + Path.Combine( _exportPath, "CSLA.SQL" ));
+	//	output.clear();
+	//}
+	public delegate bool Filter(IColumn column);
+	//---------------------------------------------------
+	// Render() is where you want to write your logic    
+	//---------------------------------------------------
+	public override void Render()
+	{
+		if(context.Objects.ContainsKey("DnpUtils"))DnpUtils.SaveInputToCache(context);
+		//InitializeMembers();
+		_exportPath = input["outputPath"].ToString();
+		_dbName = input["chooseDatabase"].ToString();
+		IDatabase db = MyMeta.Databases[_dbName];
+		output.clear();
+		_selectedTables = input["chooseTables"] as ArrayList;
+		dicIndexes = new Hashtable();
+		dicDrop = new Hashtable();
+		foreach( string _newTable in _selectedTables )
+		{
+			_workingTable = MyMeta.Databases[_dbName].Tables[_newTable];
+			if((bool)input["chkDetail"])ShowTable1( _workingTable );
+			if((bool)input["chkColumns"])ShowTable2( _workingTable );
+			if((bool)input["chkFKCalc1"])ShowTable3( _workingTable );
+			if((bool)input["chkUnique"])ShowTable4( _workingTable );
+			if((bool)input["chkFKCalc2"])ShowTable5( _workingTable );
+			if((bool)input["chkColumns2"])ShowTable6( _workingTable );
+			if((bool)input["chkRelated"])ShowTable7( _workingTable );
+			if((bool)input["chkOne2One"])ShowTable8( _workingTable );
+			if((bool)input["chkIndexes"])ShowTable9( _workingTable );
+			if((bool)input["chkInternal"])ShowInternalRelated( _workingTable );
+			if((bool)input["chkAlias"])ShowAlias( _workingTable );
+			if((bool)input["chkNames"])ShowNames( _workingTable );
+		}
+		//foreach(ITable tbl in db.Tables)
+		//{
+		//	ShowTable3(tbl);
+		//}
+		//foreach(IProcedure ip in db.Procedures)
+		//{
+		//	if(ip.Schema != "sys" && ip.Name.StartsWith("sp_")){
+		//		WriteLine("{0} {1}",ip.Name,ip.Schema);
+		//		ShowProperties(ip.Properties,2);
+		//	}
+		//}
+		//SaveFile();
+	}
+	private string ForeignKeyCheck(IColumn col)
+	{
+		if(col.IsInForeignKey)
+		{
+			foreach(IForeignKey fk in col.ForeignKeys)
+			{
+				if(IsIn(col,fk.ForeignColumns))return " FK";
+			}
+			return " fk";
+		}
+		return "";
+	}
+	private void ShowColumns(IList cols,int indent,string title)
+	{
+		output.writeln(string.Format("{0}{1}","".PadRight(indent),title));
+		foreach(IColumn col in cols)
+		{
+			output.writeln(string.Format("{0}{1}{2} {3}{4}{5} {6} {7} {8}",
+			(col.IsNullable?" ":"*"),
+			"".PadRight(indent+2),
+			col.Name,
+			col.DataTypeNameComplete,
+			(col.IsInPrimaryKey?" PK":""),
+			ForeignKeyCheck(col),
+			(col.IsAutoKey ? "Auto - (" + col.AutoKeySeed.ToString() + ")":""),
+			col.Default,col.Description));
+			ShowProperties(col.AllProperties,indent+2);
+		}
+	}
+	private void ShowProperties(IPropertyCollection prps, int indent)
+	{
+		if(prps.Count == 0)return;
+		output.writeln(string.Format("{0}Properties:","".PadRight(indent)));
+		foreach(IProperty prp in prps)
+		{
+			output.writeln(string.Format("{0}{1}={2}","".PadRight(indent+2),prp.Key,prp.Value));
+		}
+	}
+	private bool IsPrimaryKey(IIndex ind)
+	{
+		IColumns colsi = ind.Columns;
+		IColumns colsp = ind.Table.PrimaryKeys;
+		if(colsi.Count != colsp.Count)return false;
+		for(int i=0;i<colsi.Count;i++)
+		{
+			if(colsi[i]!=colsp[i])
+				return false;
+		}
+		return true;
+	}
+	private void ShowRequiredColumns(IColumns cols,int indent,string title)
+	{
+		output.writeln(string.Format("{0}{1}","".PadRight(indent),title));
+		foreach(IColumn col in cols)
+		{
+			if(IsRequired(col) && !col.IsComputed && !col.IsAutoKey)
+			{
+				output.writeln(string.Format("{0}{1} {2}{3}{4}","".PadRight(indent+2),col.Name,col.DataTypeNameComplete,
+					(col.IsInPrimaryKey?" PK":""),(col.IsInForeignKey?" FK":"")));
+			}
+		}
+	}
+	private void ShowTable1(ITable tbl)
+	{
+		output.writeln(string.Format("Table {0}",tbl.Name));
+		ShowProperties(tbl.AllProperties,2);
+		ShowColumns(tbl.Columns,2,"Columns:");
+		IList makeList = MakeList(tbl.Columns);
+		ShowColumns(makeList,2,"MakeList:");
+		IList makeList2 = MakeList2(tbl.Columns);
+		ShowColumns(makeList2,2,"MakeList2:");
+		IList makeList3 = MakeList3(tbl.Columns);
+		ShowColumns(makeList3,2,"MakeList3:");
+		IList makeList4 = MakeList4(tbl.Columns);
+		ShowColumns(makeList4,2,"MakeList4:");
+		ShowColumns(tbl.PrimaryKeys,2,"Primary Key:");
+		output.writeln("  Foreign Keys:");
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			output.writeln(string.Format("    Name: {0} Primary Table: {1}.{2} Foreign Table: {3}"
+			,fk.Name,fk.PrimaryTable.Name,fk.PrimaryKeyName,fk.ForeignTable.Name));
+			ShowColumns(fk.PrimaryColumns,6,"Primary Columns:");
+			ShowColumns(fk.ForeignColumns,6,"Foreign Columns:");
+			ShowRequiredColumns(fk.ForeignTable.Columns,6,"Required Foreign Columns:");
+		}
+		output.writeln("  Unique Indexes:");
+		foreach(IIndex ind in tbl.Indexes)
+		{
+			if(!IsPrimaryKey(ind) && ind.Unique)
+			{
+				output.writeln(string.Format("    Name: {0} ",ind.Name));
+				ShowProperties(ind.AllProperties,6);
+				ShowColumns(ind.Columns,6,"Columns:");		
+			}
+		}
+	}
+	private void ShowTable2(ITable tbl)
+	{
+		output.writeln(string.Format("Table {0}",tbl.Name));
+		ShowProperties(tbl.AllProperties,2);
+		ShowColumns(tbl.Columns,2,"Columns:");
+	}
+	private void ShowTable3(ITable tbl)
+	{
+		output.writeln(string.Format("Table {0}",tbl.Name));
+		ShowProperties(tbl.AllProperties,2);
+		//ShowColumns(tbl.Columns,2,"Columns:");
+		//ShowColumns(tbl.PrimaryKeys,2,"Primary Key:");
+		output.writeln("  Foreign Keys:");
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			if(_selectedTables.Contains(fk.ForeignTable.Name)){
+				output.writeln(string.Format("    Name: {0} Primary Table: {1}.{2} Foreign Table: {3}"
+					,fk.Name,fk.PrimaryTable.Name,fk.PrimaryKeyName,fk.ForeignTable.Name));
+				//ShowColumns(fk.PrimaryColumns,6,"Primary Columns:");
+				//ShowColumns(fk.ForeignColumns,6,"Foreign Columns:");
+				//ShowRequiredColumns(fk.ForeignTable.Columns,6,"Required Foreign Columns:");
+				//ShowFK1(fk);
+				//ShowFK2(fk);
+				ShowFK3(fk);
+			}
+		}
+	}
+	private bool IsInPrimaryKey(IColumns cols)
+	{
+		foreach(IColumn col in cols)
+		{
+			if(!col.IsInPrimaryKey)return false;
+		}
+		return true;
+	}
+	private void ShowTable4(ITable tbl)
+	{
+/*
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			if(_selectedTables.Contains(fk.ForeignTable.Name)){
+				ArrayList uniqueChildren = FindUniqueChildren(fk);
+				if(uniqueChildren.Count > 0){
+					output.writeln(string.Format("Table {0}",tbl.Name));
+					//ShowProperties(tbl.AllProperties,2);
+					//ShowColumns(tbl.Columns,2,"Columns:");
+					//ShowColumns(tbl.PrimaryKeys,2,"Primary Key:");
+					//output.writeln("  Foreign Keys:");
+					output.writeln(string.Format("    Name: {0} Primary Table: {1}.{2} Foreign Table: {3}"
+						,fk.Name,fk.PrimaryTable.Name,fk.PrimaryKeyName,fk.ForeignTable.Name));
+					foreach(ArrayList al in uniqueChildren)
+						ShowColumns(al,4,"Unique Index");
+				}
+			}
+		}
+*/
+/*		
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			if(tbl == fk.PrimaryTable && fk.ForeignTable != fk.PrimaryTable) // Ignore Parent/Child relationships
+			{
+				if(IsInPrimaryKey(fk.ForeignColumns) && IsInPrimaryKey(fk.PrimaryColumns)) // Are the Keys in the Primary Keys
+				{
+					foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys) // Look at other relationships
+					{
+						if(IsInPrimaryKey(pk.ForeignColumns) && IsInPrimaryKey(pk.PrimaryColumns)) // Are the Keys in the Primary Keys
+						{
+							if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable != pk.ForeignTable && ForeignRequired(pk))
+							{
+								WriteLine("Many to Many [{0}] [{1}] [{2}]",fk.PrimaryTable.Name,fk.ForeignTable.Name,pk.PrimaryTable.Name);
+							}
+						}
+					}
+				}
+			}
+		}
+*/
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys) // Look at other relationships
+			{
+				if(ManyToMany(tbl,fk,pk))
+				{
+					WriteLine("Many to Many [{0}] [{1}] [{2}]",fk.PrimaryTable.Name,fk.ForeignTable.Name,pk.PrimaryTable.Name);
+				}
+			}
+		}
+	}
+	private void ShowTable5(ITable tbl)
+	{
+		output.writeln(string.Format("Table {0}",tbl.Name));
+		ShowProperties(tbl.AllProperties,2);
+		//ShowColumns(tbl.Columns,2,"Columns:");
+		//ShowColumns(tbl.PrimaryKeys,2,"Primary Key:");
+		output.writeln("  Foreign Keys:");
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			//if(_selectedTables.Contains(fk.ForeignTable.Name)){
+				output.writeln(string.Format("    Name: {0} Primary Table: {1}.{2} Foreign Table: {3}"
+					,fk.Name,fk.PrimaryTable.Name,fk.PrimaryKeyName,fk.ForeignTable.Name));
+				//ShowColumns(fk.PrimaryColumns,6,"Primary Columns:");
+				//ShowColumns(fk.ForeignColumns,6,"Foreign Columns:");
+				//ShowRequiredColumns(fk.ForeignTable.Columns,6,"Required Foreign Columns:");
+				//ShowFK1(fk);
+				//ShowFK2(fk);
+				CheckFK(fk);
+			//}
+		}
+	}
+	private void ShowTable6a(ITable tbl)
+	{
+		string sPrefix = tbl.Name + "\r\n";
+		ArrayList fkCols = new ArrayList();
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			WriteLine("fk - {0} {1}",fk.Name,fk.ForeignTable.Name);
+			if(fk.ForeignTable != fk.PrimaryTable)
+			{
+				foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+				{
+					if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable != pk.ForeignTable)
+					{
+						foreach(IColumn col in pk.ForeignColumns){
+								if(!col.IsNullable){
+									WriteLine("Adding {0}", col.Name);
+									fkCols.Add(col);
+								}
+						}
+					}
+				}
+			}
+			bool bManyToMany = true;
+			if(fkCols.Count > 0){
+				// Here it is
+				string sFkKeysTypes = FormatColumns("{!type} {!local}",fkCols,", ");
+				string sFkKeys = FormatColumns("{!local}",fkCols,", ");
+				string reqKeysTypes = "";
+				string sep2="";
+				bool bParentRef=false;
+				foreach(IColumn column in fk.ForeignTable.Columns)
+				{
+					if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+					{
+						if(!IsIn(column,fk.ForeignColumns))
+						{
+							WriteLine("Adding1 {0}", column.Name);
+							reqKeysTypes+=sep2+FormatColumn("{!type} {!local}",column);
+							sep2=", ";
+						} else {
+							if(!bParentRef && FKParentFK(_workingTable) == fk){
+								WriteLine("Adding2 {0}", column.Name);
+								bParentRef=true;
+								reqKeysTypes=FormatColumn("{ParentType}",column)+sep2+reqKeysTypes;
+								sep2=", ";
+							}
+						}
+					}
+				}
+				WriteLine("Add      - {0}",reqKeysTypes);
+				WriteLine("Check    - {0}",sFkKeys);
+				WriteLine("Contains - {0}",sFkKeysTypes);
+			}
+		}
+	}
+	private void ShowTable6b(ITable tbl) // Refresh Logic
+	{
+		Hashtable dicAlias = new Hashtable();		
+		foreach(IForeignKey fk in tbl.ForeignKeys) // 20070220
+		{
+			if(fk.PrimaryTable != fk.ForeignTable) // Parent Child
+			{
+				if(!IsPrimaryKey(fk) && tbl == fk.PrimaryTable){
+					// Need to determine if the PrimaryKey for the Foreign Table includes The Primary Key from this Table
+					string sAlias = GetAlias(dicAlias,fk.ForeignTable);
+					string sItem = ClassName(fk.ForeignTable);
+					string sFItem = ClassName(tbl) + ClassName(fk.ForeignTable) + sAlias;
+					string sFItems = ClassName(tbl) + ClassesName(fk.ForeignTable) + sAlias;
+					//sDeclare += "\r\n\t\tprivate List<" + sFItem + "> _Refresh" + sFItems + " = new List<" + sFItem + ">();";
+					//sReset += "\r\n\t\t\t_Refresh" + sFItems + " = new List<" + sFItem + ">();";
+					//sRefreshRelated += ", refresh" + sFItems;
+					//sRefreshRelated1 += ", _Refresh" + sFItems;
+					//sRefreshDeclare += ", List<" + sFItem + "> refresh" + sFItems;
+					//sCheck += "\r\n\t\t\tif (" + MemberName(sFItems) + ".IsDirty)\r\n\t\t\t{\r\n\t\t\t\tforeach (" + sFItem +
+					//	" tmp in " + MemberName(sFItems) + ")\r\n\t\t\t\t{\r\n\t\t\t\t\tif(tmp.IsDirty)refresh" + sFItems +
+					//	".Add(tmp);\r\n\t\t\t\t}\r\n\t\t\t}";
+					string sProcess = "\r\n\t\t\tforeach (" + sFItem + " tmp in _Refresh" + sFItems + ")\r\n\t\t\t{\r\n\t\t\t\t" +
+						sItem + "Info.Refresh(this,tmp);\r\n\t\t\t}";
+					WriteLine("{0}-{1} in {2}",ForeignPrimary(fk),sFItem,sFItems);
+				}
+			}
+		}
+	}
+	private void ShowTable6(ITable tbl) // Refresh Logic
+	{
+		foreach(IForeignKey fk in tbl.ForeignKeys) // 20070220
+		{
+			WriteLine("FK - {0}", fk.Name);
+			string sepu="";
+			string sUpdate="";
+			string sTimestamp="";
+			foreach(IColumn column in fk.ForeignTable.Columns)
+			{
+				if(column.DataTypeName=="timestamp")
+					sTimestamp=FormatColumn("{member} = ",column);
+				if(!IsIn(column,fk.ForeignColumns))
+				{				
+					string sRef = ParentRef(column);
+					if(sRef==null)
+					{
+						if(column.IsComputed || column.IsAutoKey)
+							sRef=FormatColumn("ref {?dbprefix}{member}{?dbsuff}",column);
+						else
+						{
+							//if(column.IsInPrimaryKey)
+							//	sRef=FormatColumn("/*--->1*/{?dbprefix}{!membercolumn}{?dbsuff}",column);// 20070323
+							//else
+							if(FormatColumn("{!type}",column)==ClassName(fk.ForeignTable))
+								sRef=FormatColumn("{?dbprefix}{!membercolumn}{?dbsuff}",column);// 20070323
+							else
+								sRef=FormatColumn("{?dbprefix}{!member}{?dbsuff}",column);// 20070323
+						}
+					}
+					sUpdate+=sepu + sRef;
+					sepu=", ";
+				}
+				else
+				{
+					string sRef;
+					if(IsRelObj(column))
+						sRef = FormatColumn("{?dbprefix}{!local}{?dbsuff}",column);
+					else
+						sRef = FormatColumn("{?dbprefix}{rmember}{?dbsuff}",RelatedColumn(column,fk));
+					sUpdate+=sepu + sRef;
+					sepu=", ";
+				}
+			}
+			WriteLine("  sUpdate - {0}",sUpdate);
+			string sKeysTypesI="";
+			string sKeysI="";
+			string sValuesI="";
+			string sepi="";
+			ITable ftbl = fk.ForeignTable;
+			ITable tmpTbl = _workingTable;
+			_workingTable = ftbl;
+			foreach(IColumn column in ftbl.Columns)
+			{
+				if((!column.IsComputed))
+				{
+					if(!column.IsAutoKey){
+						sValuesI+=FormatColumn("\r\n\t\t\t\t\t{ifLogicL}cm.Parameters.AddWithValue(\"{@}\", {parent}{?dbtype});",column);
+					}
+					if(IsParentCol(column)){
+						sKeysTypesI+=sepi + _className + " parent";
+						sKeysI+=sepi + "parent";
+					}
+					else
+					{
+						sKeysTypesI+=sepi + FormatColumn("{?ref}{!type} {!local}",column);
+						sKeysI+=sepi + FormatColumn("{?ref}{member}",column);
+					}
+					sepi=", ";
+				}						
+			}
+			_workingTable=tmpTbl;
+			WriteLine("  KeysTypesI {0}",sKeysTypesI);
+		}
+	}
+	private void ShowInternalRelated(ITable tbl)
+	{
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			if(fk.PrimaryTable == fk.ForeignTable)
+			{
+				WriteLine("{0} - {1}",fk.PrimaryTable.Name,fk.ForeignColumns[0].Name);
+			}
+		}
+	}
+	private void ShowAlias(ITable tbl)
+	{
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			string s = GetAlias(fk);
+			if(s != "")
+			{
+				WriteLine("{0} - {1}{2}{3}",tbl.Name,ClassName(fk.PrimaryTable),fk.ForeignTable.Name,s );
+			}
+		}
+	}
+	private void ShowNames(ITable tbl)
+	{
+		WriteLine("{0} Singular {1} - Plural {2}",tbl.Name,SingularName(tbl.Name),PluralName(tbl.Name) );
+		foreach(IColumn col in tbl.Columns)
+		{
+			WriteLine("  {0} Singular {1} - Plural {2}",col.Name,SingularName(col.Name),PluralName(col.Name) );
+		}
+	}
+	private void ShowTable7a(ITable tbl)
+	{
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			foreach(IColumn column in fk.ForeignTable.Columns)
+			{
+				if(!IsIn(column,fk.ForeignColumns))
+				{				
+					if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+					{
+						if(column.ForeignKeys.Count==1)
+						{
+						try{
+							IColumn colf = RelatedColumnF(column,fk);
+							IColumn colp = RelatedColumnP(column,fk);
+						WriteLine("'{0}','{1}','{2}','{3}','{4}','{5}'",
+						tbl.Name,
+						RelatedObject(fk,column),
+						RelatedObjectType(column),
+						RelatedObjectType2(fk,column),
+						colf,
+						colp);
+						}
+						catch(Exception)
+						{
+							WriteLine("Exception");
+						}
+						//WriteLine("RelatedObject - {0}",RelatedObject(fk,column));
+						//WriteLine("RelatedObject - {0}",RelatedObjectType2(fk,column)); // 20070301
+						//if(!column.IsInForeignKey){
+						//	WriteLine(FormatColumn("\t\t\t{member}  = {local};",column));
+						//}
+						//else
+						//{
+						//	IForeignKey pk = column.ForeignKeys[0];
+						//	IColumn colf = RelatedColumnF(column,pk);
+						//	WriteLine(FormatColumn("{rmember}",colf));
+						//}
+						}
+					}
+				}
+			}
+		}
+	}
+	private void ShowTable7b(ITable tbl)
+	{
+		foreach(IColumn column in tbl.Columns)
+		{
+			if(!column.IsComputed && !column.IsAutoKey) // Exclude computed and Identity Columns
+			{
+				if(!column.IsInPrimaryKey) // Exclude Primary Key
+				{
+					if(column.ForeignKeys.Count==1) // Look for a Foreign Key on a field
+					{
+						IForeignKey fk = column.ForeignKeys[0];
+						if(fk.PrimaryTable.Name != fk.ForeignTable.Name)
+						{
+							try
+							{
+								IColumn colf = RelatedColumnF(column,fk);
+								WriteLine("'{0}','{1}','{2}','{3}'",
+								tbl.Name,
+								RelatedObjectType2(fk,column),
+								colf.Name,
+								column.Name);
+							}
+							catch(Exception)
+							{
+								WriteLine("Exception");
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	private void ShowTable7(ITable tbl)
+	{
+		foreach(IColumn col in tbl.Columns)
+		{
+			IForeignKey fk = RelObjFK(col);
+			string typ=RelObjType(col);
+			string prop=RelObjProp(col);
+			WriteLine(" {0} {1} {2} {3}",col.IsComputed,col.IsAutoKey,col.IsInPrimaryKey,col.ForeignKeys.Count);
+			WriteLine("{0} '{1}','{2}','{3}','{4}','{5}','{6}'"
+				,(IsRelObj(col)?"* ":"  ")
+				,tbl.Name
+				,col.Name
+				,typ
+				,prop
+				,MemberName(prop)
+				,LocalName(prop)
+				);
+			output.writeln(FormatColumn("'{tbl}','{ctype}','{prop}','{!type}','{!prop}','{!member}','{!localcolumn}'",col));
+		}
+	}
+	private void ShowTable8(ITable tbl)// Shows One to Many and One to One
+	{
+		if(OneToOne(tbl))WriteLine("{0}", tbl.Name);
+	}
+	private void ShowTable9(ITable tbl)// Shows One to Many and One to One
+	{
+		// Loop through Foreign Keys;
+		foreach(IForeignKey fk in tbl.ForeignKeys)
+		{
+			// Check the indexes for each part of the Foreign Key
+			//CheckIndex(fk.PrimaryTable,fk.PrimaryColumns);
+			CheckIndex(fk);
+		}
+	}
+	private bool DoesContain(IColumns cols,IColumn col)
+	{
+		foreach(IColumn cc in cols)
+			if(cc.Name==col.Name)return true;
+		return false;
+	}
+	private void CheckIndex(IForeignKey fk)
+	{
+		ITable tbl = fk.ForeignTable;
+		IColumns cols = fk.ForeignColumns;
+		bool InIndex = true;
+		// Check the primary keys first
+		foreach(IColumn col in cols)
+		{
+			InIndex = InIndex && col.IsInPrimaryKey;
+		}
+		if(InIndex)return;
+		string sIndexName = "IX_" + tbl.Name + FormatColumns("{prop}",cols,"_","");
+		foreach(IIndex ind in tbl.Indexes)
+		{
+			InIndex = true;
+			//WriteLine("{0} - {1} Existing Index {2} - {3}",tbl.Name,fk.Name,ind.Name,FormatColumns("{prop}",ind.Columns,", ",""));
+			//foreach(IColumn col in cols)
+			//{
+			//	//WriteLine(" Index {0} ({1}) {2} {3}",ind.Name,FormatColumns("{prop}",ind.Columns,", ",""),(DoesContain(ind.Columns,col)?"Contains":"Doesn't Contain"),col.Name);
+			//	InIndex = InIndex && DoesContain(ind.Columns,col);
+			//}
+			for(int i = 0; i < cols.Count; i++)
+			{
+				//WriteLine(" Index {0} ({1}) {2} {3}",ind.Name,FormatColumns("{prop}",ind.Columns,", ",""),(DoesContain(ind.Columns,col)?"Contains":"Doesn't Contain"),col.Name);
+				InIndex = InIndex && (ind.Columns[i].Name == cols[i].Name);
+			}
+			if(InIndex)
+			{
+				return;
+				if(ind.Name == sIndexName)return;
+				if(!dicDrop.ContainsKey(ind.Name))
+				{
+					WriteLine("DROP INDEX {0} ON [dbo].[{1}]",ind.Name,tbl.Name);
+					dicDrop.Add(ind.Name,ind.Name);
+				}
+				break;
+			}
+		}
+//		WriteLine("Needs Index {0} - {1} - ({2})",tbl.Name,fk.Name,FormatColumns("{prop}",cols,", ",""));
+		if (dicIndexes.ContainsKey(sIndexName))return;
+		WriteLine("CREATE NONCLUSTERED INDEX {0} ON [dbo].[{1}]\r\n\t({2})",sIndexName,tbl.Name,FormatColumns("{prop}",cols,", ",""));
+		dicIndexes.Add(sIndexName,sIndexName);
+	}
+	private void ShowFK1(IForeignKey fk)
+	{
+		string slName=LocalName(ClassName(fk.ForeignTable));
+		ArrayList fkCols = new ArrayList();
+		output.write("\r\n// FK.P " + fk.PrimaryTable.Name + " FK.F " +fk.ForeignTable.Name); 
+		foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+			output.write("\r\n// PK.P " + pk.PrimaryTable.Name + " PK.F " +pk.ForeignTable.Name);
+			if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable.Name != pk.ForeignTable.Name)
+			{
+				foreach(IColumn col in pk.ForeignColumns){
+					output.write("\r\n// col " + col.Name + " IsInPrimaryKey " + col.IsInPrimaryKey.ToString()); 
+					//if(col.IsInPrimaryKey)
+						fkCols.Add(col);
+				}
+			}
+		}
+		//bool bManyToMany = true;
+		if(fkCols.Count == 0){
+			//bManyToMany = false;
+%>
+		// One To Many<%
+			foreach(IColumn col in fk.ForeignTable.PrimaryKeys)
+			{
+				fkCols.Add(col);
+			}
+		}
+		else
+		{
+%>
+		// Many To Many<%
+		}
+		//string sFkKeysTypes = FormatColumns("{ctype} {local}",fkCols,", ");
+		//string sFkKeys = FormatColumns("{local}",fkCols,", ");
+		//string sFkCheck = FormatColumns(slName +".{prop} == {local}",fkCols," && ");
+		//string sReqKeysCheck= "";
+		string sKeysTypes="";
+		//string sKeys="";
+		//string sValues="";
+		//string sValues2="";
+		//string sep="";
+		string sep2="";
+		//string sep3="";
+		//string reqKeys="";
+		//string reqKeysTypes="";
+		string sValues="";
+		string sValues2="";
+		//ArrayList reqCols = new ArrayList();
+		foreach(IColumn column in fk.ForeignTable.Columns)
+		{
+				//WriteLine("{0} IsRequired {1} IsComputed {2} IsAutoKey {3} IsInfk {4}",column.Name,IsRequired(column),
+				//	column.IsComputed,column.IsAutoKey,IsIn(column,fk.ForeignColumns));
+				if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+				{
+					if(!IsIn(column,fk.ForeignColumns))
+					{
+						sValues+=sep2+RelatedObject(fk,column);
+						sValues2+=sep2+RelatedObjectType2(fk,column); // 20070301
+						sKeysTypes+=sep2+FormatColumn("{ctype} {local}",column);
+						sep2=", ";
+					}
+				}
+		}
+		WriteLine("\r\nsKeysTypes='{0}'",sKeysTypes);
+		WriteLine("\r\nsValues='{0}'",sValues);
+		WriteLine("\r\nsValues2='{0}'",sValues2);
+	}
+	public void ShowFK2(IForeignKey fk)
+	{
+		string sInit="";
+		string sep2="";
+		Hashtable dicAlias=new Hashtable();
+		foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+		{
+			if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable.Name != pk.ForeignTable.Name && pk.Name != fk.Name)
+			{
+				string sAlias = GetAlias(dicAlias,pk.PrimaryTable);
+				sAlias = GetNewAlias(fk,pk);
+				foreach(IColumn column in pk.PrimaryTable.Columns)
+				{
+					string sProp = ClassName(pk.PrimaryTable) + sAlias + "_" + PropertyName(column);
+					string sLocal = LocalName(ClassName(pk.PrimaryTable))+ sAlias;
+					string sMember = MemberName(sProp);
+					if(IsIn(column,pk.PrimaryColumns))
+					{
+						sInit+=sep2 + "\t\t\t" + MemberName(RelatedColumn(column,pk)) + " = " + sLocal + "." + PropertyName(column) + ";";
+						sep2="\r\n";
+					}
+					else
+					{
+						if(pk.PrimaryTable != fk.PrimaryTable)
+						{
+							if(column.DataTypeName != "timestamp"){
+								if(CSLAType(column)=="SmartDate")
+									sInit+=sep2 + "\t\t\t" + sMember + " = new SmartDate(" + sLocal + "." + PropertyName(column) + ");";
+								else
+									sInit+=sep2 + "\t\t\t" + sMember + " = " + sLocal + "." + PropertyName(column) + ";";
+								sep2="\r\n";
+							}
+						} 
+					}
+				}
+			}
+		}
+		WriteLine("\r\nsInit:\r\n{0}",sInit);
+	}
+	public void ShowFK3(IForeignKey fk)
+	{
+		string slName=LocalName(ClassName(fk.ForeignTable));
+		ArrayList fkCols = new ArrayList();
+		if(fk.ForeignTable != fk.PrimaryTable)
+		{
+			foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+			{
+				if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable)
+				{
+					foreach(IColumn col in pk.ForeignColumns){
+							fkCols.Add(col);
+					}
+				}
+			}
+		}
+		//bool bManyToMany = true;
+		if(fkCols.Count == 0){
+			//bManyToMany = false;
+%>
+		// One To Many
+<%
+			foreach(IColumn col in fk.ForeignTable.PrimaryKeys)
+			{
+				fkCols.Add(col);
+			}
+		}
+		else
+		{
+%>
+		// Many To Many
+<%
+		}
+	}
+	private void CheckFK(IForeignKey fk)
+	{
+		string slName=LocalName(ClassName(fk.ForeignTable));
+		ArrayList fkCols = new ArrayList();
+		//output.write("\r\n// FK.P " + fk.PrimaryTable.Name + " FK.F " +fk.ForeignTable.Name); 
+		if(fk.ForeignTable == fk.PrimaryTable)// Child Relationship
+		{
+			WriteLine("    Child - {0} - Primary {1} - Foreign {2}",fk.Name,fk.PrimaryTable.Name,fk.ForeignTable.Name);
+		}
+		else
+		{
+			// Now determine if the Primary.Columns are Primary Keys
+			WriteLine("    Non-Child - {0} - Primary {1} - Foreign {2}",fk.Name,fk.PrimaryTable.Name,fk.ForeignTable.Name);
+			ShowColumns(fk.PrimaryColumns,6,"PrimaryColumns");
+			ShowColumns(fk.ForeignColumns,6,"ForeignColumns");
+			foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+			{
+				//output.write("\r\n// PK.P " + pk.PrimaryTable.Name + " PK.F " +pk.ForeignTable.Name);
+					string sAlias = GetNewAlias(fk,pk);
+					if(sAlias != "")
+					{
+						WriteLine("      PK - {0} - Primary {1} - Foreign {2}",pk.Name,pk.PrimaryTable.Name,pk.ForeignTable.Name);
+						WriteLine("      Alias - {0}",sAlias);
+					}
+				if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable != pk.ForeignTable)
+				{
+					foreach(IColumn col in pk.ForeignColumns){
+						//output.write("\r\n// col " + col.Name + " IsInPrimaryKey " + col.IsInPrimaryKey.ToString()); 
+						//if(col.IsInPrimaryKey)
+							fkCols.Add(col);
+					}
+				}
+			}
+		}
+	}
+	private void CheckFK2(IForeignKey fk)
+	{
+		string slName=LocalName(ClassName(fk.ForeignTable));
+		ArrayList fkCols = new ArrayList();
+		output.write("\r\n// FK.P " + fk.PrimaryTable.Name + " FK.F " +fk.ForeignTable.Name); 
+		if(fk.ForeignTable != fk.PrimaryTable)
+		{
+			foreach(IForeignKey pk in fk.ForeignTable.ForeignKeys)
+			{
+				output.write("\r\n// PK.P " + pk.PrimaryTable.Name + " PK.F " +pk.ForeignTable.Name);
+				if(pk.ForeignTable == fk.ForeignTable && pk.PrimaryTable != fk.PrimaryTable && pk.PrimaryTable != pk.ForeignTable)
+				{
+					foreach(IColumn col in pk.ForeignColumns){
+						//output.write("\r\n// col " + col.Name + " IsInPrimaryKey " + col.IsInPrimaryKey.ToString()); 
+						//if(col.IsInPrimaryKey)
+							fkCols.Add(col);
+					}
+				}
+			}
+		}
+//		bool bManyToMany = true;
+		if(fkCols.Count == 0){
+//			bManyToMany = false;
+			foreach(IColumn col in fk.ForeignTable.PrimaryKeys)
+			{
+				fkCols.Add(col);
+			}
+			WriteLine("One to Many fkCols - {0}",FormatColumns("{prop}",fkCols,", ",""));
+		}
+		else
+		{
+			WriteLine("Many to Many fkCols - {0}",FormatColumns("{prop}",fkCols,", ",""));
+		}
+		string sFkKeysTypes = FormatColumns("{ctype} {local}",fkCols,", ");
+		WriteLine("sFkKeysTypes - {0}",sFkKeysTypes);
+		string sFkKeys = FormatColumns("{local}",fkCols,", ");
+		WriteLine("sFkKeys - {0}",sFkKeys);
+		string sFkCheck = FormatColumns(slName +".{prop} == {local}",fkCols," && ");
+		WriteLine("sFkCheck - {0}",sFkCheck);
+		string sReqKeysCheck= "";
+		string sKeysTypes="";
+		string sKeys="";
+		//string sValues="";
+		//string sValues2="";
+		//string sep="";
+		string sep2="";
+		string sep3="";
+		string reqKeys="";
+		string reqKeysTypes="";
+		ArrayList reqCols = new ArrayList();
+		ArrayList uniqueChildren = FindUniqueChildren(fk);
+		bool bParentRef = false;
+			foreach(IColumn column in fk.ForeignTable.Columns)
+			{
+					WriteLine("Column {0} IsRequired {1} IsComputed {2} IsAutoKey {3}",column.Name,
+					IsRequired(column), column.IsComputed, column.IsAutoKey);
+					if(IsRequired(column) && !column.IsComputed && !column.IsAutoKey)
+					{
+						// 20070220
+						// sKeysTypes+=sep+FormatColumn("{ctype} {local}",column);
+						// sKeys+=sep+FormatColumn("{local}",column);
+						if(!IsIn(column,fk.ForeignColumns))
+						{
+							sKeysTypes+=sep2+FormatColumn("{ctype} {local}",column);
+							sKeys+=sep2+FormatColumn("{local}",column);
+							sReqKeysCheck+=sep3+FormatColumn(slName +".{prop} == {local}",column);
+							reqKeys+=sep2+FormatColumn("{local}",column);
+							reqKeysTypes+=sep2+FormatColumn("{ctype} {local}",column);
+							reqCols.Add(column);
+							sep2=", ";
+							sep3=" && ";
+						} else {
+							if(!bParentRef){
+								WriteLine("Add a parent reference",sKeysTypes);
+								reqKeys="parent"+sep2+reqKeys;
+								reqKeysTypes=FormatColumn("{ParentType}",column)+sep2+reqKeysTypes;
+								sep2=", ";
+								bParentRef=true;
+							}
+						}
+						//sValues+=sep+RelatedObject(column);
+						//sValues2+=sep+RelatedObjectType(column);
+						//sep=", ";
+					}
+			}
+			string reqKeysContain = (SameList(reqCols,fkCols)?sFkKeys:reqKeys);
+			IList uniqueMatch = FindUnique(uniqueChildren,reqCols);
+		WriteLine("sKeysTypes - {0}",sKeysTypes);
+		WriteLine("sKeys - {0}",sKeys);
+		WriteLine("sReqKeysCheck - {0}",sReqKeysCheck);
+		WriteLine("reqKeys - {0}",reqKeys);
+		WriteLine("reqKeysTypes - {0}",reqKeysTypes);
+		
+	}
+%><%#FILE NamingConvention.cs%><%
+%><%#FILE ForeignKeyProcessing.cs%><%
+%><%#FILE FilteredColumns.cs%><%
+%><%#FILE FormatColumns.cs%><%
+%><%#FILE WriteLine.cs%><%
+}
+%>
+##|BODY_END

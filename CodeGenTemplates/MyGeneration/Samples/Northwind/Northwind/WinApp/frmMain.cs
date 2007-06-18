@@ -14,11 +14,13 @@ namespace WinApp
 		EmployeeInfoList _EmployeeInfoList = EmployeeInfoList.Get();
 		Employee _Employee = null;
 		object _LastObject = null;
+		bool _Loading = true;
 		public frmMain()
 		{
 			InitializeComponent();
 			lbEmployee.DataSource = _EmployeeInfoList;
 			lbEmployee.DisplayMember = "FullNameSub";
+			_Loading = false;
 			lbEmployee.ValueMember = "EmployeeID";
 		}
 		public void SaveChanges()
@@ -41,15 +43,18 @@ namespace WinApp
 		}
 		private void lbEmployee_SelectedValueChanged(object sender, EventArgs e)
 		{
-			try
+			if (!_Loading)
 			{
-				SaveChanges();
-				_Employee = Employee.Get((int)lbEmployee.SelectedValue);
-				pg.SelectedObject = _Employee;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
+				try
+				{
+					SaveChanges();
+					_Employee = Employee.Get((int)lbEmployee.SelectedValue);
+					pg.SelectedObject = _Employee;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
 			}
 		}
 		private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

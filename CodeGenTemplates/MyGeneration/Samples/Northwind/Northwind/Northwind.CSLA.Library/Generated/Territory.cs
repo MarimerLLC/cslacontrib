@@ -245,7 +245,7 @@ namespace Northwind.CSLA.Library
 			ValidationRules.AddRule(
 				Csla.Validation.CommonRules.StringMaxLength,
 				new Csla.Validation.CommonRules.MaxLengthRuleArgs("TerritoryDescription", 50));
-			ValidationRules.AddRule(CommonRules.Required, "MyRegion");
+			ValidationRules.AddRule<Territory>(MyRegionRequired, "MyRegion");
 			//ValidationRules.AddDependantProperty("x", "y");
 			_TerritoryExtension.AddValidationRules(ValidationRules);
 			// TODO:  Add other validation rules
@@ -254,6 +254,15 @@ namespace Northwind.CSLA.Library
 		{
 			_TerritoryExtension.AddInstanceValidationRules(ValidationRules);
 			// TODO:  Add other validation rules
+		}
+		private static bool MyRegionRequired(Territory target, Csla.Validation.RuleArgs e)
+		{
+			if (target._RegionID == 0 && target._MyRegion == null) // Required field missing
+			{
+				e.Description = "Required";
+				return false;
+			}
+			return true;
 		}
 		// Sample data comparison validation rule
 		//private bool StartDateGTEndDate(object target, Csla.Validation.RuleArgs e)

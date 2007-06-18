@@ -595,7 +595,7 @@ public class GeneratedTemplate : DotNetScriptTemplate
 	}
 	private void vlnHeader(string sUsing,string sDelegate,bool serialize)
 	{
-		if(chkVolian){
+		if(_chkVolian){
 %>// ========================================================================
 // Copyright 2007 - Volian Enterprises, Inc. All rights reserved.          
 // Volian Enterprises - Proprietary Information - DO NOT COPY OR DISTRIBUTE
@@ -1064,7 +1064,7 @@ namespace <%=_nameSpace%>
 				if(sObjectRequired != null)
 				{
 %>
-			ValidationRules.AddRule(CommonRules.Required, "<%=sObjectRequired%>");<%
+			ValidationRules.AddRule<<%=_className%>>(<%=sObjectRequired%>Required, "<%=sObjectRequired%>");<%
 				}
 		}
 %>
@@ -1097,6 +1097,25 @@ namespace <%=_nameSpace%>
 			}
 			return true;
 		}<%
+			}
+		}
+		foreach(IColumn col in Columns)
+		{
+			string sColumn = RequiredRelatedColumn(col);
+			if(sColumn != null){ // Let the Validation Rules handle required fields
+				string sMemberRaw = MemberName(col);
+				string sMemberReq = MemberName(sColumn);
+%>
+		private static bool <%=sColumn%>Required(<%=_className%> target, Csla.Validation.RuleArgs e)
+		{
+			if (target.<%=sMemberRaw%> == 0 && target.<%=sMemberReq%> == null) // Required field missing
+			{
+				e.Description = "Required";
+				return false;
+			}
+			return true;
+		}<%
+				
 			}
 		}
 %>
@@ -3327,9 +3346,9 @@ private void vlnDataPortalFetch(string sPrefix,IColumns cols,string sql,bool get
 		foreach(IColumn col in fk.ForeignTable.Columns)
 		{
 			string sColumn = RequiredRelatedColumn(col);
-			if(sColumn != null){
-				sExtDirty += string.Format(" || ({0} == null ? true : {0}.IsDirty)",MemberName(sColumn));
-				sExtValid += string.Format(" && ({0} == null ? false : {0}.IsValid)",MemberName(sColumn));
+			if(sColumn != null){ // Let the Validation Rules handle IsDirty and IsValid - LazyLoad should be ignored.
+				sExtDirty += string.Format(" || ({0} == null ? false : {0}.IsDirty)",MemberName(sColumn));
+				sExtValid += string.Format(" && ({0} == null ? true : {0}.IsValid)",MemberName(sColumn));
 			}
 		}
 		if(sExtDirty!="")vlnDirty(sExtDirty);
@@ -3432,7 +3451,7 @@ private void vlnDataPortalFetch(string sPrefix,IColumns cols,string sql,bool get
 				if(sObjectRequired != null)
 				{
 %>
-			ValidationRules.AddRule(CommonRules.Required, "<%=sObjectRequired%>");<%
+			ValidationRules.AddRule<<%=_className%>>(<%=sObjectRequired%>Required, "<%=sObjectRequired%>");<%
 				}
 			}
 		}
@@ -3464,6 +3483,26 @@ private void vlnDataPortalFetch(string sPrefix,IColumns cols,string sql,bool get
 				}
 			}
 		}
+		foreach(IColumn col in fk.ForeignTable.Columns)
+		{
+			string sColumn = RequiredRelatedColumn(col);
+			if(sColumn != null){ // Let the Validation Rules handle required fields
+				string sMemberRaw = MemberName(col);
+				string sMemberReq = MemberName(sColumn);
+%>
+		private static bool <%=sColumn%>Required(<%=_className%> target, Csla.Validation.RuleArgs e)
+		{
+			if (target.<%=sMemberRaw%> == 0 && target.<%=sMemberReq%> == null) // Required field missing
+			{
+				e.Description = "Required";
+				return false;
+			}
+			return true;
+		}<%
+				
+			}
+		}
+
 %>
 		// Sample data comparison validation rule
 		//private bool StartDateGTEndDate(object target, Csla.Validation.RuleArgs e)

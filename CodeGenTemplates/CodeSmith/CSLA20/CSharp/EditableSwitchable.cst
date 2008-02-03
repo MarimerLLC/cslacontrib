@@ -44,7 +44,7 @@ using Csla.Validation;
 <% if(objInfo.IsGeneratedClass) {%>
 <% string cPars = GetFactoryNewCallArguments(objInfo); %>
 <% if(!objInfo.IsGeneratedBase && cPars.Length>0) {%>
-<%=Indent(i)%><%=objInfo.MemberAccess%> <%=objInfo.Name%>(<%=cPars%>)
+<%=Indent(i)%><%=objInfo.MemberAccess%> <%=objInfo.Name%>(<%=GetFactoryNewDeclarationArguments(objInfo)%>)
 <%=Indent(i++)%>{
 <%=GetFactoryNewAssignments(objInfo, i)%>
 <%=Indent(--i)%>}

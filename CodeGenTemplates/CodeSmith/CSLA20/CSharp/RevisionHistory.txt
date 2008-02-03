@@ -4,6 +4,7 @@
 ---------------------------------------------------
 
 History:
+- Fix(RAS): EditableSwitchable generated constructor parameter with no declaring type when primary key is not identity key (8862 reported by noyceb)
 1.1.0	11/28/06 (Release Candidate)
 - Fix(RAS): NameValueList's constraint generate description property data type instead of primary key data type.
 - Enh(RAS): Add BaseClass property and make base class constants as fall back value. (6007)

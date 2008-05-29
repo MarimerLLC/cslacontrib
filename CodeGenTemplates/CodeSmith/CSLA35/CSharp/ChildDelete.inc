@@ -1,10 +1,10 @@
 ﻿<% if(objInfo.IsGeneratedClass) {%>
 <%=Indent(i)%>#region Data Access - DeleteSelf
-<%=Indent(i)%>private void Child_DeleteSelf(System.Data.Linq.EntitySet<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>> dataSet)
+<%=Indent(i)%>private void Child_DeleteSelf(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent<% } %>)
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>SelfDeleting(dataSet, ref cancel);
+<%=Indent(i)%>On<%=objInfo.Type%>SelfDeleting(<% if(objInfo.Parent.Length>0) {%>parent , <% } %>ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -48,7 +48,7 @@
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>partial void On<%=objInfo.Type%>SelfDeleting(System.Data.Linq.EntitySet<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>> dataSet, ref bool cancel);
+<%=Indent(i)%>partial void On<%=objInfo.Type%>SelfDeleting(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent, <% } %>ref bool cancel);
 <%=Indent(i)%>partial void On<%=objInfo.Type%>SelfDeleted();
 <%=Indent(i)%>partial void On<%=objInfo.Type%>MemberSelfDeleting();
 <%=Indent(i)%>partial void On<%=objInfo.Type%>MemberSelfDeleted();

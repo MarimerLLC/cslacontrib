@@ -1,6 +1,6 @@
 ﻿<% if(objInfo.IsGeneratedClass) {%>
 <%=Indent(i)%>#region Data Access - Create
-<%=Indent(i)%>private void Child_Create(<%=GetFactoryNewDeclarationArguments(objInfo)%>) 
+<%=Indent(i)%><% if(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey) {%>protected override<%} else {%>private<%}%> void Child_Create(<%=GetFactoryNewDeclarationArguments(objInfo)%>) 
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;

@@ -1,11 +1,11 @@
 ﻿<% if(objInfo.IsGeneratedClass) {%>
 
 <%=Indent(i)%>#region Data Access - Insert
-<%=Indent(i)%>private void Child_Insert(<%=objInfo.Parent%> parent)
+<%=Indent(i)%>private void Child_Insert(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent<% } %>)
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Inserting(parent, ref cancel);
+<%=Indent(i)%>On<%=objInfo.Type%>Inserting(<% if(objInfo.Parent.Length>0) {%>parent , <% } %>ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -53,7 +53,7 @@
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Inserting(<%=objInfo.Parent%> parent, ref bool cancel);
+<%=Indent(i)%>partial void On<%=objInfo.Type%>Inserting(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent, <% } %>ref bool cancel);
 <%=Indent(i)%>partial void On<%=objInfo.Type%>Inserted();
 <%=Indent(i)%>partial void On<%=objInfo.Type%>MemberReading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
 <%=Indent(i)%>partial void On<%=objInfo.Type%>MemberRead();
@@ -61,11 +61,11 @@
 <%=Indent(i)%>#endregion //Data Access - Insert
 
 <%=Indent(i)%>#region Data Access - Update
-<%=Indent(i)%>private void Child_Update(<%=objInfo.Parent%> parent)
+<%=Indent(i)%>private void Child_Update(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent<% } %>)
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Updating(parent, ref cancel);
+<%=Indent(i)%>On<%=objInfo.Type%>Updating(<% if(objInfo.Parent.Length>0) {%>parent, <% } %>ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -124,7 +124,7 @@
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Updating(<%=objInfo.Parent%> parent, ref bool cancel);
+<%=Indent(i)%>partial void On<%=objInfo.Type%>Updating(<% if(objInfo.Parent.Length>0) {%><%=objInfo.Parent%> parent, <% } %><%=objInfo.Parent%>ref bool cancel);
 <%=Indent(i)%>partial void On<%=objInfo.Type%>Updated();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Update

@@ -36,7 +36,7 @@ namespace CodeSmith.Csla
         const string UpdateCommandFormat = "Update{0}";
         const string DeleteCommandFormat = "Delete{0}";
         //database connection format
-        const string DbConnectionFormat = "Database.{0}Connection";
+        const string DbConnectionFormat = "Database.{0}";
         //factory method formats
         const string FactoryNewFormat = "New{0}";
         const string FactoryGetFormat = "Get{0}";
@@ -494,30 +494,40 @@ namespace CodeSmith.Csla
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string GetFactoryFilterDeclarationArguments(ObjectInfo obj)
+        public string GetFactoryFilterDeclarationArguments(ObjectInfo obj, params string[] args)
         {
-            string para = string.Empty;
-            foreach (PropertyInfo prop in obj.FilterProperties)
-            {
-                para += string.Format(", {0} {1}", prop.Type, CsHelper.GetCamelCaseName(prop.Name));
-            }
-            if (para.Length > 0) para = para.Substring(2);
-            return para;
+            return GetMethodDeclaration(obj.FilterProperties, args);
         }
         /// <summary>
         /// return parameter call/pass statement in factory get collection
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string GetFactoryFilterCallArguments(ObjectInfo obj)
+        public string GetFactoryDPFilterCallArguments(ObjectInfo obj)
         {
-            string para = string.Empty;
-            foreach (PropertyInfo prop in obj.FilterProperties)
+            if (obj.FilterProperties.Count == 1)
             {
-                para += string.Format(", {0}", CsHelper.GetCamelCaseName(prop.Name));
+                PropertyInfo prop = obj.FilterProperties[0] as PropertyInfo;
+                return string.Format("new SingleCriteria<{0}, {1}>({2})", obj.Type, prop.Type, CsHelper.GetCamelCaseName(prop.Name));
             }
-            if (para.Length > 0) para = para.Substring(2);
+            string para = GetMethodArguments(obj.FilterProperties);
+            if (para.Length > 0)
+            {
+                para = "new FilterCriteria(" + para + ")";
+            }
             return para;
+        }
+        public string GetFactoryDPFilterDeclarationArguments(ObjectInfo obj, params string[] args)
+        {
+            string result = string.Empty;
+            if (obj.FilterProperties.Count == 1)
+            {
+                PropertyInfo prop = obj.FilterProperties[0] as PropertyInfo;
+                result = string.Format("SingleCriteria<{0}, {1}> criteria", obj.Type, prop.Type);
+            }
+            else
+                result = string.Format("FilterCriteria criteria");
+            return result + (args.Length > 0 ? ", " : "") + string.Join(", ", args);
         }
         /// <summary>
         /// return assignment statement on filter criteria
@@ -587,10 +597,10 @@ namespace CodeSmith.Csla
                 PropertyInfo prop = obj.UniqueProperties[0] as PropertyInfo;
                 return string.Format("new SingleCriteria<{0}, {1}>({2})", obj.Type, prop.Type, CsHelper.GetCamelCaseName(prop.Name));
             }
-            string para = GetMethodDeclaration(obj.UniqueProperties);
+            string para = GetMethodArguments(obj.UniqueProperties);
             if (para.Length > 0)
             {
-                para = "new Criteria(" + para.Substring(2) + ")";
+                para = "new Criteria(" + para + ")";
             }
             return para;
         }
@@ -1439,7 +1449,7 @@ namespace CodeSmith.Csla
                     throw new Exception("ObjectName is required.");
                 if (_uniqueProperties.Count == 0 && !IsCollection)
                     throw new Exception("Unique Column(s) is required.");
-                if (!IsReadOnly && IsChild && !IsCollection && (_parent == null || _parent.Length == 0))
+                if (!IsReadOnly && IsChild && IsCollection && (_parent == null || _parent.Length == 0))
                     throw new Exception("Parent is required.");
                 if (IsCollection && (_child == null || _child.Length == 0) && CslaObjectType != ObjectType.NameValueList)
                     throw new Exception("Child is required.");

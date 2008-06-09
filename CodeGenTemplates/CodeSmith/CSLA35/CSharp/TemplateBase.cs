@@ -493,6 +493,7 @@ namespace CodeSmith.Csla
         /// return parameter declaration in factory get collection
         /// </summary>
         /// <param name="obj"></param>
+        /// <param name="args"></param>
         /// <returns></returns>
         public string GetFactoryFilterDeclarationArguments(ObjectInfo obj, params string[] args)
         {
@@ -505,6 +506,7 @@ namespace CodeSmith.Csla
         /// <returns></returns>
         public string GetFactoryDPFilterCallArguments(ObjectInfo obj)
         {
+            if (obj.FilterProperties.Count == 0) return string.Empty;
             if (obj.FilterProperties.Count == 1)
             {
                 PropertyInfo prop = obj.FilterProperties[0] as PropertyInfo;
@@ -519,6 +521,7 @@ namespace CodeSmith.Csla
         }
         public string GetFactoryDPFilterDeclarationArguments(ObjectInfo obj, params string[] args)
         {
+            if (obj.FilterProperties.Count == 0) return string.Join(", ", args);
             string result = string.Empty;
             if (obj.FilterProperties.Count == 1)
             {
@@ -1937,8 +1940,6 @@ namespace CodeSmith.Csla
                 //plural uses "ies" if word ends with "y" preceeded by a non-vowel
                 else if (lower.EndsWith("ies") && "aeiou".IndexOf(lower.Substring(lower.Length - 4, 1)) < 0)
                     result = plural.Substring(0, plural.Length - 3) + "y";
-                else if (lower.EndsWith("es") && "lt".IndexOf(lower.Substring(lower.Length - 3, 1)) < 0)
-                    result = plural.Substring(0, plural.Length - 2);
                 else if (lower.EndsWith("s"))
                     result = plural.Substring(0, plural.Length - 1);
                 else

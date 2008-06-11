@@ -1,4 +1,4 @@
-<%@ CodeTemplate Src="TemplateBase.cs" Inherits="CodeSmith.Csla.TemplateBase" Language="C#" TargetLanguage="C#" Description="Generates a CSLA Editable Child Collection Object." %>
+<%@ CodeTemplate Src="TemplateBase.cs" Inherits="CodeSmith.Csla.TemplateBase" Language="C#" TargetLanguage="C#" Description="Generates a CSLA Read Only Child Collection Object." %>
 <%@ Assembly Name="SchemaExplorer" %>
 <%@ Assembly Name="CodeSmith.CustomProperties" %>
 <%@ Import Namespace="SchemaExplorer" %>
@@ -28,11 +28,6 @@ using System.Collections.Generic;
 <%=Indent(i++)%>{
 <% if(objInfo.IsGeneratedClass) {%>
 <%=Indent(i)%>#region Factory Methods
-<%=Indent(i)%>internal static <%=objInfo.Type%> <%=objInfo.NewMethodName%>()
-<%=Indent(i++)%>{
-<%=Indent(i)%>return new <%=objInfo.Name%>();
-<%=Indent(--i)%>}
-
 <%=Indent(i)%>internal static <%=objInfo.Type%> <%=objInfo.GetMethodName%>(IEnumerable<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>> dataSet)
 <%=Indent(i++)%>{
 <%=Indent(i)%>var childList = new <%=objInfo.Name%>();

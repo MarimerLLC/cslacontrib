@@ -1452,8 +1452,6 @@ namespace CodeSmith.Csla
                     throw new Exception("ObjectName is required.");
                 if (_uniqueProperties.Count == 0 && !IsCollection)
                     throw new Exception("Unique Column(s) is required.");
-                if (!IsReadOnly && IsChild && IsCollection && (_parent == null || _parent.Length == 0))
-                    throw new Exception("Parent is required.");
                 if (IsCollection && (_child == null || _child.Length == 0) && CslaObjectType != ObjectType.NameValueList)
                     throw new Exception("Child is required.");
             }

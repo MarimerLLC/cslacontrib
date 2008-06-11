@@ -16,7 +16,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.ChildCollection.Count>0) {%>
 <%=Indent(i)%>//set option to eager load child object(s)
-<%=Indent(i)%>System.Data.Linq.DataLoadOptions opts = new System.Data.Linq.DataLoadOptions();
+<%=Indent(i)%>var opts = new System.Data.Linq.DataLoadOptions();
 <%}%>
 <%  foreach (PropertyInfo prop in objInfo.ChildCollection) { %>
 <%=Indent(i)%>opts.LoadWith<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>>(p => p.<%=prop.DbRefTableName%>);
@@ -34,8 +34,10 @@
 <%=Indent(i)%>On<%=objInfo.Type%>MemberLoading(data);
 <%}%>
 <% foreach(PropertyInfo prop in objInfo.Properties) {
-	if (!prop.HasDbColumn) continue; %>
-<%  if (prop.IsTimestamp) { %>        
+	if (!prop.HasDbColumn) continue; if (prop.IsTimestamp && objInfo.IsReadOnly) continue; %>
+<% if (objInfo.IsReadOnly) { %>
+<%=Indent(i)%><%=prop.Name%> = data.<%=prop.DbColumnName%>;
+<% } else if (prop.IsTimestamp) { %>        
 	 
 <%=Indent(i)%><%=prop.MemberName%> = data.<%=prop.DbColumnName%>.ToArray();
 <%  } else if(prop.Type != prop.NativeType) { %>
@@ -49,7 +51,11 @@
 <%=Indent(i)%>//Load child object(s)
 <%}%>
 <%  foreach (PropertyInfo prop in objInfo.ChildCollection) { %>
+<% if (objInfo.IsReadOnly) { %>
+<%=Indent(i)%><%=prop.Name%> = <%=prop.Type%>.Get<%=prop.Type%>(data.<%=prop.DbRefTableName%>);
+<%  } else { %>
 <%=Indent(i)%>LoadProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>, <%=prop.Type%>.Get<%=prop.Type%>(data.<%=prop.DbRefTableName%>));
+<%  } %>
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>On<%=objInfo.Type%>MemberLoaded();

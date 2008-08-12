@@ -48,8 +48,6 @@ namespace CodeSmith.Csla
         const string GenericTypeParentParameter = "P";
         //number of spaces to use for indentation, set to 0 to use tab indentation
         static int IndentLevelSpaces = 0; 
-        //option to minimize use of StackTrace
-        static bool MinimizeStackTraceUse = true;
         static bool HandleNullableFields = true;
         //framework base class
         const string BusinessBase = "Csla.BusinessBase";
@@ -67,7 +65,7 @@ namespace CodeSmith.Csla
         public string ClassNamespace
         {
             get { return _classNamespace; }
-            set { _classNamespace = value; }
+            set { if (value == null) value = ""; _classNamespace = value; }
         }
 
         private string _dalNamespace = "";
@@ -77,7 +75,7 @@ namespace CodeSmith.Csla
         public string DalNamespace
         {
             get { return _dalNamespace; }
-            set { _dalNamespace = value; }
+            set { if (value == null) value = ""; _dalNamespace = value; }
         }
 
         private string _baseClass = "";
@@ -87,7 +85,7 @@ namespace CodeSmith.Csla
         public string BaseClass
         {
             get { return _baseClass; }
-            set { _baseClass = value; }
+            set { if (value == null) value = ""; _baseClass = value; }
         }
         #endregion //Object Definition
 
@@ -162,7 +160,7 @@ namespace CodeSmith.Csla
         public string XmlFilePath
         {
             get { return _xmlFilePath; }
-            set { _xmlFilePath = value; }
+            set { if (value == null) value = ""; _xmlFilePath = value; }
         }
 	
         #endregion //Other non visual properties

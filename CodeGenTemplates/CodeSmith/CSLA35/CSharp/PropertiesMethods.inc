@@ -52,7 +52,7 @@
 <%=Indent(i)%>get
 <%=Indent(i++)%>{
 <%=Indent(i)%>if (!FieldManager.FieldExists(<%=prop.PropertyInfoName%>))
-<%=Indent(i+1)%>SetProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>, <%=prop.DefaultValue%>);
+<%=Indent(i+1)%>LoadProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>, <%=prop.DefaultValue%>);
 <%=Indent(i)%>return GetProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>);
 <%=Indent(--i)%>}
 <%=Indent(--i)%>}

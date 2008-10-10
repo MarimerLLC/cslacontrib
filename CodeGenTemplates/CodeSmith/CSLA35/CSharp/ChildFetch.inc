@@ -4,7 +4,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Loading(data, ref cancel);
+<%=Indent(i)%>OnLoading(data, ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -32,13 +32,13 @@
 <%}%>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Loaded();
+<%=Indent(i)%>OnLoaded();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Loading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data, ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Loaded();
+<%=Indent(i)%>partial void OnLoading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data, ref bool cancel);
+<%=Indent(i)%>partial void OnLoaded();
 <% } %>
 <%=Indent(i)%>#endregion //Data Access - Fetch
 <% } %>

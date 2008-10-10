@@ -3,7 +3,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Fetching(dataSet, ref cancel);
+<%=Indent(i)%>OnFetching(dataSet, ref cancel);
 <%=Indent(i)%>if(cancel) return;
 
 <%}%>
@@ -21,12 +21,12 @@
 <%=Indent(i)%>RaiseListChangedEvents = true;
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>OnFetched();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetching(IEnumerable<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>> dataSet, ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>partial void OnFetching(IEnumerable<<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>> dataSet, ref bool cancel);
+<%=Indent(i)%>partial void OnFetched();
 <%}%>
 <%}%>

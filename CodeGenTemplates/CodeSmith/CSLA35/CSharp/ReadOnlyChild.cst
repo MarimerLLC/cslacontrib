@@ -48,7 +48,7 @@ using System;
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Fetching(ref cancel);
+<%=Indent(i)%>OnFetching(ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -65,13 +65,13 @@ using System;
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>OnFetched();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetching(ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>partial void OnFetching(ref bool cancel);
+<%=Indent(i)%>partial void OnFetched();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access
 <%}%>

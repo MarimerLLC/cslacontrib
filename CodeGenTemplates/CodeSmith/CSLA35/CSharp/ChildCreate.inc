@@ -4,7 +4,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Creating(<%=GetFactoryNewCallArguments(objInfo, "ref cancel")%>);
+<%=Indent(i)%>OnCreating(<%=GetFactoryNewCallArguments(objInfo, "ref cancel")%>);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -21,13 +21,13 @@
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Created();
+<%=Indent(i)%>OnCreated();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Creating(<%=GetFactoryNewDeclarationArguments(objInfo, "ref bool cancel")%>);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Created();
+<%=Indent(i)%>partial void OnCreating(<%=GetFactoryNewDeclarationArguments(objInfo, "ref bool cancel")%>);
+<%=Indent(i)%>partial void OnCreated();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Create
 <%}%>

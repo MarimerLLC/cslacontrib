@@ -10,9 +10,9 @@
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
 <%if(objInfo.HasIdentity || objInfo.HasObjectGeneratedKey || objInfo.IsCollection) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>Creating(ref cancel);
+<%=Indent(i)%>OnCreating(ref cancel);
 <% } else { %>
-<%=Indent(i)%>On<%=objInfo.Type%>Creating(criteria, ref cancel);
+<%=Indent(i)%>OnCreating(criteria, ref cancel);
 <%}%>
 <%=Indent(i)%>if (cancel) return;
 
@@ -30,13 +30,13 @@
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Created();
+<%=Indent(i)%>OnCreated();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Creating(<%=GetFactoryNewDPDeclarationArgutments(objInfo, "ref bool cancel")%>);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Created();
+<%=Indent(i)%>partial void OnCreating(<%=GetFactoryNewDPDeclarationArgutments(objInfo, "ref bool cancel")%>);
+<%=Indent(i)%>partial void OnCreated();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Create
 <%}%>

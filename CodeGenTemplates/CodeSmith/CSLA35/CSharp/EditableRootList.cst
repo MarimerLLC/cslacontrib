@@ -75,7 +75,7 @@ using Csla.Data;
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Updating(ref cancel);
+<%=Indent(i)%>OnUpdating(ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -88,12 +88,12 @@ using Csla.Data;
 <%=Indent(--i)%>}//using
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Updated();
+<%=Indent(i)%>OnUpdated();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Updating(ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Updated();
+<%=Indent(i)%>partial void OnUpdating(ref bool cancel);
+<%=Indent(i)%>partial void OnUpdated();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Update
 <%=Indent(i)%>#endregion //Data Access

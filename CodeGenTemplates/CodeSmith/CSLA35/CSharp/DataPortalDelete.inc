@@ -6,7 +6,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>SelfDeleting(ref cancel);
+<%=Indent(i)%>OnSelfDeleting(ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -14,7 +14,7 @@
 <%=Indent(i+3)%>.GetManager(<%=objInfo.DbConnection%>))
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberSelfDeleting();
+<%=Indent(i)%>OnMemberSelfDeleting();
 <%}%>
 <%if(objInfo.ChildCollection.Count>0) {%>
 <%=Indent(i)%>//Delete Child object(s), which may contain concurrency check
@@ -39,7 +39,7 @@
 
 <%=Indent(i)%>mgr.DataContext.<%=objInfo.EntitySetName%>.DeleteOnSubmit(data);
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberSelfDeleted();
+<%=Indent(i)%>OnMemberSelfDeleted();
 <%}%>
 
 <%=Indent(i)%>mgr.DataContext.SubmitChanges();
@@ -49,15 +49,15 @@
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>SelfDeleted();
+<%=Indent(i)%>OnSelfDeleted();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>SelfDeleting(ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>SelfDeleted();
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberSelfDeleting();
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberSelfDeleted();
+<%=Indent(i)%>partial void OnSelfDeleting(ref bool cancel);
+<%=Indent(i)%>partial void OnSelfDeleted();
+<%=Indent(i)%>partial void OnMemberSelfDeleting();
+<%=Indent(i)%>partial void OnMemberSelfDeleted();
 <%}%>
 
 <% if(objInfo.UseTransactionalAttribute) {%>
@@ -67,7 +67,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Deleting(criteria, ref cancel);
+<%=Indent(i)%>OnDeleting(criteria, ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -80,7 +80,7 @@
 <%=Indent(i+4)%>&& <%}%>r.<%=prop.DbColumnName%> == criteria.<%if(objInfo.UniqueProperties.Count==1){%>Value<%}else{%><%=prop.Name%><%}%><% } %>);
 
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberDeleting(data);
+<%=Indent(i)%>OnMemberDeleting(data);
 <%}%>
 <%if(objInfo.ChildCollection.Count>0) {%>
 <%=Indent(i)%>//Delete Child object(s)
@@ -91,7 +91,7 @@
 
 <%=Indent(i)%>mgr.DataContext.<%=objInfo.EntitySetName%>.DeleteOnSubmit(data);
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberDeleted();
+<%=Indent(i)%>OnMemberDeleted();
 <%}%>
 
 <%=Indent(i)%>mgr.DataContext.SubmitChanges();
@@ -101,14 +101,14 @@
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Deleted();
+<%=Indent(i)%>OnDeleted();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Deleting(<%=GetFactoryDPDeclarationArguments(objInfo, "ref bool cancel")%>);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Deleted();
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberDeleting(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberDeleted();
+<%=Indent(i)%>partial void OnDeleting(<%=GetFactoryDPDeclarationArguments(objInfo, "ref bool cancel")%>);
+<%=Indent(i)%>partial void OnDeleted();
+<%=Indent(i)%>partial void OnMemberDeleting(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
+<%=Indent(i)%>partial void OnMemberDeleted();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Delete

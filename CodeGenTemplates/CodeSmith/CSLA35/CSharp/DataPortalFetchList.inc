@@ -7,7 +7,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Fetching(<%if(objInfo.FilterProperties.Count>0){%>criteria, <%}%>ref cancel);
+<%=Indent(i)%>OnFetching(<%if(objInfo.FilterProperties.Count>0){%>criteria, <%}%>ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -37,13 +37,13 @@
 
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>OnFetched();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetching(<%=GetFactoryDPFilterDeclarationArguments(objInfo, "ref bool cancel")%>);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>partial void OnFetching(<%=GetFactoryDPFilterDeclarationArguments(objInfo, "ref bool cancel")%>);
+<%=Indent(i)%>partial void OnFetched();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Fetch
 <%}%>

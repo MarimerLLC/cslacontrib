@@ -7,7 +7,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Fetching(criteria, ref cancel);
+<%=Indent(i)%>OnFetching(criteria, ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -31,7 +31,7 @@
 <%=Indent(i+4)%>&& <%}%>r.<%=prop.DbColumnName%> == criteria.<%if(objInfo.UniqueProperties.Count==1){%>Value<%}else{%><%=prop.Name%><%}%><% } %>);
 
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberLoading(data);
+<%=Indent(i)%>OnMemberLoading(data);
 <%}%>
 <% foreach(PropertyInfo prop in objInfo.Properties) {
 	if (!prop.HasDbColumn) continue; if (prop.IsTimestamp && objInfo.IsReadOnly) continue; %>
@@ -58,7 +58,7 @@
 <%  } %>
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberLoaded();
+<%=Indent(i)%>OnMemberLoaded();
 <%}%>
 <% if(!objInfo.IsReadOnly) {%>
 
@@ -67,15 +67,15 @@
 <%=Indent(--i)%>}//using
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Fetched();
+<%=Indent(i)%>OnFetched();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetching(<%=GetFactoryDPDeclarationArguments(objInfo, "ref bool cancel")%>);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Fetched();
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberLoading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberLoaded();
+<%=Indent(i)%>partial void OnFetching(<%=GetFactoryDPDeclarationArguments(objInfo, "ref bool cancel")%>);
+<%=Indent(i)%>partial void OnFetched();
+<%=Indent(i)%>partial void OnMemberLoading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
+<%=Indent(i)%>partial void OnMemberLoaded();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Fetch
 <%}%>

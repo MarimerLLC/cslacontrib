@@ -7,7 +7,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Inserting(ref cancel);
+<%=Indent(i)%>OnInserting(ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -17,14 +17,14 @@
 <%=Indent(i)%>var data = new <%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>();
 
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberReading(data);
+<%=Indent(i)%>OnMemberReading(data);
 <%}%>
 <% foreach(PropertyInfo prop in objInfo.Properties) {
 	if (!prop.HasDbColumn || prop.IsDbComputed) continue; %>	 
 <%=Indent(i)%>data.<%=prop.DbColumnName%> = ReadProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>);
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberRead();
+<%=Indent(i)%>OnMemberRead();
 <%}%>
 
 <%=Indent(i)%>mgr.DataContext.<%=objInfo.EntitySetName%>.InsertOnSubmit(data);
@@ -50,15 +50,15 @@
 <%=Indent(--i)%>}//using
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Inserted();
+<%=Indent(i)%>OnInserted();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Inserting(ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Inserted();
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberReading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>MemberRead();
+<%=Indent(i)%>partial void OnInserting(ref bool cancel);
+<%=Indent(i)%>partial void OnInserted();
+<%=Indent(i)%>partial void OnMemberReading(<%=objInfo.DalNamespace%>.<%=objInfo.EntityName%> data);
+<%=Indent(i)%>partial void OnMemberRead();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Insert
 
@@ -70,7 +70,7 @@
 <%=Indent(i++)%>{
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>bool cancel = false;
-<%=Indent(i)%>On<%=objInfo.Type%>Updating(ref cancel);
+<%=Indent(i)%>OnUpdating(ref cancel);
 <%=Indent(i)%>if (cancel) return;
 
 <%}%>
@@ -91,7 +91,7 @@
 <%=Indent(i)%>mgr.DataContext.<%=objInfo.EntitySetName%>.Attach(data);
 
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberReading(data);
+<%=Indent(i)%>OnMemberReading(data);
 <%}%>
 <%=Indent(i)%>if (IsSelfDirty)
 <%=Indent(i++)%>{
@@ -108,7 +108,7 @@
 <%=Indent(i)%>DataPortal.UpdateChild(ReadProperty<<%=prop.Type%>>(<%=prop.PropertyInfoName%>), this);
 <% } %>
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>On<%=objInfo.Type%>MemberRead();
+<%=Indent(i)%>OnMemberRead();
 <%}%>
 
 <%=Indent(i)%>mgr.DataContext.SubmitChanges();
@@ -130,12 +130,12 @@
 <%=Indent(--i)%>}//using
 <%if(objInfo.IsGeneratedPartial) {%>
 
-<%=Indent(i)%>On<%=objInfo.Type%>Updated();
+<%=Indent(i)%>OnUpdated();
 <%}%>
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Updating(ref bool cancel);
-<%=Indent(i)%>partial void On<%=objInfo.Type%>Updated();
+<%=Indent(i)%>partial void OnUpdating(ref bool cancel);
+<%=Indent(i)%>partial void OnUpdated();
 <%}%>
 <%=Indent(i)%>#endregion //Data Access - Update
 <%}%>

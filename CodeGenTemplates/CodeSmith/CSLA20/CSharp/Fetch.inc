@@ -2,13 +2,13 @@
 <%=Indent(i)%>private void Fetch(SafeDataReader dr)
 <%=Indent(i++)%>{
 <%=Indent(i)%>FetchObject(dr);
+
+<%=Indent(i)%>//load child object(s)
+<%=Indent(i)%>FetchChildren(dr);
 <% if(!objInfo.IsReadOnly) {%>
 <%=Indent(i)%>MarkOld();
 <%=Indent(i)%>ValidationRules.CheckRules();
 <%}%>
-
-<%=Indent(i)%>//load child object(s)
-<%=Indent(i)%>FetchChildren(dr);
 <%=Indent(--i)%>}
 
 <%=Indent(i)%><%=objInfo.LocalMethodModifiers%> void FetchObject(SafeDataReader dr)

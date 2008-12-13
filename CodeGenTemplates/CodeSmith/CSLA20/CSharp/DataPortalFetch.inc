@@ -52,15 +52,15 @@
 <%=Indent(i)%>dr.Read();
 <%}%>
 <%=Indent(i)%>FetchObject(dr);
-<% if(!objInfo.IsReadOnly) {%>
-<%=Indent(i)%>ValidationRules.CheckRules();
-<%}%>
 
 <%=Indent(i)%>//load child object(s)
 <%=Indent(i)%>FetchChildren(dr);
 <%=Indent(--i)%>}
 <%if(objInfo.IsGeneratedPartial) {%>
 <%=Indent(i)%>onExecuteFetchComplete(cm, criteria);
+<%}%>
+<% if(!objInfo.IsReadOnly) {%>
+<%=Indent(i)%>ValidationRules.CheckRules();
 <%}%>
 <%=Indent(--i)%>}//using
 <%=Indent(--i)%>}

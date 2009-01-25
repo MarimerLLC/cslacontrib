@@ -1,0 +1,13 @@
+---------------------------------------------------
+  CSLA 3.x CodeSmith Templates for C#
+  Author: Ricky A. Supit (rsupit@hotmail.com)
+---------------------------------------------------
+
+History:
+3.6
+- remove redundant argument on LoadProperty, ReadProperty, GetProperty, SetProperty, RegisterProperty
+- use GetPropertyConvert, SetPropertyConvert, LoadPropertyConvert when assignment of unequal types.
+- add friendly name to RegisterProperty.
+- DbConnection to use DalNamespace as prefix.
+- fix: update is ignored changed value is default value. Move and use Attach(data, true) inside IsSelfDirty.
+- use UpdateChildren instead of UpdateChild on XX_Insert.  ReadProperty has bug when property is lazy-create.

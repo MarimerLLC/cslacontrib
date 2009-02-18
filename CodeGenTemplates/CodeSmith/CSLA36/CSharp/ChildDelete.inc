@@ -19,7 +19,7 @@
 <%}%>
 <%  foreach (PropertyInfo prop in objInfo.ChildCollection) { %>
 <%=Indent(i)%><%=prop.Name%>.Clear();
-<%=Indent(i)%>DataPortal.UpdateChild(ReadProperty(<%=prop.PropertyInfoName%>), data.<%=prop.DbRefTableName%>);
+<%=Indent(i)%>DataPortal.UpdateChild(ReadProperty(<%=prop.PropertyInfoName%>), this);
 <% } %>
 <%=Indent(i)%>var data = new <%=objInfo.DalNamespace%>.<%=objInfo.EntityName%>() 
 <%=Indent(i++)%>{

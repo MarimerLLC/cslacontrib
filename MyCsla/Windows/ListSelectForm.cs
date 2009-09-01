@@ -125,7 +125,6 @@ namespace MyCsla.Windows
                     new FilteredBindingList<Item>(
                         new SortedBindingList<Item>(MyNameValueList.GetNameValueList(value, ValueMember, DisplayMember)));
                 list.FilterProvider += MyFilterProvider;
-                //list.ApplySort(new Type<Name = "Value", null), ListSortDirection.Ascending);
                 myList = list;
                 BindUI();
             }

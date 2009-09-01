@@ -96,15 +96,6 @@
     <Compile Include="Windows\StatusStripExtender.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Windows\StatusStripHelper.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Windows\StatusStripHelper.Designer.cs">
-      <DependentUpon>StatusStripHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\StatusStripManager.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

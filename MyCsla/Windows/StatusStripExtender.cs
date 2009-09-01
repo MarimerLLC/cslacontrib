@@ -28,7 +28,7 @@ namespace MyCsla.Windows
     {
         private ToolStripStatusLabel _status;
         private ToolStripStatusLabel _animation;
-        private string _statusDefault = "Klar";
+        private string _statusDefault = "Ready";
         private readonly Timer _timer;
         private Timer _progressIndicatorTimer;
         private int _statusDefaultDuration = 5000;

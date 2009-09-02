@@ -21,7 +21,7 @@ namespace MyCsla
     /// <param name="e">The DataPortalContext object passed to the DataPortal.</param>
     protected override void DataPortal_OnDataPortalInvoke(DataPortalEventArgs e)
     {
-      Debug.Print("DataPortalInvoke object:{0}, operation:{1}", e.ObjectType, e.Operation);
+      Trace.TraceInformation("DataPortalInvoke object:{0}, operation:{1}", e.ObjectType, e.Operation);
       base.DataPortal_OnDataPortalInvoke(e);
     }
 
@@ -32,7 +32,7 @@ namespace MyCsla
     /// <param name="e">The DataPortalContext object passed to the DataPortal.</param>
     protected override void DataPortal_OnDataPortalInvokeComplete(DataPortalEventArgs e)
     {
-      Debug.Print("DataPortalInvokeCompleted object:{0}, operation:{1}", e.ObjectType, e.Operation);
+      Trace.TraceInformation("DataPortalInvokeCompleted object:{0}, operation:{1}", e.ObjectType, e.Operation);
       base.DataPortal_OnDataPortalInvokeComplete(e);
     }
 
@@ -44,7 +44,7 @@ namespace MyCsla
     /// <param name="ex">The Exception thrown during data access.</param>
     protected override void DataPortal_OnDataPortalException(DataPortalEventArgs e, Exception ex)
     {
-      Debug.Print("DataPortalExeption object:{0}, operation:{1}, exception:{2}", e.ObjectType, e.Operation, ex);
+      Trace.TraceError("DataPortalException object:{0}, operation:{1}, exception:{2}", e.ObjectType, e.Operation, ex);
       base.DataPortal_OnDataPortalException(e, ex);
     }
   }

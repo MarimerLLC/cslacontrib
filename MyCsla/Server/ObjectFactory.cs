@@ -15,17 +15,17 @@ namespace MyCsla.Server
   {
     protected void Invoke(DataPortalContext e)
     {
-      Debug.Print("DataPortal Invoke object:{0}", e.FactoryInfo);
+      Trace.TraceInformation("DataPortal Invoke object:{0}", e.FactoryInfo);
     }
 
     protected void InvokeComplete(DataPortalContext e)
     {
-      Debug.Print("DataPortal InvokeCompleted object:{0}", e.FactoryInfo);
+      Trace.TraceInformation("DataPortal InvokeCompleted object:{0}", e.FactoryInfo);
     }
 
     protected void InvkeError(Exception ex)
     {
-      Debug.Print("DataPortal Exeption {0}", ex);
+      Trace.TraceError("DataPortal Exeption {0}", ex);
     }
   }
 }

@@ -1,0 +1,27 @@
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.Test.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.Test.pdb
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Csla.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Rhino.Mocks.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.pdb
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Rhino.Mocks.xml
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.pdb
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.xml
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Csla.pdb
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\CslaContrib.Mvc.Test.dll
+C:\Users\Ricky\Projects\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\CslaContrib.Mvc.Test.pdb
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.Test.dll
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.Test.pdb
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Csla.dll
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.dll
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.dll
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\CslaContrib.Mvc.pdb
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Rhino.Mocks.xml
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.pdb
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Moq.xml
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\bin\Debug\Csla.pdb
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\CslaContrib.Mvc.Test.dll
+C:\Users\Ricky\New Folder\CslaContrib.Mvc\CslaContrib.Mvc.Test\obj\Debug\CslaContrib.Mvc.Test.pdb

@@ -1,0 +1,648 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer>
+      <setting name="UsedSolutionBuilderID">0</setting>
+    </integer>
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthoringTests.txt" caret="0" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:IBindingService.cs" caret="339" fromTop="12" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:ModelInstantiatorTest.cs" caret="5" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:DictionaryHelpers.cs" caret="82" fromTop="1" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:IModelInstantiator.cs" caret="0" fromTop="0" />
+      <File id="d:Miscellaneous Files/f:ProjectsController.cs/l:C!?Users?Ricky?Projects?ProjectTrackerMvc?ProjectTrackerMvc?Controllers?ProjectsController.cs" caret="3106" fromTop="9" />
+      <File id="d:Miscellaneous Files/f:DefaultModelBinder.cs/l:C!?Users?Ricky?Sandbox?MVC?src?SystemWebMvc?Mvc?DefaultModelBinder.cs" caret="7623" fromTop="27" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:StringExtension.cs" caret="477" fromTop="16" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:PatternMap.cs" caret="0" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:ModelInstantiator.cs" caret="2534" fromTop="23" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:CslaBindModelBinderTest.cs" caret="13" fromTop="0" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="8" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaBindModelBinder.cs" caret="5693" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaBindAttribute.cs" caret="0" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:DefaultCslaModelBinder.cs" caret="3981" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:AuthorizationService.cs" caret="411" fromTop="13" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:TypeExtensions.cs" caret="0" fromTop="0" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="251" fromTop="9" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="1078" fromTop="18" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="1078" fromTop="10" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="1183" fromTop="3" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="415" fromTop="10" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="703" fromTop="20" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="810" fromTop="16" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:CslaAuthorizeAttribute.cs" caret="1091" fromTop="5" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="550" fromTop="2" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="1967" fromTop="2" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:AuthorizationService.cs" caret="2349" fromTop="19" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="5611" fromTop="7" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="6249" fromTop="13" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="2680" fromTop="23" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="3593" fromTop="18" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="2893" fromTop="4" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="3807" fromTop="7" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="4489" fromTop="21" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="7090" fromTop="21" />
+      <File id="D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C/f:AuthorizationService.cs" caret="2631" fromTop="24" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="6917" fromTop="26" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="5339" fromTop="27" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="4665" fromTop="5" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="4680" fromTop="10" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="5314" fromTop="21" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="5143" fromTop="25" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="5252" fromTop="26" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="4680" fromTop="3" />
+      <File id="51879A7F-865D-4D2D-AB7D-888329AC70C1/f:AuthorizationServiceTest.cs" caret="7091" fromTop="11" />
+    </RecentEdits>
+  </RecentFiles>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="CslaBindAttribute" priority="2" />
+      <Item value="var" priority="53" />
+      <Item value="attr" priority="5" />
+      <Item value="binder" priority="3" />
+      <Item value="new" priority="65" />
+      <Item value="Controller" priority="4" />
+      <Item value="typeof" priority="23" />
+      <Item value="ExpectedException" priority="4" />
+      <Item value="InvalidOperationException" priority="3" />
+      <Item value="as" priority="3" />
+      <Item value="GetControllerContext" priority="2" />
+      <Item value="ctor" priority="12" />
+      <Item value="ModelInstantiator" priority="3" />
+      <Item value="BindingService" priority="1" />
+      <Item value="this" priority="2" />
+      <Item value="internal" priority="0" />
+      <Item value="Mock" priority="1" />
+      <Item value="inst" priority="1" />
+      <Item value="mockInst" priority="8" />
+      <Item value="i" priority="5" />
+      <Item value="class" priority="6" />
+      <Item value="Csla" priority="8" />
+      <Item value="BusinessBase" priority="2" />
+      <Item value="MyBO" priority="29" />
+      <Item value="public" priority="30" />
+      <Item value="static" priority="13" />
+      <Item value="return" priority="38" />
+      <Item value="prop" priority="5" />
+      <Item value="int" priority="10" />
+      <Item value="id" priority="1" />
+      <Item value="TestContext" priority="1" />
+      <Item value="AssertFailedException" priority="0" />
+      <Item value="Assert" priority="4" />
+      <Item value="bo" priority="0" />
+      <Item value="null" priority="27" />
+      <Item value="private" priority="7" />
+      <Item value="IModelInstantiator" priority="1" />
+      <Item value="GetModelInstantiator" priority="0" />
+      <Item value="IBindingService" priority="2" />
+      <Item value="string" priority="21" />
+      <Item value="routeData" priority="0" />
+      <Item value="It" priority="5" />
+      <Item value="IFactoryMap" priority="0" />
+      <Item value="object" priority="21" />
+      <Item value="if" priority="41" />
+      <Item value="state" priority="0" />
+      <Item value="mockHttpContext" priority="0" />
+      <Item value="mockSvc" priority="0" />
+      <Item value="s" priority="0" />
+      <Item value="_binder" priority="1" />
+      <Item value="obj" priority="8" />
+      <Item value="DateTime" priority="1" />
+      <Item value="FactoryMap" priority="0" />
+      <Item value="FactoryMethod" priority="2" />
+      <Item value="FactoryType" priority="1" />
+      <Item value="FactoryArguments" priority="3" />
+      <Item value="Dictionary&lt;string,Type&gt;" priority="2" />
+      <Item value="map" priority="5" />
+      <Item value="Dictionary" priority="0" />
+      <Item value="Type" priority="14" />
+      <Item value="args" priority="2" />
+      <Item value="mi" priority="0" />
+      <Item value="returnType" priority="2" />
+      <Item value="BindingFlags" priority="0" />
+      <Item value="ArgumentNullException" priority="1" />
+      <Item value="MyFactory" priority="1" />
+      <Item value="CreateInstance" priority="0" />
+      <Item value="else" priority="6" />
+      <Item value="method" priority="3" />
+      <Item value="argValues" priority="3" />
+      <Item value="patterns" priority="0" />
+      <Item value="factoryType" priority="0" />
+      <Item value="attemptedValue" priority="3" />
+      <Item value="propType" priority="0" />
+      <Item value="controllerContext" priority="17" />
+      <Item value="Contains" priority="0" />
+      <Item value="target" priority="0" />
+      <Item value="List" priority="0" />
+      <Item value="parameterTypes" priority="1" />
+      <Item value="objType" priority="1" />
+      <Item value="argTypes" priority="3" />
+      <Item value="action" priority="2" />
+      <Item value="argumentValues" priority="9" />
+      <Item value="ToArrayOfType" priority="1" />
+      <Item value="IEnumerator" priority="0" />
+      <Item value="values" priority="4" />
+      <Item value="Length" priority="11" />
+      <Item value="ToDictionary" priority="0" />
+      <Item value="arguments" priority="5" />
+      <Item value="for" priority="3" />
+      <Item value="ICollection" priority="2" />
+      <Item value="parValues" priority="0" />
+      <Item value="ID" priority="3" />
+      <Item value="fMethod" priority="5" />
+      <Item value="IServiceProvider" priority="0" />
+      <Item value="a" priority="4" />
+      <Item value="arg" priority="2" />
+      <Item value="mockBind" priority="2" />
+      <Item value="b" priority="0" />
+      <Item value="ControllerBase" priority="1" />
+      <Item value="o" priority="5" />
+      <Item value="includeProperties" priority="1" />
+      <Item value="excludeProperties" priority="0" />
+      <Item value="csvValues" priority="0" />
+      <Item value="NameValueCollection" priority="6" />
+      <Item value="ArithmeticException" priority="0" />
+      <Item value="Convert" priority="1" />
+      <Item value="context" priority="3" />
+      <Item value="Array" priority="4" />
+      <Item value="argType" priority="4" />
+      <Item value="parValue" priority="1" />
+      <Item value="false" priority="7" />
+      <Item value="isTypeUnknown" priority="0" />
+      <Item value="arrVal" priority="3" />
+      <Item value="parValueArray" priority="3" />
+      <Item value="GetType" priority="0" />
+      <Item value="IList" priority="3" />
+      <Item value="br" priority="0" />
+      <Item value="methods" priority="0" />
+      <Item value="argValue" priority="5" />
+      <Item value="paramType" priority="3" />
+      <Item value="converter" priority="3" />
+      <Item value="TypeDescriptor" priority="1" />
+      <Item value="continue" priority="2" />
+      <Item value="try" priority="1" />
+      <Item value="catch" priority="1" />
+      <Item value="IEnumerable" priority="1" />
+      <Item value="CslaModelBinder" priority="3" />
+      <Item value="StringComparer" priority="0" />
+      <Item value="ControllerContext" priority="0" />
+      <Item value="ModelBinderResult" priority="2" />
+      <Item value="ModelBindingContext" priority="5" />
+      <Item value="DefaultValueProvider" priority="0" />
+      <Item value="Employee" priority="17" />
+      <Item value="result" priority="1" />
+      <Item value="Address" priority="3" />
+      <Item value="HomeAddress" priority="0" />
+      <Item value="WorkAddress" priority="0" />
+      <Item value="Func" priority="3" />
+      <Item value="GetArgumentValue" priority="0" />
+      <Item value="bindingContext" priority="25" />
+      <Item value="CustomCslaModelBinder" priority="0" />
+      <Item value="base" priority="8" />
+      <Item value="instantiator" priority="1" />
+      <Item value="RouteData" priority="3" />
+      <Item value="actionName" priority="5" />
+      <Item value="route" priority="0" />
+      <Item value="form" priority="4" />
+      <Item value="Dependent" priority="2" />
+      <Item value="BusinessListBase" priority="1" />
+      <Item value="DependentCollection" priority="3" />
+      <Item value="Dependents" priority="0" />
+      <Item value="ctx" priority="4" />
+      <Item value="provider" priority="0" />
+      <Item value="e" priority="2" />
+      <Item value="ModelBinders" priority="0" />
+      <Item value="itemType" priority="0" />
+      <Item value="indices" priority="4" />
+      <Item value="modelList" priority="5" />
+      <Item value="length" priority="0" />
+      <Item value="item" priority="1" />
+      <Item value="itemProvider" priority="0" />
+      <Item value="itemBinder" priority="0" />
+      <Item value="itemContext" priority="0" />
+      <Item value="SmartDate" priority="0" />
+      <Item value="Core" priority="1" />
+      <Item value="IEditableCollection" priority="1" />
+      <Item value="model" priority="7" />
+      <Item value="CreateCslaModel" priority="1" />
+      <Item value="override" priority="13" />
+      <Item value="modelType" priority="3" />
+      <Item value="Model" priority="4" />
+      <Item value="modelProvider" priority="0" />
+      <Item value="ModelType" priority="5" />
+      <Item value="ModelName" priority="1" />
+      <Item value="using" priority="0" />
+      <Item value="System" priority="0" />
+      <Item value="Linq" priority="0" />
+      <Item value="IDictionary" priority="0" />
+      <Item value="ValueProviderResult" priority="1" />
+      <Item value="valueProvider" priority="0" />
+      <Item value="elementType" priority="1" />
+      <Item value="currentIndex" priority="1" />
+      <Item value="collection" priority="1" />
+      <Item value="break" priority="2" />
+      <Item value="elementModel" priority="1" />
+      <Item value="BindProperties" priority="0" />
+      <Item value="innerContext" priority="1" />
+      <Item value="while" priority="0" />
+      <Item value="hasElementToWork" priority="0" />
+      <Item value="foreach" priority="1" />
+      <Item value="BindProperty" priority="0" />
+      <Item value="newBindingContext" priority="0" />
+      <Item value="property" priority="0" />
+      <Item value="FirstOrDefault" priority="0" />
+      <Item value="t" priority="0" />
+      <Item value="types" priority="0" />
+      <Item value="ValueProvider" priority="0" />
+      <Item value="FallbackToEmptyPrefix" priority="1" />
+      <Item value="true" priority="4" />
+      <Item value="modelContext" priority="6" />
+      <Item value="TestMethod" priority="1" />
+      <Item value="void" priority="2" />
+      <Item value="Moq" priority="1" />
+      <Item value="fakeInstantiator" priority="0" />
+      <Item value="DevEmployees" priority="5" />
+      <Item value="AddNew" priority="0" />
+      <Item value="newEmployee" priority="1" />
+      <Item value="emps" priority="2" />
+      <Item value="psvm" priority="0" />
+      <Item value="psr" priority="0" />
+      <Item value="Dictionary&lt;string,ValueProviderResult&gt;" priority="1" />
+      <Item value="bool" priority="2" />
+      <Item value="useEmptyPrefix" priority="1" />
+      <Item value="usePrefix" priority="0" />
+      <Item value="argumentName" priority="1" />
+      <Item value="argumentType" priority="0" />
+      <Item value="factoryMethod" priority="1" />
+      <Item value="BindCriteria" priority="10" />
+      <Item value="bindCriteria" priority="1" />
+      <Item value="CslaBindModelBinder" priority="0" />
+      <Item value="cw" priority="0" />
+      <Item value="_counter" priority="0" />
+      <Item value="propName" priority="0" />
+      <Item value="propFilter" priority="1" />
+      <Item value="newPrefix" priority="0" />
+      <Item value="thr" priority="0" />
+      <Item value="UnauthorizedAccessException" priority="0" />
+      <Item value="asrt" priority="0" />
+      <Item value="Method" priority="0" />
+      <Item value="Arguments" priority="0" />
+      <Item value="let" priority="1" />
+      <Item value="filterContext" priority="10" />
+      <Item value="user" priority="0" />
+      <Item value="HttpUnauthorizedResult" priority="0" />
+      <Item value="Security" priority="0" />
+      <Item value="AuthorizationRules" priority="0" />
+      <Item value="hasAccess" priority="0" />
+      <Item value="cdc" priority="0" />
+      <Item value="ReflectedParameterDescriptor" priority="0" />
+      <Item value="cd" priority="1" />
+      <Item value="ParameterDescriptor" priority="0" />
+      <Item value="actionDescriptor" priority="1" />
+      <Item value="p" priority="4" />
+      <Item value="controller" priority="5" />
+      <Item value="from" priority="0" />
+      <Item value="where" priority="0" />
+      <Item value="select" priority="0" />
+      <Item value="FindModelType" priority="0" />
+      <Item value="throw" priority="1" />
+      <Item value="qry" priority="1" />
+      <Item value="OperationType" priority="1" />
+      <Item value="Operation" priority="0" />
+      <Item value="FindOperationType" priority="0" />
+      <Item value="switch" priority="0" />
+      <Item value="AccessViolationException" priority="0" />
+      <Item value="Access" priority="4" />
+      <Item value="AccessType" priority="0" />
+      <Item value="access" priority="0" />
+      <Item value="httpContext" priority="0" />
+      <Item value="AttributeTargets" priority="0" />
+      <Item value="InternalCslaAuthorizeAttribute" priority="1" />
+      <Item value="_authorizer" priority="4" />
+      <Item value="value" priority="1" />
+      <Item value="res" priority="0" />
+      <Item value="protected" priority="0" />
+      <Item value="virtual" priority="0" />
+      <Item value="AuthorizationContext" priority="0" />
+      <Item value="FindModelTypeIsCalled" priority="1" />
+      <Item value="svc" priority="1" />
+      <Item value="AuthorizationService" priority="0" />
+      <Item value="mockFilterContext" priority="0" />
+      <Item value="TestFindModelType" priority="1" />
+      <Item value="TestController" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.CslaBindAttribute">
+      <Item value="GetBinder" priority="1" />
+      <Item value="FactoryMethod" priority="1" />
+      <Item value="FactoryArguments" priority="3" />
+      <Item value="FactoryType" priority="0" />
+      <Item value="Include" priority="0" />
+      <Item value="Exclude" priority="0" />
+      <Item value="Prefix" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.IModelBinder">
+      <Item value="GetValue" priority="0" />
+      <Item value="BindModel" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.Controller">
+      <Item value="ControllerContext" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Rhino.Mocks.MockRepository">
+      <Item value="StrictMock" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Mock`1">
+      <Item value="Expect" priority="3" />
+      <Item value="Object" priority="6" />
+      <Item value="Verify" priority="1" />
+      <Item value="VerifyAll" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.IModelInstantiator">
+      <Item value="CreateInstance" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Microsoft.VisualStudio.TestTools.UnitTesting.Assert">
+      <Item value="IsInstanceOfType" priority="4" />
+      <Item value="AreNotEqual" priority="0" />
+      <Item value="IsFalse" priority="0" />
+      <Item value="AreEqual" priority="0" />
+      <Item value="IsTrue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Language.Flow.IExpect`1">
+      <Item value="Returns" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.MyBO">
+      <Item value="NewMyBO" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Empty" priority="4" />
+      <Item value="IsNullOrEmpty" priority="7" />
+      <Item value="Format" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Moq.It">
+      <Item value="IsAny" priority="2" />
+      <Item value="Is" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.ModelInstantiator">
+      <Item value="CreateInstance" priority="0" />
+      <Item value="CallFactoryMethod" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.FactoryMap">
+      <Item value="FactoryArguments" priority="0" />
+      <Item value="FactoryMethod" priority="1" />
+      <Item value="ActionName" priority="1" />
+      <Item value="FactoryType" priority="0" />
+      <Item value="ReturnType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="Add" priority="0" />
+      <Item value="Values" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Reflection.MethodInfo">
+      <Item value="ReturnType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.ModelInstantiatorTest+MyBO">
+      <Item value="ID" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2+ValueCollection">
+      <Item value="ToArray" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Type">
+      <Item value="IsGenericType" priority="1" />
+      <Item value="GetElementType" priority="1" />
+      <Item value="IsArray" priority="1" />
+      <Item value="IsAssignableFrom" priority="0" />
+      <Item value="GetGenericArguments" priority="0" />
+      <Item value="GetGenericTypeDefinition" priority="0" />
+      <Item value="GetNestedTypes" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ControllerContext">
+      <Item value="Controller" priority="6" />
+      <Item value="HttpContext" priority="2" />
+      <Item value="RouteData" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ControllerBase">
+      <Item value="ViewData" priority="0" />
+      <Item value="ControllerContext" priority="2" />
+      <Item value="ValueProvider" priority="2" />
+      <Item value="GetType" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpContextBase">
+      <Item value="Request" priority="1" />
+      <Item value="User" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpRequestBase">
+      <Item value="Form" priority="1" />
+      <Item value="QueryString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Specialized.NameValueCollection">
+      <Item value="AllKeys" priority="0" />
+      <Item value="Add" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ComponentModel.PropertyDescriptor">
+      <Item value="Name" priority="0" />
+      <Item value="SetValue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Type">
+      <Item value="EmptyTypes" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="ToArray" priority="1" />
+      <Item value="Count" priority="1" />
+      <Item value="FirstOrDefault" priority="0" />
+      <Item value="SingleOrDefault" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.ICollection`1">
+      <Item value="Count" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Language.Flow.IReturnsResult">
+      <Item value="Verifiable" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.IBindingService">
+      <Item value="GetArgumentValues" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.CslaBinderAttributeTest+MyBO">
+      <Item value="GetMyBO" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.BindingService">
+      <Item value="GetArgumentValues" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Convert">
+      <Item value="ChangeType" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Routing.RouteData">
+      <Item value="Values" priority="3" />
+      <Item value="GetRequiredString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Routing.RouteValueDictionary">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.IList">
+      <Item value="Count" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Csla.Validation.BrokenRule">
+      <Item value="Severity" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Csla.Validation.RuleSeverity">
+      <Item value="Error" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.ComponentModel.TypeDescriptor">
+      <Item value="GetConverter" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ComponentModel.TypeConverter">
+      <Item value="CanConvertFrom" priority="0" />
+      <Item value="ConvertFromString" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="GetType" priority="6" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.CslaModelBinder">
+      <Item value="BindModel" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.StringComparer">
+      <Item value="OrdinalIgnoreCase" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelBinderResult">
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.DefaultModelBinderTest+Employee">
+      <Item value="FirstName" priority="0" />
+      <Item value="Salary" priority="0" />
+      <Item value="HomeAddress" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.DefaultModelBinderTest+Address">
+      <Item value="NewAddress" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.DefaultModelBinderTest+Employee">
+      <Item value="NewEmployee" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.DependentCollection">
+      <Item value="NewDependentCollection" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.Employee">
+      <Item value="NewEmployee" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.Employee">
+      <Item value="HireDate" priority="0" />
+      <Item value="Dependents" priority="5" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.Dependent">
+      <Item value="ID" priority="1" />
+      <Item value="Name" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.DependentCollection">
+      <Item value="Add" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.Test.Dependent">
+      <Item value="NewDependent" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="Date" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Csla.SmartDate">
+      <Item value="Date" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.Mvc.ModelBinders">
+      <Item value="DefaultBinder" priority="0" />
+      <Item value="Binders" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelBindingContext">
+      <Item value="ModelType" priority="6" />
+      <Item value="Model" priority="8" />
+      <Item value="PropertyFilter" priority="3" />
+      <Item value="FallbackToEmptyPrefix" priority="1" />
+      <Item value="ModelName" priority="0" />
+      <Item value="ModelState" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.DevEmployees">
+      <Item value="Add" priority="0" />
+      <Item value="AddNewCore" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelState">
+      <Item value="Value" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ValueProviderResult">
+      <Item value="RawValue" priority="1" />
+      <Item value="AttemptedValue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Count" priority="0" />
+      <Item value="ToArray" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.DefaultCslaModelBinder">
+      <Item value="CreateCslaModel" priority="0" />
+      <Item value="BindCslaModel" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelStateDictionary">
+      <Item value="IsValid" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="Trim" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.AuthorizationContext">
+      <Item value="HttpContext" priority="0" />
+      <Item value="Result" priority="0" />
+      <Item value="RequestContext" priority="1" />
+      <Item value="Controller" priority="6" />
+      <Item value="RouteData" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Security.Principal.IPrincipal">
+      <Item value="Identity" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Security.Principal.IIdentity">
+      <Item value="IsAuthenticated" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Csla.Security.AuthorizationRules">
+      <Item value="CanCreateObject" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Routing.RequestContext">
+      <Item value="RouteData" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ControllerDescriptorCache">
+      <Item value="GetDescriptor" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ControllerDescriptor">
+      <Item value="FindAction" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ActionDescriptor">
+      <Item value="GetParameters" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ParameterDescriptor">
+      <Item value="ParameterType" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.OperationType">
+      <Item value="Read" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.InternalCslaAuthorizeAttribute">
+      <Item value="ModelType" priority="1" />
+      <Item value="Access" priority="2" />
+      <Item value="OnAuthorization" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.AuthorizeAttribute">
+      <Item value="OnAuthorization" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.AuthorizationServiceTest+FinderAuthorizationService">
+      <Item value="FindModelTypeIsCalled" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.AuthorizationService">
+      <Item value="FindModelType" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:CslaContrib.Mvc.Test.AuthorizationServiceTest+TestFindModelType">
+      <Item value="PublicFindModelType" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <UnitTestRunnerMSTest>
+    <UseTestRunConfigFromMetadataFile>False</UseTestRunConfigFromMetadataFile>
+  </UnitTestRunnerMSTest>
+</Configuration>

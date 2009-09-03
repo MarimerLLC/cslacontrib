@@ -1,0 +1,30 @@
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTrackerMvc.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTrackerMvc.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalEf.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalLinq.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.Library.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalLinq.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalEf.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.Library.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ProjectTrackerMvc.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ProjectTrackerMvc.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\Csla.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\Csla.pdb
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\CslaContrib.Mvc.dll
+C:\Users\Ricky\Projects\ProjectTrackerMvc\ProjectTrackerMvc\bin\CslaContrib.Mvc.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTrackerMvc.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTrackerMvc.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\Csla.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\CslaContrib.Mvc.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalEf.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalLinq.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.Library.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\CslaContrib.Mvc.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\Csla.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.Library.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalEf.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\bin\ProjectTracker.DalLinq.pdb
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ProjectTrackerMvc.dll
+C:\Users\Ricky\New Folder\ProjectTrackerMvc\ProjectTrackerMvc\obj\Debug\ProjectTrackerMvc.pdb

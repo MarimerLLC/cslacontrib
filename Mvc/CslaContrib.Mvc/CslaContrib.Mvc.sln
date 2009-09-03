@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Mvc.Test", "CslaContrib.Mvc.Test\CslaContrib.Mvc.Test.csproj", "{51879A7F-865D-4D2D-AB7D-888329AC70C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{48513963-EB1B-4BA1-AFAA-30B5E821A0DB}"
+	ProjectSection(SolutionItems) = preProject
+		CslaContrib.Mvc.vsmdi = CslaContrib.Mvc.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{18552593-F19B-4191-AEA9-EDFD4079B589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Mvc", "CslaContrib.Mvc\CslaContrib.Mvc.csproj", "{D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = CslaContrib.Mvc.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51879A7F-865D-4D2D-AB7D-888329AC70C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51879A7F-865D-4D2D-AB7D-888329AC70C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51879A7F-865D-4D2D-AB7D-888329AC70C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51879A7F-865D-4D2D-AB7D-888329AC70C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D1A470-0DC7-4A19-A8F0-2D98CE79C14C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = 
+	EndGlobalSection
+EndGlobal

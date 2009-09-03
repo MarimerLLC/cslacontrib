@@ -1,0 +1,384 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Shared/f:LogOnUserControl.ascx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/f:Default.aspx.cs" caret="686" fromTop="17" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Security/f:UserIdentity.cs" caret="1460" fromTop="20" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:AccountController.cs" caret="1908" fromTop="9" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/f:Web.config" caret="4635" fromTop="2" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Content/f:Site.css" caret="5090" fromTop="23" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Projects/f:Create.aspx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Projects/f:Edit.aspx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:ViewModels/f:ResourceViewModel.cs" caret="159" fromTop="6" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Security/f:SimpleMembershipProvider.cs" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Create.aspx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Projects/f:Index.aspx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Edit.aspx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/f:Global.asax.cs" caret="8" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Projects/f:ProjectForm.ascx" caret="0" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Projects/f:Details.aspx" caret="1553" fromTop="26" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:ProjectsController.cs" caret="9" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Details.aspx" caret="513" fromTop="14" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:RolesController.cs" caret="591" fromTop="23" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/f:Web.config" caret="630" fromTop="16" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:AssignProjectForm.ascx" caret="429" fromTop="9" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:ResourceForm.ascx" caret="646" fromTop="16" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:ViewModels/f:ProjectViewModel.cs" caret="274" fromTop="11" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:ResourcesController.cs" caret="1442" fromTop="9" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Index.aspx" caret="681" fromTop="15" />
+      <File id="d:Miscellaneous Files/f:AuthorizationService.cs/l:C!?Users?Ricky?Projects?CslaContrib.Mvc?CslaContrib.Mvc?AuthorizationService.cs" caret="3228" fromTop="21" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Shared/f:Site.Master" caret="461" fromTop="7" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="374" fromTop="8" />
+      <File id="d:Miscellaneous Files/f:ProjectResources.cs/l:C!?Users?Ricky?Downloads?netsamples-3.7.0-090710?CslaNet?cs?ProjectTrackercs?ProjectTracker.Library?ProjectResources.cs" caret="745" fromTop="9" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Details.aspx" caret="1094" fromTop="25" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:ResourcesController.cs" caret="650" fromTop="15" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Details.aspx" caret="907" fromTop="20" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:Details.aspx" caret="1174" fromTop="5" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Shared/f:Site.Master" caret="1491" fromTop="4" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:RolesController.cs" caret="402" fromTop="16" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="774" fromTop="12" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="774" fromTop="10" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="774" fromTop="10" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="806" fromTop="18" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="774" fromTop="22" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="363" fromTop="4" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="247" fromTop="3" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Resources/f:ResourceForm.ascx" caret="1068" fromTop="0" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1885" fromTop="26" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1282" fromTop="13" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1703" fromTop="25" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1703" fromTop="22" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="764" fromTop="16" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="466" fromTop="12" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1632" fromTop="19" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:RolesController.cs" caret="591" fromTop="23" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:ResourcesController.cs" caret="1655" fromTop="17" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/f:Web.config" caret="217" fromTop="7" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/f:Web.config" caret="683" fromTop="17" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Controllers/f:ResourcesController.cs" caret="1442" fromTop="9" />
+      <File id="d:Miscellaneous Files/f:AuthorizationService.cs/l:C!?Users?Ricky?Projects?CslaContrib.Mvc?CslaContrib.Mvc?AuthorizationService.cs" caret="3228" fromTop="77" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1270" fromTop="25" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1409" fromTop="16" />
+      <File id="06E66BF6-A681-4D2D-B485-7D55ABED7D4E/d:Views/d:Roles/f:Index.aspx" caret="1808" fromTop="15" />
+    </RecentEdits>
+  </RecentFiles>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerMSTest>
+    <UseTestRunConfigFromMetadataFile>False</UseTestRunConfigFromMetadataFile>
+  </UnitTestRunnerMSTest>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="Library" priority="3" />
+      <Item value="ProjectList" priority="3" />
+      <Item value="foreach" priority="1" />
+      <Item value="Model" priority="24" />
+      <Item value="Html" priority="14" />
+      <Item value="project" priority="41" />
+      <Item value="object" priority="0" />
+      <Item value="if" priority="6" />
+      <Item value="ProjectResources" priority="2" />
+      <Item value="ProjectTracker" priority="4" />
+      <Item value="Guid" priority="7" />
+      <Item value="Project" priority="10" />
+      <Item value="resource" priority="38" />
+      <Item value="is" priority="0" />
+      <Item value="i" priority="3" />
+      <Item value="var" priority="9" />
+      <Item value="string" priority="9" />
+      <Item value="class" priority="1" />
+      <Item value="prop" priority="6" />
+      <Item value="SelectList" priority="2" />
+      <Item value="new" priority="13" />
+      <Item value="RoleInfoList" priority="0" />
+      <Item value="RoleList" priority="4" />
+      <Item value="viewModel" priority="1" />
+      <Item value="ViewModels" priority="0" />
+      <Item value="roles" priority="2" />
+      <Item value="RoleSelectList" priority="0" />
+      <Item value="roleInfoList" priority="0" />
+      <Item value="roleSelectList" priority="0" />
+      <Item value="public" priority="4" />
+      <Item value="ResourceList" priority="4" />
+      <Item value="resourceList" priority="3" />
+      <Item value="ResourceInfoList" priority="0" />
+      <Item value="ActionResult" priority="2" />
+      <Item value="FormCollection" priority="2" />
+      <Item value="collection" priority="10" />
+      <Item value="ProjectResource" priority="1" />
+      <Item value="form" priority="1" />
+      <Item value="int" priority="5" />
+      <Item value="resourceID" priority="1" />
+      <Item value="roleID" priority="0" />
+      <Item value="FormMethod" priority="0" />
+      <Item value="projectList" priority="0" />
+      <Item value="ModelBinders" priority="2" />
+      <Item value="UpdateModel" priority="2" />
+      <Item value="return" priority="4" />
+      <Item value="ModelState" priority="1" />
+      <Item value="HandleError" priority="0" />
+      <Item value="Csla" priority="3" />
+      <Item value="Data" priority="2" />
+      <Item value="DataMapper" priority="1" />
+      <Item value="this" priority="1" />
+      <Item value="valueProvider" priority="3" />
+      <Item value="Authorize" priority="0" />
+      <Item value="static" priority="0" />
+      <Item value="bool" priority="1" />
+      <Item value="TraceContextEventHandler" priority="1" />
+      <Item value="where" priority="1" />
+      <Item value="IBusinessObject" priority="0" />
+      <Item value="bo" priority="1" />
+      <Item value="CanCreate" priority="0" />
+      <Item value="T" priority="0" />
+      <Item value="PTPrincipal" priority="0" />
+      <Item value="ApplicationContext" priority="1" />
+      <Item value="GenericPrincipal" priority="0" />
+      <Item value="principal" priority="1" />
+      <Item value="PTIdentity" priority="1" />
+      <Item value="user" priority="3" />
+      <Item value="UserInfo" priority="0" />
+      <Item value="Security" priority="1" />
+      <Item value="UserIdentity" priority="3" />
+      <Item value="DataPortal" priority="1" />
+      <Item value="CriteriaBase" priority="1" />
+      <Item value="userName" priority="0" />
+      <Item value="password" priority="1" />
+      <Item value="criteria" priority="0" />
+      <Item value="IsAuthenticated" priority="0" />
+      <Item value="null" priority="1" />
+      <Item value="Roles" priority="1" />
+      <Item value="Array" priority="0" />
+      <Item value="r" priority="0" />
+      <Item value="username" priority="1" />
+      <Item value="identity" priority="2" />
+      <Item value="GenericIdentity" priority="0" />
+      <Item value="HttpContext" priority="0" />
+      <Item value="resourceId" priority="0" />
+      <Item value="View" priority="0" />
+      <Item value="ConnectionManager" priority="0" />
+      <Item value="from" priority="0" />
+      <Item value="v" priority="0" />
+      <Item value="Dictionary&lt;string,object&gt;" priority="0" />
+      <Item value="private" priority="0" />
+      <Item value="ProjectViewModel" priority="0" />
+      <Item value="CreateViewModel" priority="7" />
+      <Item value="typeof" priority="3" />
+      <Item value="DefaultCslaModelBinder" priority="0" />
+      <Item value="TryUpdateModel" priority="0" />
+      <Item value="ctor" priority="0" />
+      <Item value="ProjectTrackerMvc" priority="0" />
+      <Item value="Resource" priority="9" />
+      <Item value="projectId" priority="2" />
+      <Item value="FactoryMethod" priority="0" />
+      <Item value="FactoryArguments" priority="0" />
+      <Item value="Bind" priority="0" />
+      <Item value="CslaBind" priority="0" />
+      <Item value="Method" priority="1" />
+      <Item value="Arguments" priority="0" />
+      <Item value="RolesController" priority="0" />
+      <Item value="Admin" priority="0" />
+      <Item value="item" priority="0" />
+      <Item value="JsonResult" priority="0" />
+      <Item value="Json" priority="0" />
+      <Item value="CslaAuthorize" priority="0" />
+      <Item value="ModelType" priority="1" />
+      <Item value="Operation" priority="0" />
+      <Item value="OperationType" priority="0" />
+      <Item value="Access" priority="0" />
+      <Item value="AccessType" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.HtmlHelper`1">
+      <Item value="ActionLink" priority="0" />
+      <Item value="TextBox" priority="0" />
+      <Item value="Encode" priority="7" />
+      <Item value="DropDownList" priority="1" />
+      <Item value="Hidden" priority="0" />
+      <Item value="RenderPartial" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.ProjectInfo">
+      <Item value="Name" priority="0" />
+      <Item value="Id" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTracker.Library.ProjectList">
+      <Item value="GetProjectList" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTracker.Library.Project">
+      <Item value="GetProject" priority="0" />
+      <Item value="NewProject" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.Project">
+      <Item value="Resources" priority="8" />
+      <Item value="Name" priority="3" />
+      <Item value="Description" priority="2" />
+      <Item value="Id" priority="4" />
+      <Item value="Save" priority="2" />
+      <Item value="IsValid" priority="0" />
+      <Item value="Started" priority="1" />
+      <Item value="Ended" priority="2" />
+      <Item value="IsNew" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.ProjectResource">
+      <Item value="Role" priority="4" />
+      <Item value="FullName" priority="0" />
+      <Item value="Assigned" priority="0" />
+      <Item value="ResourceId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Format" priority="1" />
+      <Item value="IsNullOrEmpty" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTracker.Library.RoleList">
+      <Item value="GetList" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTrackerMvc.ViewModels.ProjectViewModel">
+      <Item value="Project" priority="13" />
+      <Item value="RoleInfoList" priority="1" />
+      <Item value="RoleSelectList" priority="2" />
+      <Item value="ResourceList" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.RoleList">
+      <Item value="GetItemByKey" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Csla.NameValueListBase`2+NameValuePair">
+      <Item value="Value" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.SelectList">
+      <Item value="SelectedValue" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTracker.Library.ResourceList">
+      <Item value="GetResourceList" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.ProjectResources">
+      <Item value="Add" priority="0" />
+      <Item value="GetItem" priority="0" />
+      <Item value="Remove" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.Mvc.ModelBinders">
+      <Item value="Binders" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelBinderDictionary">
+      <Item value="DefaultBinder" priority="1" />
+      <Item value="Add" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ModelStateDictionary">
+      <Item value="IsValid" priority="0" />
+      <Item value="AddModelError" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Csla.Data.DataMapper">
+      <Item value="Map" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.FormCollection">
+      <Item value="ToValueProvider" priority="1" />
+      <Item value="AllKeys" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IDictionary`2">
+      <Item value="Keys" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.ValueProviderResult">
+      <Item value="ConvertTo" priority="0" />
+      <Item value="AttemptedValue" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:">
+      <Item value="GetType" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTrackerMvc.BusinessObjectExtension">
+      <Item value="CanCreate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Csla.ApplicationContext">
+      <Item value="User" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.Security.PTPrincipal">
+      <Item value="Identity" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Security.Principal.IIdentity">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.Security.PTIdentity">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Csla.DataPortal">
+      <Item value="Fetch" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Linq.IQueryable`1">
+      <Item value="SingleOrDefault" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.DalLinq.Security.User">
+      <Item value="Roles" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Linq.EntitySet`1">
+      <Item value="ToArray" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.DalLinq.Security.Role">
+      <Item value="Role1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="ToArray" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTrackerMvc.Security.UserIdentity">
+      <Item value="GetUserIdentity" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTrackerMvc.Security.UserIdentity">
+      <Item value="IsAuthenticated" priority="1" />
+      <Item value="Roles" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.HttpContext">
+      <Item value="Current" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpContext">
+      <Item value="Session" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.KeyValuePair`2">
+      <Item value="Key" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTrackerMvc.ViewModels.ResourceViewModel">
+      <Item value="Resource" priority="6" />
+      <Item value="ProjectList" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.Resource">
+      <Item value="FullName" priority="1" />
+      <Item value="Assignments" priority="7" />
+      <Item value="Id" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.ResourceAssignment">
+      <Item value="ProjectName" priority="1" />
+      <Item value="ProjectId" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@ProjectTracker.Library.Resource">
+      <Item value="GetResource" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.ResourceAssignments">
+      <Item value="AssignTo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ProjectTracker.Library.Admin.Role">
+      <Item value="Name" priority="0" />
+      <Item value="Id" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.OperationType">
+      <Item value="Update" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@CslaContrib.Mvc.AccessType">
+      <Item value="Update" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.Mvc.UrlHelper">
+      <Item value="Action" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

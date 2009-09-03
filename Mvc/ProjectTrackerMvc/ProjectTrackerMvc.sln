@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTrackerMvc", "ProjectTrackerMvc\ProjectTrackerMvc.csproj", "{06E66BF6-A681-4D2D-B485-7D55ABED7D4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTrackerMvc.Tests", "ProjectTrackerMvc.Tests\ProjectTrackerMvc.Tests.csproj", "{99C71449-56E3-47FD-9CE3-42583E85157F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06E66BF6-A681-4D2D-B485-7D55ABED7D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06E66BF6-A681-4D2D-B485-7D55ABED7D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06E66BF6-A681-4D2D-B485-7D55ABED7D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06E66BF6-A681-4D2D-B485-7D55ABED7D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C71449-56E3-47FD-9CE3-42583E85157F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C71449-56E3-47FD-9CE3-42583E85157F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C71449-56E3-47FD-9CE3-42583E85157F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C71449-56E3-47FD-9CE3-42583E85157F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

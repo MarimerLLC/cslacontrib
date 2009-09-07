@@ -63,7 +63,7 @@ namespace Csla.Windows
     /// </summary>
     [DesignerCategory("")]
     [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
-    public partial class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider  
+  public partial class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize 
     {
         #region internal variables
 
@@ -800,6 +800,16 @@ namespace Csla.Windows
 
         #endregion
 
-        // Following event is hooked for all controls, it sets an error message with the use of ErrorProvider
+        #region Forms Designer initialization
+        void ISupportInitialize.EndInit()
+        {
+          if (ContainerControl != null)
+          {
+            Initialize(ContainerControl.Controls);
+          }
+        }
+
+        #endregion
+
     }
 }

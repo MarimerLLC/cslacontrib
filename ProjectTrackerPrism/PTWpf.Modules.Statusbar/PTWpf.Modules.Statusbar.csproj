@@ -14,6 +14,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,9 +91,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\OutlookStylePrism\OutlookStyleApp\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj">
+    <ProjectReference Include="..\OutlookStyleApp\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj">
       <Project>{DB87085E-921C-4E3C-B5A7-83A56C36A29F}</Project>
-      <Name>OutlookStyle.Infrastructure</Name>
+      <Name>OutlookStyle.Infrastructure %28OutlookStyle.Infrastructure\OutlookStyle.Infrastructure%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
       <Project>{1B992BD8-7F2A-4F6C-BD42-F6A7A05C487C}</Project>

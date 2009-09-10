@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTWpf.Modules.Resource", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTWpf.Modules.Roles", "PTWpf.Modules.Roles\PTWpf.Modules.Roles.csproj", "{0CF47C62-D61F-4475-BB7B-4F684AC38EE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTWpf.Modules.Statusbar", "PTWpf.Modules.Statusbar\PTWpf.Modules.Statusbar.csproj", "{B7910F3E-E3C9-4824-859D-FD607460DF07}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OutlookStyle.Infrastructure", "OutlookStyle.Infrastructure", "{73344172-DD2A-4A32-98EB-F10C2D2FAC59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookStyle.Infrastructure", "OutlookStyleApp\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj", "{DB87085E-921C-4E3C-B5A7-83A56C36A29F}"
@@ -34,6 +32,38 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Csla", "Csla", "{A93BEBF1-D5D2-4F75-8DF7-50619D477A56}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectTrackercs", "ProjectTrackercs", "{A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTracker.Library", "ProjectTrackercs\ProjectTracker.Library\ProjectTracker.Library.csproj", "{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTracker.DalLinq", "ProjectTrackercs\ProjectTracker.DalLinq\ProjectTracker.DalLinq.csproj", "{472C9544-67A7-4C3A-9F5D-704889289AE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTracker.DalEf", "ProjectTrackercs\ProjectTracker.DalEf\ProjectTracker.DalEf.csproj", "{90EA85E8-B0F9-453E-A4C8-837939211C44}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WcfHost", "ProjectTrackercs\www\WcfHost", "{718FB154-77F2-46CA-966B-925D07717671}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/WcfHost"
+		Debug.AspNetCompiler.PhysicalPath = "ProjectTrackercs\www\WcfHost\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WcfHost\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/WcfHost"
+		Release.AspNetCompiler.PhysicalPath = "ProjectTrackercs\www\WcfHost\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\WcfHost\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2083"
+	EndProjectSection
+EndProject
+Project("{4F174C21-8C12-11D0-8340-0000F80270F8}") = "PTData", "ProjectTrackercs\PTData\PTData.dbp", "{C442AAF2-9F9A-4B1D-A37C-1C795A532397}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -64,14 +94,16 @@ Global
 		SccProjectTopLevelParentUniqueName6 = PTWpf.Shell.sln
 		SccProjectName6 = PTWpf.Modules.Roles
 		SccLocalPath6 = PTWpf.Modules.Roles
-		SccProjectUniqueName7 = PTWpf.Modules.Statusbar\\PTWpf.Modules.Statusbar.csproj
+		SccProjectUniqueName7 = OutlookStyleApp\\OutlookStyle.Infrastructure\\OutlookStyle.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName7 = PTWpf.Shell.sln
-		SccProjectName7 = PTWpf.Modules.Statusbar
-		SccLocalPath7 = PTWpf.Modules.Statusbar
-		SccProjectUniqueName8 = OutlookStyleApp\\OutlookStyle.Infrastructure\\OutlookStyle.Infrastructure.csproj
+		SccProjectName7 = OutlookStyleApp/OutlookStyle.Infrastructure
+		SccLocalPath7 = OutlookStyleApp\\OutlookStyle.Infrastructure
+		SccWebProject8 = true
+		SccProjectUniqueName8 = ProjectTrackercs\\www\\WcfHost
 		SccProjectTopLevelParentUniqueName8 = PTWpf.Shell.sln
-		SccProjectName8 = OutlookStyleApp/OutlookStyle.Infrastructure
-		SccLocalPath8 = OutlookStyleApp\\OutlookStyle.Infrastructure
+		SccLocalPath8 = .
+		SccProjectFilePathRelativizedFromConnection8 = ProjectTrackercs\\www\\WcfHost\\
+		SccProjectEnlistmentChoice8 = 2
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,12 +147,6 @@ Global
 		{0CF47C62-D61F-4475-BB7B-4F684AC38EE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0CF47C62-D61F-4475-BB7B-4F684AC38EE8}.Testing|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF47C62-D61F-4475-BB7B-4F684AC38EE8}.Testing|Any CPU.Build.0 = Release|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{B7910F3E-E3C9-4824-859D-FD607460DF07}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -151,6 +177,30 @@ Global
 		{9DA591ED-C570-47AC-8E5D-35B039E07973}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DA591ED-C570-47AC-8E5D-35B039E07973}.Testing|Any CPU.ActiveCfg = Testing|Any CPU
 		{9DA591ED-C570-47AC-8E5D-35B039E07973}.Testing|Any CPU.Build.0 = Testing|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{472C9544-67A7-4C3A-9F5D-704889289AE9}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{90EA85E8-B0F9-453E-A4C8-837939211C44}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Testing|Any CPU.ActiveCfg = Debug|Any CPU
+		{718FB154-77F2-46CA-966B-925D07717671}.Testing|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,11 +211,15 @@ Global
 		{FA40DD96-3CE6-4640-89E9-E36B325AFD4A} = {18E13E26-5886-4D96-A2E6-4FED0B7B04B0}
 		{D6D2999E-8F83-4631-A2A2-54AC087077B2} = {18E13E26-5886-4D96-A2E6-4FED0B7B04B0}
 		{0CF47C62-D61F-4475-BB7B-4F684AC38EE8} = {18E13E26-5886-4D96-A2E6-4FED0B7B04B0}
-		{B7910F3E-E3C9-4824-859D-FD607460DF07} = {18E13E26-5886-4D96-A2E6-4FED0B7B04B0}
 		{DB87085E-921C-4E3C-B5A7-83A56C36A29F} = {73344172-DD2A-4A32-98EB-F10C2D2FAC59}
 		{400B1EF2-0E14-4038-88C4-B3796D6E392E} = {13224173-F5FC-4769-8465-85A73AF55090}
 		{1B992BD8-7F2A-4F6C-BD42-F6A7A05C487C} = {13224173-F5FC-4769-8465-85A73AF55090}
 		{AAD9A70B-4B70-4066-B3E2-847B7D3641EC} = {13224173-F5FC-4769-8465-85A73AF55090}
 		{9DA591ED-C570-47AC-8E5D-35B039E07973} = {A93BEBF1-D5D2-4F75-8DF7-50619D477A56}
+		{366FD3E8-E0AA-40CF-99ED-BB2966E30C96} = {A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}
+		{472C9544-67A7-4C3A-9F5D-704889289AE9} = {A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}
+		{90EA85E8-B0F9-453E-A4C8-837939211C44} = {A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}
+		{718FB154-77F2-46CA-966B-925D07717671} = {A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}
+		{C442AAF2-9F9A-4B1D-A37C-1C795A532397} = {A36F4B96-0F50-48E4-9B30-DF6DA0A65A42}
 	EndGlobalSection
 EndGlobal

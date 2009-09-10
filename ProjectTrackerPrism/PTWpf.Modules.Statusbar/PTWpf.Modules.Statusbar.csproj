@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PrismV2\LIB\Desktop\Unity\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -95,15 +99,15 @@
       <Project>{DB87085E-921C-4E3C-B5A7-83A56C36A29F}</Project>
       <Name>OutlookStyle.Infrastructure %28OutlookStyle.Infrastructure\OutlookStyle.Infrastructure%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
+    <ProjectReference Include="..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
       <Project>{1B992BD8-7F2A-4F6C-BD42-F6A7A05C487C}</Project>
       <Name>Composite.Presentation.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\PrismV2\CAL\Desktop\Composite.UnityExtensions\Composite.UnityExtensions.Desktop.csproj">
+    <ProjectReference Include="..\PrismV2\CAL\Desktop\Composite.UnityExtensions\Composite.UnityExtensions.Desktop.csproj">
       <Project>{AAD9A70B-4B70-4066-B3E2-847B7D3641EC}</Project>
       <Name>Composite.UnityExtensions.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\PrismV2\CAL\Desktop\Composite\Composite.Desktop.csproj">
+    <ProjectReference Include="..\PrismV2\CAL\Desktop\Composite\Composite.Desktop.csproj">
       <Project>{400B1EF2-0E14-4038-88C4-B3796D6E392E}</Project>
       <Name>Composite.Desktop</Name>
     </ProjectReference>

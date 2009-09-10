@@ -27,7 +27,7 @@ namespace PTWpf.Modules.Security
         // The references to these viewmodels will be filled when the app is initialized for the first time. 
         private StatusbarViewModel _loginViewModel;
 
-        public LoginUseCase(
+        public StatusbarUseCase(
             // Get the ViewToRegionBinder that the baseclass needs
             IViewToRegionBinder viewtoToRegionBinder
             , IRegionManager regionManager

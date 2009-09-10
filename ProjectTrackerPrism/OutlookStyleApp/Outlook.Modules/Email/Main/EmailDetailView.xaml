@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Outlook.Modules.Email.EmailDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0">From: </TextBlock><TextBlock Text="{Binding Path=RegionContext.Value.From}"  Grid.Column="1" Grid.Row="0"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" >To:</TextBlock><TextBlock Text="{Binding Path=RegionContext.Value.To}"  Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" >Subject:</TextBlock><TextBlock Text="{Binding Path=RegionContext.Value.Subject}"  Grid.Column="1" Grid.Row="2"/>
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Path=RegionContext.Value.Body}"  ></TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

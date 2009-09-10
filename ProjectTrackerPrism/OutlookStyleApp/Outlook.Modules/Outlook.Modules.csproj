@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Outlook.Modules</RootNamespace>
+    <AssemblyName>Outlook.Modules</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PrismV2\LIB\Desktop\CommonServiceLocation\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Calendar\CalendarMainView.xaml.cs">
+      <DependentUpon>CalendarMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\CalendarMainViewModel.cs" />
+    <Compile Include="Calendar\CalendarMainUseCase.cs" />
+    <Compile Include="Calendar\CalendarModule.cs" />
+    <Compile Include="Calendar\CalendarSidebarGadget.xaml.cs">
+      <DependentUpon>CalendarSidebarGadget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Calendar\CalendarSideBarGadgetViewModel.cs" />
+    <Compile Include="Email\Main\EmailDetailView.xaml.cs">
+      <DependentUpon>EmailDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email\Main\EmailDetailViewModel.cs" />
+    <Compile Include="Email\Main\EmailToolBarViewModel.cs" />
+    <Compile Include="Email\Main\EmailMainUseCase.cs" />
+    <Compile Include="Email\Main\EmailMainView.xaml.cs">
+      <DependentUpon>EmailMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email\Main\EmailMainViewModel.cs" />
+    <Compile Include="Email\EmailModule.cs" />
+    <Compile Include="Email\Main\EmailToolBar.xaml.cs">
+      <DependentUpon>EmailToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email\NewEmail\NewEmailUseCase.cs" />
+    <Compile Include="Email\NewEmail\NewEmailToolBar.xaml.cs">
+      <DependentUpon>NewEmailToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email\NewEmail\NewEmailToolBarViewModel.cs" />
+    <Compile Include="Email\NewEmail\NewEmailView.xaml.cs">
+      <DependentUpon>NewEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Email\NewEmail\NewEmailViewModel.cs" />
+    <Compile Include="Exchange\ExchangeModule.cs" />
+    <Compile Include="Exchange\ExchangeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Calendar\CalendarMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Calendar\CalendarSidebarGadget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\Main\EmailDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\Main\EmailMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\Main\EmailToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\NewEmail\NewEmailToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Email\NewEmail\NewEmailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
+      <Project>{1B992BD8-7F2A-4F6C-BD42-F6A7A05C487C}</Project>
+      <Name>Composite.Presentation.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite.UnityExtensions\Composite.UnityExtensions.Desktop.csproj">
+      <Project>{AAD9A70B-4B70-4066-B3E2-847B7D3641EC}</Project>
+      <Name>Composite.UnityExtensions.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite\Composite.Desktop.csproj">
+      <Project>{400B1EF2-0E14-4038-88C4-B3796D6E392E}</Project>
+      <Name>Composite.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj">
+      <Project>{DB87085E-921C-4E3C-B5A7-83A56C36A29F}</Project>
+      <Name>OutlookStyle.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

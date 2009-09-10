@@ -1,0 +1,7 @@
+﻿<UserControl x:Class="Outlook.Modules.Email.NewEmail.NewEmailToolBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Orientation="Horizontal">
+        <Button Margin="2px" Command="{Binding SendEmailCommand.Value}" >Send</Button>
+    </StackPanel>
+</UserControl>

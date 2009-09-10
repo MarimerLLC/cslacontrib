@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="PTWpf.Modules.Resource.ResourceEditView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:csla="clr-namespace:Csla.Wpf;assembly=Csla"  
+    xmlns:Library="clr-namespace:PTWpf.Library;assembly=PTWpf.Library">
+  <UserControl.Resources>
+    <csla:IdentityConverter x:Key="IdentityConverter" />
+    <Library:VisibilityConverter x:Key="VisibilityConverter" />
+  </UserControl.Resources>
+  <Grid>
+    <Grid.Resources>
+      <DataTemplate x:Key="lbTemplate">
+        <Grid>
+          <StackPanel Orientation="Horizontal">
+            <Button Style="{StaticResource LinkButton}" 
+                    Margin="0" Width="200"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.OpenProjectCommand}"
+                    CommandParameter="{Binding Path=ProjectId}"
+                    Content="{Binding Path=ProjectName}" 
+                    Foreground="Blue" />
+            <TextBlock Text="{Binding Assigned}" 
+                       Width="100" />
+            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.RoleList}" 
+                      DisplayMemberPath="Value"
+                      SelectedValuePath="Key"
+                      SelectedValue="{Binding Role}" 
+                      IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ProjectResourceStatus.CanEditObject}"
+                      Width="150" />
+            <Button HorizontalAlignment="Left" 
+                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ProjectResourceStatus.CanEditObject, Converter={StaticResource VisibilityConverter}}"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.DeleteCommand}" 
+                    CommandParameter="{Binding}" 
+                    Content="Unassign"/>
+                    </StackPanel>
+        </Grid>
+      </DataTemplate>
+    </Grid.Resources>
+
+    <csla:Authorizer Name="AuthPanel">
+      <StackPanel FlowDirection="LeftToRight" Margin="0 0 20 0">
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Style="{StaticResource HeaderTextBlock}">Resource</TextBlock>
+          <csla:BusyAnimation Name="Busy" Height="20" Width="20" Margin="5"
+              IsRunning="{Binding Path=ProjectResource.IsBusy, Mode=OneWay}" />
+        </StackPanel>
+        <TextBlock>Id:</TextBlock>
+        <TextBlock Text="{Binding ProjectResource, Path=ProjectResource.Id, Mode=OneWay}"/>
+        <TextBlock>First name:</TextBlock>
+        <TextBox Text="{Binding Path=ProjectResource.FirstName, Converter={StaticResource IdentityConverter}, ValidatesOnDataErrors=True}"
+                 HorizontalAlignment="Stretch"/>
+        <TextBlock>Last name:</TextBlock>
+        <TextBox Text="{Binding Path=ProjectResource.LastName, Converter={StaticResource IdentityConverter}, ValidatesOnDataErrors=True}"
+                 HorizontalAlignment="Stretch"/>
+        <TextBlock>Assigned to:</TextBlock>
+        <ListBox Name="ProjectListBox" 
+                 ItemsSource="{Binding Path=ProjectResource.Assignments}" 
+                 ItemTemplate="{StaticResource lbTemplate}" />
+        <StackPanel Orientation="Horizontal">
+          <Button 
+              Command="{Binding SaveCommand}"
+              HorizontalAlignment="Left" IsDefault="True">Save</Button>
+          <Button 
+              Command="{Binding UndoCommand}" 
+              HorizontalAlignment="Left" IsCancel="True">Cancel</Button>
+          <Button Command="{Binding AssignCommand}"
+                  HorizontalAlignment="Left">Assign to project</Button>
+          <CheckBox IsEnabled="False" IsChecked="{Binding Path=ProjectResourceStatus.CanEditObject}">CanEditObject</CheckBox>
+          <CheckBox IsEnabled="False" IsChecked="{Binding Path=ProjectResourceStatus.IsSavable, Mode=OneWay}">IsSavable</CheckBox>
+          <CheckBox IsEnabled="False" IsChecked="{Binding Path=ProjectResourceStatus.IsValid, Mode=OneWay}">IsValid</CheckBox>
+          <CheckBox IsEnabled="False" IsChecked="{Binding Path=ProjectResourceStatus.IsDirty, Mode=OneWay}">IsDirty</CheckBox>
+          <CheckBox IsEnabled="False" IsChecked="{Binding Path=ProjectResourceStatus.IsNew, Mode=OneWay}">IsNew</CheckBox>
+        </StackPanel>
+      </StackPanel>
+    </csla:Authorizer>
+  </Grid>
+</UserControl>

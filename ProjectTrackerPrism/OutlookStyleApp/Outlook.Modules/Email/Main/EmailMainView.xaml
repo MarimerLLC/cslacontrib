@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Outlook.Modules.Email.EmailMainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Regions="clr-namespace:Microsoft.Practices.Composite.Presentation.Regions;assembly=Microsoft.Practices.Composite.Presentation"
+    >
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Width="100px" Text="From"/>
+            <TextBlock Width="100px" Text="To"/>
+            <TextBlock Text="Subject"/>
+        </StackPanel>
+        <ListBox ItemsSource="{Binding Inbox}" SelectedItem="{Binding Path=SelectedEmail.Value, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Width="100px" Text="{Binding From}"/>
+                        <TextBlock Width="100px" Text="{Binding To}"/>
+                        <TextBlock Text="{Binding Subject}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ContentControl Regions:RegionManager.RegionName="EmailDetailRegion" Regions:RegionManager.RegionContext="{Binding SelectedEmail.Value}"/>
+    </StackPanel>
+</UserControl>

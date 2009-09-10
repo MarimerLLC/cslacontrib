@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookStyleApp", "OutlookStyleApp\OutlookStyleApp.csproj", "{03B84517-4F42-4DDC-8DB1-9BF18B64A256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookStyle.Infrastructure", "OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj", "{DB87085E-921C-4E3C-B5A7-83A56C36A29F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookStyleAppTests", "OutlookStyle.Infrastructure.Test\OutlookStyleAppTests.csproj", "{C6A93EAE-7326-4ABB-A700-769B7D33CDC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{03A4B331-2D35-452A-9B55-94A3FA19811F}"
+	ProjectSection(SolutionItems) = preProject
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+		OutlookStyleApp.vsmdi = OutlookStyleApp.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Outlook.Modules", "Outlook.Modules\Outlook.Modules.csproj", "{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = OutlookStyleApp.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03B84517-4F42-4DDC-8DB1-9BF18B64A256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B84517-4F42-4DDC-8DB1-9BF18B64A256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B84517-4F42-4DDC-8DB1-9BF18B64A256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B84517-4F42-4DDC-8DB1-9BF18B64A256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB87085E-921C-4E3C-B5A7-83A56C36A29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6A93EAE-7326-4ABB-A700-769B7D33CDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6A93EAE-7326-4ABB-A700-769B7D33CDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6A93EAE-7326-4ABB-A700-769B7D33CDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6A93EAE-7326-4ABB-A700-769B7D33CDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3AF0CA-0AB3-4800-9779-5479A2DC9814}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

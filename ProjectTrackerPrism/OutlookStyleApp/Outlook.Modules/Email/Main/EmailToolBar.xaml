@@ -1,0 +1,9 @@
+﻿<UserControl x:Class="Outlook.Modules.Email.EmailToolBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel Orientation="Horizontal">
+        <Button Margin="2px" Command="{Binding NewEmailCommand.Value}" >New</Button>
+        <Button Margin="2px" Command="{Binding ReplyCommand.Value}">Reply</Button>
+        <Button Margin="2px" Command="{Binding ReplyToAllCommand.Value}"> Reply to All</Button>
+    </StackPanel>
+</UserControl>

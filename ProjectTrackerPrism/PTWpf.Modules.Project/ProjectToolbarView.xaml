@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="PTWpf.Modules.Project.ProjectToolbarView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="clr-namespace:Microsoft.Practices.Composite.Presentation.Commands;assembly=Microsoft.Practices.Composite.Presentation">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="2px" 
+                    Command="{Binding AddNewProjectCommand}"
+                    Content="Add new"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

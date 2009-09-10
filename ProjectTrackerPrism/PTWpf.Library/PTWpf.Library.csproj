@@ -100,10 +100,6 @@
       <Project>{400B1EF2-0E14-4038-88C4-B3796D6E392E}</Project>
       <Name>Composite.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ProjectTracker.Library\ProjectTracker.Library.csproj">
-      <Project>{366FD3E8-E0AA-40CF-99ED-BB2966E30C96}</Project>
-      <Name>ProjectTracker.Library</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OutlookStyleApp\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj">
       <Project>{DB87085E-921C-4E3C-B5A7-83A56C36A29F}</Project>
       <Name>OutlookStyle.Infrastructure %28OutlookStyle.Infrastructure\OutlookStyle.Infrastructure%29</Name>

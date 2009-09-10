@@ -98,15 +98,15 @@
     <Compile Include="ModelVisualization\VisualizingRegion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite.Presentation\Composite.Presentation.Desktop.csproj">
       <Project>{1B992BD8-7F2A-4F6C-BD42-F6A7A05C487C}</Project>
       <Name>Composite.Presentation.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\PrismV2\CAL\Desktop\Composite.UnityExtensions\Composite.UnityExtensions.Desktop.csproj">
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite.UnityExtensions\Composite.UnityExtensions.Desktop.csproj">
       <Project>{AAD9A70B-4B70-4066-B3E2-847B7D3641EC}</Project>
       <Name>Composite.UnityExtensions.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\PrismV2\CAL\Desktop\Composite\Composite.Desktop.csproj">
+    <ProjectReference Include="..\..\PrismV2\CAL\Desktop\Composite\Composite.Desktop.csproj">
       <Project>{400B1EF2-0E14-4038-88C4-B3796D6E392E}</Project>
       <Name>Composite.Desktop</Name>
     </ProjectReference>

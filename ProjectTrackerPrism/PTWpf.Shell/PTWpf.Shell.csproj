@@ -14,6 +14,10 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -148,26 +152,6 @@
     <ProjectReference Include="..\OutlookStyleApp\OutlookStyle.Infrastructure\OutlookStyle.Infrastructure.csproj">
       <Project>{DB87085E-921C-4E3C-B5A7-83A56C36A29F}</Project>
       <Name>OutlookStyle.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PTWpf.Library\PTWpf.Library.csproj">
-      <Project>{442F3C68-2D57-4828-A19C-1CD7A9F1BDE8}</Project>
-      <Name>PTWpf.Library</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PTWpf.Modules.Login\PTWpf.Modules.Login.csproj">
-      <Project>{D0EBB4E9-69C6-42C2-BCCE-9850EC14B435}</Project>
-      <Name>PTWpf.Modules.Login</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PTWpf.Modules.Roles\PTWpf.Modules.Roles.csproj">
-      <Project>{0CF47C62-D61F-4475-BB7B-4F684AC38EE8}</Project>
-      <Name>PTWpf.Modules.Roles</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PTWpf.Modules.Project\PTWpf.Modules.Project.csproj">
-      <Project>{FA40DD96-3CE6-4640-89E9-E36B325AFD4A}</Project>
-      <Name>PTWpf.Modules.Project</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PTWpf.Modules.Resource\PTWpf.Modules.Resource.csproj">
-      <Project>{D6D2999E-8F83-4631-A2A2-54AC087077B2}</Project>
-      <Name>PTWpf.Modules.Resource</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

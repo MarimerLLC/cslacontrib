@@ -37,7 +37,7 @@
       this.testRootBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.nameTextBox = new System.Windows.Forms.TextBox();
       this.salaryTextBox = new System.Windows.Forms.TextBox();
-      this.errorWarnInfoProvider1 = new Csla.Windows.ErrorWarnInfoProvider(this.components);
+      this.errorWarnInfoProvider1 = new MyCsla.Windows.ErrorWarnInfoProvider(this.components);
       this.button1 = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.bindableRadioButtons2 = new MyCsla.Windows.BindableRadioButtons();
@@ -372,7 +372,7 @@
     private System.Windows.Forms.TextBox address1TextBox;
     private System.Windows.Forms.TextBox nameTextBox;
     private System.Windows.Forms.TextBox salaryTextBox;
-    private Csla.Windows.ErrorWarnInfoProvider errorWarnInfoProvider1;
+    private MyCsla.Windows.ErrorWarnInfoProvider errorWarnInfoProvider1;
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.ComboBox comboBox1;

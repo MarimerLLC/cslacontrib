@@ -53,7 +53,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Csla.Windows
+namespace MyCsla.Windows
 {
     /// <summary>
     /// Windows Forms extender control that automatically
@@ -63,7 +63,7 @@ namespace Csla.Windows
     /// </summary>
     [DesignerCategory("")]
     [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
-  public partial class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize 
+    public partial class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider
     {
         #region internal variables
 
@@ -301,26 +301,45 @@ namespace Csla.Windows
             set
             {
 
-                if (value != null && base.DataSource != value) {
-                    BindingSource bs1 = base.DataSource as BindingSource;
-                    if (bs1 != null) {
+                if (base.DataSource != value)
+                {
+                    var bs1 = base.DataSource as BindingSource;
+                    if (bs1 != null)
+                    {
                         bs1.DataSourceChanged -= DataSource_DataSourceChanged;
                         bs1.CurrentItemChanged -= DataSource_CurrentItemChanged;
-                    }
-
-                    base.DataSource = value;
-
-                    BindingSource bs = value as BindingSource;
-                    if (bs != null) {
-                        bs.DataSourceChanged += DataSource_DataSourceChanged;
-                        bs.CurrentItemChanged += DataSource_CurrentItemChanged;
-                        if (bs.DataSource != null) {
-                            Initialize(ContainerControl.Controls);
-                            ProcessAllControls();
-                        }
+                        //bs1.BindingComplete -= DataSource_BindingComplete;
                     }
                 }
+
+
+                base.DataSource = value;
+
+                var bs = value as BindingSource;
+                if (bs != null) {
+                    bs.DataSourceChanged += DataSource_DataSourceChanged;
+                    bs.CurrentItemChanged += DataSource_CurrentItemChanged;
+                    //bs.BindingComplete += DataSource_BindingComplete;
+
+                    //if (bs.DataSource != null) {
+                    //   UpdateBindingsAndProcessAllControls();
+                    //}
+                }
             }
+        }
+
+        private void DataSource_BindingComplete(object sender, BindingCompleteEventArgs e)
+        {
+            UpdateBindingsAndProcessAllControls();
+        }
+
+        private void UpdateBindingsAndProcessAllControls()
+        {
+            if (ContainerControl != null)
+            {
+                Initialize(ContainerControl.Controls);
+            }
+            ProcessAllControls();
         }
 
 
@@ -579,7 +598,7 @@ namespace Csla.Windows
 
         void DataSource_DataSourceChanged(object sender, EventArgs e) {
             Initialize(ContainerControl.Controls);
-            ProcessAllControls();
+            //ProcessAllControls();
         }
 
         private void ProcessAllControls() {
@@ -798,18 +817,8 @@ namespace Csla.Windows
             errorProviderWarn.UpdateBinding();
         }
 
-        #endregion
 
-        #region Forms Designer initialization
-        void ISupportInitialize.EndInit()
-        {
-          if (ContainerControl != null)
-          {
-            Initialize(ContainerControl.Controls);
-          }
-        }
 
         #endregion
-
     }
 }

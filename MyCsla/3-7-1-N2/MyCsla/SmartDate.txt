@@ -1,0 +1,45 @@
+SmartDate
+=========
+
+Accepted separators (extra)
+---------------------------
+" " (space)
+"-"
+"."
+","
+"/"
+"\"
+NB - Different separators can be mixed. When using separators, the zero isn't needed (on days and months < 10).
+
+
+Accepted no separator (extra)
+-----------------------------
+- 4 digits exactly (current year)
+- 8 digits exactly
+NB - Order of day / month / year according to CurrentInfo.ShortDatePattern.
+
+
+Abbreviated forms (extra)
+-------------------------
+NNsNN where
+- s is the any of the above separators
+- NN refers to day number and month number according to CurrentInfo.ShortDatePattern
+
+Standard relative dates
+"." - today
+"-" - yesterday
+"+" - tomorrow
+
+
+Relative dates (extra)
+----------------------
+"<" - one month ago
+">" - one month from now
+"+nnn..." - nnn... days from now
+"-nnn..." - nnn... day ago
+"<nn" - nn day of last month
+">nn" - nn day of next month
+"nn" - nearest nn day (if we are the 25th, 5 is the 5th of next month)
+
+
+Standard .NET framework TryParse magic still works.

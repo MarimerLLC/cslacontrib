@@ -10,7 +10,7 @@ namespace MyCslaSample.Entities
   public class TestRoot : MyCsla.BusinessBase<TestRoot>
   {
     #region Business Methods
-
+    // Using custom overload for RegisterProperty that uses PropertyInfoFactory
     public static readonly PropertyInfo<string> NameProperty = RegisterProperty("Name", "Name", string.Empty);
     public string Name
     {

@@ -1,4 +1,4 @@
-namespace Csla.Windows
+namespace MyCsla.Windows
 {
     partial class ErrorWarnInfoProvider
     {

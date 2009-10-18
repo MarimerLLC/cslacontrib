@@ -37,7 +37,7 @@
       this.testRootBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.nameTextBox = new System.Windows.Forms.TextBox();
       this.salaryTextBox = new System.Windows.Forms.TextBox();
-      this.errorWarnInfoProvider1 = new Csla.Windows.ErrorWarnInfoProvider(this.components);
+      this.errorWarnInfoProvider1 = new MyCsla.Windows.ErrorWarnInfoProvider(this.components);
       this.button1 = new System.Windows.Forms.Button();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
       this.bindableRadioButtons2 = new MyCsla.Windows.BindableRadioButtons();
@@ -46,7 +46,7 @@
       this.label1 = new System.Windows.Forms.Label();
       this.bindableRadioButtons1 = new MyCsla.Windows.BindableRadioButtons();
       this.comboBox1 = new System.Windows.Forms.ComboBox();
-      this.smartDateTimePicker1 = new Csla.Windows.SmartDateTimePicker();
+      this.smartDateTimePicker1 = new MyCsla.Windows.SmartDateTimePicker();
       this.label3 = new System.Windows.Forms.Label();
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.textBox2 = new System.Windows.Forms.TextBox();
@@ -372,7 +372,7 @@
     private System.Windows.Forms.TextBox address1TextBox;
     private System.Windows.Forms.TextBox nameTextBox;
     private System.Windows.Forms.TextBox salaryTextBox;
-    private Csla.Windows.ErrorWarnInfoProvider errorWarnInfoProvider1;
+    private MyCsla.Windows.ErrorWarnInfoProvider errorWarnInfoProvider1;
     private System.Windows.Forms.Button button1;
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.ComboBox comboBox1;
@@ -380,7 +380,7 @@
     private System.Windows.Forms.Label label1;
     private MyCsla.Windows.BindableRadioButtons bindableRadioButtons1;
     private System.Windows.Forms.Label label3;
-    private Csla.Windows.SmartDateTimePicker smartDateTimePicker1;
+    private MyCsla.Windows.SmartDateTimePicker smartDateTimePicker1;
     private System.Windows.Forms.BindingSource customerTypeNameValueListBindingSource;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.TextBox textBox2;

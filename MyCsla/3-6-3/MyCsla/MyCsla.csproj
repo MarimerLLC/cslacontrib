@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="Csla, Version=3.7.1.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Csla\cslacs-3.7.1-090806\cslacs\Csla\bin\Debug\Csla.dll</HintPath>
+      <HintPath>..\..\..\..\Csla\cslacs-3.7.1-090928\cslacs\Csla\bin\Debug\Csla.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

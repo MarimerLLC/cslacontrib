@@ -52,7 +52,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
  
-namespace Csla.Windows
+namespace MyCsla.Windows
 {
     /// <summary>
     /// Windows Forms extender control that automatically

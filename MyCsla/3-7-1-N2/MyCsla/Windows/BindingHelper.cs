@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Csla.Windows
+namespace MyCsla.Windows
 {
     public static class BindingHelper
     {

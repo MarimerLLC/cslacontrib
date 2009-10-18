@@ -3,8 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Threading;
+using Csla;
 
-namespace Csla.Windows
+namespace MyCsla.Windows
 {
     /// <summary>
     /// Custom DateTime picker that understands additional commands.

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Csla.Core;
 using Csla.Windows;
+using MyCsla.Windows;
 using MyCslaSample.Entities;
 
 namespace MyCslaSample

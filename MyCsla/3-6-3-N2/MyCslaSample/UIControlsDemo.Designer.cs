@@ -46,7 +46,7 @@
       this.label1 = new System.Windows.Forms.Label();
       this.bindableRadioButtons1 = new MyCsla.Windows.BindableRadioButtons();
       this.comboBox1 = new System.Windows.Forms.ComboBox();
-      this.smartDateTimePicker1 = new Csla.Windows.SmartDateTimePicker();
+      this.smartDateTimePicker1 = new MyCsla.Windows.SmartDateTimePicker();
       this.label3 = new System.Windows.Forms.Label();
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.textBox2 = new System.Windows.Forms.TextBox();
@@ -380,7 +380,7 @@
     private System.Windows.Forms.Label label1;
     private MyCsla.Windows.BindableRadioButtons bindableRadioButtons1;
     private System.Windows.Forms.Label label3;
-    private Csla.Windows.SmartDateTimePicker smartDateTimePicker1;
+    private MyCsla.Windows.SmartDateTimePicker smartDateTimePicker1;
     private System.Windows.Forms.BindingSource customerTypeNameValueListBindingSource;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.TextBox textBox2;

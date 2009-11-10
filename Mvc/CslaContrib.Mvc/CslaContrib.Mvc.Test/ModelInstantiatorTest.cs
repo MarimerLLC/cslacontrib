@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CslaContrib.Mvc.Test
@@ -140,7 +137,7 @@ namespace CslaContrib.Mvc.Test
         [TestMethod]
         public void CanAddFactoryMapPattern()
         {
-            ModelInstantiator.MapPatterns.Add(new PatternMap{ ActionPattern = "f*", MethodPatterns = new[] {"New*"}});
+            FactoryMethodLocator.PatternMappings.Add(new PatternMap { ActionPattern = "f*", MethodPatterns = new[] { "New*" } });
 
             var action = "FooFoo";
             var type = typeof(MyBO);
@@ -155,7 +152,7 @@ namespace CslaContrib.Mvc.Test
         [TestMethod]
         public void CanAddFactoryMapPatternNewPattern()
         {
-            ModelInstantiator.MapPatterns.Add(new PatternMap { ActionPattern = "f*", MethodPatterns = new[] { "Get.*ByX" } });
+            FactoryMethodLocator.PatternMappings.Add(new PatternMap { ActionPattern = "f*", MethodPatterns = new[] { "Get.*ByX" } });
 
             var action = "FooFoo";
             var type = typeof(MyBO);

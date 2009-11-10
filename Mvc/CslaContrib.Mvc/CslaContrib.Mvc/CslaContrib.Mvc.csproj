@@ -72,7 +72,9 @@
     <Compile Include="CslaBindModelBinder.cs" />
     <Compile Include="DefaultCslaModelBinder.cs" />
     <Compile Include="DictionaryHelpers.cs" />
+    <Compile Include="FactoryMethodLocator.cs" />
     <Compile Include="IBindingService.cs" />
+    <Compile Include="IFactoryMethodLocator.cs" />
     <Compile Include="IModelInstantiator.cs" />
     <Compile Include="AuthorizationService.cs" />
     <Compile Include="ModelInstantiator.cs" />

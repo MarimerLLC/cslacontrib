@@ -70,6 +70,7 @@
     <Compile Include="DefaultCslaModelBinderTest.cs" />
     <Compile Include="CslaBindModelBinderTest.cs" />
     <Compile Include="ModelInstantiatorTest.cs" />
+    <Compile Include="FactoryMethodLocatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

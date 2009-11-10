@@ -220,7 +220,7 @@ namespace CslaContrib.Mvc.Test
         }
 
         [TestMethod]
-        public void Test()
+        public void ModelStateShouldBeInvalidWhenBindToPropertyRaisedException()
         {
             var ctx = GetControllerContext();
             var form = ctx.HttpContext.Request.Form;

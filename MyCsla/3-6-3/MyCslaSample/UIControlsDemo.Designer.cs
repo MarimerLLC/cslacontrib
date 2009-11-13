@@ -33,6 +33,9 @@
       System.Windows.Forms.Label nameLabel;
       System.Windows.Forms.Label salaryLabel;
       System.Windows.Forms.Label countryCodeLabel;
+      System.Windows.Forms.Label otherAddressLabel;
+      System.Windows.Forms.Label otherAddress1Label;
+      System.Windows.Forms.Label otherAddress2Label;
       this.address1TextBox = new System.Windows.Forms.TextBox();
       this.testRootBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.nameTextBox = new System.Windows.Forms.TextBox();
@@ -55,10 +58,18 @@
       this.countryCodeTextBox = new System.Windows.Forms.TextBox();
       this.button2 = new System.Windows.Forms.Button();
       this.textBox5 = new System.Windows.Forms.TextBox();
+      this.otherAddressCheckBox = new System.Windows.Forms.CheckBox();
+      this.otherAddress1TextBox = new System.Windows.Forms.TextBox();
+      this.otherAddress2TextBox = new System.Windows.Forms.TextBox();
+      this.textBox6 = new System.Windows.Forms.TextBox();
+      this.readWriteAuthorization1 = new MyCsla.Windows.ReadWriteAuthorization(this.components);
       address1Label = new System.Windows.Forms.Label();
       nameLabel = new System.Windows.Forms.Label();
       salaryLabel = new System.Windows.Forms.Label();
       countryCodeLabel = new System.Windows.Forms.Label();
+      otherAddressLabel = new System.Windows.Forms.Label();
+      otherAddress1Label = new System.Windows.Forms.Label();
+      otherAddress2Label = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.testRootBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.errorWarnInfoProvider1)).BeginInit();
       this.groupBox1.SuspendLayout();
@@ -67,6 +78,7 @@
       // 
       // address1Label
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(address1Label, false);
       address1Label.AutoSize = true;
       address1Label.Location = new System.Drawing.Point(33, 53);
       address1Label.Name = "address1Label";
@@ -76,6 +88,7 @@
       // 
       // nameLabel
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(nameLabel, false);
       nameLabel.AutoSize = true;
       nameLabel.Location = new System.Drawing.Point(33, 27);
       nameLabel.Name = "nameLabel";
@@ -85,6 +98,7 @@
       // 
       // salaryLabel
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(salaryLabel, false);
       salaryLabel.AutoSize = true;
       salaryLabel.Location = new System.Drawing.Point(33, 79);
       salaryLabel.Name = "salaryLabel";
@@ -94,6 +108,7 @@
       // 
       // countryCodeLabel
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(countryCodeLabel, false);
       countryCodeLabel.AutoSize = true;
       countryCodeLabel.Location = new System.Drawing.Point(34, 138);
       countryCodeLabel.Name = "countryCodeLabel";
@@ -101,8 +116,39 @@
       countryCodeLabel.TabIndex = 14;
       countryCodeLabel.Text = "Country Code:";
       // 
+      // otherAddressLabel
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(otherAddressLabel, false);
+      otherAddressLabel.AutoSize = true;
+      otherAddressLabel.Location = new System.Drawing.Point(29, 345);
+      otherAddressLabel.Name = "otherAddressLabel";
+      otherAddressLabel.Size = new System.Drawing.Size(77, 13);
+      otherAddressLabel.TabIndex = 18;
+      otherAddressLabel.Text = "Other Address:";
+      // 
+      // otherAddress1Label
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(otherAddress1Label, false);
+      otherAddress1Label.AutoSize = true;
+      otherAddress1Label.Location = new System.Drawing.Point(29, 373);
+      otherAddress1Label.Name = "otherAddress1Label";
+      otherAddress1Label.Size = new System.Drawing.Size(83, 13);
+      otherAddress1Label.TabIndex = 20;
+      otherAddress1Label.Text = "Other Address1:";
+      // 
+      // otherAddress2Label
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(otherAddress2Label, false);
+      otherAddress2Label.AutoSize = true;
+      otherAddress2Label.Location = new System.Drawing.Point(29, 399);
+      otherAddress2Label.Name = "otherAddress2Label";
+      otherAddress2Label.Size = new System.Drawing.Size(83, 13);
+      otherAddress2Label.TabIndex = 22;
+      otherAddress2Label.Text = "Other Address2:";
+      // 
       // address1TextBox
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.address1TextBox, false);
       this.address1TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "Address1", true));
       this.address1TextBox.Location = new System.Drawing.Point(93, 50);
       this.address1TextBox.Name = "address1TextBox";
@@ -116,6 +162,7 @@
       // 
       // nameTextBox
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.nameTextBox, false);
       this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "Name", true));
       this.nameTextBox.Location = new System.Drawing.Point(93, 24);
       this.nameTextBox.Name = "nameTextBox";
@@ -124,6 +171,7 @@
       // 
       // salaryTextBox
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.salaryTextBox, false);
       this.salaryTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "Salary", true));
       this.salaryTextBox.Location = new System.Drawing.Point(93, 76);
       this.salaryTextBox.Name = "salaryTextBox";
@@ -140,15 +188,18 @@
       // 
       // button1
       // 
-      this.button1.Location = new System.Drawing.Point(36, 340);
+      this.readWriteAuthorization1.SetApplyAuthorization(this.button1, false);
+      this.button1.Location = new System.Drawing.Point(36, 446);
       this.button1.Name = "button1";
       this.button1.Size = new System.Drawing.Size(75, 23);
       this.button1.TabIndex = 11;
       this.button1.Text = "Save";
       this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
       // 
       // groupBox1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.groupBox1, false);
       this.groupBox1.Controls.Add(this.bindableRadioButtons2);
       this.groupBox1.Controls.Add(this.label2);
       this.groupBox1.Controls.Add(this.label1);
@@ -163,6 +214,7 @@
       // 
       // bindableRadioButtons2
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.bindableRadioButtons2, false);
       this.bindableRadioButtons2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
       this.bindableRadioButtons2.ButtonCount = 2;
       this.bindableRadioButtons2.ButtonPadding = new System.Drawing.Point(0, 0);
@@ -185,6 +237,7 @@
       // 
       // label2
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.label2, false);
       this.label2.AutoSize = true;
       this.label2.Location = new System.Drawing.Point(15, 64);
       this.label2.Name = "label2";
@@ -194,6 +247,7 @@
       // 
       // label1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.label1, false);
       this.label1.AutoSize = true;
       this.label1.Location = new System.Drawing.Point(15, 22);
       this.label1.Name = "label1";
@@ -203,6 +257,7 @@
       // 
       // bindableRadioButtons1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.bindableRadioButtons1, false);
       this.bindableRadioButtons1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
       this.bindableRadioButtons1.ButtonCount = 3;
       this.bindableRadioButtons1.ButtonPadding = new System.Drawing.Point(0, 0);
@@ -220,6 +275,7 @@
       // 
       // comboBox1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.comboBox1, false);
       this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.testRootBindingSource, "CustomerType", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
       this.comboBox1.DataSource = this.customerTypeNameValueListBindingSource;
       this.comboBox1.DisplayMember = "Value";
@@ -233,8 +289,8 @@
       // 
       // smartDateTimePicker1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.smartDateTimePicker1, false);
       this.smartDateTimePicker1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "Founded", true));
-      this.smartDateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
       this.smartDateTimePicker1.Location = new System.Drawing.Point(93, 104);
       this.smartDateTimePicker1.Name = "smartDateTimePicker1";
       this.smartDateTimePicker1.Size = new System.Drawing.Size(200, 20);
@@ -244,6 +300,7 @@
       // 
       // label3
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.label3, false);
       this.label3.AutoSize = true;
       this.label3.Location = new System.Drawing.Point(33, 108);
       this.label3.Name = "label3";
@@ -253,6 +310,7 @@
       // 
       // textBox1
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox1, false);
       this.textBox1.Location = new System.Drawing.Point(315, 88);
       this.textBox1.Multiline = true;
       this.textBox1.Name = "textBox1";
@@ -265,6 +323,7 @@
       // 
       // textBox2
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox2, false);
       this.textBox2.Location = new System.Drawing.Point(315, 227);
       this.textBox2.Multiline = true;
       this.textBox2.Name = "textBox2";
@@ -278,6 +337,7 @@
       // 
       // textBox3
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox3, false);
       this.textBox3.Location = new System.Drawing.Point(315, 12);
       this.textBox3.Multiline = true;
       this.textBox3.Name = "textBox3";
@@ -290,7 +350,8 @@
       // 
       // textBox4
       // 
-      this.textBox4.Location = new System.Drawing.Point(315, 340);
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox4, false);
+      this.textBox4.Location = new System.Drawing.Point(315, 446);
       this.textBox4.Multiline = true;
       this.textBox4.Name = "textBox4";
       this.textBox4.ReadOnly = true;
@@ -301,6 +362,7 @@
       // 
       // countryCodeTextBox
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.countryCodeTextBox, false);
       this.countryCodeTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "CountryCode", true));
       this.countryCodeTextBox.Location = new System.Drawing.Point(114, 135);
       this.countryCodeTextBox.Name = "countryCodeTextBox";
@@ -310,6 +372,7 @@
       // 
       // button2
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.button2, false);
       this.button2.Location = new System.Drawing.Point(160, 133);
       this.button2.Name = "button2";
       this.button2.Size = new System.Drawing.Size(31, 23);
@@ -321,6 +384,7 @@
       // 
       // textBox5
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox5, false);
       this.textBox5.Location = new System.Drawing.Point(315, 162);
       this.textBox5.Multiline = true;
       this.textBox5.Name = "textBox5";
@@ -331,11 +395,61 @@
       this.textBox5.Text = "CountryCode searc button show a generic ListSearchForm with filtering for use whe" +
           "n too many items for a combo box";
       // 
+      // otherAddressCheckBox
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.otherAddressCheckBox, false);
+      this.otherAddressCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.testRootBindingSource, "OtherAddress", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+      this.otherAddressCheckBox.Location = new System.Drawing.Point(118, 340);
+      this.otherAddressCheckBox.Name = "otherAddressCheckBox";
+      this.otherAddressCheckBox.Size = new System.Drawing.Size(104, 24);
+      this.otherAddressCheckBox.TabIndex = 19;
+      this.otherAddressCheckBox.UseVisualStyleBackColor = true;
+      // 
+      // otherAddress1TextBox
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.otherAddress1TextBox, true);
+      this.otherAddress1TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "OtherAddress1", true));
+      this.otherAddress1TextBox.Location = new System.Drawing.Point(118, 370);
+      this.otherAddress1TextBox.Name = "otherAddress1TextBox";
+      this.otherAddress1TextBox.Size = new System.Drawing.Size(175, 20);
+      this.otherAddress1TextBox.TabIndex = 21;
+      // 
+      // otherAddress2TextBox
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.otherAddress2TextBox, true);
+      this.otherAddress2TextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.testRootBindingSource, "OtherAddress2", true));
+      this.otherAddress2TextBox.Location = new System.Drawing.Point(118, 396);
+      this.otherAddress2TextBox.Name = "otherAddress2TextBox";
+      this.otherAddress2TextBox.Size = new System.Drawing.Size(175, 20);
+      this.otherAddress2TextBox.TabIndex = 23;
+      // 
+      // textBox6
+      // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this.textBox6, false);
+      this.textBox6.Location = new System.Drawing.Point(315, 340);
+      this.textBox6.Multiline = true;
+      this.textBox6.Name = "textBox6";
+      this.textBox6.ReadOnly = true;
+      this.textBox6.Size = new System.Drawing.Size(247, 88);
+      this.textBox6.TabIndex = 24;
+      this.textBox6.TabStop = false;
+      this.textBox6.Text = "Using StopIfNotCanRead rule prevents rules from executing combined with priority " +
+          "to control sequence. \r\n\r\nReadWriteAuthorization controls whether user is allowed" +
+          " to write or not.\r\n";
+      // 
       // UIControlsDemo
       // 
+      this.readWriteAuthorization1.SetApplyAuthorization(this, false);
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(573, 400);
+      this.ClientSize = new System.Drawing.Size(582, 507);
+      this.Controls.Add(this.textBox6);
+      this.Controls.Add(otherAddress2Label);
+      this.Controls.Add(this.otherAddress2TextBox);
+      this.Controls.Add(otherAddress1Label);
+      this.Controls.Add(this.otherAddress1TextBox);
+      this.Controls.Add(otherAddressLabel);
+      this.Controls.Add(this.otherAddressCheckBox);
       this.Controls.Add(this.textBox5);
       this.Controls.Add(this.button2);
       this.Controls.Add(countryCodeLabel);
@@ -356,6 +470,7 @@
       this.Controls.Add(this.salaryTextBox);
       this.Name = "UIControlsDemo";
       this.Text = "UIControlsDemo";
+      this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.UIControlsDemo_FormClosed);
       ((System.ComponentModel.ISupportInitialize)(this.testRootBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.errorWarnInfoProvider1)).EndInit();
       this.groupBox1.ResumeLayout(false);
@@ -390,5 +505,10 @@
     private System.Windows.Forms.Button button2;
     private System.Windows.Forms.TextBox countryCodeTextBox;
     private System.Windows.Forms.TextBox textBox5;
+    private System.Windows.Forms.TextBox otherAddress2TextBox;
+    private System.Windows.Forms.TextBox otherAddress1TextBox;
+    private System.Windows.Forms.CheckBox otherAddressCheckBox;
+    private System.Windows.Forms.TextBox textBox6;
+    private MyCsla.Windows.ReadWriteAuthorization readWriteAuthorization1;
   }
 }

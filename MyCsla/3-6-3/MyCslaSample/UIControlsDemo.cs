@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Text;
 using System.Linq;
 using System.Windows.Forms;
+using Csla;
 using Csla.Core;
 using Csla.Windows;
 using MyCsla.Windows;
@@ -16,7 +17,7 @@ namespace MyCslaSample
 {
   public partial class UIControlsDemo : Form
   {
-    private ISavable MyRoot { get; set; }
+    private TestRoot MyRoot { get; set; }
 
     public UIControlsDemo()
     {
@@ -48,6 +49,7 @@ namespace MyCslaSample
 
     private void testRootBindingSource_CurrentItemChanged(object sender, EventArgs e)
     {
+      readWriteAuthorization1.ResetControlAuthorization();
       button1.Enabled = ((ITrackStatus) MyRoot).IsSavable;
     }
 
@@ -68,6 +70,35 @@ namespace MyCslaSample
         {
           countryCodeTextBox.Text = (string) selectForm.SelectedKey;
         }
+      }
+    }
+
+    private void UIControlsDemo_FormClosed(object sender, FormClosedEventArgs e)
+    {
+      UnbindUI(true);
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      SaveMyRoot();
+    }
+
+    private void SaveMyRoot()
+    {
+      // assumes dataobject is valid for save, should thest for IsSavable
+
+      UnbindUI(false);
+      try
+      {
+        MyRoot = MyRoot.Save();
+      }
+      catch (DataPortalException ex)
+      {
+        // Handle exception the way you waant
+      }
+      finally
+      {
+        BindUI();
       }
     }
   }

@@ -88,6 +88,7 @@
     <Compile Include="Windows\ListSelectForm.designer.cs">
       <DependentUpon>ListSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ReadWriteAuthorization.cs" />
     <Compile Include="Windows\SmartDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>

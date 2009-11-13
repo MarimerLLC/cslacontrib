@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Csla;
 using Csla.Validation;
+using MyCsla.Validation;
 
 namespace MyCslaSample.Entities
 {
@@ -10,48 +11,72 @@ namespace MyCslaSample.Entities
   public class TestRoot : MyCsla.BusinessBase<TestRoot>
   {
     #region Business Methods
-
-    public static readonly PropertyInfo<string> NameProperty = RegisterProperty(new PropertyInfo<string>("Name", "Name", string.Empty));
+    // Using custom overload for RegisterProperty that uses PropertyInfoFactory
+    public static readonly PropertyInfo<string> NameProperty = RegisterProperty("Name", "Name", string.Empty);
     public string Name
     {
       get { return GetProperty<string>(NameProperty); }
       set { SetProperty<string>(NameProperty, value); }
     }
 
-    public static readonly PropertyInfo<string> Address1Property = RegisterProperty(new PropertyInfo<string>("Address1", "Address1", string.Empty));
+    public static readonly PropertyInfo<string> Address1Property = RegisterProperty<string>("Address1", "Address1",
+                                                                                            string.Empty);
     public string Address1
     {
       get { return GetProperty<string>(Address1Property); }
       set { SetProperty<string>(Address1Property, value); }
     }
 
-    public static readonly PropertyInfo<decimal> SalaryProperty = RegisterProperty(new PropertyInfo<decimal>("Salary", "Salary"));
+    public static readonly PropertyInfo<decimal> SalaryProperty = RegisterProperty<decimal>("Salary", "Salary");
     public decimal Salary
     {
       get { return GetProperty<decimal>(SalaryProperty); }
       set { SetProperty<decimal>(SalaryProperty, value); }
     }
 
-    public static readonly PropertyInfo<int> CustomerTypeProperty = RegisterProperty(new PropertyInfo<int>("CustomerType", "CustomerType", 1));
+    public static readonly PropertyInfo<int> CustomerTypeProperty = RegisterProperty<int>("CustomerType", "CustomerType", 1);
     public int CustomerType
     {
       get { return GetProperty<int>(CustomerTypeProperty); }
       set { SetProperty<int>(CustomerTypeProperty, value); }
     }
 
-    public static readonly PropertyInfo<SmartDate> FoundedProperty = RegisterProperty(new PropertyInfo<SmartDate>("Founded", "Founded", new SmartDate(true)));
+    public static readonly PropertyInfo<SmartDate> FoundedProperty = RegisterProperty<SmartDate>("Founded", "Founded", new SmartDate(true));
     public string Founded
     {
       get { return GetPropertyConvert<SmartDate, string>(FoundedProperty); }
       set { SetPropertyConvert<SmartDate, string>(FoundedProperty, value); }
     }
 
-    public static readonly PropertyInfo<string> CountryCodeProperty = RegisterProperty(new PropertyInfo<string>("CountryCode", "CountryCode", "US"));
+    public static readonly PropertyInfo<string> CountryCodeProperty = RegisterProperty<string>("CountryCode",
+                                                                                               "CountryCode", "US");
     public string CountryCode
     {
       get { return GetProperty<string>(CountryCodeProperty); }
       set { SetProperty<string>(CountryCodeProperty, value); }
     }
+
+    public static readonly PropertyInfo<bool> OtherAddressProperty = RegisterProperty(new PropertyInfo<bool>("OtherAddress", "Other mail address"));
+    public bool OtherAddress
+    {
+      get { return GetProperty<bool>(OtherAddressProperty); }
+      set { SetProperty<bool>(OtherAddressProperty, value); }
+    }
+
+    public static readonly PropertyInfo<string> OtherAddress1Property = RegisterProperty(new PropertyInfo<string>("OtherAddress1", "OtherAddress1"));
+    public string OtherAddress1
+    {
+      get { return GetProperty<string>(OtherAddress1Property); }
+      set { SetProperty<string>(OtherAddress1Property, value); }
+    }
+
+    public static readonly PropertyInfo<string> OtherAddress2Property = RegisterProperty(new PropertyInfo<string>("OtherAddress2", "OtherAddress2"));
+    public string OtherAddress2
+    {
+      get { return GetProperty<string>(OtherAddress2Property); }
+      set { SetProperty<string>(OtherAddress2Property, value); }
+    }
+
     #endregion
 
     #region Validation Rules
@@ -70,6 +95,18 @@ namespace MyCslaSample.Entities
                                                         Severity = RuleSeverity.Warning
                                                       });
       ValidationRules.AddRule(CommonRules.MaxValue<decimal>, new CommonRules.MaxValueRuleArgs<decimal>(SalaryProperty, 200000));
+
+      ValidationRules.AddRule(MyCommonRules.StopIfNotCanWrite, OtherAddress1Property, 0);
+      ValidationRules.AddRule(CommonRules.StringRequired, OtherAddress1Property.Name, 1);
+      ValidationRules.AddRule(CommonRules.StringMaxLength, new CommonRules.MaxLengthRuleArgs(OtherAddress1Property, 50), 2);
+
+      ValidationRules.AddRule(MyCommonRules.StopIfNotCanWrite, OtherAddress2Property, 0);
+      ValidationRules.AddRule(CommonRules.StringRequired, OtherAddress2Property, 1);
+      ValidationRules.AddRule(CommonRules.StringMaxLength, new CommonRules.MaxLengthRuleArgs(OtherAddress2Property, 50), 2);
+
+      // dependent properties 
+      ValidationRules.AddDependentProperty(OtherAddressProperty, OtherAddress1Property);
+      ValidationRules.AddDependentProperty(OtherAddressProperty, OtherAddress2Property);
     }
 
     #endregion
@@ -86,6 +123,18 @@ namespace MyCslaSample.Entities
     {
       // TODO: add authorization rules
       //AuthorizationRules.AllowEdit(typeof(TestRoot), "Role");
+    }
+
+    public override bool CanWriteProperty(string propertyName)
+    {
+      if (!base.CanWriteProperty(propertyName)) return false;
+
+      if ((propertyName == OtherAddress1Property.Name) ||
+          (propertyName == OtherAddress2Property.Name))
+      {
+        return ReadProperty(OtherAddressProperty);
+      }
+      return true; 
     }
 
     #endregion

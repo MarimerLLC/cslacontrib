@@ -1,4 +1,5 @@
 ﻿using System;
+using Csla.Core;
 using Csla.Reflection;
 using Csla.Validation;
 using MyCsla.Properties;
@@ -9,7 +10,7 @@ namespace MyCsla.Validation
   /// <summary>
   /// Add your own custom validation rules here in this class 
   /// </summary>
-  static class MyCommonRules
+  public static class MyCommonRules
   {
 
     #region IComparable Rules 
@@ -320,5 +321,102 @@ namespace MyCsla.Validation
     }
 
     #endregion
+
+    #region StopIfNotCanRead
+
+    /// <summary>
+    /// Rule indicating whether the user is authorized
+    /// to read the property value.
+    /// Will always be silent and never set rule to broken.
+    /// </summary>
+    /// <param name="target">Target object.</param>
+    /// <param name="e">Rule arguments.</param>
+    /// <returns>true</returns>
+    /// <remarks>
+    /// Combine this property with short-circuiting to
+    /// prevent evaluation of other rules in the case
+    /// that the user isn't allowed to read the value.
+    /// </remarks>
+    public static bool StopIfNotCanRead(object target, RuleArgs e)
+    {
+      bool isAuthorized = true;
+
+      var business = target as BusinessBase;
+      if (business != null && !string.IsNullOrEmpty(e.PropertyName))
+        isAuthorized = business.CanReadProperty(e.PropertyName);
+
+      if (!isAuthorized)
+      {
+        e.StopProcessing = true;
+      }
+
+      // rule should always return true but may stop execution
+      return true;
+    }
+
+    #endregion
+
+    #region StopIfNotCanWrite
+
+    /// <summary>
+    /// Rule indicating whether the user is authorized
+    /// to change the property value.
+    /// Will always be silent and never set rule to broken.
+    /// </summary>
+    /// <param name="target">Target object.</param>
+    /// <param name="e">Rule arguments.</param>
+    /// <returns>true</returns>
+    /// <remarks>
+    /// Combine this property with short-circuiting to
+    /// prevent evaluation of other rules in the case
+    /// that the user isn't allowed to change the value.
+    /// </remarks>
+    public static bool StopIfNotCanWrite(object target, RuleArgs e)
+    {
+      bool isAuthorized = true;
+
+      var business = target as BusinessBase;
+      if (business != null && !string.IsNullOrEmpty(e.PropertyName))
+        isAuthorized = business.CanWriteProperty(e.PropertyName);
+
+      if (!isAuthorized)
+      {
+        e.StopProcessing = true;
+      }
+
+      // rule should always return true (be silent) but will stop processing
+      // if user cannot modify the value.
+      return true;
+    }
+    #endregion
+
+    #region Modulus11
+
+    private static bool IsModulus11(string numberString, string vektTall)
+    {
+      try
+      {
+        // var vektTall = new int[] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
+        // var vektTall = new int[] { 3, 7, 6, 1, 8, 9, 4, 5, 2 };
+        int sum = 0, rest = 0;
+        for (var i = 0; i < numberString.Length - 1; i++)
+        {
+          sum += Convert.ToInt32(vektTall.Substring(i, 1)) * Convert.ToInt32(numberString.Substring(i, 1));
+        }
+
+        rest = 11 - (sum % 11);
+        if (rest == 10) return false;
+        if (rest == 11) rest = 0;
+
+        var chkDigit = Convert.ToInt32(numberString.Substring(numberString.Length - 1, 1));
+        return chkDigit == rest;
+      }
+      catch
+      {
+        return false;
+      }
+    }
+
+    #endregion 
   }
 }

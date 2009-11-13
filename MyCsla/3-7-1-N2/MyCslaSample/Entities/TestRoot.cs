@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Csla;
 using Csla.Validation;
+using MyCsla.Validation;
 
 namespace MyCslaSample.Entities
 {
@@ -54,6 +55,28 @@ namespace MyCslaSample.Entities
       get { return GetProperty<string>(CountryCodeProperty); }
       set { SetProperty<string>(CountryCodeProperty, value); }
     }
+
+    public static readonly PropertyInfo<bool> OtherAddressProperty = RegisterProperty(new PropertyInfo<bool>("OtherAddress", "Other mail address"));
+    public bool OtherAddress
+    {
+      get { return GetProperty<bool>(OtherAddressProperty); }
+      set { SetProperty<bool>(OtherAddressProperty, value); }
+    }
+
+    public static readonly PropertyInfo<string> OtherAddress1Property = RegisterProperty(new PropertyInfo<string>("OtherAddress1", "OtherAddress1"));
+    public string OtherAddress1
+    {
+      get { return GetProperty<string>(OtherAddress1Property); }
+      set { SetProperty<string>(OtherAddress1Property, value); }
+    }
+
+    public static readonly PropertyInfo<string> OtherAddress2Property = RegisterProperty(new PropertyInfo<string>("OtherAddress2", "OtherAddress2"));
+    public string OtherAddress2
+    {
+      get { return GetProperty<string>(OtherAddress2Property); }
+      set { SetProperty<string>(OtherAddress2Property, value); }
+    }
+
     #endregion
 
     #region Validation Rules
@@ -72,6 +95,18 @@ namespace MyCslaSample.Entities
                                                         Severity = RuleSeverity.Warning
                                                       });
       ValidationRules.AddRule(CommonRules.MaxValue<decimal>, new CommonRules.MaxValueRuleArgs<decimal>(SalaryProperty, 200000));
+
+      ValidationRules.AddRule(MyCommonRules.StopIfNotCanWrite, OtherAddress1Property, 0);
+      ValidationRules.AddRule(CommonRules.StringRequired, OtherAddress1Property.Name, 1);
+      ValidationRules.AddRule(CommonRules.StringMaxLength, new CommonRules.MaxLengthRuleArgs(OtherAddress1Property, 50), 2);
+
+      ValidationRules.AddRule(MyCommonRules.StopIfNotCanWrite, OtherAddress2Property, 0);
+      ValidationRules.AddRule(CommonRules.StringRequired, OtherAddress2Property, 1);
+      ValidationRules.AddRule(CommonRules.StringMaxLength, new CommonRules.MaxLengthRuleArgs(OtherAddress2Property, 50), 2);
+
+      // dependent properties 
+      ValidationRules.AddDependentProperty(OtherAddressProperty, OtherAddress1Property);
+      ValidationRules.AddDependentProperty(OtherAddressProperty, OtherAddress2Property);
     }
 
     #endregion
@@ -88,6 +123,18 @@ namespace MyCslaSample.Entities
     {
       // TODO: add authorization rules
       //AuthorizationRules.AllowEdit(typeof(TestRoot), "Role");
+    }
+
+    public override bool CanWriteProperty(string propertyName)
+    {
+      if (!base.CanWriteProperty(propertyName)) return false;
+
+      if ((propertyName == OtherAddress1Property.Name) ||
+          (propertyName == OtherAddress2Property.Name))
+      {
+        return ReadProperty(OtherAddressProperty);
+      }
+      return true; 
     }
 
     #endregion

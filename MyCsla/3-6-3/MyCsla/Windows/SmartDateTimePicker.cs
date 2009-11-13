@@ -325,7 +325,7 @@ namespace MyCsla.Windows
     {
       if (_mySmartDate.IsEmpty || _mySmartDate.Date < base.MinDate || _mySmartDate.Date > base.MaxDate)
       {
-        base.Value = base.MinDate;
+        base.Text = string.Empty;
       }
       else
       {

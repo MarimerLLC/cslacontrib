@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
+    <Compile Include="AddressList.cs" />
     <Compile Include="BusinessCore.cs" />
     <Compile Include="FieldDataUsingOriginalValue.cs" />
     <Compile Include="FieldDataUsingOriginalValueViaDuplicate.cs" />

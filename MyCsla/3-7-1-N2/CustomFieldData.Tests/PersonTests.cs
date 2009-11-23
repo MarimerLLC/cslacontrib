@@ -70,5 +70,30 @@ namespace CustomFieldData.Tests
 			person = person.Save();
 			Assert.IsFalse(person.IsDirty);
 		}
+
+    [TestMethod]
+    public void PersonIsDirtyWhenChildObjectIsChanged()
+    {
+      var person = Person.Fetch(2047);
+      Assert.IsFalse(person.IsDirty);
+      Assert.IsFalse(person.IsSelfDirty);
+      var originalValue = person.Addresses[0].Address1;
+      person.Addresses[0].Address1 = "this is a new value";
+      Assert.IsTrue(person.IsDirty);
+      Assert.IsFalse(person.IsSelfDirty);
+      person.Addresses[0].Address1 = originalValue;
+      Assert.IsFalse(person.IsDirty);
+      Assert.IsFalse(person.IsSelfDirty);
+    }
+
+    [TestMethod]
+    public void PersonIsDirtyWhenDeleted()
+    {
+      var person = Person.Fetch(2047);
+			
+      Assert.IsFalse(person.IsDirty);
+      person.Delete();
+      Assert.IsTrue(person.IsDirty);
+    }
 	}
 }

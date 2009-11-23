@@ -13,6 +13,13 @@ namespace CustomFieldData
 	  private static PropertyInfo<string> lastNameProperty = 
       RegisterProperty<string>("LastName", "Friendly lastname", String.Empty);
 
+    public static readonly PropertyInfo<AddressList> AddressesProperty = RegisterProperty(new PropertyInfo<AddressList>("Addresses", "Addresses"));
+    public AddressList Addresses
+    {
+      get { return GetProperty<AddressList>(AddressesProperty); }
+      set { SetProperty<AddressList>(AddressesProperty, value); }
+    }
+
 		private Person()
 			: base()
 		{
@@ -32,6 +39,7 @@ namespace CustomFieldData
 				this.Age = 22;
 				this.FirstName = "Joe";
 				this.LastName = "Smith";
+			  this.Addresses = AddressList.GetAddressList(null);
 			}
 		}
 

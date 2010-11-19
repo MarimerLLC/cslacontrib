@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib", "CslaContrib\CslaContrib.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric", "CslaContrib.ObjectCaching.AppFabric\CslaContrib.ObjectCaching.AppFabric.csproj", "{A2D36728-10A2-4FEE-B23D-A41D6034510D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.UnitTests", "CslaContrib.UnitTests\CslaContrib.UnitTests.csproj", "{0EC70BEB-CF8E-44DC-BC96-5E0827072854}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2C79026-B542-4EC0-B2B0-5BC285D9AF3C}"
+	ProjectSection(SolutionItems) = preProject
+		CslaContrib.vsmdi = CslaContrib.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.UnitTests", "CslaContrib.ObjectCaching.AppFabric.UnitTests\CslaContrib.ObjectCaching.AppFabric.UnitTests.csproj", "{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CslaContrib.ObjectCaching.AppFabric.UnitTests\\CslaContrib.ObjectCaching.AppFabric.UnitTests.csproj
+		SccProjectName1 = CslaContrib.ObjectCaching.AppFabric.UnitTests
+		SccLocalPath1 = CslaContrib.ObjectCaching.AppFabric.UnitTests
+		SccProjectUniqueName2 = CslaContrib.ObjectCaching.AppFabric\\CslaContrib.ObjectCaching.AppFabric.csproj
+		SccProjectName2 = CslaContrib.ObjectCaching.AppFabric
+		SccLocalPath2 = CslaContrib.ObjectCaching.AppFabric
+		SccProjectUniqueName3 = CslaContrib.UnitTests\\CslaContrib.UnitTests.csproj
+		SccProjectName3 = CslaContrib.UnitTests
+		SccLocalPath3 = CslaContrib.UnitTests
+		SccProjectUniqueName4 = CslaContrib\\CslaContrib.csproj
+		SccProjectName4 = CslaContrib
+		SccLocalPath4 = CslaContrib
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = CslaContrib.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2D36728-10A2-4FEE-B23D-A41D6034510D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D36728-10A2-4FEE-B23D-A41D6034510D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D36728-10A2-4FEE-B23D-A41D6034510D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D36728-10A2-4FEE-B23D-A41D6034510D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EC70BEB-CF8E-44DC-BC96-5E0827072854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EC70BEB-CF8E-44DC-BC96-5E0827072854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EC70BEB-CF8E-44DC-BC96-5E0827072854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EC70BEB-CF8E-44DC-BC96-5E0827072854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

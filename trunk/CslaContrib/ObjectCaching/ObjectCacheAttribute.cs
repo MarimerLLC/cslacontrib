@@ -27,7 +27,7 @@ namespace CslaContrib.ObjectCaching
         /// scope and/or criteria handling if desired.
         /// </summary>
         /// <example>
-        /// [Caching(Scope = CacheScope.Group, CacheByCriteria = true)]
+        /// [ObjectCache(Scope = CacheScope.Group, CacheByCriteria = true)]
         /// </example>
         public ObjectCacheAttribute()
         {

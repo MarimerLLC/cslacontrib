@@ -58,6 +58,8 @@
     <Compile Include="ObjectCaching\TestCachedInfo.cs" />
     <Compile Include="ObjectCaching\TestCachedUserInfo.cs" />
     <Compile Include="ObjectCaching\TestCriteria.cs" />
+    <Compile Include="ObjectCaching\TestEdit.cs" />
+    <Compile Include="ObjectCaching\TestGroupEdit.cs" />
     <Compile Include="ObjectCaching\TestInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

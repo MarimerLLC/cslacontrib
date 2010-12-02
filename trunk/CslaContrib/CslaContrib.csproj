@@ -53,6 +53,7 @@
     <Compile Include="ObjectCaching\ICacheProvider.cs" />
     <Compile Include="ObjectCaching\InMemoryCacheProvider.cs" />
     <Compile Include="ObjectCaching\ObjectCacheAttribute.cs" />
+    <Compile Include="ObjectCaching\ObjectCacheEvictionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -35,18 +35,27 @@ namespace CslaContrib.ObjectCaching
 
         public Csla.Server.DataPortalResult Create(Type objectType, object criteria, Csla.Server.DataPortalContext context)
         {
+            //evict cache items based on ObjectCacheEvictionAttribute
+            RemoveCacheItems(objectType);
+
             proxy = GetDataPortalProxy();
             return proxy.Create(objectType, criteria, context);
         }
 
         public Csla.Server.DataPortalResult Update(object obj, Csla.Server.DataPortalContext context)
         {
+            //evict cache items based on ObjectCacheEvictionAttribute
+            RemoveCacheItems(obj.GetType());
+
             proxy = GetDataPortalProxy();
             return proxy.Update(obj, context);
         }
 
         public Csla.Server.DataPortalResult Delete(Type objectType, object criteria, Csla.Server.DataPortalContext context)
         {
+            //evict cache items based on ObjectCacheEvictionAttribute
+            RemoveCacheItems(objectType);
+
             proxy = GetDataPortalProxy();
             return proxy.Delete(objectType, criteria, context);
         }
@@ -62,26 +71,12 @@ namespace CslaContrib.ObjectCaching
                 var scope = cachingAttribute.Scope;
                 var cacheByCriteria = cachingAttribute.CacheByCriteria;
                 var expiration = cachingAttribute.Expiration;
-
-                //determine entry key
-                var key = string.Format("{0}.{1}", objectType.Namespace, objectType.Name);
-                if (scope == CacheScope.Group)
-                {
-                    var group = Csla.ApplicationContext.ClientContext[CacheGroup];
-                    if (group == null) throw new ApplicationException("ClientContext group required for Group scope data caching");
-                    key = string.Format("{0}::{1}", key, group);
-                }
-                else if (scope == CacheScope.User)
-                {
-                    var group = Csla.ApplicationContext.ClientContext[CacheGroup];
-                    if (group == null) group = string.Empty; //allow user scope with or without a specified grouping
-                    var user = Csla.ApplicationContext.User;
-                    if (!user.Identity.IsAuthenticated) throw new ApplicationException("Authenticated user required for User scope data caching");
-                    key = string.Format("{0}::{1}::{2}", key, group, user.Identity.Name);
-                }
+                
+                //get key
+                var key = GetCacheItemKey(objectType, cachingAttribute);
 
                 //include criteria hash if needed
-                if (cacheByCriteria)
+                if (cachingAttribute.CacheByCriteria)
                     key = string.Format("{0}::{1}", key, criteria.GetHashCode());
 
                 var data = cacheProvider.Get(key);
@@ -110,6 +105,47 @@ namespace CslaContrib.ObjectCaching
             }
         }
 
+        private static string GetCacheItemKey(Type objectType, ObjectCacheAttribute cachingAttribute)
+        {
+            //determine entry key
+            var key = string.Format("{0}.{1}", objectType.Namespace, objectType.Name);
+            if (cachingAttribute.Scope == CacheScope.Group)
+            {
+                var group = Csla.ApplicationContext.ClientContext[CacheGroup];
+                if (group == null) throw new ApplicationException("ClientContext group required for Group scope data caching");
+                key = string.Format("{0}::{1}", key, group);
+            }
+            else if (cachingAttribute.Scope == CacheScope.User)
+            {
+                var group = Csla.ApplicationContext.ClientContext[CacheGroup];
+                if (group == null) group = string.Empty; //allow user scope with or without a specified grouping
+                var user = Csla.ApplicationContext.User;
+                if (!user.Identity.IsAuthenticated) throw new ApplicationException("Authenticated user required for User scope data caching");
+                key = string.Format("{0}::{1}::{2}", key, group, user.Identity.Name);
+            }
+
+            return key;
+        }
+
+        private static void RemoveCacheItems(Type objectType)
+        {
+            var cachingAttribute = ObjectCacheEvictionAttribute.GetObjectCacheEvictionAttribute(objectType);
+            var cacheProvider = CacheManager.GetCacheProvider();
+
+            if (cachingAttribute != null && cacheProvider != null)
+            {
+                //evict cache items for listed types
+                foreach (var type in cachingAttribute.CachedTypes)
+                {
+                    var group = Csla.ApplicationContext.ClientContext[CacheGroup];
+                    if (group == null) group = string.Empty; //allow group eviction with or without a specified grouping
+                    var key = string.Format("{0}.{1}", type.Namespace, type.Name);
+                    if (cachingAttribute.Scope == CacheScope.Group && !string.IsNullOrEmpty(group.ToString())) key = string.Format("{0}::{1}", key, group);
+                    cacheProvider.RemoveAllByKeyPrefix(key);
+                }
+            }
+        }
+
         #endregion
 
         #region DataPortal Proxy
@@ -117,7 +153,7 @@ namespace CslaContrib.ObjectCaching
         private static Type _proxyType;
 
         /* The cache data portal proxy can be inserted in front of the default data portal proxy using a chain of command pattern configued like this example where WCF
-         * if the default proxy. If a specific data portal is not configured, the default data portal is used. The CslaDataPortalDefaultProxy entry is optional.
+         * is the default proxy. If a specific data portal is not configured, the default data portal is used. The CslaDataPortalDefaultProxy entry is optional.
          * 
          *  <appSettings>
          *    <add key="CslaDataPortalProxy" value="CslaContrib.ObjectCaching.CacheDataPortal, CslaContrib" />

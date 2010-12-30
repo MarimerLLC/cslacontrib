@@ -16,25 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.UnitTests", "CslaContrib.ObjectCaching.AppFabric.UnitTests\CslaContrib.ObjectCaching.AppFabric.UnitTests.csproj", "{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows", "CslaContrib.Windows\CslaContrib.Windows.csproj", "{0E0AA042-151E-4D59-A26D-4D262660E491}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF", "CslaContrib.MEF\CslaContrib.MEF.csproj", "{06189757-FBB9-4D00-8B9E-7BEBB543E66C}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CslaContrib.ObjectCaching.AppFabric.UnitTests\\CslaContrib.ObjectCaching.AppFabric.UnitTests.csproj
-		SccProjectName1 = CslaContrib.ObjectCaching.AppFabric.UnitTests
-		SccLocalPath1 = CslaContrib.ObjectCaching.AppFabric.UnitTests
-		SccProjectUniqueName2 = CslaContrib.ObjectCaching.AppFabric\\CslaContrib.ObjectCaching.AppFabric.csproj
-		SccProjectName2 = CslaContrib.ObjectCaching.AppFabric
-		SccLocalPath2 = CslaContrib.ObjectCaching.AppFabric
-		SccProjectUniqueName3 = CslaContrib.UnitTests\\CslaContrib.UnitTests.csproj
-		SccProjectName3 = CslaContrib.UnitTests
-		SccLocalPath3 = CslaContrib.UnitTests
-		SccProjectUniqueName4 = CslaContrib\\CslaContrib.csproj
-		SccProjectName4 = CslaContrib
-		SccLocalPath4 = CslaContrib
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CslaContrib.vsmdi
 	EndGlobalSection
@@ -59,6 +45,14 @@ Global
 		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C29D6A8B-20B5-457B-AAE6-FFC8CCD0589A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

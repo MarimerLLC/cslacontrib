@@ -5,17 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{267A47BA-E5E2-489F-B1D7-B0D663AF316B}</ProjectGuid>
+    <ProjectGuid>{0E0AA042-151E-4D59-A26D-4D262660E491}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib</RootNamespace>
-    <AssemblyName>CslaContrib</AssemblyName>
+    <RootNamespace>CslaContrib.Windows</RootNamespace>
+    <AssemblyName>CslaContrib.Windows</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,38 +35,34 @@
     <Reference Include="Csla, Version=4.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <HintPath>..\Dependencies\Csla\Net\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="Csla.Windows, Version=4.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\Csla\Net\Csla.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ObjectCaching\CacheDataPortal.cs" />
-    <Compile Include="ObjectCaching\CacheManager.cs" />
-    <Compile Include="ObjectCaching\ICacheProvider.cs" />
-    <Compile Include="ObjectCaching\InMemoryCacheProvider.cs" />
-    <Compile Include="ObjectCaching\ObjectCacheAttribute.cs" />
-    <Compile Include="ObjectCaching\ObjectCacheEvictionAttribute.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="ErrorWarnInfoProvider.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Rules\CommonRules.cs" />
+    <Compile Include="ErrorWarnInfoProvider.designer.cs">
+      <DependentUpon>ErrorWarnInfoProvider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmartDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ObjectCaching\Readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="ErrorWarnInfoProvider.resx">
+      <DependentUpon>ErrorWarnInfoProvider.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ErrorWarnInfoProvider.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

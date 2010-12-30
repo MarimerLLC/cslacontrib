@@ -11,7 +11,7 @@ namespace CslaContrib.MEF
   /// </summary>
   public static class Ioc
   {
-    private static readonly object TypeLock = new object();
+    private static readonly object _syncRoot = new object();
 
     //Container
     private static CompositionContainer _container;
@@ -26,7 +26,7 @@ namespace CslaContrib.MEF
         //create and configure container if one does not yet exist
         if (_container == null)
         {
-          lock (TypeLock)
+          lock (_syncRoot)
           {
             if (_container == null)
             {
@@ -34,7 +34,6 @@ namespace CslaContrib.MEF
 
               //create container
               var catalog = new AggregateCatalog();
-
               catalog.Catalogs.Add(new DirectoryCatalog("."));
               catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
               _container = new CompositionContainer(catalog);
@@ -54,7 +53,7 @@ namespace CslaContrib.MEF
     /// <param name="container">The container.</param>
     public static void InjectContainer(CompositionContainer container)
     {
-      lock (TypeLock)
+      lock (_syncRoot)
       {
         _container = container;
       }

@@ -91,9 +91,9 @@ namespace MEFSample.Business
       return DataPortal.Create<MyRoot>();
     }
 
-    public static MyRoot GetRoot()
+    public static MyRoot GetRoot(int id)
     {
-      return DataPortal.Fetch<MyRoot>(null);
+      return DataPortal.Fetch<MyRoot>(id);
     }
 
     private MyRoot() { }
@@ -115,9 +115,9 @@ namespace MEFSample.Business
     #endregion
 
     #region Data Access
-    public void DataPortal_Fetch(object criteria)
+    public void DataPortal_Fetch(int criteria)
     {
-      var data = MyRootDataAccess.Get();
+      var data = MyRootDataAccess.Get(criteria);
       using (BypassPropertyChecks)
       {
         Id = data.Id;

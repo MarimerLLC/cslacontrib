@@ -11,9 +11,9 @@ namespace MEFSample.Respository.DAL
   [Export(typeof(IRootDataAccess))]
   public class MyRootDataAccess : IRootDataAccess
   {
-    public RootData Get()
+    public RootData Get(int id)
     {
-      return new RootData() { Id = 1, Name = "Jonny" };
+      return new RootData() { Id = id, Name = "Ole Olsen" };
     }
   }
 }

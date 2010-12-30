@@ -13,7 +13,7 @@ namespace MEFSample.UI
 
     private void MyRootForm_Load(object sender, System.EventArgs e)
     {
-      rootBindingSource.Rebind(MyRoot.GetRoot());
+      rootBindingSource.Rebind(MyRoot.GetRoot(5));
     }
   }
 }

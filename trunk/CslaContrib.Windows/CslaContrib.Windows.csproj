@@ -51,6 +51,9 @@
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </Compile>
     <Compile Include="BindingSourceExtensions.cs" />
+    <Compile Include="CslaComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ErrorWarnInfoProvider.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BindableRadioButtons.bmp" />
+    <Content Include="CslaComboBox.bmp" />
     <Content Include="ErrorWarnInfoProvider.bmp" />
     <Content Include="ListSelectForm.bmp" />
     <None Include="Resources\status_anim.gif" />

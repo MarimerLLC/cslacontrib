@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
@@ -268,6 +269,62 @@ namespace CslaContrib.Rules.CommonRules
       if (string.IsNullOrEmpty(value)) return;
 
       var newValue = value.ToLower();
+      context.AddOutValue(PrimaryProperty, newValue);
+    }
+  }
+
+  /// <summary>
+  /// Removes leading, trailing and duplicate spaces.
+  /// </summary>
+  public class RemoveExtraSpace : BusinessRule
+  {
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RemoveExtraSpace"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">The primary property.</param>
+      public RemoveExtraSpace(IPropertyInfo primaryProperty)
+      : base(primaryProperty)
+    {
+      InputProperties = new List<IPropertyInfo>() { primaryProperty };
+    }
+
+    protected override void Execute(RuleContext context)
+    {
+      var value = (string)context.InputPropertyValues[PrimaryProperty];
+      if (string.IsNullOrEmpty(value)) return;
+
+      var newValue = value.Trim(' ');
+      var r = new Regex(@" +");
+      newValue = r.Replace(newValue, @" ");
+      context.AddOutValue(PrimaryProperty, newValue);
+    }
+  }
+
+  /// <summary>
+  /// Removes leading, trailing, duplicate spaces and all white space characters.
+  /// </summary>
+  public class RemoveWhiteSpace : BusinessRule
+  {
+
+    /// <summary>
+      /// Initializes a new instance of the <see cref="RemoveWhiteSpace"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">The primary property.</param>
+      public RemoveWhiteSpace(IPropertyInfo primaryProperty)
+      : base(primaryProperty)
+    {
+      InputProperties = new List<IPropertyInfo>() { primaryProperty };
+    }
+
+    protected override void Execute(RuleContext context)
+    {
+      var value = (string)context.InputPropertyValues[PrimaryProperty];
+      if (string.IsNullOrEmpty(value)) return;
+
+      var newValue = value.Trim();
+      var r = new Regex(@"\s+");
+      newValue = r.Replace(newValue, @" ");
       context.AddOutValue(PrimaryProperty, newValue);
     }
   }

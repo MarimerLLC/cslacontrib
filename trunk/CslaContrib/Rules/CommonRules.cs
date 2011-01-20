@@ -155,39 +155,79 @@ namespace CslaContrib.Rules.CommonRules
   #endregion
 
   #region Flow Control Rules
-  #region StopIfNotCanWrite
 
   /// <summary>
-  /// ShortCircuit rule processing if user is not allowed to edit field.
+  /// Rule indicating whether the user is authorized
+  /// to change the property value.
+  /// Will always be silent and never set rule to broken.
   /// </summary>
+  /// <remarks>
+  /// Combine this Rule with short-circuiting to
+  /// prevent evaluation of other rules in the case
+  /// that the user isn't allowed to change the value.
+  /// </remarks>
   public class StopIfNotCanWrite : BusinessRule
   {
     public StopIfNotCanWrite(IPropertyInfo property) : base(property) { }
 
-    /// <summary>
-    /// Rule indicating whether the user is authorized
-    /// to change the property value.
-    /// Will always be silent and never set rule to broken.
-    /// </summary>
-    /// <param name="context">Rule context object.</param>
-    /// <remarks>
-    /// Combine this Rule with short-circuiting to
-    /// prevent evaluation of other rules in the case
-    /// that the user isn't allowed to change the value.
-    /// </remarks>
     protected override void Execute(RuleContext context)
     {
-      var business = context.Target as BusinessBase;
-      if (business == null) return;
-
-      if (!business.CanWriteProperty(context.Rule.PrimaryProperty))
+      var target = (Csla.Core.BusinessBase)context.Target;
+      if (!target.CanWriteProperty(context.Rule.PrimaryProperty))
       {
         context.AddSuccessResult(true);
       }
     }
   }
 
-  #endregion
+  /// <summary>
+  /// Rule indicating whether the user is authorized
+  /// to change the property value.
+  /// Will always be silent and never set rule to broken.
+  /// </summary>
+  /// <remarks>
+  /// Combine this Rule with short-circuiting to
+  /// prevent evaluation of other rules in the case
+  /// that the user isn't allowed to change the value.
+  /// </remarks>
+  public class StopIfNotIsNew : BusinessRule
+  {
+    public StopIfNotIsNew(IPropertyInfo property) : base(property) { }
+
+    protected override void Execute(RuleContext context)
+    {
+      var target = (Csla.Core.ITrackStatus)context.Target;
+      if (!target.IsNew)
+      {
+        context.AddSuccessResult(true);
+      }
+    }
+  }
+
+  /// <summary>
+  /// Rule indicating whether the user is authorized
+  /// to change the property value.
+  /// Will always be silent and never set rule to broken.
+  /// </summary>
+  /// <remarks>
+  /// Combine this Rule with short-circuiting to
+  /// prevent evaluation of other rules in the case
+  /// that the user isn't allowed to change the value.
+  /// </remarks>  
+  public class StopIfNotIsExisting : BusinessRule
+  {
+    public StopIfNotIsExisting(IPropertyInfo property) : base(property) { }
+
+    protected override void Execute(RuleContext context)
+    {
+      var target = (Csla.Core.ITrackStatus)context.Target;
+      if (target.IsNew)
+      {
+        context.AddSuccessResult(true);
+      }
+    }
+  }
+
   #endregion
 
   #region Transformation Rules

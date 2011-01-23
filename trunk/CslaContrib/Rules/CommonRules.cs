@@ -27,6 +27,7 @@ namespace CslaContrib.Rules.CommonRules
     {
       CompareTo = compareToProperty;
       InputProperties = new List<IPropertyInfo>() { primaryProperty, compareToProperty };
+      RuleUri.AddQueryParameter(compareToProperty.Name, null);
     }
 
     /// <summary>
@@ -62,6 +63,7 @@ namespace CslaContrib.Rules.CommonRules
     {
       CompareTo = compareToProperty;
       InputProperties = new List<IPropertyInfo>() { primaryProperty, compareToProperty };
+      RuleUri.AddQueryParameter(compareToProperty.Name, null);
     }
 
     /// <summary>
@@ -97,6 +99,7 @@ namespace CslaContrib.Rules.CommonRules
     {
       CompareTo = compareToProperty;
       InputProperties = new List<IPropertyInfo>() { primaryProperty, compareToProperty };
+      RuleUri.AddQueryParameter(compareToProperty.Name, null);
     }
 
     /// <summary>
@@ -133,6 +136,7 @@ namespace CslaContrib.Rules.CommonRules
     {
       CompareTo = compareToProperty;
       InputProperties = new List<IPropertyInfo>() { primaryProperty, compareToProperty };
+      RuleUri.AddQueryParameter(compareToProperty.Name, null);
     }
 
     /// <summary>
@@ -156,20 +160,22 @@ namespace CslaContrib.Rules.CommonRules
 
   #region Flow Control Rules
 
+
   /// <summary>
-  /// Rule indicating whether the user is authorized
-  /// to change the property value.
-  /// Will always be silent and never set rule to broken.
+  /// ShortCircuit rule processing if user is not allowed to edit field.
   /// </summary>
-  /// <remarks>
-  /// Combine this Rule with short-circuiting to
-  /// prevent evaluation of other rules in the case
-  /// that the user isn't allowed to change the value.
-  /// </remarks>
   public class StopIfNotCanWrite : BusinessRule
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StopIfNotCanWrite"/> class.
+    /// </summary>
+    /// <param name="property">The property.</param>
     public StopIfNotCanWrite(IPropertyInfo property) : base(property) { }
 
+    /// <summary>
+    /// Executes the rule in specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
     {
       var target = (Csla.Core.BusinessBase)context.Target;
@@ -181,19 +187,20 @@ namespace CslaContrib.Rules.CommonRules
   }
 
   /// <summary>
-  /// Rule indicating whether the user is authorized
-  /// to change the property value.
-  /// Will always be silent and never set rule to broken.
+  /// ShortCircuit rule processing if target is not a new object
   /// </summary>
-  /// <remarks>
-  /// Combine this Rule with short-circuiting to
-  /// prevent evaluation of other rules in the case
-  /// that the user isn't allowed to change the value.
-  /// </remarks>
   public class StopIfNotIsNew : BusinessRule
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StopIfNotIsNew"/> class.
+    /// </summary>
+    /// <param name="property">The property.</param>
     public StopIfNotIsNew(IPropertyInfo property) : base(property) { }
 
+    /// <summary>
+    /// Executes the rule in specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
     {
       var target = (Csla.Core.ITrackStatus)context.Target;
@@ -205,19 +212,20 @@ namespace CslaContrib.Rules.CommonRules
   }
 
   /// <summary>
-  /// Rule indicating whether the user is authorized
-  /// to change the property value.
-  /// Will always be silent and never set rule to broken.
+  /// ShortCircuit rule processing if target is not an exisiting object.
   /// </summary>
-  /// <remarks>
-  /// Combine this Rule with short-circuiting to
-  /// prevent evaluation of other rules in the case
-  /// that the user isn't allowed to change the value.
-  /// </remarks>  
   public class StopIfNotIsExisting : BusinessRule
   {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StopIfNotIsExisting"/> class.
+    /// </summary>
+    /// <param name="property">The property.</param>
     public StopIfNotIsExisting(IPropertyInfo property) : base(property) { }
 
+    /// <summary>
+    /// Executes the rule in specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
     {
       var target = (Csla.Core.ITrackStatus)context.Target;
@@ -323,7 +331,7 @@ namespace CslaContrib.Rules.CommonRules
     /// Initializes a new instance of the <see cref="RemoveExtraSpace"/> class.
     /// </summary>
     /// <param name="primaryProperty">The primary property.</param>
-      public RemoveExtraSpace(IPropertyInfo primaryProperty)
+    public RemoveExtraSpace(IPropertyInfo primaryProperty)
       : base(primaryProperty)
     {
       InputProperties = new List<IPropertyInfo>() { primaryProperty };
@@ -348,10 +356,10 @@ namespace CslaContrib.Rules.CommonRules
   {
 
     /// <summary>
-      /// Initializes a new instance of the <see cref="RemoveWhiteSpace"/> class.
+    /// Initializes a new instance of the <see cref="RemoveWhiteSpace"/> class.
     /// </summary>
     /// <param name="primaryProperty">The primary property.</param>
-      public RemoveWhiteSpace(IPropertyInfo primaryProperty)
+    public RemoveWhiteSpace(IPropertyInfo primaryProperty)
       : base(primaryProperty)
     {
       InputProperties = new List<IPropertyInfo>() { primaryProperty };

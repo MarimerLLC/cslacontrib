@@ -14,7 +14,8 @@ namespace MyCsla.Windows
     /// same way as a ComboBox
     /// </summary>
     [LookupBindingProperties("DataSource", "DisplayMember", "ValueMember", "SelectedValue")]
-    //[ComplexBindingProperties("DataSource", "DataMember")] 
+    [DesignerCategory("")]
+    [ToolboxItem(true), ToolboxBitmap(typeof(BindableRadioButtons), "BindableRadioButtons.bmp")]
     public partial class BindableRadioButtons : UserControl
     {
         private readonly Hashtable _controlTable = new Hashtable();
@@ -56,7 +57,7 @@ namespace MyCsla.Windows
         /// Indicates the list that this control will use to get its items
         /// </summary>
         [Category("Data")]
-        [AttributeProvider(typeof (IListSource))]
+        [AttributeProvider(typeof(IListSource))]
         //[TypeConverter("System.Windows.Forms.Design.DataSourceConverter, System.Design, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [Description("Indicates the list that this control will use to get its items")]
         [RefreshProperties(RefreshProperties.Repaint)]
@@ -78,7 +79,7 @@ namespace MyCsla.Windows
         [Category("Data")]
         [Editor(
             "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-            , typeof (UITypeEditor)), DefaultValue("")]
+            , typeof(UITypeEditor)), DefaultValue("")]
         public string DisplayMember { get; set; }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace MyCsla.Windows
         /// </summary>
         [Editor(
             "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-            , typeof (UITypeEditor)), DefaultValue("")]
+            , typeof(UITypeEditor)), DefaultValue("")]
         [Category("Data")]
         public string ValueMember { get; set; }
 
@@ -192,14 +193,14 @@ namespace MyCsla.Windows
             // Databind
             if (_dataSource != null)
             {
-                var bs = (BindingSource) _dataSource;
+                var bs = (BindingSource)_dataSource;
                 //object boundEntity = bs.DataSource;
 
                 // If this is design-time & count=0, render default values instead
                 var skipClear = false;
                 if (bs.Count == 0)
                 {
-                    if (GetService(typeof (IDesignerHost)) != null)
+                    if (GetService(typeof(IDesignerHost)) != null)
                     {
                         skipClear = true;
                     }
@@ -262,12 +263,12 @@ namespace MyCsla.Windows
         {
             if (_dataSource is BindingSource)
             {
-                var bs = (BindingSource) _dataSource;
+                var bs = (BindingSource)_dataSource;
                 bs.DataSourceChanged += BindingSource_DataSourceChanged;
                 if (bs.DataSource is BindingSource)
                 {
                     // If datasource's datasource change
-                    ((BindingSource) bs.DataSource).DataSourceChanged += BindingSource_DataSourceChanged;
+                    ((BindingSource)bs.DataSource).DataSourceChanged += BindingSource_DataSourceChanged;
                 }
             }
         }
@@ -284,7 +285,7 @@ namespace MyCsla.Windows
             var value = _controlTable[key];
             if (value != null)
             {
-                var rb = (RadioButton) value;
+                var rb = (RadioButton)value;
                 rb.Checked = true;
                 return true;
             }
@@ -309,7 +310,7 @@ namespace MyCsla.Windows
         /// <returns>A hashtable of the buttons</returns>
         public Hashtable GetButtonTable()
         {
-            return (Hashtable) _controlTable.Clone(); // Shallow copy
+            return (Hashtable)_controlTable.Clone(); // Shallow copy
         }
 
         /// <summary>
@@ -338,10 +339,10 @@ namespace MyCsla.Windows
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            var rSender = (RadioButton) sender;
+            var rSender = (RadioButton)sender;
             if (rSender.Checked)
             {
-                _selectedValue = ((RadioButton) sender).Tag;
+                _selectedValue = ((RadioButton)sender).Tag;
                 NotifyDatabindings();
                 DoSelectedIndexChanged();
             }

@@ -77,6 +77,9 @@
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\BindingHelper.cs" />
+    <Compile Include="Windows\CslaComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Windows\ErrorWarnInfoProvider.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,7 +122,11 @@
     <Content Include="Resources\progressbar_green.gif" />
     <Content Include="Resources\progresscircle_black.gif" />
     <Content Include="Resources\status_anim.gif" />
-    <Content Include="Windows\ErrorWarnInfoProvider.bmp" />
+    <Content Include="Windows\CslaComboBox.bmp" />
+    <EmbeddedResource Include="Windows\BindableRadioButtons.bmp" />
+    <EmbeddedResource Include="Windows\ErrorWarnInfoProvider.bmp" />
+    <EmbeddedResource Include="Windows\ListSelectForm.bmp" />
+    <EmbeddedResource Include="Windows\SmartDateTimePicker.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\Settings.settings">

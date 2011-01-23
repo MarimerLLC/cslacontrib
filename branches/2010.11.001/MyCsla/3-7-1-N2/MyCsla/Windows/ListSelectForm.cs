@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using Csla;
 using Csla.Reflection;
-using Csla.Data;
-using Csla.Windows;
 
 namespace MyCsla.Windows
 {
     /// <summary>
     /// As an alternative to ComboBox - use this form when there are more then 100 items in the list. 
     /// </summary>
+    [DesignerCategory("")]
+    [ToolboxItem(true), ToolboxBitmap(typeof(ListSelectForm), "ListSelectForm.bmp")]
     public partial class ListSelectForm : Form
     {
         #region Nested type: Item
@@ -36,9 +37,9 @@ namespace MyCsla.Windows
                 foreach (var o in source)
                 {
                     var key = MethodCaller.CallPropertyGetter(o, ValueMember);
-                    var value = (string) MethodCaller.CallPropertyGetter(o, DisplayMember);
+                    var value = (string)MethodCaller.CallPropertyGetter(o, DisplayMember);
 
-                    list.Add(new Item {Key = key, Value = value});
+                    list.Add(new Item { Key = key, Value = value });
                 }
                 return list;
             }
@@ -132,7 +133,7 @@ namespace MyCsla.Windows
 
         #endregion
 
-        #region PRIVATE METHODS/EVENTS 
+        #region PRIVATE METHODS/EVENTS
 
         private void ListFormClosing(object sender, CancelEventArgs e)
         {
@@ -141,7 +142,7 @@ namespace MyCsla.Windows
 
         private static bool MyFilterProvider(object item, object filter)
         {
-            return (((string) item).ToLower().Contains(((string) filter).ToLower()));
+            return (((string)item).ToLower().Contains(((string)filter).ToLower()));
         }
 
         private void BindUI()

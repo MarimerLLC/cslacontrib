@@ -129,4 +129,7 @@
   <data name="LessThanRule" xml:space="preserve">
     <value>{0} must be less than {1} </value>
   </data>
+  <data name="OneRequiredRule" xml:space="preserve">
+    <value>At least on of the fields {0} must have a value</value>
+  </data>
 </root>

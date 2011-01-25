@@ -216,5 +216,26 @@ namespace CslaContrib.UnitTests
       root.Num4 = 0;
       Assert.AreEqual(0, root.Sum);
     }
+
+    [TestMethod()]
+    [DeploymentItem("CslaContrib.dll")]
+    public void Rules_OneRequired_Test()
+    {
+      var root = OneRequiredRoot.NewEditableRoot();
+
+      Assert.IsFalse(root.IsValid);
+      root.Name = "cslaContrib";
+      Assert.IsTrue(root.IsValid);
+      root.Name = string.Empty;
+      Assert.IsFalse(root.IsValid);
+      root.Date = DateTime.Today.ToString();
+      Assert.IsTrue(root.IsValid);
+      root.Date = OneRequiredRoot.DateProperty.DefaultValue.ToString();
+      Assert.IsFalse(root.IsValid);
+      root.Number = 10;
+      Assert.IsTrue(root.IsValid);
+      root.Number = OneRequiredRoot.NumberProperty.DefaultValue;
+      Assert.IsFalse(root.IsValid);
+    }
   }
 }

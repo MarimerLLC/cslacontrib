@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Csla;
 using Csla.Core;
 using Csla.Rules;
 using Csla.Rules.CommonRules;
@@ -378,4 +379,46 @@ namespace CslaContrib.Rules.CommonRules
   }
 
   #endregion
+
+  /// <summary>
+  /// Check that at least one of the fields of type string or smartvalue field has a value.
+  /// Code must also add Dependency rules from each additional properties to primary property.
+  /// </summary>
+  public class OneRequired : Csla.Rules.BusinessRule
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="OneRequired"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">The primary property.</param>
+    /// <param name="additionalProperties">The additional properties.</param>
+    public OneRequired(IPropertyInfo primaryProperty, params IPropertyInfo[] additionalProperties  )
+      : base(primaryProperty)
+    {
+      if (InputProperties == null) InputProperties = new List<IPropertyInfo>(){primaryProperty};
+      InputProperties.AddRange(additionalProperties);
+    }
+
+    /// <summary>
+    /// Executes the rule in specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    protected override void Execute(RuleContext context)
+    {
+      foreach (var field in context.InputPropertyValues)
+      {
+        // smartfields have their own implementation of IsEmpty
+        var smartField = field.Value as ISmartField;
+
+        if (smartField != null)
+        {
+          if (!smartField.IsEmpty) return;
+        } 
+        else if (field.Value != null && !field.Value.Equals(field.Key.DefaultValue)) return; 
+      }
+
+      var fields = context.InputPropertyValues.Select(p => p.Key.FriendlyName).ToArray();
+      var fieldNames = String.Join(", ", fields);
+      context.AddErrorResult(string.Format(Resources.OneRequiredRule, fieldNames));
+    }
+  }
 }

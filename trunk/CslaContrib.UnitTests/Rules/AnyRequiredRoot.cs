@@ -8,7 +8,7 @@ using CslaContrib.Rules.CommonRules;
 namespace CslaContrib.UnitTests.Rules
 {
   [Serializable]
-  public class OneRequiredRoot : BusinessBase<OneRequiredRoot>
+  public class AnyRequiredRoot : BusinessBase<AnyRequiredRoot>
   {
     #region Business Methods
 
@@ -39,7 +39,7 @@ namespace CslaContrib.UnitTests.Rules
     protected override void AddBusinessRules()
     {
       // TODO: add validation rules
-      BusinessRules.AddRule(new OneRequired(NameProperty, DateProperty, NumberProperty));
+      BusinessRules.AddRule(new AnyRequired(NameProperty, DateProperty, NumberProperty));
       BusinessRules.AddRule(new Dependency(DateProperty, NameProperty));
       BusinessRules.AddRule(new Dependency(NumberProperty, NameProperty));
     }
@@ -49,13 +49,13 @@ namespace CslaContrib.UnitTests.Rules
     
     #region Factory Methods
 
-    public static OneRequiredRoot NewEditableRoot()
+    public static AnyRequiredRoot NewEditableRoot()
     {
-      return DataPortal.Create<OneRequiredRoot>();
+      return DataPortal.Create<AnyRequiredRoot>();
     }
 
 
-    private OneRequiredRoot()
+    private AnyRequiredRoot()
     { /* Require use of factory methods */ }
 
     #endregion

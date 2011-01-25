@@ -58,7 +58,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rules\OneRequiredRoot.cs" />
+    <Compile Include="Rules\AnyRequiredRoot.cs" />
     <Compile Include="Rules\RulesTest.cs" />
     <Compile Include="ObjectCaching\CacheDataPortalTests.cs" />
     <Compile Include="ObjectCaching\CacheManagerTests.cs" />

@@ -237,6 +237,54 @@ namespace CslaContrib.Rules.CommonRules
     }
   }
 
+  /// <summary>
+  /// ShortCircuit rule processing if target is not an exisiting object.
+  /// 
+  /// If any of the additional properties has a valu stop rule processing 
+  /// for this field and make field valid. 
+  /// </summary>
+  public class StopIfAnyAdditionalHasValue : BusinessRule
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StopIfAnyAdditionalHasValue"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">The primary property.</param>
+    /// <param name="additionalProperties">The additional properties.</param>
+    public StopIfAnyAdditionalHasValue(IPropertyInfo primaryProperty, params IPropertyInfo[] additionalProperties)
+      : base(primaryProperty)
+    {
+      if (InputProperties == null) InputProperties = new List<IPropertyInfo>() { primaryProperty };
+      InputProperties.AddRange(additionalProperties);
+    }
+
+    /// <summary>
+    /// Executes the rule in specified context.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    protected override void Execute(RuleContext context)
+    {
+      var hasValue = false;
+      // excludes primary property 
+      foreach (var field in context.InputPropertyValues.Where(p => p.Key != PrimaryProperty))
+      {
+        // smartfields have their own implementation of IsEmpty
+        var smartField = field.Value as ISmartField;
+
+        if (smartField != null)
+        {
+          hasValue = !smartField.IsEmpty;
+        }
+        else if (field.Value != null && !field.Value.Equals(field.Key.DefaultValue))
+        {
+          hasValue = true; 
+        }
+      }
+
+      // if hasValue then shortcut rule processing      
+      if (hasValue) context.AddSuccessResult(true);   
+    }
+  }
+
   #endregion
 
   #region Transformation Rules
@@ -384,17 +432,17 @@ namespace CslaContrib.Rules.CommonRules
   /// Check that at least one of the fields of type string or smartvalue field has a value.
   /// Code must also add Dependency rules from each additional properties to primary property.
   /// </summary>
-  public class OneRequired : Csla.Rules.BusinessRule
+  public class AnyRequired : Csla.Rules.BusinessRule
   {
     /// <summary>
     /// Initializes a new instance of the <see cref="OneRequired"/> class.
     /// </summary>
     /// <param name="primaryProperty">The primary property.</param>
     /// <param name="additionalProperties">The additional properties.</param>
-    public OneRequired(IPropertyInfo primaryProperty, params IPropertyInfo[] additionalProperties  )
+    public AnyRequired(IPropertyInfo primaryProperty, params IPropertyInfo[] additionalProperties  )
       : base(primaryProperty)
     {
-      if (InputProperties == null) InputProperties = new List<IPropertyInfo>(){primaryProperty};
+      if (InputProperties == null) InputProperties = new List<IPropertyInfo>();
       InputProperties.AddRange(additionalProperties);
     }
 

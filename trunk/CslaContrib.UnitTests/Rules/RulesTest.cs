@@ -221,7 +221,7 @@ namespace CslaContrib.UnitTests
     [DeploymentItem("CslaContrib.dll")]
     public void Rules_OneRequired_Test()
     {
-      var root = OneRequiredRoot.NewEditableRoot();
+      var root = AnyRequiredRoot.NewEditableRoot();
 
       Assert.IsFalse(root.IsValid);
       root.Name = "cslaContrib";
@@ -230,11 +230,11 @@ namespace CslaContrib.UnitTests
       Assert.IsFalse(root.IsValid);
       root.Date = DateTime.Today.ToString();
       Assert.IsTrue(root.IsValid);
-      root.Date = OneRequiredRoot.DateProperty.DefaultValue.ToString();
+      root.Date = AnyRequiredRoot.DateProperty.DefaultValue.ToString();
       Assert.IsFalse(root.IsValid);
       root.Number = 10;
       Assert.IsTrue(root.IsValid);
-      root.Number = OneRequiredRoot.NumberProperty.DefaultValue;
+      root.Number = AnyRequiredRoot.NumberProperty.DefaultValue;
       Assert.IsFalse(root.IsValid);
     }
   }

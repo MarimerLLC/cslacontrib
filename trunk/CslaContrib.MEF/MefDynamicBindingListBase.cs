@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Csla;
 
 namespace CslaContrib.MEF
 {
+  [Serializable]
   public class MefDynamicBindingListBase<T> : Csla.DynamicBindingListBase<T> where T : Csla.Core.IEditableBusinessObject, Csla.Core.IUndoableObject, Csla.Core.ISavable, Csla.Serialization.Mobile.IMobileObject
   {
     protected override void DataPortal_OnDataPortalInvoke(DataPortalEventArgs e)

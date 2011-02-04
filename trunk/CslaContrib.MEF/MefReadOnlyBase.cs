@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Csla;
 
 namespace CslaContrib.MEF
 {
+  [Serializable]
   public class MefReadOnlyBase<T> : ReadOnlyBase<T> where T: ReadOnlyBase<T>
   {
     protected override void DataPortal_OnDataPortalInvoke(DataPortalEventArgs e)

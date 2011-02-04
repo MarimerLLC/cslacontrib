@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Csla;
 
 namespace CslaContrib.MEF
 {
+  [Serializable]
   public class MefBusinessListBase<T, C> : BusinessListBase<T, C>
     where T : Csla.BusinessListBase<T, C>
     where C : Csla.Core.IEditableBusinessObject

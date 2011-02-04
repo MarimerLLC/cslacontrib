@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Csla;
 
 namespace CslaContrib.MEF
 {
+  [Serializable]
   public class MefReadOnlyListBase<T, C> : ReadOnlyListBase<T, C>
       where T : Csla.ReadOnlyListBase<T, C>
   {

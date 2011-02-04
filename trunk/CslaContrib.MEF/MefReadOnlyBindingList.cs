@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using Csla;
 
 namespace CslaContrib.MEF
 {
+  [Serializable]
   public class MefReadOnlyBindingList<T, C> : ReadOnlyBindingListBase<T, C>
       where T : Csla.ReadOnlyBindingListBase<T, C>
   {

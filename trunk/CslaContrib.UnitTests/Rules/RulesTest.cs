@@ -1,4 +1,5 @@
-﻿using CslaContrib.Rules.CommonRules;
+﻿using System.ComponentModel;
+using CslaContrib.Rules.CommonRules;
 using CslaContrib.UnitTests.Rules;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -217,25 +218,18 @@ namespace CslaContrib.UnitTests
       Assert.AreEqual(0, root.Sum);
     }
 
-    [TestMethod()]
-    [DeploymentItem("CslaContrib.dll")]
-    public void Rules_OneRequired_Test()
+    [TestMethod]
+    public void Rules_CustomErrorMessage()
     {
-      var root = AnyRequiredRoot.NewEditableRoot();
-
-      Assert.IsFalse(root.IsValid);
-      root.Name = "cslaContrib";
+      var root = RuleTestRoot.NewEditableRoot();
+      Assert.AreEqual("US", root.Str1);
       Assert.IsTrue(root.IsValid);
-      root.Name = string.Empty;
+      root.Str1 = string.Empty;
       Assert.IsFalse(root.IsValid);
-      root.Date = DateTime.Today.ToString();
+      var errorMessage = ((IDataErrorInfo)root)[RuleTestRoot.Str1Property.Name];
+      Assert.AreEqual("My error message Str1", errorMessage);
+      root.Str1 = "US";
       Assert.IsTrue(root.IsValid);
-      root.Date = AnyRequiredRoot.DateProperty.DefaultValue.ToString();
-      Assert.IsFalse(root.IsValid);
-      root.Number = 10;
-      Assert.IsTrue(root.IsValid);
-      root.Number = AnyRequiredRoot.NumberProperty.DefaultValue;
-      Assert.IsFalse(root.IsValid);
     }
   }
 }

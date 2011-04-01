@@ -2,6 +2,7 @@ using System;
 using Csla;
 using Csla.Rules.CommonRules;
 using CslaContrib.Rules.CommonRules;
+using Required = CslaContrib.Rules.CommonRules.Required;
 
 namespace CslaContrib.UnitTests.Rules
 {
@@ -9,8 +10,6 @@ namespace CslaContrib.UnitTests.Rules
   public class RuleTestRoot : BusinessBase<RuleTestRoot>
   {
     #region Business Methods
-
-    // TODO: add your own fields, properties and methods
 
     public static readonly PropertyInfo<int> Num1Property = RegisterProperty<int>(c => c.Num1);
     /// <Summary>
@@ -72,6 +71,13 @@ namespace CslaContrib.UnitTests.Rules
       set { SetProperty(Num6Property, value); }
     }
 
+    public static readonly PropertyInfo<string> Str1Property = RegisterProperty<string>(c => c.Str1, null, "US");
+    public string Str1
+    {
+      get { return GetProperty(Str1Property); }
+      set { SetProperty(Str1Property, value); }
+    }
+
     public static readonly PropertyInfo<int> SumProperty = RegisterProperty<int>(c => c.Sum);
     /// <Summary>
     /// Gets or sets the Sum value.
@@ -107,7 +113,7 @@ namespace CslaContrib.UnitTests.Rules
 
     protected override void AddBusinessRules()
     {
-      // TODO: add validation rules
+
       base.AddBusinessRules();
 
       BusinessRules.AddRule(new LessThan(Num1Property, Num5Property));
@@ -121,6 +127,7 @@ namespace CslaContrib.UnitTests.Rules
       BusinessRules.AddRule(new Dependency(Num2Property, SumProperty));
       BusinessRules.AddRule(new Dependency(Num3Property, SumProperty));
       BusinessRules.AddRule(new Dependency(Num4Property, SumProperty));
+      BusinessRules.AddRule(new Required(Str1Property, () => "My error message {0}"));
     }
 
     private static void AddObjectAuthorizationRules()

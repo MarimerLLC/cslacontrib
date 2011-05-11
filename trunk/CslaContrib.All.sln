@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData.Silverlight", "CslaContrib.CustomFieldData.Silverlight\CslaContrib.CustomFieldData.Silverlight.csproj", "{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.Silverlight", "CslaContrib.Caliburn.Micro.Silverlight\CslaContrib.Caliburn.Micro.Silverlight.csproj", "{86AD4970-16BF-4E04-8B3F-13D59D129771}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.WPF", "CslaContrib.Caliburn.Micro.WPF\CslaContrib.Caliburn.Micro.WPF.csproj", "{AEC13539-BCFB-4CEE-A324-479D41E39D39}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CslaContrib.vsmdi
@@ -65,6 +69,14 @@ Global
 		{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86AD4970-16BF-4E04-8B3F-13D59D129771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86AD4970-16BF-4E04-8B3F-13D59D129771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86AD4970-16BF-4E04-8B3F-13D59D129771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86AD4970-16BF-4E04-8B3F-13D59D129771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC13539-BCFB-4CEE-A324-479D41E39D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC13539-BCFB-4CEE-A324-479D41E39D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC13539-BCFB-4CEE-A324-479D41E39D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC13539-BCFB-4CEE-A324-479D41E39D39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

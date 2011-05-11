@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.DataAnnotations;
@@ -62,7 +63,7 @@ namespace MEFSample.Business
 
     protected override void AddBusinessRules()
     {
-      // call base class implementation to add data annotation rules to BusinessRules 
+      //// call base class implementation to add data annotation rules to BusinessRules 
       base.AddBusinessRules();
 
       // set up dependencies to that Sum is automatially recaclulated when PrimaryProperty is changed 
@@ -105,8 +106,9 @@ namespace MEFSample.Business
     [NonSerialized, NotUndoable]
     private IRootDataAccess _myRootDataAccess;
 
+    [EditorBrowsable(EditorBrowsableState.Never)]
     [Import(typeof(IRootDataAccess))]
-    public IRootDataAccess MyRootDataAccess
+    private IRootDataAccess MyRootDataAccess
     {
       get { return _myRootDataAccess; }
       set { _myRootDataAccess = value; }

@@ -132,4 +132,7 @@
   <data name="LessThanRule" xml:space="preserve">
     <value>{0} must be less than {1} </value>
   </data>
+  <data name="RangeRule" xml:space="preserve">
+    <value>{0} must be between {1} and {2}</value>
+  </data>
 </root>

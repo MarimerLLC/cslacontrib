@@ -751,6 +751,111 @@ namespace CslaContrib.Rules.CommonRules
     }
   }
 
+  /// <summary>
+  /// Business rule for check a value is between a minimum and a maximum.
+  /// </summary>
+  public class Range : CommonBusinessRule
+  {
+    /// <summary>
+    /// Gets the minimum value.
+    /// </summary>
+    public IComparable Min { get; private set; }
+
+    /// <summary>
+    /// Gets the maximum value.
+    /// </summary>
+    public IComparable Max { get; private set; }
+
+    /// <summary>
+    /// Gets or sets the format string used
+    /// to format the minimum and maximum values.
+    /// </summary>
+    public string Format { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Range"/> class. 
+    /// Creates an instance of the rule.
+    /// </summary>
+    /// <param name="primaryProperty">
+    /// Property to which the rule applies.
+    /// </param>
+    /// <param name="min">
+    /// Min value.
+    /// </param>
+    /// <param name="max">
+    /// Max value.
+    /// </param>
+    public Range(IPropertyInfo primaryProperty, IComparable min, IComparable max)
+      : base(primaryProperty)
+    {
+      Max = max;
+      Min = min;
+      RuleUri.AddQueryParameter("max", max.ToString());
+      RuleUri.AddQueryParameter("min", min.ToString());
+      InputProperties = new List<IPropertyInfo> { primaryProperty };
+    }
+
+ /// <summary>
+    /// Initializes a new instance of the <see cref="Range"/> class. 
+    /// Creates an instance of the rule.
+    /// </summary>
+    /// <param name="primaryProperty">
+    /// Property to which the rule applies.
+    /// </param>
+    /// <param name="min">
+    /// Min value.
+    /// </param>
+    /// <param name="max">
+    /// Max value.
+    /// </param>
+    /// <param name="errorMessageDelegate">
+    /// The message delegate.
+    /// </param>
+    public Range(IPropertyInfo primaryProperty, IComparable min, IComparable max, Func<string> errorMessageDelegate)
+      : this(primaryProperty, min, max)
+    {
+      ErrorMessageDelegate = errorMessageDelegate;
+    }
+
+    /// <summary>
+    /// Gets the error message.
+    /// </summary>
+    /// <value>
+    /// </value>
+    /// <returns>
+    /// The get message.
+    /// </returns>
+    protected override string ErrorMessage
+    {
+      get
+      {
+        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.RangeRule;
+      }
+    }
+
+    /// <summary>
+    /// Rule implementation.
+    /// </summary>
+    /// <param name="context">
+    /// Rule context.
+    /// </param>
+    protected override void Execute(RuleContext context)
+    {
+      var value = (IComparable)context.InputPropertyValues[PrimaryProperty];
+      var minResult = value.CompareTo(Min);
+      var maxResult = value.CompareTo(Max);
+
+      if ((minResult <= -1) || (maxResult >= 1))
+      {
+        var minOutValue = string.IsNullOrEmpty(Format) ? Min.ToString() : string.Format(string.Format("{{0:{0}}}", Format), Min);
+        var maxOutValue = string.IsNullOrEmpty(Format) ? Max.ToString() : string.Format(string.Format("{{0:{0}}}", Format), Max);
+
+        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, minOutValue, maxOutValue);
+        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
+      }
+    }
+  }
+
   #endregion
 
   #region Flow Control Rules
@@ -1112,5 +1217,4 @@ namespace CslaContrib.Rules.CommonRules
       context.AddErrorResult(string.Format(ErrorMessage, fieldNames));
     }
   }
-
 }

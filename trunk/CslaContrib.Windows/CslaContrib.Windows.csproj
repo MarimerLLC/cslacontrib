@@ -57,9 +57,6 @@
     <Compile Include="ErrorWarnInfoProvider.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ErrorWarnInfoProvider.designer.cs">
-      <DependentUpon>ErrorWarnInfoProvider.cs</DependentUpon>
-    </Compile>
     <Compile Include="ListSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,9 +81,6 @@
     <EmbeddedResource Include="BindableRadioButtons.resx">
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ErrorWarnInfoProvider.resx">
-      <DependentUpon>ErrorWarnInfoProvider.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ListSelectForm.resx">
       <DependentUpon>ListSelectForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +99,8 @@
     <None Include="Resources\AboutPicture.png" />
     <None Include="Resources\progressbar_green.gif" />
     <None Include="Resources\progresscircle_black.gif" />
+    <EmbeddedResource Include="Resources\WarningIco16.ico" />
+    <EmbeddedResource Include="Resources\InformationIco16.ico" />
     <Content Include="SmartDateTimePicker.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

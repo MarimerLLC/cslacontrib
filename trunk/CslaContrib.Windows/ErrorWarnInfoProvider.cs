@@ -4,111 +4,121 @@
 * Created      : 10/04/2007 2:14 PM
 * C# Version   : .NET 2.0
 * Description  : This code is designed to create a new provider object to
-*		         work specifically with CSLA BusinessBase objects.  In 
-*		         addition to providing the red error icon for items in the 
-*		         BrokenRulesCollection with Csla.Rules.RuleSeverity.Error,
-*		         this object also provides a yellow warning icon for items
-*		         with Csla.Rules.RuleSeverity.Warning and a blue
-*		         information icon for items with 
-*		         Csla.Rules.RuleSeverity.Information.  Since warnings
-*		         and information type items do not need to be fixed / 
-*		         corrected prior to the object being saved, the tooltip
-*		         displayed when hovering over the respective icon contains
-*		         all the control's associated (by severity) broken rules. 
+*           work specifically with CSLA BusinessBase objects.  In
+*           addition to providing the red error icon for items in the
+*           BrokenRulesCollection with Csla.Rules.RuleSeverity.Error,
+*           this object also provides a yellow warning icon for items
+*           with Csla.Rules.RuleSeverity.Warning and a blue
+*           information icon for items with
+*           Csla.Rules.RuleSeverity.Information.  Since warnings
+*           and information type items do not need to be fixed /
+*           corrected prior to the object being saved, the tooltip
+*           displayed when hovering over the respective icon contains
+*           all the control's associated (by severity) broken rules.
 * Revised      : 11/20/2007 8:32 AM
 *     Change   : Warning and information icons were not being updated for
-*		         dependant properties (controls without the focus) when 
-*		         changes were being made to a related property (control with
-*		         the focus).  Added a list of controls to be recursed 
-*		         through each time a change was made to any control.  This
-*		         obviously could result in performance issues; however,
-*		         there is no consistent way to question the BusinessObject 
-*		         in order to get a list of dependant properties based on a
-*		         property name.  It can be exposed to the UI (using
-*		         ValidationRules.GetRuleDescriptions()); however, it is up
-*		         to each developer to implement their own public method on
-*		         on the Business Object to do so.  To make this generic for
-*		         all CSLA Business Objects, I cannot assume the developer
-*		         always exposes the dependant properties (nor do I know what
+*           dependant properties (controls without the focus) when
+*           changes were being made to a related property (control with
+*           the focus).  Added a list of controls to be recursed
+*           through each time a change was made to any control.  This
+*           obviously could result in performance issues; however,
+*           there is no consistent way to question the BusinessObject
+*           in order to get a list of dependant properties based on a
+*           property name.  It can be exposed to the UI (using
+*           ValidationRules.GetRuleDescriptions()); however, it is up
+*           to each developer to implement their own public method on
+*           on the Business Object to do so.  To make this generic for
+*           all CSLA Business Objects, I cannot assume the developer
+*           always exposes the dependant properties (nor do I know what
 *                they'll call the method); therefore, this is the best I can
-*		         do right now.
+*           do right now.
 * Revised      : 11/23/2007 9:02 AM
 *     Change   : Added new property ProcessDependantProperties to allow for
-*		         controlling when all controls are recursed through (for 
-*		         dependant properties or not).  Default value is 'false'.
-*		         This allows the developer to ba able to choose whether or 
-*		         not to use the control in this manner (which could have 
-*		         performance implications).
+*           controlling when all controls are recursed through (for
+*           dependant properties or not).  Default value is 'false'.
+*           This allows the developer to ba able to choose whether or
+*           not to use the control in this manner (which could have
+*           performance implications).
+* Revised      : 10/05/2009, Jonny Bekkum
+*     Change: Added initialization of controls list (controls attached to BindingSource) 
+*           and will update errors on all controls. Optimized retrieval of error, warn, info 
+*           messages and setting these on the controls. 
 ****************************************************************************/
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 
 namespace CslaContrib.Windows
 {
-  /// <summary>
-  /// Windows Forms extender control that automatically
-  /// displays error, warning, or information icons and
-  /// text for the form controls based on the
-  /// BrokenRulesCollection from a CSLA .NET business object.
-  /// </summary>
   [DesignerCategory("")]
-  [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "ErrorWarnInfoProvider.bmp")]
-  public partial class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
+  [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
+  public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
   {
     #region internal variables
 
-    private int _blinkRateInformation;
-    private int _blinkRateWarning;
-    private ErrorBlinkStyle _blinkStyleInformation = ErrorBlinkStyle.BlinkIfDifferentError;
-    private ErrorBlinkStyle _blinkStyleWarning = ErrorBlinkStyle.BlinkIfDifferentError;
-    private List<Control> _controls = new List<Control>();
-    private const int _defaultBlinkRate = 0;
-    private const int _defaultBlinkRateInformation = 0;
-    private const int _defaultBlinkRateWarning = 0;
-    private static Icon _defaultIconInformation;
-    private static Icon _defaultIconWarning;
-    private Icon _iconInformation;
-    private Icon _iconWarning;
+    private readonly System.ComponentModel.IContainer components = null;
+    private readonly System.Windows.Forms.ErrorProvider _errorProviderInfo;
+    private readonly System.Windows.Forms.ErrorProvider _errorProviderWarn;
+    private readonly List<Control> _controls = new List<Control>();
+    private static readonly Icon DefaultIconInformation;
+    private static readonly Icon DefaultIconWarning;
     private int _offsetInformation = 32;
     private int _offsetWarning = 16;
-    private bool _visibleInformation = true;
-    private bool _visibleWarning = true;
+    private bool _showInformation = true;
+    private bool _showWarning = true;
     private bool _showMostSevereOnly = true;
-    private Dictionary<string, string> _errorList = new Dictionary<string, string>();
-    private Dictionary<string, string> _warningList = new Dictionary<string, string>();
-    private Dictionary<string, string> _infoList = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _errorList = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _warningList = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> _infoList = new Dictionary<string, string>();
     private bool _isInitializing = false;
 
     #endregion
 
     #region Constructors
 
+    static ErrorWarnInfoProvider()
+    {
+      DefaultIconInformation = CslaContrib.Windows.Properties.Resources.InformationIco16;
+      DefaultIconWarning = CslaContrib.Windows.Properties.Resources.WarningIco16;
+    }
+
+    public ErrorWarnInfoProvider()
+    {
+      this.components = new System.ComponentModel.Container();
+      this._errorProviderInfo = new System.Windows.Forms.ErrorProvider(this.components);
+      this._errorProviderWarn = new System.Windows.Forms.ErrorProvider(this.components);
+      BlinkRate = 0;
+
+      _errorProviderInfo.BlinkRate = 0;
+      _errorProviderInfo.Icon = DefaultIconInformation;
+
+      _errorProviderWarn.BlinkRate = 0;
+      _errorProviderWarn.Icon = DefaultIconWarning;
+    }
+
     /// <summary>
-    /// Creates an instance of the ErrorWarnInfoProvider.
+    /// Creates an instance of the object.
     /// </summary>
     /// <param name="container">The container of the control.</param>
     public ErrorWarnInfoProvider(IContainer container)
+      : this()
     {
       container.Add(this);
+    }
 
-      InitializeComponent();
 
-      base.BlinkRate = 0;
-
-      _blinkRateInformation = _defaultBlinkRateInformation;
-      _iconInformation = DefaultIconInformation;
-      errorProviderInfo.BlinkRate = _blinkRateInformation;
-      errorProviderInfo.Icon = _iconInformation;
-
-      _blinkRateWarning = _defaultBlinkRateWarning;
-      _iconWarning = DefaultIconWarning;
-      errorProviderWarn.BlinkRate = _blinkRateWarning;
-      errorProviderWarn.Icon = _iconWarning;
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing && (components != null))
+      {
+        components.Dispose();
+      }
+      base.Dispose(disposing);
     }
 
     #endregion
@@ -147,7 +157,9 @@ namespace CslaContrib.Windows
     /// Gets or sets the blink rate information.
     /// </summary>
     /// <value>The blink rate information.</value>
-    [DefaultValue(_defaultBlinkRate), Description("The rate in milliseconds at which the error icon blinks.")]
+    [Category("Behavior")]
+    [DefaultValue(0)]
+    [Description("The rate in milliseconds at which the error icon blinks.")]
     public new int BlinkRate
     {
       get
@@ -169,121 +181,68 @@ namespace CslaContrib.Windows
       }
     }
 
-
-    /// <summary>
-    /// Gets or sets the blink rate information.
-    /// </summary>
-    /// <value>The blink rate information.</value>
-    [DefaultValue(_defaultBlinkRateInformation), Description("The rate in milliseconds at which the information icon blinks.")]
+    [Category("Behavior")]
+    [DefaultValue(0)]
+    [Description("The rate in milliseconds at which the information icon blinks.")]
     public int BlinkRateInformation
     {
-      get
-      {
-        return _blinkRateInformation;
-      }
+      get { return _errorProviderInfo.BlinkRate; }
       set
       {
         if (value < 0)
-        {
           throw new ArgumentOutOfRangeException("BlinkRateInformation", value, "Blink rate must be zero or more");
-        }
 
-        _blinkRateInformation = value;
-        errorProviderInfo.BlinkRate = _blinkRateInformation;
+        _errorProviderInfo.BlinkRate = value;
 
-        if (_blinkRateInformation == 0)
-        {
-          BlinkStyleInformation = ErrorBlinkStyle.NeverBlink;
-        }
+        if (value == 0)
+          _errorProviderInfo.BlinkStyle = ErrorBlinkStyle.NeverBlink;
       }
     }
 
-    /// <summary>
-    /// Gets or sets the blink rate warning.
-    /// </summary>
-    /// <value>The blink rate warning.</value>
-    [DefaultValue(_defaultBlinkRateWarning), Description("The rate in milliseconds at which the warning icon blinks.")]
+    [Category("Behavior")]
+    [DefaultValue(0)]
+    [Description("The rate in milliseconds at which the warning icon blinks.")]
     public int BlinkRateWarning
     {
-      get
-      {
-        return _blinkRateWarning;
-      }
+      get { return _errorProviderWarn.BlinkRate; }
       set
       {
         if (value < 0)
-        {
           throw new ArgumentOutOfRangeException("BlinkRateWarning", value, "Blink rate must be zero or more");
-        }
 
-        _blinkRateWarning = value;
-        errorProviderWarn.BlinkRate = _blinkRateWarning;
+        _errorProviderWarn.BlinkRate = value;
 
-        if (_blinkRateWarning == 0)
-        {
-          BlinkStyleWarning = ErrorBlinkStyle.NeverBlink;
-        }
+        if (value == 0)
+          _errorProviderWarn.BlinkStyle = ErrorBlinkStyle.NeverBlink;
       }
     }
 
-    /// <summary>
-    /// Gets or sets the blink style information.
-    /// </summary>
-    /// <value>The blink style information.</value>
+
+    [Category("Behavior")]
+    [DefaultValue(ErrorBlinkStyle.NeverBlink)]
+    [Description("Controls whether the error icon blinks when an error is set.")]
+    public new ErrorBlinkStyle BlinkStyle
+    {
+      get { return base.BlinkStyle; }
+      set { base.BlinkStyle = value; }
+    }
+
+    [Category("Behavior")]
+    [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the information icon blinks when information is set.")]
     public ErrorBlinkStyle BlinkStyleInformation
     {
-      get
-      {
-        if (_blinkRateInformation == 0)
-        {
-          return ErrorBlinkStyle.NeverBlink;
-        }
-        return _blinkStyleInformation;
-      }
-      set
-      {
-        if (_blinkRateInformation == 0)
-        {
-          value = ErrorBlinkStyle.NeverBlink;
-        }
-
-        if (_blinkStyleInformation != value)
-        {
-          _blinkStyleInformation = value;
-          errorProviderInfo.BlinkStyle = _blinkStyleInformation;
-        }
-      }
+      get { return _errorProviderInfo.BlinkStyle; }
+      set { _errorProviderWarn.BlinkStyle = value; }
     }
 
-    /// <summary>
-    /// Gets or sets the blink style warning.
-    /// </summary>
-    /// <value>The blink style warning.</value>
+    [Category("Behavior")]
+    [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the warning icon blinks when a warning is set.")]
     public ErrorBlinkStyle BlinkStyleWarning
     {
-      get
-      {
-        if (_blinkRateWarning == 0)
-        {
-          return ErrorBlinkStyle.NeverBlink;
-        }
-        return _blinkStyleWarning;
-      }
-      set
-      {
-        if (_blinkRateWarning == 0)
-        {
-          value = ErrorBlinkStyle.NeverBlink;
-        }
-
-        if (_blinkStyleWarning != value)
-        {
-          _blinkStyleWarning = value;
-          errorProviderWarn.BlinkStyle = _blinkStyleWarning;
-        }
-      }
+      get { return _errorProviderWarn.BlinkStyle; }
+      set { _errorProviderWarn.BlinkStyle = value; }
     }
 
     /// <summary>
@@ -307,9 +266,7 @@ namespace CslaContrib.Windows
           var bs1 = base.DataSource as BindingSource;
           if (bs1 != null)
           {
-            bs1.DataSourceChanged -= DataSource_DataSourceChanged;
             bs1.CurrentItemChanged -= DataSource_CurrentItemChanged;
-            //bs1.BindingComplete -= DataSource_BindingComplete;
           }
         }
 
@@ -319,20 +276,9 @@ namespace CslaContrib.Windows
         var bs = value as BindingSource;
         if (bs != null)
         {
-          bs.DataSourceChanged += DataSource_DataSourceChanged;
           bs.CurrentItemChanged += DataSource_CurrentItemChanged;
-          //bs.BindingComplete += DataSource_BindingComplete;
-
-          //if (bs.DataSource != null) {
-          //   UpdateBindingsAndProcessAllControls();
-          //}
         }
       }
-    }
-
-    private void DataSource_BindingComplete(object sender, BindingCompleteEventArgs e)
-    {
-      UpdateBindingsAndProcessAllControls();
     }
 
     private void UpdateBindingsAndProcessAllControls()
@@ -349,22 +295,20 @@ namespace CslaContrib.Windows
     /// Gets or sets the icon information.
     /// </summary>
     /// <value>The icon information.</value>
+    [Category("Behavior")]
     [Description("The icon used to indicate information.")]
     public Icon IconInformation
     {
       get
       {
-        return _iconInformation;
+        return _errorProviderInfo.Icon;
       }
       set
       {
         if (value == null)
-        {
           value = DefaultIconInformation;
-        }
 
-        _iconInformation = value;
-        errorProviderInfo.Icon = _iconInformation;
+        _errorProviderInfo.Icon = value;
       }
     }
 
@@ -372,22 +316,20 @@ namespace CslaContrib.Windows
     /// Gets or sets the icon warning.
     /// </summary>
     /// <value>The icon warning.</value>
+    [Category("Behavior")]
     [Description("The icon used to indicate a warning.")]
     public Icon IconWarning
     {
       get
       {
-        return _iconWarning;
+        return _errorProviderWarn.Icon;
       }
       set
       {
         if (value == null)
-        {
           value = DefaultIconWarning;
-        }
 
-        _iconWarning = value;
-        errorProviderWarn.Icon = _iconWarning;
+        _errorProviderWarn.Icon = value;
       }
     }
 
@@ -395,6 +337,7 @@ namespace CslaContrib.Windows
     /// Gets or sets the offset information.
     /// </summary>
     /// <value>The offset information.</value>
+    [Category("Behavior")]
     [DefaultValue(32), Description("The number of pixels the information icon will be offset from the error icon.")]
     public int OffsetInformation
     {
@@ -404,10 +347,7 @@ namespace CslaContrib.Windows
       }
       set
       {
-        if (_offsetInformation != value)
-        {
-          _offsetInformation = value;
-        }
+        _offsetInformation = value;
       }
     }
 
@@ -415,6 +355,7 @@ namespace CslaContrib.Windows
     /// Gets or sets the offset warning.
     /// </summary>
     /// <value>The offset warning.</value>
+    [Category("Behavior")]
     [DefaultValue(16), Description("The number of pixels the warning icon will be offset from the error icon.")]
     public int OffsetWarning
     {
@@ -424,10 +365,7 @@ namespace CslaContrib.Windows
       }
       set
       {
-        if (_offsetWarning != value)
-        {
-          _offsetWarning = value;
-        }
+        _offsetWarning = value;
       }
     }
 
@@ -435,19 +373,17 @@ namespace CslaContrib.Windows
     /// Gets or sets a value indicating whether broken rules with severity Infomation should be visible.
     /// </summary>
     /// <value><c>true</c> if Infomation is visible; otherwise, <c>false</c>.</value>
+    [Category("Behavior")]
     [DefaultValue(true), Description("Determines if the information icon should be displayed when information exists.")]
-    public bool VisibleInformation
+    public bool ShowInformation
     {
       get
       {
-        return _visibleInformation;
+        return _showInformation;
       }
       set
       {
-        if (_visibleInformation != value)
-        {
-          _visibleInformation = value;
-        }
+        _showInformation = value;
       }
     }
 
@@ -455,19 +391,17 @@ namespace CslaContrib.Windows
     /// Gets or sets a value indicating whether broken rules with severity Warning should be visible.
     /// </summary>
     /// <value><c>true</c> if Warning is visible; otherwise, <c>false</c>.</value>
+    [Category("Behavior")]
     [DefaultValue(true), Description("Determines if the warning icon should be displayed when warnings exist.")]
-    public bool VisibleWarning
+    public bool ShowWarning
     {
       get
       {
-        return _visibleWarning;
+        return _showWarning;
       }
       set
       {
-        if (_visibleWarning != value)
-        {
-          _visibleWarning = value;
-        }
+        _showWarning = value;
       }
     }
 
@@ -475,6 +409,7 @@ namespace CslaContrib.Windows
     /// Gets or sets a value indicating whether show only most severe broken rules message.
     /// </summary>
     /// <value><c>true</c> if show only most severe; otherwise, <c>false</c>.</value>
+    [Category("Behavior")]
     [DefaultValue(true), Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
     public bool ShowOnlyMostSevere
     {
@@ -496,50 +431,6 @@ namespace CslaContrib.Windows
 
     #endregion
 
-    #region Private properties
-
-    private Icon DefaultIconInformation
-    {
-      get
-      {
-        if (_defaultIconInformation == null)
-        {
-          lock (typeof(ErrorWarnInfoProvider))
-          {
-            if (_defaultIconInformation == null)
-            {
-              Bitmap bitmap = (Bitmap)imageList1.Images[2];
-              _defaultIconInformation = Icon.FromHandle(bitmap.GetHicon());
-            }
-          }
-        }
-
-        return _defaultIconInformation;
-      }
-    }
-
-    private Icon DefaultIconWarning
-    {
-      get
-      {
-        if (_defaultIconWarning == null)
-        {
-          lock (typeof(ErrorWarnInfoProvider))
-          {
-            if (_defaultIconWarning == null)
-            {
-              Bitmap bitmap = (Bitmap)imageList1.Images[1];
-              _defaultIconWarning = Icon.FromHandle(bitmap.GetHicon());
-            }
-          }
-        }
-
-        return _defaultIconWarning;
-      }
-    }
-
-    #endregion
-
     #region Methods
 
     /// <summary>
@@ -549,8 +440,8 @@ namespace CslaContrib.Windows
     public new void Clear()
     {
       base.Clear();
-      errorProviderInfo.Clear();
-      errorProviderWarn.Clear();
+      _errorProviderInfo.Clear();
+      _errorProviderWarn.Clear();
     }
 
     /// <summary>
@@ -560,7 +451,7 @@ namespace CslaContrib.Windows
     /// <returns></returns>
     public string GetInformation(Control control)
     {
-      return errorProviderInfo.GetError(control);
+      return _errorProviderInfo.GetError(control);
     }
 
     /// <summary>
@@ -570,7 +461,7 @@ namespace CslaContrib.Windows
     /// <returns></returns>
     public string GetWarning(Control control)
     {
-      return errorProviderWarn.GetError(control);
+      return _errorProviderWarn.GetError(control);
     }
 
     private void InitializeAllControls(Control.ControlCollection controls)
@@ -605,18 +496,12 @@ namespace CslaContrib.Windows
           Initialize(control.Controls);
         }
       }
-
     }
 
     void DataSource_CurrentItemChanged(object sender, EventArgs e)
     {
+      Debug.Print("ErrorWarnInfo: CurrentItemChanged, {0}", DateTime.Now.Ticks);
       ProcessAllControls();
-    }
-
-    void DataSource_DataSourceChanged(object sender, EventArgs e)
-    {
-      //InitializeAllControls(ContainerControl.Controls);
-      //ProcessAllControls();
     }
 
     private void ProcessAllControls()
@@ -628,6 +513,7 @@ namespace CslaContrib.Windows
       // process controls in window
       ProcessControls();
     }
+
 
 
     private void GetWarnInfoList()
@@ -648,8 +534,11 @@ namespace CslaContrib.Windows
 
         if (bb != null)
         {
-          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection.Where(p => p.Property != null))
+          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
           {
+            // we do not want to import result of object level broken rules 
+            if (br.Property == null) continue; 
+
             switch (br.Severity)
             {
               case Csla.Rules.RuleSeverity.Error:
@@ -697,7 +586,6 @@ namespace CslaContrib.Windows
       {
         ProcessControl(control);
       }
-
     }
 
 
@@ -705,12 +593,16 @@ namespace CslaContrib.Windows
     /// Processes the control.
     /// </summary>
     /// <param name="control">The control.</param>
-    private void ProcessControl(IBindableComponent control)
+    private void ProcessControl(Control control)
     {
       if (control == null) throw new ArgumentNullException("control");
 
       bool hasWarning = false;
       bool hasInfo = false;
+
+      var sbError = new StringBuilder();
+      var sbWarn = new StringBuilder();
+      var sbInfo = new StringBuilder();
 
       foreach (Binding binding in control.DataBindings)
       {
@@ -719,71 +611,78 @@ namespace CslaContrib.Windows
         {
           string propertyName = binding.BindingMemberInfo.BindingField;
 
-          bool bError = _errorList.ContainsKey(propertyName);
-          bool bWarn = _warningList.ContainsKey(propertyName);
-          bool bInfo = _infoList.ContainsKey(propertyName);
-
-          // set flags to indicat if Warning or Info is highest severity; else false
-          if (_showMostSevereOnly)
-          {
-            bInfo = bInfo && !bWarn && !bError;
-            bWarn = bWarn && !bError;
-          }
-
-          int offsetInformation = _offsetInformation;
-          int offsetWarning = _offsetWarning;
-
-          // Set / fix offsets
-          // by default the setting are correct for Error (0), Warning and Info
-          if (!bError)
-          {
-            if (bWarn)
-            {
-              // warning and possibly info, no error
-              offsetInformation = _offsetInformation - _offsetWarning;
-              offsetWarning = 0;
-            }
-            else
-            {
-              // Info only
-              offsetInformation = 0;
-            }
-          }
-          else if (!bWarn)
-          {
-            offsetInformation = _offsetInformation - _offsetWarning;
-          }
-
-
-          // should warning be visible
-          if (_visibleWarning && bWarn)
-          {
-            errorProviderWarn.SetError(binding.Control, _warningList[propertyName]);
-            errorProviderWarn.SetIconPadding(binding.Control,
-                                                  base.GetIconPadding(binding.Control) +
-                                                  offsetWarning);
-            errorProviderWarn.SetIconAlignment(binding.Control,
-                                                    base.GetIconAlignment(binding.Control));
-            hasWarning = true;
-          }
-
-          // should info be shown
-          if (_visibleInformation && bInfo)
-          {
-            errorProviderInfo.SetError(binding.Control, _infoList[propertyName]);
-            errorProviderInfo.SetIconPadding(binding.Control,
-                                                  base.GetIconPadding(binding.Control) +
-                                                  offsetInformation);
-            errorProviderInfo.SetIconAlignment(binding.Control,
-                                                    base.GetIconAlignment(binding.Control));
-
-            hasInfo = true;
-          }
+          if (_errorList.ContainsKey(propertyName))
+            sbError.AppendLine(_errorList[propertyName]);
+          if (_warningList.ContainsKey(propertyName))
+            sbWarn.AppendLine(_warningList[propertyName]);
+          if (_infoList.ContainsKey(propertyName))
+            sbInfo.AppendLine(propertyName);
         }
       }
 
-      if (!hasWarning) errorProviderWarn.SetError((Control)control, string.Empty);
-      if (!hasInfo) errorProviderInfo.SetError((Control)control, string.Empty);
+      bool bError = sbError.Length > 0;
+      bool bWarn = sbWarn.Length > 0;
+      bool bInfo = sbInfo.Length > 0;
+
+      // set flags to indicat if Warning or Info is highest severity; else false
+      if (_showMostSevereOnly)
+      {
+        bInfo = bInfo && !bWarn && !bError;
+        bWarn = bWarn && !bError;
+      }
+
+      int offsetInformation = _offsetInformation;
+      int offsetWarning = _offsetWarning;
+
+      // Set / fix offsets
+      // by default the setting are correct for Error (0), Warning and Info
+      if (!bError)
+      {
+        if (bWarn)
+        {
+          // warning and possibly info, no error
+          offsetInformation = _offsetInformation - _offsetWarning;
+          offsetWarning = 0;
+        }
+        else
+        {
+          // Info only
+          offsetInformation = 0;
+        }
+      }
+      else if (!bWarn)
+      {
+        offsetInformation = _offsetInformation - _offsetWarning;
+      }
+
+
+      // should warning be visible
+      if (_showWarning && bWarn)
+      {
+        _errorProviderWarn.SetError(control, sbWarn.ToString());
+        _errorProviderWarn.SetIconPadding(control,
+                                          base.GetIconPadding(control) +
+                                              offsetWarning);
+        _errorProviderWarn.SetIconAlignment(control,
+                                                base.GetIconAlignment(control));
+        hasWarning = true;
+      }
+
+      // should info be shown
+      if (_showInformation && bInfo)
+      {
+        _errorProviderInfo.SetError(control, sbInfo.ToString());
+        _errorProviderInfo.SetIconPadding(control,
+                                              base.GetIconPadding(control) +
+                                              offsetInformation);
+        _errorProviderInfo.SetIconAlignment(control,
+                                                base.GetIconAlignment(control));
+
+        hasInfo = true;
+      }
+
+      if (!hasWarning) _errorProviderWarn.SetError((Control)control, string.Empty);
+      if (!hasInfo) _errorProviderInfo.SetError((Control)control, string.Empty);
     }
 
     private void ResetBlinkStyleInformation()
@@ -813,7 +712,7 @@ namespace CslaContrib.Windows
     /// <param name="value">The value.</param>
     public void SetInformation(Control control, string value)
     {
-      errorProviderInfo.SetError(control, value);
+      _errorProviderInfo.SetError(control, value);
     }
 
     /// <summary>
@@ -823,7 +722,7 @@ namespace CslaContrib.Windows
     /// <param name="value">The value.</param>
     public void SetWarning(Control control, string value)
     {
-      errorProviderWarn.SetError(control, value);
+      _errorProviderWarn.SetError(control, value);
     }
 
     private bool ShouldSerializeIconInformation()
@@ -853,8 +752,8 @@ namespace CslaContrib.Windows
     public new void UpdateBinding()
     {
       base.UpdateBinding();
-      errorProviderInfo.UpdateBinding();
-      errorProviderWarn.UpdateBinding();
+      _errorProviderInfo.UpdateBinding();
+      _errorProviderWarn.UpdateBinding();
     }
 
     #endregion

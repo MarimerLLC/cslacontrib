@@ -136,4 +136,10 @@
   <data name="status_anim" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\status_anim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="InformationIco16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\informationico16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WarningIco16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\warningico16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

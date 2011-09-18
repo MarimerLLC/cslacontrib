@@ -1151,6 +1151,8 @@ namespace CslaContrib.Rules.CommonRules
 
   #endregion
 
+  #region Property rules
+
   /// <summary>
   /// Check that at least one of the fields of type string or smartvalue field has a value.
   /// Code must also add Dependency rules from each additional properties to primary property.
@@ -1217,4 +1219,5 @@ namespace CslaContrib.Rules.CommonRules
       context.AddErrorResult(string.Format(ErrorMessage, fieldNames));
     }
   }
+  #endregion
 }

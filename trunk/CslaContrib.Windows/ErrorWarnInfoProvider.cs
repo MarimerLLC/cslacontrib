@@ -42,6 +42,7 @@
 ****************************************************************************/
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -647,7 +648,7 @@ namespace CslaContrib.Windows
 
         if (bb != null)
         {
-          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
+          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection.Where(p => p.Property != null))
           {
             switch (br.Severity)
             {

@@ -32,13 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\..\dependencies\Net\Csla.dll</HintPath>
+      <HintPath>..\..\..\..\bin\Net\Release\Csla.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib">
-      <HintPath>..\..\..\dependencies\Net\CslaContrib.dll</HintPath>
+      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\dependencies\Net\CslaContrib.MEF.dll</HintPath>
+      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.MEF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

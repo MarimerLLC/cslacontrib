@@ -5,7 +5,7 @@ using CslaContrib.MEF;
 namespace MEFSample.Business
 {
   [Serializable]
-  public class CustomerInfo : MefReadOnlyBase<CustomerInfo>
+  public class CustomerInfo : ReadOnlyBase<CustomerInfo>
   {
     #region Business Methods
 

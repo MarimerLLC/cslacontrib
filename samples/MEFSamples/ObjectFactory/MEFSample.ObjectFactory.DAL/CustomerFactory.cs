@@ -15,9 +15,17 @@ namespace MEFSample.ObjectFactoryDAL
   [Export(typeof(ICustomerFactory))]
   public class CustomerFactory : ObjectFactory, ICustomerFactory
   {
+    // use property injection 
     [Import(typeof(ICustomerInfoFactory))]
     public ICustomerInfoFactory MyCustomerInfoFactory { get; set; }
 
+
+    // OR use Constructor injection
+    //[ImportingConstructor]
+    //public CustomerFactory(ICustomerInfoFactory customerInfoFactory)
+    //{
+    //  MyCustomerInfoFactory = customerInfoFactory;
+    //}
 
     public object Fetch(string criteria)
     {

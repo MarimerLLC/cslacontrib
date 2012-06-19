@@ -32,14 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla">
-      <HintPath>..\..\..\dependencies\Net\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\bin\Net\Release\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib">
-      <HintPath>..\..\..\dependencies\Net\CslaContrib.dll</HintPath>
+    <Reference Include="CslaContrib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\dependencies\Net\CslaContrib.MEF.dll</HintPath>
+    <Reference Include="CslaContrib.MEF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.MEF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />

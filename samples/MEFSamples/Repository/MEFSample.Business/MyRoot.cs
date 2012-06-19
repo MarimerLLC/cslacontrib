@@ -66,11 +66,6 @@ namespace MEFSample.Business
       //// call base class implementation to add data annotation rules to BusinessRules 
       base.AddBusinessRules();
 
-      // set up dependencies to that Sum is automatially recaclulated when PrimaryProperty is changed 
-      BusinessRules.AddRule(new Dependency(Num1Property, SumProperty));
-      BusinessRules.AddRule(new Dependency(Num2Property, SumProperty));
-      BusinessRules.AddRule(new Dependency(Num2Property, Num1Property));
-
       BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000));
       BusinessRules.AddRule(new LessThan(Num1Property, Num2Property));
 

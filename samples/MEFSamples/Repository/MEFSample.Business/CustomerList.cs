@@ -9,7 +9,7 @@ namespace MEFSample.Business
 {
   [Serializable]
   public class CustomerList :
-    MefReadOnlyListBase<CustomerList, CustomerInfo>
+    MefReadOnlyBindingListBase<CustomerList, CustomerInfo>
   {
     #region Factory Methods
 

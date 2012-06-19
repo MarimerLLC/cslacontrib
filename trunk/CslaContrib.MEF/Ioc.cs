@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 
@@ -14,7 +17,7 @@ namespace CslaContrib.MEF
     private static readonly object _syncRoot = new object();
 
     //Container
-    private static CompositionContainer _container;
+    private static volatile CompositionContainer _container;
 
     /// <summary>
     /// Gets the container.
@@ -34,10 +37,25 @@ namespace CslaContrib.MEF
 
               //create container
               var catalog = new AggregateCatalog();
-              catalog.Catalogs.Add(new DirectoryCatalog("."));
-              catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-              _container = new CompositionContainer(catalog);
-              _container.ComposeParts();
+
+              var parts = ConfigurationManager.AppSettings.AllKeys.Where(p => p.StartsWith("CslaContrib.Mef.DirectoryCatalog", true, CultureInfo.InvariantCulture));
+              if (parts.Any())
+              {
+                foreach (var values in parts.Select(part => ConfigurationManager.AppSettings[part].Split(';')))
+                {
+                  catalog.Catalogs.Add(values.Count() > 1
+                                         ? new DirectoryCatalog(values[0], values[1])
+                                         : new DirectoryCatalog(values[0]));
+                }
+              }
+              else
+              {
+                catalog.Catalogs.Add(new DirectoryCatalog("."));
+                catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+              }
+              var container = new CompositionContainer(catalog);
+              container.ComposeParts();
+              _container = container;
 
               Debug.Write("End configuring MEF Container");
             }

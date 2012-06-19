@@ -120,7 +120,9 @@ namespace CslaContrib.UnitTests
 
       Assert.IsTrue(root.IsValid);
       // Num3 must be greater than Num6 (=0)
+
       root.Num6 = 5;
+      root.Num4 = 6;
       root.Num3 = -1;
       Assert.IsFalse(root.IsValid);
       Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthan/Num3", root.BrokenRulesCollection[0].RuleName);
@@ -143,6 +145,7 @@ namespace CslaContrib.UnitTests
       Assert.IsTrue(root.IsValid);
       // Num4 must be greater than Num6 
       root.Num6 = 5;
+      root.Num3 = 6;
       root.Num4 = -1;
       Assert.IsFalse(root.IsValid);
       Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthanorequal/Num4", root.BrokenRulesCollection[0].RuleName);

@@ -5,510 +5,10 @@ using System.Text.RegularExpressions;
 using Csla.Core;
 using Csla.Properties;
 using Csla.Rules;
+using Csla.Rules.CommonRules;
 
 namespace CslaContrib.Rules.CommonRules
 {
-  #region Base class for Common Business Rules
-
-  /// <summary>
-  /// Base class used to create common rules.
-  /// </summary>
-  public abstract class CommonBusinessRule : BusinessRule
-  {
-    /// <summary>
-    /// Gets or sets the severity for this rule.
-    /// </summary>
-    public RuleSeverity Severity { get; set; }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    protected virtual string ErrorMessage
-    {
-      get { return ErrorMessageDelegate.Invoke(); }
-    }
-
-    /// <summary>
-    /// Gets or sets the error message function for this rule.
-    /// </summary>    
-    public Func<string> ErrorMessageDelegate { get; set; }
-
-    protected bool HasErrorMessageDelegate
-    {
-      get { return ErrorMessageDelegate != null; }
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Primary property.</param>
-    protected CommonBusinessRule(IPropertyInfo primaryProperty)
-      : base(primaryProperty)
-    {
-      Severity = RuleSeverity.Error;
-    }
-  }
-
-  #endregion
-
-  #region Re-implementation of Csla Common Rules with ErrorMessageDelegate
-
-  /// <summary>
-  /// Business rule for a required string.
-  /// </summary>
-  public class Required : CommonBusinessRule
-  {
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    public Required(IPropertyInfo primaryProperty)
-      : base(primaryProperty)
-    {
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public Required(IPropertyInfo primaryProperty, Func<string> errorMessageDelegate)
-      : this(primaryProperty)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.StringRequiredRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      var value = context.InputPropertyValues[PrimaryProperty];
-#if WINDOWS_PHONE
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
-#else
-      if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-#endif
-      {
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  /// <summary>
-  /// Business rule for a maximum length string.
-  /// </summary>
-  public class MaxLength : CommonBusinessRule
-  {
-    /// <summary>
-    /// Gets the max length value.
-    /// </summary>
-    public int Max { get; private set; }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="max">Max length value.</param>
-    public MaxLength(IPropertyInfo primaryProperty, int max)
-      : base(primaryProperty)
-    {
-      Max = max;
-      RuleUri.AddQueryParameter("max", max.ToString());
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="max">Max length value.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public MaxLength(IPropertyInfo primaryProperty, int max, Func<string> errorMessageDelegate)
-      : this(primaryProperty, max)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.StringMaxLengthRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      var value = context.InputPropertyValues[PrimaryProperty];
-      if (value != null && value.ToString().Length > Max)
-      {
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, Max);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  /// <summary>
-  /// Business rule for a minimum length string.
-  /// </summary>
-  public class MinLength : CommonBusinessRule
-  {
-    /// <summary>
-    /// Gets the min length value.
-    /// </summary>
-    public int Min { get; private set; }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="min">Min length value.</param>
-    public MinLength(IPropertyInfo primaryProperty, int min)
-      : base(primaryProperty)
-    {
-      Min = min;
-      RuleUri.AddQueryParameter("min", min.ToString());
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="min">Min length value.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public MinLength(IPropertyInfo primaryProperty, int min, Func<string> errorMessageDelegate)
-      : this(primaryProperty, min)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.StringMinLengthRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      var value = context.InputPropertyValues[PrimaryProperty];
-      if (value != null && value.ToString().Length < Min)
-      {
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, Min);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  /// <summary>
-  /// Business rule for a minimum value.
-  /// </summary>
-  public class MinValue<T> : CommonBusinessRule
-      where T : IComparable
-  {
-    /// <summary>
-    /// Gets the min value.
-    /// </summary>
-    public T Min { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the format string used
-    /// to format the Min value.
-    /// </summary>
-    public string Format { get; set; }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="min">Min length value.</param>
-    public MinValue(IPropertyInfo primaryProperty, T min)
-      : base(primaryProperty)
-    {
-      Min = min;
-      RuleUri.AddQueryParameter("min", min.ToString());
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="min">Min length value.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public MinValue(IPropertyInfo primaryProperty, T min, Func<string> errorMessageDelegate)
-      : this(primaryProperty, min)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.MinValueRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      var value = (T)context.InputPropertyValues[PrimaryProperty];
-      int result = value.CompareTo(Min);
-      if (result <= -1)
-      {
-        string outValue;
-        if (string.IsNullOrEmpty(Format))
-          outValue = Min.ToString();
-        else
-          outValue = string.Format(string.Format("{{0:{0}}}", Format), Min);
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, outValue);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  /// <summary>
-  /// Business rule for a maximum value.
-  /// </summary>
-  public class MaxValue<T> : CommonBusinessRule
-      where T : IComparable
-  {
-    /// <summary>
-    /// Gets the max value.
-    /// </summary>
-    public T Max { get; private set; }
-
-    /// <summary>
-    /// Gets or sets the format string used
-    /// to format the Max value.
-    /// </summary>
-    public string Format { get; set; }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="max">Max length value.</param>
-    public MaxValue(IPropertyInfo primaryProperty, T max)
-      : base(primaryProperty)
-    {
-      Max = max;
-      RuleUri.AddQueryParameter("max", max.ToString());
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Property to which the rule applies.</param>
-    /// <param name="max">Max length value.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public MaxValue(IPropertyInfo primaryProperty, T max, Func<string> errorMessageDelegate)
-      : this(primaryProperty, max)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.MaxValueRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      if (ErrorMessageDelegate == null)
-        ErrorMessageDelegate = () => Resources.MaxValueRule;
-
-      var value = (T)context.InputPropertyValues[PrimaryProperty];
-      int result = value.CompareTo(Max);
-      if (result >= 1)
-      {
-        string outValue;
-        if (string.IsNullOrEmpty(Format))
-          outValue = Max.ToString();
-        else
-          outValue = string.Format(string.Format("{{0:{0}}}", Format), Max);
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, outValue);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  /// <summary>
-  /// Business rule that evaluates a regular expression.
-  /// </summary>
-  public class RegExMatch : CommonBusinessRule
-  {
-    #region NullResultOptions
-
-    /// <summary>
-    /// List of options for the NullResult
-    /// property.
-    /// </summary>
-    public enum NullResultOptions
-    {
-      /// <summary>
-      /// Indicates that a null value
-      /// should always result in the 
-      /// rule returning false.
-      /// </summary>
-      ReturnFalse,
-      /// <summary>
-      /// Indicates that a null value
-      /// should always result in the 
-      /// rule returning true.
-      /// </summary>
-      ReturnTrue,
-      /// <summary>
-      /// Indicates that a null value
-      /// should be converted to an
-      /// empty string before the
-      /// regular expression is
-      /// evaluated.
-      /// </summary>
-      ConvertToEmptyString
-    }
-
-    #endregion
-
-    /// <summary>
-    /// Gets the regular expression
-    /// to be evaluated.
-    /// </summary>
-    public string Expression { get; private set; }
-
-    /// <summary>
-    /// Gets or sets a value that controls how
-    /// null input values are handled.
-    /// </summary>
-    public NullResultOptions NullOption { get; set; }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Primary property.</param>
-    /// <param name="expression">Regular expression.</param>
-    public RegExMatch(IPropertyInfo primaryProperty, string expression)
-      : base(primaryProperty)
-    {
-      Expression = expression;
-      RuleUri.AddQueryParameter("e", expression);
-      InputProperties = new List<IPropertyInfo> { primaryProperty };
-    }
-
-    /// <summary>
-    /// Creates an instance of the rule.
-    /// </summary>
-    /// <param name="primaryProperty">Primary property.</param>
-    /// <param name="expression">Regular expression.</param>
-    /// <param name="errorMessageDelegate">The error message function.</param>
-    public RegExMatch(IPropertyInfo primaryProperty, string expression, Func<string> errorMessageDelegate)
-      : this(primaryProperty, expression)
-    {
-      ErrorMessageDelegate = errorMessageDelegate;
-    }
-
-    /// <summary>
-    /// Gets the error message.
-    /// </summary>
-    /// <value></value>
-    protected override string ErrorMessage
-    {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : Csla.Properties.Resources.RegExMatchRule;
-      }
-    }
-
-    /// <summary>
-    /// Rule implementation.
-    /// </summary>
-    /// <param name="context">Rule context.</param>
-    protected override void Execute(RuleContext context)
-    {
-      var value = context.InputPropertyValues[PrimaryProperty];
-      bool ruleSatisfied;
-      var expression = new Regex(Expression);
-
-      if (value == null && NullOption == NullResultOptions.ConvertToEmptyString)
-        value = string.Empty;
-
-      if (value == null)
-      {
-        // if the value is null at this point
-        // then return the pre-defined result value
-        ruleSatisfied = (NullOption == NullResultOptions.ReturnTrue);
-      }
-      else
-      {
-        // the value is not null, so run the 
-        // regular expression
-        ruleSatisfied = expression.IsMatch(value.ToString());
-      }
-
-      if (!ruleSatisfied)
-      {
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName);
-        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
-      }
-    }
-  }
-
-  #endregion
-
   #region Comparable Field Rules
 
   /// <summary>
@@ -527,6 +27,7 @@ namespace CslaContrib.Rules.CommonRules
       : base(primaryProperty)
     {
       CompareTo = compareToProperty;
+      RuleUri.AddQueryParameter("compareto", compareToProperty.Name);
       InputProperties = new List<IPropertyInfo> { primaryProperty, compareToProperty };
     }
 
@@ -540,19 +41,16 @@ namespace CslaContrib.Rules.CommonRules
                     Func<string> errorMessageDelegate)
       : this(primaryProperty, compareToProperty)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
     /// <value></value>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.LessThanRule;
-      }
+       return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.LessThanRule;
     }
 
     /// <summary>
@@ -566,7 +64,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) >= 0)
       {
-        context.AddErrorResult(string.Format(ErrorMessage, PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
       }
     }
   }
@@ -587,6 +85,7 @@ namespace CslaContrib.Rules.CommonRules
       : base(primaryProperty)
     {
       CompareTo = compareToProperty;
+      RuleUri.AddQueryParameter("compareto", compareToProperty.Name);
       InputProperties = new List<IPropertyInfo> { primaryProperty, compareToProperty };
     }
 
@@ -600,19 +99,16 @@ namespace CslaContrib.Rules.CommonRules
                            Func<string> errorMessageDelegate)
       : this(primaryProperty, compareToProperty)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
     /// <value></value>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.LessThanOrEqualRule;
-      }
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.LessThanOrEqualRule;
     }
 
     /// <summary>
@@ -626,7 +122,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) > 0)
       {
-        context.AddErrorResult(string.Format(ErrorMessage, PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
       }
     }
   }
@@ -647,6 +143,7 @@ namespace CslaContrib.Rules.CommonRules
       : base(primaryProperty)
     {
       CompareTo = compareToProperty;
+      RuleUri.AddQueryParameter("compareto", compareToProperty.Name);
       InputProperties = new List<IPropertyInfo> { primaryProperty, compareToProperty };
     }
 
@@ -660,19 +157,16 @@ namespace CslaContrib.Rules.CommonRules
                        Func<string> errorMessageDelegate)
       : this(primaryProperty, compareToProperty)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
     /// <value></value>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.GreaterThanRule;
-      }
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.GreaterThanRule;
     }
 
     /// <summary>
@@ -686,7 +180,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) <= 0)
       {
-        context.AddErrorResult(string.Format(ErrorMessage, PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
       }
     }
   }
@@ -707,6 +201,7 @@ namespace CslaContrib.Rules.CommonRules
       : base(primaryProperty)
     {
       CompareTo = compareToProperty;
+      RuleUri.AddQueryParameter("compareto", compareToProperty.Name);
       InputProperties = new List<IPropertyInfo> { primaryProperty, compareToProperty };
     }
 
@@ -720,19 +215,16 @@ namespace CslaContrib.Rules.CommonRules
                               Func<string> errorMessageDelegate)
       : this(primaryProperty, compareToProperty)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
     /// <value></value>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.GreaterThanOrEqualRule;
-      }
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.GreaterThanOrEqualRule;
     }
 
     /// <summary>
@@ -746,7 +238,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) < 0)
       {
-        context.AddErrorResult(string.Format(ErrorMessage, PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
       }
     }
   }
@@ -814,7 +306,7 @@ namespace CslaContrib.Rules.CommonRules
     public Range(IPropertyInfo primaryProperty, IComparable min, IComparable max, Func<string> errorMessageDelegate)
       : this(primaryProperty, min, max)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
@@ -825,12 +317,9 @@ namespace CslaContrib.Rules.CommonRules
     /// <returns>
     /// The get message.
     /// </returns>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.RangeRule;
-      }
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.RangeRule;
     }
 
     /// <summary>
@@ -850,7 +339,7 @@ namespace CslaContrib.Rules.CommonRules
         var minOutValue = string.IsNullOrEmpty(Format) ? Min.ToString() : string.Format(string.Format("{{0:{0}}}", Format), Min);
         var maxOutValue = string.IsNullOrEmpty(Format) ? Max.ToString() : string.Format(string.Format("{{0:{0}}}", Format), Max);
 
-        var message = string.Format(ErrorMessage, PrimaryProperty.FriendlyName, minOutValue, maxOutValue);
+        var message = string.Format(GetMessage(), PrimaryProperty.FriendlyName, minOutValue, maxOutValue);
         context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
       }
     }
@@ -1181,19 +670,16 @@ namespace CslaContrib.Rules.CommonRules
     public AnyRequired(IPropertyInfo primaryProperty, Func<string> errorMessageDelegate, params IPropertyInfo[] additionalProperties)
       : this(primaryProperty, additionalProperties)
     {
-      ErrorMessageDelegate = errorMessageDelegate;
+      MessageDelegate = errorMessageDelegate;
     }
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
     /// <value></value>
-    protected override string ErrorMessage
+    protected override string GetMessage()
     {
-      get
-      {
-        return HasErrorMessageDelegate ? base.ErrorMessage : CslaContrib.Properties.Resources.AnyRequiredRule;
-      }
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.AnyRequiredRule;
     }
 
     /// <summary>
@@ -1216,7 +702,7 @@ namespace CslaContrib.Rules.CommonRules
 
       var fields = context.InputPropertyValues.Select(p => p.Key.FriendlyName).ToArray();
       var fieldNames = String.Join(", ", fields);
-      context.AddErrorResult(string.Format(ErrorMessage, fieldNames));
+      context.AddErrorResult(string.Format(GetMessage(), fieldNames));
     }
   }
   #endregion

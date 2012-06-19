@@ -36,11 +36,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Caliburn.Micro\WPF\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="Csla, Version=4.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\Dependencies\Csla\Net\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSLA-Core.4.3.12\lib\net40\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="Csla.Xaml">
-      <HintPath>..\Dependencies\Csla\Net\Csla.Xaml.dll</HintPath>
+    <Reference Include="Csla.Xaml, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSLA-WPF.4.3.12\lib\net40\Csla.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.XmlSerializers">
+      <HintPath>..\packages\CSLA-Core.4.3.12\lib\net40\Csla.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -78,6 +83,9 @@
       <Link>ScreenWithSubject.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

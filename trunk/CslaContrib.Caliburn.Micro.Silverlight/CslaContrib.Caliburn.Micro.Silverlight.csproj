@@ -50,11 +50,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Caliburn.Micro\Silverlight\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="Csla, Version=4.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\Dependencies\Csla\Sl\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSLA-Core.4.3.12\lib\sl40\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="Csla.Xaml">
-      <HintPath>..\Dependencies\Csla\Sl\Csla.Xaml.dll</HintPath>
+    <Reference Include="Csla.Xaml, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\CSLA-Silverlight.4.3.12\lib\sl40\Csla.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL" />
@@ -78,6 +80,9 @@
     <Compile Include="ScreenWithModel.cs" />
     <Compile Include="ScreenWithModelBase.cs" />
     <Compile Include="ScreenWithSubject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

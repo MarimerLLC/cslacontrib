@@ -2,7 +2,6 @@ using System;
 using Csla;
 using Csla.Rules.CommonRules;
 using CslaContrib.Rules.CommonRules;
-using Required = CslaContrib.Rules.CommonRules.Required;
 
 namespace CslaContrib.UnitTests.Rules
 {
@@ -123,10 +122,6 @@ namespace CslaContrib.UnitTests.Rules
       BusinessRules.AddRule(new ToUpperCase(UpperProperty));
       BusinessRules.AddRule(new ToLowerCase(LowerProperty));
       BusinessRules.AddRule(new CalcSum(SumProperty, Num1Property, Num2Property, Num3Property, Num4Property));
-      BusinessRules.AddRule(new Dependency(Num1Property, SumProperty));
-      BusinessRules.AddRule(new Dependency(Num2Property, SumProperty));
-      BusinessRules.AddRule(new Dependency(Num3Property, SumProperty));
-      BusinessRules.AddRule(new Dependency(Num4Property, SumProperty));
       BusinessRules.AddRule(new Required(Str1Property, () => "My error message {0}"));
     }
 

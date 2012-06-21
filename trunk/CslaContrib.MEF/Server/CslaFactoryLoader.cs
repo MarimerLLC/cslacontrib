@@ -72,8 +72,9 @@ namespace CslaContrib.MEF.Server
     /// <returns></returns>
     public Type GetFactoryType(string factoryName)
     {
-      var typename = GetTypeName(factoryName);
-      return Type.GetType(typename, false);
+      // return an instance of the Interface 
+      // use RunLocal on the interface definition - rather than the actrual class. 
+      return Type.GetType(factoryName, false);
     }
   }
 }

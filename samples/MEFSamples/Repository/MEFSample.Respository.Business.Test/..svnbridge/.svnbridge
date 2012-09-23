@@ -5,4 +5,9 @@ obj
 *.user
 *.aps
 *.eto
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.suo
+*.user
+bin
+obj
+Bin
 </Value></Property></Properties></ItemProperties>

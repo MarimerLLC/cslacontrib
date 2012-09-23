@@ -5,4 +5,9 @@ obj
 *.user
 *.aps
 *.eto
-</Value></Property></Properties></ItemProperties>
+</Value></Property><Property><Name>svn:ignore</Name><Value>*.suo
+*.user
+bin
+obj
+Bin
+</Value></Property><Property><Name>bugtraq:label</Name><Value>Work item #:</Value></Property><Property><Name>bugtraq:url</Name><Value>http://cslacontrib.codeplex.com/workitem/%BUGID%</Value></Property><Property><Name>bugtraq:message</Name><Value>Work Item #%BUGID%</Value></Property><Property><Name>bugtraq:number</Name><Value>true</Value></Property><Property><Name>bugtraq:warnifnoissue</Name><Value>true</Value></Property></Properties></ItemProperties>

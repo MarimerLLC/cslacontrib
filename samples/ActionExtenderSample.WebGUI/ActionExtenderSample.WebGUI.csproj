@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{740A085A-02C3-447B-AE84-770B0F646B80}</ProjectGuid>
+    <ProjectTypeGuids>{563295b5-8906-4a76-be2d-ff8e711c1204};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActionExtenderSample</RootNamespace>
+    <AssemblyName>ActionExtenderSample</AssemblyName>
+    <StartPageUrl>Form1.wgx</StartPageUrl>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartPageUrl>Form1.wgx</StartPageUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\Net\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="CslaContrib.WebGUI, Version=4.3.13.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\Dependencies\Net\CslaContrib.WebGUI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Gizmox.WebGUI.Forms, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Common, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Server, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
+    <Content Include="Resources\Icons\Close16.png" />
+    <Content Include="Resources\Icons\Save16-disabled.png" />
+    <Content Include="Resources\Icons\Save16.png" />
+    <Content Include="Resources\Icons\Undo16-disabled.png" />
+    <Content Include="Resources\Icons\Undo16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionExtenderSample.Business\DataPortalHookArgs.cs" />
+    <Compile Include="ActionExtenderSample.Business\Order.cs" />
+    <Compile Include="ActionExtenderSample.Business\Order.Designer.cs">
+      <DependentUpon>Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.Business\OrderDetail.cs" />
+    <Compile Include="ActionExtenderSample.Business\OrderDetail.Designer.cs">
+      <DependentUpon>OrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.Business\OrderDetailCollection.cs" />
+    <Compile Include="ActionExtenderSample.Business\OrderDetailCollection.Designer.cs">
+      <DependentUpon>OrderDetailCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess.Sql\OrderDal.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess.Sql\OrderDal.Designer.cs">
+      <DependentUpon>OrderDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess.Sql\OrderDetailDal.Designer.cs">
+      <DependentUpon>OrderDetailDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess\DataNotFoundException.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess\IOrderDal.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess\IOrderDal.Designer.cs">
+      <DependentUpon>IOrderDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ActionExtenderSample.DataAccess\IOrderDetailDal.cs" />
+    <Compile Include="ActionExtenderSample.DataAccess\IOrderDetailDal.Designer.cs">
+      <DependentUpon>IOrderDetailDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
+    <Compile Include="OrderMaint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMaint.Designer.cs">
+      <DependentUpon>OrderMaint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMaint2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMaint2.Designer.cs">
+      <DependentUpon>OrderMaint2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderMaint3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrderMaint3.Designer.cs">
+      <DependentUpon>OrderMaint3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\ActionExtenderSample.Business.Order.datasource" />
+    <None Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMaint.resx">
+      <DependentUpon>OrderMaint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMaint2.resx">
+      <DependentUpon>OrderMaint2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderMaint3.resx">
+      <DependentUpon>OrderMaint3.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Capture\" />
+    <Folder Include="Resources\Generated\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\UserData\" />
+    <Folder Include="Resources\Xaml\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Condition="" Project="$(MSBuildExtensionsPath)\Gizmox\v10.0\Gizmox.VWGApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5716</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

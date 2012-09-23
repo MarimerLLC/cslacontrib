@@ -42,14 +42,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\bin\Net\Release\Csla.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.dll</HintPath>
+    <Reference Include="CslaContrib">
+      <HintPath>..\..\..\Dependencies\Net\CslaContrib.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib.MEF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.MEF.dll</HintPath>
+    <Reference Include="CslaContrib.MEF">
+      <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib.Windows, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.Windows.dll</HintPath>
+    <Reference Include="CslaContrib.Windows">
+      <HintPath>..\..\..\Dependencies\Net\CslaContrib.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\ActionExtenderSample.WebGUI\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CustomerListForm.cs">
       <SubType>Form</SubType>
     </Compile>

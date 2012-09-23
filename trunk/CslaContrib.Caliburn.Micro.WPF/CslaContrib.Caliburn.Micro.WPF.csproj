@@ -83,6 +83,9 @@
     <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ScreenWithSubject.cs">
       <Link>ScreenWithSubject.cs</Link>
     </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

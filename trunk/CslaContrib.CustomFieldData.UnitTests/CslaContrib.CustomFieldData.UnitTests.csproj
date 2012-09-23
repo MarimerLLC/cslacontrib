@@ -58,6 +58,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AssemblyTests.cs" />
     <Compile Include="ChildObject.cs" />
     <Compile Include="FieldDataUsingOriginalValueViaDuplicateTests.cs" />

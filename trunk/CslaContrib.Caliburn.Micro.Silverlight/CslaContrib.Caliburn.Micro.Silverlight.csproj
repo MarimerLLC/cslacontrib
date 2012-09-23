@@ -76,6 +76,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ErrorEventArgs.cs" />
     <Compile Include="ExecuteEventArgs.cs" />
     <Compile Include="IHaveModel.cs" />

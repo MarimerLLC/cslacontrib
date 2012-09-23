@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E2C79026-B542-4EC0-B2B0-5BC285D9AF3C}"
 	ProjectSection(SolutionItems) = preProject
 		CslaContrib.vsmdi = CslaContrib.vsmdi
+		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 		Local.testsettings = Local.testsettings
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection

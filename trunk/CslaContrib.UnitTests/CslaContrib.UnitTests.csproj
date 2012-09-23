@@ -58,6 +58,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Rules\AnyRequiredRoot.cs" />
     <Compile Include="Rules\RulesTest.cs" />
     <Compile Include="ObjectCaching\CacheDataPortalTests.cs" />

@@ -48,13 +48,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.3.12\lib\sl40\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl40\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="Csla.Xaml, Version=4.3.12.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+    <Reference Include="Csla.Xaml, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Silverlight.4.3.12\lib\sl40\Csla.Xaml.dll</HintPath>
+      <HintPath>..\packages\CSLA-Silverlight.4.3.13\lib\sl40\Csla.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />

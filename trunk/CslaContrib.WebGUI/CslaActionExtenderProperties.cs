@@ -53,7 +53,6 @@ namespace CslaContrib.WebGUI
       set { _rebindAfterSave = value; }
     }
 
-    [Obsolete("Use DisableWhenUseless instead.")]
     public bool DisableWhenClean
     {
       get { return _disableWhenClean; }

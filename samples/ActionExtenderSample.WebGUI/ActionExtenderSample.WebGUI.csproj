@@ -14,7 +14,7 @@
     <AssemblyName>ActionExtenderSample</AssemblyName>
     <StartPageUrl>Form1.wgx</StartPageUrl>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,7 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Readme.txt" />
     <Content Include="Resources\Icons\Close16.png" />
     <Content Include="Resources\Icons\Save16-disabled.png" />
     <Content Include="Resources\Icons\Save16.png" />
@@ -177,8 +176,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>5716</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:5716/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

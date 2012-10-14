@@ -26,30 +26,32 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Server\</OutputPath>
+    <OutputPath>..\..\bin\Debug\NET4\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Server\CslaContrib.WebGUI.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\NET4\CslaContrib.WebGUI.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Server\</OutputPath>
+    <OutputPath>..\..\bin\Release\NET4\</OutputPath>
     <DefineConstants>TRACE;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Server\CslaContrib.WebGUI.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\NET4\CslaContrib.WebGUI.XML</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CSLA-Core.4.3.13\lib\net40\Csla.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Csla.XmlSerializers, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\CSLA-Core.4.3.13\lib\net40\Csla.XmlSerializers.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Common, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6, processorArchitecture=MSIL" />
     <Reference Include="Gizmox.WebGUI.Forms, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d, processorArchitecture=MSIL" />

@@ -12,13 +12,14 @@
     <RootNamespace>CslaContrib.Xaml.Silverlight</RootNamespace>
     <AssemblyName>CslaContrib.Xaml.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -30,24 +31,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Sl4\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Sl5\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl4\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Sl4\</OutputPath>
+    <OutputPath>..\..\bin\Release\Sl5\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl4\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

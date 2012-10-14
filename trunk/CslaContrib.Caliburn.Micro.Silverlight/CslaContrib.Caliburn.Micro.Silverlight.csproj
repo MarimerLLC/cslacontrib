@@ -12,13 +12,14 @@
     <RootNamespace>CslaContrib.Caliburn.Micro.Silverlight</RootNamespace>
     <AssemblyName>CslaContrib.Caliburn.Micro.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -30,50 +31,60 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Sl4\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Sl5\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl4\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Sl4\</OutputPath>
+    <OutputPath>..\..\bin\Release\Sl5\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl4\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=1.3.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl5\Caliburn.Micro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl40\Csla.dll</HintPath>
-    </Reference>
-    <Reference Include="Csla.Xaml, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Silverlight.4.3.13\lib\sl40\Csla.Xaml.dll</HintPath>
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl50\Csla.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="System.ComponentModel.Composition, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.ComponentModel.Composition.Initialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.Composition.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition.Initialization, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.Composition.Initialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.DataAnnotations.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\System.Windows.Controls.dll</HintPath>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl5\System.Windows.Controls.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl5\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />

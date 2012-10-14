@@ -5,14 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}</ProjectGuid>
+    <ProjectGuid>{7FF9D372-4BFD-49C6-BBC3-1C9F2794A753}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.CustomFieldData</RootNamespace>
-    <AssemblyName>CslaContrib.CustomFieldData</AssemblyName>
+    <RootNamespace>CslaContrib.Caliburn.Micro.Silverlight</RootNamespace>
+    <AssemblyName>CslaContrib.Caliburn.Micro.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
@@ -31,68 +31,83 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Sl5\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Sl4\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.CustomFieldData.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl4\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Sl5\</OutputPath>
+    <OutputPath>..\..\bin\Release\Sl4\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.CustomFieldData.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl4\CslaContrib.Caliburn.Micro.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl50\Csla.dll</HintPath>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Csla.Xaml, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Silverlight.4.3.13\lib\sl50\Csla.Xaml.dll</HintPath>
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl40\Csla.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.Composition, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition.Initialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=2.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Controls, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\System.Windows.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\Caliburn.Micro.1.3.1\lib\sl4\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.CustomFieldData\BusinessCore.cs">
-      <Link>BusinessCore.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ErrorEventArgs.cs">
+      <Link>ErrorEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValue.cs">
-      <Link>FieldDataUsingOriginalValue.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ExecuteEventArgs.cs">
+      <Link>ExecuteEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValueViaDuplicate.cs">
-      <Link>FieldDataUsingOriginalValueViaDuplicate.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\IHaveModel.cs">
+      <Link>IHaveModel.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValueViaHashCode.cs">
-      <Link>FieldDataUsingOriginalValueViaHashCode.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\IHaveSubject.cs">
+      <Link>IHaveSubject.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\Properties\AssemblyInfo.cs">
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\PropertyInformationFactory.cs">
-      <Link>PropertyInformationFactory.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ScreenWithModel.cs">
+      <Link>ScreenWithModel.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\PropertyInformationUsingOriginalValue.cs">
-      <Link>PropertyInformationUsingOriginalValue.cs</Link>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ScreenWithModelBase.cs">
+      <Link>ScreenWithModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Caliburn.Micro.Silverlight\ScreenWithSubject.cs">
+      <Link>ScreenWithSubject.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>

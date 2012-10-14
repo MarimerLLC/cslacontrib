@@ -5,14 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D0BC8A82-F2B4-4BEB-B7DE-565494600BB8}</ProjectGuid>
+    <ProjectGuid>{F0992C6A-B771-4C9D-B58B-619D6068C3A9}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.CustomFieldData</RootNamespace>
-    <AssemblyName>CslaContrib.CustomFieldData</AssemblyName>
+    <RootNamespace>CslaContrib.Xaml.Silverlight</RootNamespace>
+    <AssemblyName>CslaContrib.Xaml.Silverlight</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
@@ -31,36 +31,26 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\Sl5\</OutputPath>
+    <OutputPath>..\..\bin\Debug\Sl4\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.CustomFieldData.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl4\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\Sl5\</OutputPath>
+    <OutputPath>..\..\bin\Release\Sl4\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.CustomFieldData.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl4\CslaContrib.Xaml.Silverlight.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl50\Csla.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Csla.Xaml, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Silverlight.4.3.13\lib\sl50\Csla.Xaml.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -70,36 +60,15 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.CustomFieldData\BusinessCore.cs">
-      <Link>BusinessCore.cs</Link>
+    <Compile Include="..\CslaContrib.Xaml.Silverlight\ComboBoxEx.cs">
+      <Link>ComboBoxEx.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValue.cs">
-      <Link>FieldDataUsingOriginalValue.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValueViaDuplicate.cs">
-      <Link>FieldDataUsingOriginalValueViaDuplicate.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\FieldDataUsingOriginalValueViaHashCode.cs">
-      <Link>FieldDataUsingOriginalValueViaHashCode.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\Properties\AssemblyInfo.cs">
+    <Compile Include="..\CslaContrib.Xaml.Silverlight\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\PropertyInformationFactory.cs">
-      <Link>PropertyInformationFactory.cs</Link>
-    </Compile>
-    <Compile Include="..\CslaContrib.CustomFieldData\PropertyInformationUsingOriginalValue.cs">
-      <Link>PropertyInformationUsingOriginalValue.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

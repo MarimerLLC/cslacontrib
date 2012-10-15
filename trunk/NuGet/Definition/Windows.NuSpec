@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib-Windows</id>
+    <title>CSLA .NET Contrib - Windows</title>
+    <tags>CSLA CslaContrib WindowsForms WinForms UI</tags>
+    <version>4.3.13</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+Supports the creation of Windows Forms applications.
+
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Supports the creation of Windows Forms applications.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.13]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.Windows.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.xml*" target="lib\net45" />-->
+    <!-- Silverlight 4.0 Client -->
+    <!-- > None -->
+    <!-- Windows Phone 7 Client -->
+    <!-- > None -->
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\trunk\**\CslaContrib.Windows\**\*.cs" target="src" />
+  </files>
+</package>

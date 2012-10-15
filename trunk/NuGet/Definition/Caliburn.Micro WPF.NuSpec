@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib-Caliburn.Micro.WPF</id>
+    <title>CSLA .NET Contrib - Caliburn.Micro.WPF</title>
+    <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM UI</tags>
+    <version>4.3.13</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framework.
+
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framework.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.13]" />
+      <dependency id="CSLA-WPF" version="[4.3.13]" />
+      <dependency id="Caliburn.Micro" version="" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.xml*" target="lib\net45" />-->
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\trunk\**\CslaContrib.Caliburn.Micro.WPF\**\*.cs" target="src" />
+  </files>
+</package>

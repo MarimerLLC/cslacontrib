@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib-MEF</id>
+    <title>CSLA .NET Contrib - MEF</title>
+    <tags>CSLA CslaContrib MEF</tags>
+    <version>4.3.13</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+Extends CSLA .NET framework with MEF.
+
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Extends CSLA .NET framework with MEF.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.13]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--
+    <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.xml*" target="lib\net45" />
+    -->
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\trunk\**\CslaContrib\**\*.cs" target="src" />
+  </files>
+</package>

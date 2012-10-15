@@ -41,6 +41,6 @@ Supports the creation of Visual WebGUI applications.
     <!-- Windows Phone 7 Client -->
     <!-- > None -->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.WebGUI\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.WebGUI\**\*.cs" target="src" />
   </files>
 </package>

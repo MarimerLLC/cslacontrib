@@ -41,6 +41,6 @@ Supports the creation of Windows Forms applications.
     <!-- Windows Phone 7 Client -->
     <!-- > None -->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.Windows\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Windows\**\*.cs" target="src" />
   </files>
 </package>

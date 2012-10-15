@@ -37,6 +37,6 @@ Supports the creation of WPF applications.
     <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.xml*" target="lib\net45" />-->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.Xaml\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Xaml\**\*.cs" target="src" />
   </files>
 </package>

@@ -37,6 +37,6 @@ Supports the creation of Silverlight applications.
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.resources.pdb*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.Xaml.Silverlight\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Xaml.Silverlight\**\*.cs" target="src" />
   </files>
 </package>

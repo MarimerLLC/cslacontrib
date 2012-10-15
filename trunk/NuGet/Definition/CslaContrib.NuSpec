@@ -37,6 +37,6 @@ Extends CSLA .NET framework with ObjectCaching and Rules.
     <file src="..\..\bin\Release\NET\**\CslaContrib.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.xml*" target="lib\net45" />-->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
   </files>
 </package>

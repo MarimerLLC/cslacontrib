@@ -39,6 +39,6 @@ Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framew
     <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.xml*" target="lib\net45" />-->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.Caliburn.Micro.WPF\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.WPF\**\*.cs" target="src" />
   </files>
 </package>

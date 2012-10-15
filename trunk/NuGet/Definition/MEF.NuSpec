@@ -39,6 +39,6 @@ Extends CSLA .NET framework with MEF.
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.xml*" target="lib\net45" />
     -->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
   </files>
 </package>

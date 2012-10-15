@@ -51,6 +51,6 @@ Extends CSLA .NET framework with Custom Field Data that will check old/new value
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.CustomFieldData\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.CustomFieldData\**\*.cs" target="src" />
   </files>
 </package>

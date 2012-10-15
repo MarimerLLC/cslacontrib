@@ -41,6 +41,6 @@ Extends CSLA .NET framework with ObjectCaching for AppFabric.
     <!-- Windows Phone 7 Client -->
     <!-- > None -->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\trunk\**\CslaContrib.ObjectCaching.AppFabric\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.ObjectCaching.AppFabric\**\*.cs" target="src" />
   </files>
 </package>

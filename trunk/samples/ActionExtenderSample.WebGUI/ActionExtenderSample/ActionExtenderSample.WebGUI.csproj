@@ -66,6 +66,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CslaActionExtenderSample.mdf" />
+    <Content Include="App_Data\CslaActionExtenderSample_log.ldf">
+      <DependentUpon>CslaActionExtenderSample.mdf</DependentUpon>
+    </Content>
     <Content Include="Resources\Icons\Close16.png" />
     <Content Include="Resources\Icons\Save16-disabled.png" />
     <Content Include="Resources\Icons\Save16.png" />

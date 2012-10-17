@@ -5,8 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using Csla;
 using Csla.Rules.CommonRules;
 using Csla.Server;
-using CslaContrib.MEF;
-using CslaContrib.MEF.Server;
 using CslaContrib.Rules.CommonRules;
 using MEFSample.Business.FactoryInterfaces;
 using DataPortal = Csla.DataPortal;

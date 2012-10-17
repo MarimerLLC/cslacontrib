@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Csla;
 using Csla.Server;
-using CslaContrib.MEF;
-using CslaContrib.MEF.Server;
 using MEFSample.Business.FactoryInterfaces;
 using DataPortal = Csla.DataPortal;
 

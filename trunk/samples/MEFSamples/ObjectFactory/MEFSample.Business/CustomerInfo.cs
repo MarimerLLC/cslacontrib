@@ -1,6 +1,5 @@
 using System;
 using Csla;
-using CslaContrib.MEF;
 
 namespace MEFSample.Business
 {

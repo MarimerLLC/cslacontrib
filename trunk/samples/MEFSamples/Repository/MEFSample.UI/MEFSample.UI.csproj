@@ -35,19 +35,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\..\..\bin\Net\Release\Csla.dll</HintPath>
-    </Reference>
-    <Reference Include="Csla.Windows">
-      <HintPath>..\..\..\..\bin\Net\Release\Csla.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="CslaContrib">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\Net\Csla.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.MEF.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib.Windows">
-      <HintPath>..\..\..\..\bin\Net\Release\CslaContrib.Windows.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\Net\CslaContrib.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\ActionExtenderSample.WebGUI\Properties\GlobalAssemblyInfo.cs">
+    <Compile Include="..\..\..\ActionExtenderSample.WebGUI\ActionExtenderSample\Properties\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CustomerListForm.cs">

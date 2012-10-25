@@ -39,10 +39,15 @@ namespace ActionExtenderSample
       BindUI();
     }
 
-    private void ToggleToolStripButton(object sender, EventArgs e)
+    private void ToggleImageToolStripButton(object sender, EventArgs e)
     {
       string imageName = string.Format("{0}{1}.Image", ((ToolStripButton) sender).Name, ((ToolStripButton) sender).Enabled ? "" : "Disabled");
       ((ToolStripButton) sender).Image = new Gizmox.WebGUI.Common.Resources.IconResourceHandle(resources.GetString(imageName));
+    }
+
+    private void ToggleTextToolStripButton(object sender, EventArgs e)
+    {
+      ((ToolStripButton)sender).Update();
     }
 
     private void orderDetailListDataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)

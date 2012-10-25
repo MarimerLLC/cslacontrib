@@ -285,7 +285,7 @@ namespace ActionExtenderSample
       this.toolSave.Name = "toolSave";
       this.toolSave.Size = new System.Drawing.Size(23, 22);
       this.toolSave.Text = "Save";
-      this.toolSave.EnabledChanged += ToggleToolStripButton;
+      this.toolSave.EnabledChanged += ToggleImageToolStripButton;
       // 
       // toolSaveNew
       // 
@@ -296,6 +296,7 @@ namespace ActionExtenderSample
       this.cslaActionExtender1.SetPostSaveAction(this.toolSaveNew, CslaContrib.WebGUI.PostSaveActionType.AndNew);
       this.toolSaveNew.Size = new System.Drawing.Size(60, 22);
       this.toolSaveNew.Text = "Save/New";
+      this.toolSaveNew.EnabledChanged += ToggleTextToolStripButton;
       // 
       // toolSaveClose
       // 
@@ -307,6 +308,7 @@ namespace ActionExtenderSample
       this.cslaActionExtender1.SetRebindAfterSave(this.toolSaveClose, false);
       this.toolSaveClose.Size = new System.Drawing.Size(65, 22);
       this.toolSaveClose.Text = "Save/Close";
+      this.toolSaveClose.EnabledChanged += ToggleTextToolStripButton;
       // 
       // toolCancel
       // 
@@ -317,7 +319,7 @@ namespace ActionExtenderSample
       this.toolCancel.Name = "toolCancel";
       this.toolCancel.Size = new System.Drawing.Size(23, 22);
       this.toolCancel.Text = "Cancel";
-      this.toolCancel.EnabledChanged += ToggleToolStripButton;
+      this.toolCancel.EnabledChanged += ToggleImageToolStripButton;
       // 
       // toolClose
       // 

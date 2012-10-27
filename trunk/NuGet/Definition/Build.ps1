@@ -115,7 +115,7 @@ try
 
     ## Update Package Version
     ## ----------------------    
-    ## Before building NuGet package, extract CSLA Version number and update .NuSpec to automate versioning of .NuSpec document
+    ## Before building NuGet package, extract CslaContrib Version number and update .NuSpec to automate versioning of .NuSpec document
     ## - JH: Not sure if I should get direct from source code file or from file version of compiled library instead.
     ## - JH: Going with product version in assembly for now
     $cslaContribAssembly = Get-ChildItem "$pathToBin\NET4\CslaContrib.dll" | Select-Object -First 1

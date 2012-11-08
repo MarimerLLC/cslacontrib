@@ -3,7 +3,7 @@
   <metadata>
     <id>CslaContrib-Caliburn.Micro.WPF</id>
     <title>CSLA .NET Contrib - Caliburn.Micro.WPF</title>
-    <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM UI</tags>
+    <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
     <version>4.3.13</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
@@ -11,12 +11,14 @@
     <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framework.
-
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+
+Caliburn.Micro is small, yet powerful framework designed for Xaml platforms, Caliburn.Micro implements a variety of UI patterns for solving real-world problems. Patterns that are highlighted include MVVM (Presentation Model), MVP and MVC.
+
+Note - Although not dependant on any specific version of Caliburn.Micro, code from v.1.4 was used.
     </description>
     <summary>
-Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framework.
+Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro MVVM UI framework.
     </summary>
     <language>en-US</language>
     <dependencies>
@@ -27,18 +29,18 @@ Supports the creation of WPF applications that use Caliburn.Micro MVVM UI framew
   </metadata>
   <files>
     <!-- .NET 4.0 Client -->
-    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.dll*" target="lib\net40" />
-    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.pdb*" target="lib\net40" />
-    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.resources.dll*" target="lib\net40" />
-    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.resources.pdb*" target="lib\net40" />
-    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.WPF.xml*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.WPF.xml*" target="lib\net45" />-->
+    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net45" />-->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.WPF\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro\**\*.cs" target="src" />
   </files>
 </package>

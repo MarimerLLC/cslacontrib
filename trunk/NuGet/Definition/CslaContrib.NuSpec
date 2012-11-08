@@ -3,7 +3,7 @@
   <metadata>
     <id>CslaContrib</id>
     <title>CSLA .NET Contrib</title>
-    <tags>CSLA CslaContrib - ObjectCaching Rules</tags>
+    <tags>CSLA CslaContrib - ObjectCaching and Generic Rules</tags>
     <version>4.3.13</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
@@ -11,12 +11,10 @@
     <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-Extends CSLA .NET framework with ObjectCaching and Rules.
-
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
     </description>
     <summary>
-Extends CSLA .NET framework with ObjectCaching and Rules.
+Extends CSLA .NET framework with ObjectCaching data portal implementation including in-memory cache provider for simple cache and additional generic business and authorization rules.
     </summary>
     <language>en-US</language>
     <dependencies>

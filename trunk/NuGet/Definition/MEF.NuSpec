@@ -11,12 +11,10 @@
     <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-Extends CSLA .NET framework with MEF.
-
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
     </description>
     <summary>
-Extends CSLA .NET framework with MEF.
+Extends CSLA .NET framework with MEF support for Repository and ObjectFactory data access.
     </summary>
     <language>en-US</language>
     <dependencies>

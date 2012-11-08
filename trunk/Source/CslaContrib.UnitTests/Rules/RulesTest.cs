@@ -80,12 +80,12 @@ namespace CslaContrib.UnitTests
       // Num1 must be less than Num5 (=0)
       root.Num1 = 1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthan/Num1", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthan/Num1?compareto=Num5", root.BrokenRulesCollection[0].RuleName);
       root.Num1 = -1;
       Assert.IsTrue(root.IsValid);
       root.Num1 = 0;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthan/Num1", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthan/Num1?compareto=Num5", root.BrokenRulesCollection[0].RuleName);
       root.Num1 = -1;
       Assert.IsTrue(root.IsValid);
     }
@@ -101,12 +101,12 @@ namespace CslaContrib.UnitTests
       // Num2 must be less than Num5 (=0)
       root.Num2 = 1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthanorequal/Num2", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthanorequal/Num2?compareto=Num5", root.BrokenRulesCollection[0].RuleName);
       root.Num2 = 0;
       Assert.IsTrue(root.IsValid);
       root.Num2 = 1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthanorequal/Num2", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.lessthanorequal/Num2?compareto=Num5", root.BrokenRulesCollection[0].RuleName);
       root.Num2 = -1;
       Assert.IsTrue(root.IsValid);
     }
@@ -125,12 +125,12 @@ namespace CslaContrib.UnitTests
       root.Num4 = 6;
       root.Num3 = -1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthan/Num3", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthan/Num3?compareto=Num6", root.BrokenRulesCollection[0].RuleName);
       root.Num3 = 6;
       Assert.IsTrue(root.IsValid);
       root.Num3 = 5;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthan/Num3", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthan/Num3?compareto=Num6", root.BrokenRulesCollection[0].RuleName);
       root.Num3 = 6;
       Assert.IsTrue(root.IsValid);
     }
@@ -148,12 +148,12 @@ namespace CslaContrib.UnitTests
       root.Num3 = 6;
       root.Num4 = -1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthanorequal/Num4", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthanorequal/Num4?compareto=Num6", root.BrokenRulesCollection[0].RuleName);
       root.Num4 = 6;
       Assert.IsTrue(root.IsValid);
       root.Num4 = -1;
       Assert.IsFalse(root.IsValid);
-      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthanorequal/Num4", root.BrokenRulesCollection[0].RuleName);
+      Assert.AreEqual("rule://cslacontrib.rules.commonrules.greaterthanorequal/Num4?compareto=Num6", root.BrokenRulesCollection[0].RuleName);
       root.Num4 = 5;
       Assert.IsTrue(root.IsValid);
     }

@@ -8,8 +8,8 @@
     <ProjectGuid>{AEC13539-BCFB-4CEE-A324-479D41E39D39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.Caliburn.Micro.WPF</RootNamespace>
-    <AssemblyName>CslaContrib.Caliburn.Micro.WPF</AssemblyName>
+    <RootNamespace>CslaContrib.Caliburn.Micro</RootNamespace>
+    <AssemblyName>CslaContrib.Caliburn.Micro</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\NET4\CslaContrib.Caliburn.Micro.WPF.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\NET4\CslaContrib.Caliburn.Micro.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\NET4\CslaContrib.Caliburn.Micro.WPF.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\NET4\CslaContrib.Caliburn.Micro.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=1.3.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">

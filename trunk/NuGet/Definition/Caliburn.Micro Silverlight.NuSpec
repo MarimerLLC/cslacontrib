@@ -15,7 +15,7 @@ CSLA .NET is an application development framework that reduces the cost of build
 
 Caliburn.Micro is small, yet powerful framework designed for Xaml platforms, Caliburn.Micro implements a variety of UI patterns for solving real-world problems. Patterns that are highlighted include MVVM (Presentation Model), MVP and MVC.
 
-Note - Although not dependant on any specific version of Caliburn.Micro, code from v.1.4 was used.
+Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.1.4.
     </description>
     <summary>
 Supports the creation of CSLA. NET applications for Silverlight that use Caliburn.Micro MVVM UI framework.

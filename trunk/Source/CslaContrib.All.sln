@@ -42,7 +42,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Xaml.Sl4", "Csl
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
 		SccLocalPath0 = .
@@ -82,6 +82,9 @@ Global
 		SccProjectUniqueName12 = CslaContrib.Caliburn.Micro.Sl4\\CslaContrib.Caliburn.Micro.Sl4.csproj
 		SccProjectName12 = CslaContrib.Caliburn.Micro.Sl4
 		SccLocalPath12 = CslaContrib.Caliburn.Micro.Sl4
+		SccProjectUniqueName13 = CslaContrib.CustomFieldData.Silverlight\\CslaContrib.CustomFieldData.Silverlight.csproj
+		SccProjectName13 = CslaContrib.CustomFieldData.Silverlight
+		SccLocalPath13 = CslaContrib.CustomFieldData.Silverlight
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CslaContrib.vsmdi

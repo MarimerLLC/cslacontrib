@@ -26,6 +26,9 @@ namespace CslaContrib.MEF
       base.Child_OnDataPortalInvoke(e);
     }
 
+    /// <summary>
+    /// Called when object is deserialized.
+    /// </summary>
     protected override void OnDeserialized()
     {
       Inject();
@@ -35,7 +38,7 @@ namespace CslaContrib.MEF
 
     private void Inject()
     {
-      Ioc.Container.ComposeParts(this);
+      Ioc.Container.SatisfyImportsOnce(this);
     }
   }
 }

@@ -53,7 +53,7 @@ namespace CslaContrib.MEF
                 catalog.Catalogs.Add(new DirectoryCatalog("."));
                 catalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
               }
-              var container = new CompositionContainer(catalog);
+              var container = new CompositionContainer(catalog, true);
               container.ComposeParts();
               _container = container;
 

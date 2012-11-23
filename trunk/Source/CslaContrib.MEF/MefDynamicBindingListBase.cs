@@ -25,7 +25,7 @@ namespace CslaContrib.MEF
 
     private void Inject()
     {
-      Ioc.Container.ComposeParts(this);
+      Ioc.Container.SatisfyImportsOnce(this);
     }
   }
 }

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.UI", "MEFSample.UI\MEFSample.UI.csproj", "{A46A49E3-655D-40D3-89A8-3EAC81E7D54E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.Repository.Business", "MEFSample.Business\MEFSample.Repository.Business.csproj", "{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}"
@@ -18,6 +18,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MEFSample.UI\\MEFSample.UI.csproj
+		SccProjectName1 = MEFSample.UI
+		SccLocalPath1 = MEFSample.UI
+		SccProjectUniqueName2 = MEFSample.Business\\MEFSample.Repository.Business.csproj
+		SccProjectName2 = MEFSample.Business
+		SccLocalPath2 = MEFSample.Business
+		SccProjectUniqueName3 = MEFSample.Repository.DAL\\MEFSample.Repository.DAL.csproj
+		SccProjectName3 = MEFSample.Repository.DAL
+		SccLocalPath3 = MEFSample.Repository.DAL
+		SccProjectUniqueName4 = MEFSample.Respository.Business.Test\\MEFSample.Respository.Business.Test.csproj
+		SccProjectName4 = MEFSample.Respository.Business.Test
+		SccLocalPath4 = MEFSample.Respository.Business.Test
+	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MEFRepository.vsmdi
 	EndGlobalSection

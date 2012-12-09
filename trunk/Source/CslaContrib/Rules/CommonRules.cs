@@ -50,7 +50,7 @@ namespace CslaContrib.Rules.CommonRules
     /// <value></value>
     protected override string GetMessage()
     {
-       return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.LessThanRule;
+      return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.LessThanRule;
     }
 
     /// <summary>
@@ -64,7 +64,8 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) >= 0)
       {
-        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        var message = string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName);
+        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
       }
     }
   }
@@ -122,7 +123,8 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) > 0)
       {
-        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        var message = string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName);
+        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
       }
     }
   }
@@ -180,7 +182,8 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) <= 0)
       {
-        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        var message = string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName);
+        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
       }
     }
   }
@@ -238,7 +241,8 @@ namespace CslaContrib.Rules.CommonRules
 
       if (value1.CompareTo(value2) < 0)
       {
-        context.AddErrorResult(string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName));
+        var message = string.Format(GetMessage(), PrimaryProperty.FriendlyName, CompareTo.FriendlyName);
+        context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
       }
     }
   }
@@ -287,7 +291,7 @@ namespace CslaContrib.Rules.CommonRules
       InputProperties = new List<IPropertyInfo> { primaryProperty };
     }
 
- /// <summary>
+    /// <summary>
     /// Initializes a new instance of the <see cref="Range"/> class. 
     /// Creates an instance of the rule.
     /// </summary>
@@ -381,6 +385,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (!business.CanWriteProperty(context.Rule.PrimaryProperty))
       {
+        // shortcurcuit as success
         context.AddSuccessResult(true);
       }
     }
@@ -510,10 +515,10 @@ namespace CslaContrib.Rules.CommonRules
     protected override void Execute(RuleContext context)
     {
       // Use linq Sum to calculate the sum value
-      var sum = context.InputPropertyValues.Sum(property => (dynamic)property.Value);
+      dynamic sum = context.InputPropertyValues.Aggregate<KeyValuePair<IPropertyInfo, object>, dynamic>(0, (current, item) => current + (dynamic)item.Value);
 
       // add calculated value to OutValues
-      // When rule is completed the RuleEngig will update businessobject
+      // When rule is completed the RuleEngine will update businessobject
       context.AddOutValue(PrimaryProperty, sum);
     }
   }
@@ -702,7 +707,78 @@ namespace CslaContrib.Rules.CommonRules
 
       var fields = context.InputPropertyValues.Select(p => p.Key.FriendlyName).ToArray();
       var fieldNames = String.Join(", ", fields);
-      context.AddErrorResult(string.Format(GetMessage(), fieldNames));
+
+      var message = string.Format(GetMessage(), fieldNames);
+      context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message) { Severity = Severity });
+    }
+  }
+
+  #endregion
+
+  #region List rules
+
+
+  /// <summary>
+  /// Validation rule for checking a property is unique at the collection level.
+  /// </summary>
+  public class NoDuplicates<T, C> : CommonBusinessRule
+    where T : Csla.BusinessListBase<T, C>
+    where C : Csla.BusinessBase<C>
+  {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NoDuplicates"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">Primary property for this rule.</param>
+    public NoDuplicates(IPropertyInfo primaryProperty)
+      : base(primaryProperty)
+    {
+      InputProperties = new List<IPropertyInfo> { primaryProperty };
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NoDuplicates"/> class.
+    /// </summary>
+    /// <param name="primaryProperty">Primary property for this rule.</param>
+    /// <param name="errorMessageDelegate">The error message function.</param>
+    public NoDuplicates(IPropertyInfo primaryProperty, string errorMessageDelegate)
+      : this(primaryProperty)
+    {
+      MessageDelegate = () => errorMessageDelegate;
+    }
+
+    /// <summary>
+    /// Gets the error message.
+    /// </summary>
+    /// <value></value>
+    protected override string GetMessage()
+    {
+        return HasMessageDelegate ? base.GetMessage() : CslaContrib.Properties.Resources.NoDuplicatesRule;
+    }
+
+    /// <summary>
+    /// Validation rule implementation.
+    /// </summary>
+    /// <param name="context">Rule context object.</param>
+    protected override void Execute(RuleContext context)
+    {
+      var o = context.InputPropertyValues[PrimaryProperty];
+      if (o == null)
+        return;
+
+      var value = Convert.ToString(o);
+
+
+      var target = (C)context.Target;
+      var parent = (T)target.Parent;
+      if (parent != null)
+      {
+        if (parent.Any(item => value.Equals(Convert.ToString(ReadProperty(item, PrimaryProperty)), StringComparison.InvariantCultureIgnoreCase) 
+                               && !(ReferenceEquals(item, target))))
+        {
+          var message = string.Format(GetMessage(), InputProperties[0].FriendlyName);
+          context.Results.Add(new RuleResult(RuleName, PrimaryProperty, message));
+        }
+      }
     }
   }
   #endregion

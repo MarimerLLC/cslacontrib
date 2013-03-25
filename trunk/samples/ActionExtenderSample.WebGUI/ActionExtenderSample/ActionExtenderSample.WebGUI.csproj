@@ -39,7 +39,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Net\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib.WebGUI, Version=4.3.13.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+    <Reference Include="CslaContrib.WebGUI">
       <HintPath>..\..\Dependencies\Net\CslaContrib.WebGUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />

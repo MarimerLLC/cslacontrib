@@ -4,7 +4,7 @@
     <id>CslaContrib-WebGUI</id>
     <title>CSLA .NET Contrib - WebGUI</title>
     <tags>CSLA CslaContrib WebGUI UI</tags>
-    <version>4.3.13</version>
+    <version>4.3.14</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -18,7 +18,7 @@ Supports the creation of CSLA. NET applications for Visual WebGUI.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.3.14]" />
     </dependencies>
   </metadata>
   <files>

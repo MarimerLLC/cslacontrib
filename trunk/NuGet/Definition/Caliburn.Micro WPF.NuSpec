@@ -4,7 +4,7 @@
     <id>CslaContrib-Caliburn.Micro.WPF</id>
     <title>CSLA .NET Contrib - Caliburn.Micro.WPF</title>
     <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
-    <version>4.3.13</version>
+    <version>4.3.14</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -22,7 +22,7 @@ Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro 
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.3.14]" />
       <dependency id="CSLA-WPF" version="[4.3.13]" />
       <dependency id="Caliburn.Micro" version="" />
     </dependencies>

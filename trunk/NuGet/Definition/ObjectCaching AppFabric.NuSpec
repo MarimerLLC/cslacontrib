@@ -4,7 +4,7 @@
     <id>CslaContrib-ObjectCaching.AppFabric</id>
     <title>CSLA .NET Contrib - ObjectCaching.AppFabric</title>
     <tags>CSLA CslaContrib ObjectCaching AppFabric</tags>
-    <version>4.3.14</version>
+    <version>4.5.20</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -18,8 +18,8 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.14]" />
-      <dependency id="CslaContrib" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.5.20]" />
+      <dependency id="CslaContrib" version="[4.5.20]" />
     </dependencies>
   </metadata>
   <files>
@@ -30,15 +30,11 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.resources.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net45" />-->
-    <!-- Silverlight 4.0 Client -->
-    <!-- > None -->
-    <!-- Windows Phone 7 Client -->
-    <!-- > None -->
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net45" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.ObjectCaching.AppFabric\**\*.cs" target="src" />
   </files>

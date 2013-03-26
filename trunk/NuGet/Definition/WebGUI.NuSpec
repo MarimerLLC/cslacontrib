@@ -4,7 +4,7 @@
     <id>CslaContrib-WebGUI</id>
     <title>CSLA .NET Contrib - WebGUI</title>
     <tags>CSLA CslaContrib WebGUI UI</tags>
-    <version>4.3.14</version>
+    <version>4.5.20</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -18,7 +18,7 @@ Supports the creation of CSLA. NET applications for Visual WebGUI.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.14]" />
+      <dependency id="CSLA-Core" version="[4.5.20]" />
     </dependencies>
   </metadata>
   <files>
@@ -29,15 +29,11 @@ Supports the creation of CSLA. NET applications for Visual WebGUI.
     <file src="..\..\bin\Release\NET4\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net40-full" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.WebGUI.xml*" target="lib\net40-full" />
     <!-- .NET 4.5 Client -->
-    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.xml*" target="lib\net45" />-->
-    <!-- Silverlight 4.0 Client -->
-    <!-- > None -->
-    <!-- Windows Phone 7 Client -->
-    <!-- > None -->
+    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.xml*" target="lib\net45" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.WebGUI\**\*.cs" target="src" />
   </files>

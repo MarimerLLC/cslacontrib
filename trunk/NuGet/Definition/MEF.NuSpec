@@ -4,7 +4,7 @@
     <id>CslaContrib-MEF</id>
     <title>CSLA .NET Contrib - MEF</title>
     <tags>CSLA CslaContrib MEF</tags>
-    <version>4.3.14</version>
+    <version>4.5.20</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -18,7 +18,7 @@ Extends CSLA .NET framework with MEF support for Repository and ObjectFactory da
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.14]" />
+      <dependency id="CSLA-Core" version="[4.5.20]" />
     </dependencies>
   </metadata>
   <files>
@@ -29,13 +29,11 @@ Extends CSLA .NET framework with MEF support for Repository and ObjectFactory da
     <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.MEF.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <!--
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.resources.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.MEF.xml*" target="lib\net45" />
-    -->
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
   </files>

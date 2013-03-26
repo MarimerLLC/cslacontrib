@@ -4,7 +4,7 @@
     <id>CslaContrib-Caliburn.Micro.Silverlight</id>
     <title>CSLA .NET Contrib - Caliburn.Micro.Silverlight</title>
     <tags>CSLA CslaContrib Silverlight Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
-    <version>4.3.14</version>
+    <version>4.5.20</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -15,25 +15,19 @@ CSLA .NET is an application development framework that reduces the cost of build
 
 Caliburn.Micro is small, yet powerful framework designed for Xaml platforms, Caliburn.Micro implements a variety of UI patterns for solving real-world problems. Patterns that are highlighted include MVVM (Presentation Model), MVP and MVC.
 
-Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.1.4.
+Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.1.5.1.
     </description>
     <summary>
 Supports the creation of CSLA. NET applications for Silverlight that use Caliburn.Micro MVVM UI framework.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.14]" />
-      <dependency id="CSLA-Silverlight" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.5.20]" />
+      <dependency id="CSLA-Silverlight" version="[4.5.20]" />
       <dependency id="Caliburn.Micro" version="" />
     </dependencies>
   </metadata>
   <files>
-    <!-- Silverlight 4 Client -->
-    <file src="..\..\bin\Release\Sl4\**\CslaContrib.Caliburn.Micro.dll*" target="lib\sl40" />
-    <file src="..\..\bin\Release\Sl4\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\sl40" />
-    <file src="..\..\bin\Release\Sl4\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\sl40" />
-    <file src="..\..\bin\Release\Sl4\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\sl40" />
-    <file src="..\..\bin\Release\Sl4\**\CslaContrib.Caliburn.Micro.xml*" target="lib\sl40" />
     <!-- Silverlight 5.0 Client -->
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.dll*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\sl50" />

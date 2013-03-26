@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib-ObjectCaching.AppFabric</id>
+    <title>CSLA .NET Contrib - ObjectCaching.AppFabric</title>
+    <tags>CSLA CslaContrib ObjectCaching AppFabric</tags>
+    <version>4.3.14</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server AppFabric.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.14]" />
+      <dependency id="CslaContrib" version="[4.3.13]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net45" />-->
+    <!-- Silverlight 4.0 Client -->
+    <!-- > None -->
+    <!-- Windows Phone 7 Client -->
+    <!-- > None -->
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\Source\**\CslaContrib.ObjectCaching.AppFabric\**\*.cs" target="src" />
+  </files>
+</package>

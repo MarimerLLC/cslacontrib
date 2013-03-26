@@ -1,0 +1,1 @@
+CslaContrib.CustomFieldData.UnitTests can't be signed as "Referenced assembly 'Spackle' does not have a strong name"

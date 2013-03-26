@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib</id>
+    <title>CSLA .NET Contrib</title>
+    <tags>CSLA CslaContrib - ObjectCaching and Generic Rules</tags>
+    <version>4.3.14</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Extends CSLA .NET framework with ObjectCaching data portal implementation including in-memory cache provider for simple cache and additional generic business and authorization rules.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.14]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--<file src="..\..\bin\Release\NET\**\CslaContrib.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.xml*" target="lib\net45" />-->
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
+  </files>
+</package>

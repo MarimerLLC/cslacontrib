@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MEF.UI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CslaObjectFactoryLoader" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">CslaContrib.MEF.Server.MefObjectFactoryLoader, CslaContrib.MEF</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

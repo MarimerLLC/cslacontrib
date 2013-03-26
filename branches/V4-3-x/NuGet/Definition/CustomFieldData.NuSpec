@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CslaContrib-CustomFieldData</id>
+    <title>CSLA .NET Contrib - CustomFieldData</title>
+    <tags>CSLA CslaContrib Custom Field Data</tags>
+    <version>4.3.14</version>
+    <authors>CslaContrib</authors>
+    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
+    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
+    </description>
+    <summary>
+Extends CSLA .NET framework with Custom Field Data that checks old/new value to determine if the object is dirty/changed.
+    </summary>
+    <language>en-US</language>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.3.14]" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- .NET 4.0 Client -->
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net40" />
+    <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.xml*" target="lib\net40" />
+    <!-- .NET 4.5 Client -->
+    <!--
+    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.xml*" target="lib\net45" />
+    -->
+    <!-- Silverlight 4.0 Client -->
+    <file src="..\..\bin\Release\Sl4\**\CslaContrib.CustomFieldData.dll*" target="lib\sl40" />
+    <file src="..\..\bin\Release\Sl4\**\CslaContrib.CustomFieldData.pdb*" target="lib\sl40" />
+    <file src="..\..\bin\Release\Sl4\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\sl40" />
+    <file src="..\..\bin\Release\Sl4\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\sl40" />
+    <file src="..\..\bin\Release\Sl4\**\CslaContrib.CustomFieldData.xml*" target="lib\sl40" />
+    <!-- Silverlight 5.0 Client -->
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.dll*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.pdb*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.xml*" target="lib\sl50" />
+    <!-- Source Files for Symbol Server -->
+    <file src="..\..\Source\**\CslaContrib.CustomFieldData\**\*.cs" target="src" />
+  </files>
+</package>

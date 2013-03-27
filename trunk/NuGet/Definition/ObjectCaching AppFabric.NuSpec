@@ -20,6 +20,8 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     <dependencies>
       <dependency id="CSLA-Core" version="[4.5.20]" />
       <dependency id="CslaContrib" version="[4.5.20]" />
+      <dependency id="ServerAppFabric.Client" version="" />
+      <!-- 1.1.2106 -->
     </dependencies>
   </metadata>
   <files>

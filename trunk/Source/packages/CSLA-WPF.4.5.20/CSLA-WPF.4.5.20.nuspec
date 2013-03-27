@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>CSLA-WPF</id>
+    <version>4.5.20</version>
+    <title>CSLA .NET - WPF</title>
+    <authors>Marimer LLC</authors>
+    <owners>Marimer LLC</owners>
+    <licenseUrl>http://www.lhotka.net/cslanet/License.aspx</licenseUrl>
+    <projectUrl>http://www.lhotka.net/cslanet/</projectUrl>
+    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Supports the creation of WPF applications.
+
+CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.</description>
+    <summary>Supports the creation of WPF applications.</summary>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>CSLA WPF UI</tags>
+    <dependencies>
+      <dependency id="CSLA-Core" version="[4.5.20]" />
+    </dependencies>
+    <references>
+      <reference file="Csla.Xaml.dll" />
+    </references>
+  </metadata>
+</package>

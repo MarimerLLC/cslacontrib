@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib.ObjectCaching.AppFabric")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server AppFabric.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib.ObjectCaching.AppFabric")]
 [assembly: AssemblyCulture("")]

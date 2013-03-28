@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib.MEF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Extends CSLA .NET framework with MEF support for Repository and ObjectFactory data access.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib.MEF")]
 [assembly: AssemblyCulture("")]

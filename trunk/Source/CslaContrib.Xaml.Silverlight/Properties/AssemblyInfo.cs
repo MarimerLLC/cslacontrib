@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib.Xaml.Silverlight")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Supports the creation of Silverlight applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib.Xaml.Silverlight")]
 [assembly: AssemblyCulture("")]

@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib.Windows")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Additional controls to support the creation of CSLA. NET applications for Windows Forms.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib.Windows")]
 [assembly: AssemblyCulture("")]

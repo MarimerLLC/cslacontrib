@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Extends CSLA .NET framework with ObjectCaching data portal implementation including in-memory cache provider for simple cache and additional generic business and authorization rules.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib")]
 [assembly: AssemblyCulture("")]

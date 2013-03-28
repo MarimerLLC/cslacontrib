@@ -4,7 +4,7 @@
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CslaContrib.WebGUI")]
-[assembly: AssemblyDescription("CSLA support for Visual WebGUI")]
+[assembly: AssemblyDescription("Supports the creation of CSLA. NET applications for Visual WebGUI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("CslaContrib.WebGUI")]
 [assembly: AssemblyCulture("")]

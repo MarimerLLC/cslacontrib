@@ -22,7 +22,7 @@
         }
 
         /// <summary>
-        /// Cancels changes made to the model 
+        /// Cancels changes made to the model
         /// if ManagedObjectLifetime is true.
         /// </summary>
         public virtual void Cancel(object sender, ExecuteEventArgs e)

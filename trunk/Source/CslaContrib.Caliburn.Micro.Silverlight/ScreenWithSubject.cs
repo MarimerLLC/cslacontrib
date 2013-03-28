@@ -2,7 +2,6 @@
 
 namespace CslaContrib.Caliburn.Micro
 {
-    
     /// <summary>
     /// A basic implementation of <see cref="IHaveSubject{T}"/>
     /// </summary>

@@ -10,8 +10,9 @@ namespace CslaContrib.Caliburn.Micro
     using System.ComponentModel.DataAnnotations;
     using System.Linq.Expressions;
     using System.Runtime.Serialization;
-#if WinRT
+#if NETFX_CORE
     using Windows.UI.Xaml;
+    using System.Linq.Expressions;
 #else
     using System.Windows;
 #endif
@@ -19,6 +20,9 @@ namespace CslaContrib.Caliburn.Micro
     using Csla.Core;
     using Csla.Reflection;
     using Csla.Rules;
+#if NET45
+    using System.Runtime.CompilerServices;
+#endif
 
     /// <summary>
     /// Base class used to create ScreenWithModel objects that
@@ -57,6 +61,49 @@ namespace CslaContrib.Caliburn.Micro
 
         #region CSLA .NET ViewModelBase
 
+        #region InitAsync
+
+#if !WINDOWS_PHONE
+
+        /// <summary>
+        /// Method used to perform async initialization of the
+        /// viewmodel. This method is usually invoked immediately
+        /// following construction of the object instance.
+        /// </summary>
+        /// <returns></returns>
+        public async System.Threading.Tasks.Task<ScreenWithModelBase<T>> InitAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                Model = await DoInitAsync();
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                Error = ex;
+            }
+            return this;
+        }
+
+#pragma warning disable 1998
+        /// <summary>
+        /// Override this method to implement async initialization of
+        /// the model object. The result of this method is used
+        /// to set the Model property of the viewmodel.
+        /// </summary>
+        /// <returns>A Task that creates the model object.</returns>
+        protected async virtual System.Threading.Tasks.Task<T> DoInitAsync()
+        {
+            throw new NotImplementedException("DoInitAsync");
+        }
+#pragma warning restore 1998
+
+#endif
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -64,16 +111,23 @@ namespace CslaContrib.Caliburn.Micro
         /// </summary>
         public static readonly DependencyProperty ModelProperty =
             DependencyProperty.Register("Model", typeof(T), typeof(ScreenWithModelBase<T>),
+#if NETFX_CORE
+            new PropertyMetadata(default(T), (o, e) =>
+#else
             new PropertyMetadata((o, e) =>
+#endif
             {
                 var screenWithModel = (ScreenWithModelBase<T>)o;
-                screenWithModel.OnModelChanged((T)e.OldValue, (T)e.NewValue);
                 if (screenWithModel.ManageObjectLifetime)
                 {
                     var undo = e.NewValue as ISupportUndo;
                     if (undo != null)
                         undo.BeginEdit();
                 }
+                screenWithModel.OnModelChanged((T)e.OldValue, (T)e.NewValue);
+#if NETFX_CORE
+                screenWithModel.OnPropertyChanged("Model");
+#endif
             }));
 
         /// <summary>
@@ -143,7 +197,7 @@ namespace CslaContrib.Caliburn.Micro
         protected virtual void OnError(Exception error)
         {
             if (ErrorOccurred != null)
-                ErrorOccurred(this, new ErrorEventArgs {Error = error});
+                ErrorOccurred(this, new ErrorEventArgs { Error = error });
         }
 
         private bool _isBusy;
@@ -159,13 +213,51 @@ namespace CslaContrib.Caliburn.Micro
             {
                 _isBusy = value;
                 NotifyOfPropertyChange("IsBusy");
-                SetProperties();
+                OnSetProperties();
             }
         }
 
         #endregion
 
         #region Can___ properties
+
+        private bool _isDirty;
+
+        /// <summary>
+        /// Gets a value indicating whether the Model
+        /// has been changed.
+        /// </summary>
+        public virtual bool IsDirty
+        {
+            get { return _isDirty; }
+            protected set
+            {
+                if (_isDirty != value)
+                {
+                    _isDirty = value;
+                    NotifyOfPropertyChange("IsDirty");
+                }
+            }
+        }
+
+        private bool _isValid;
+
+        /// <summary>
+        /// Gets a value indicating whether the Model
+        /// is currently valid (has no broken rules).
+        /// </summary>
+        public virtual bool IsValid
+        {
+            get { return _isValid; }
+            protected set
+            {
+                if (_isValid != value)
+                {
+                    _isValid = value;
+                    NotifyOfPropertyChange("IsValid");
+                }
+            }
+        }
 
         private bool _canSave;
 
@@ -316,6 +408,8 @@ namespace CslaContrib.Caliburn.Micro
             {
                 var canDeleteInstance = BusinessRules.HasPermission(AuthorizationActions.DeleteObject, targetObject);
 
+                IsDirty = targetObject.IsDirty;
+                IsValid = targetObject.IsValid;
                 CanSave = CanEditObject && targetObject.IsSavable && !isObjectBusy;
                 CanCancel = CanEditObject && targetObject.IsDirty && !isObjectBusy;
                 CanCreate = CanCreateObject && !targetObject.IsDirty && !isObjectBusy;
@@ -367,6 +461,8 @@ namespace CslaContrib.Caliburn.Micro
             }
             else
             {
+                IsDirty = false;
+                IsValid = false;
                 CanCancel = false;
                 CanCreate = CanCreateObject;
                 CanDelete = false;
@@ -473,7 +569,7 @@ namespace CslaContrib.Caliburn.Micro
             CanDeleteObject = BusinessRules.HasPermission(AuthorizationActions.DeleteObject, sourceType);
 
             // call SetProperties to set "instance" values
-            SetProperties();
+            OnSetProperties();
         }
 
         #endregion
@@ -481,6 +577,7 @@ namespace CslaContrib.Caliburn.Micro
         #region Verbs
 
 #if !SILVERLIGHT
+
         /// <summary>
         /// Creates or retrieves a new instance of the
         /// Model by invoking a static factory method.
@@ -538,6 +635,7 @@ namespace CslaContrib.Caliburn.Micro
         {
             DoRefresh(factoryMethod, new object[] { });
         }
+
 #endif
 
         /// <summary>
@@ -603,9 +701,19 @@ namespace CslaContrib.Caliburn.Micro
 
         private Delegate CreateHandler(Type objectType)
         {
-            var args = typeof(DataPortalResult<>).MakeGenericType(objectType);
             System.Reflection.MethodInfo method = MethodCaller.GetNonPublicMethod(GetType(), "QueryCompleted");
-            Delegate handler = Delegate.CreateDelegate(typeof(EventHandler<>).MakeGenericType(args), this, method);
+            var innerType = typeof(DataPortalResult<>).MakeGenericType(objectType);
+            var args = typeof(EventHandler<>).MakeGenericType(innerType);
+
+#if NETFX_CORE
+            var target = Expression.Constant(this);
+            var p1 = new ParameterExpression[] { Expression.Parameter(typeof(object), "sender"), Expression.Parameter(typeof(EventArgs), "args") };
+            var call = Expression.Call(target, method, p1);
+            var lambda = Expression.Lambda(args, call, "QueryCompleted", p1);
+            var handler = lambda.Compile();
+#else
+            Delegate handler = Delegate.CreateDelegate(args, this, method);
+#endif
             return handler;
         }
 
@@ -648,6 +756,7 @@ namespace CslaContrib.Caliburn.Micro
         { }
 
 #if !SILVERLIGHT
+
         /// <summary>
         /// Saves the Model, first committing changes
         /// if ManagedObjectLifetime is true.
@@ -684,7 +793,46 @@ namespace CslaContrib.Caliburn.Micro
             }
             return result;
         }
+
 #endif
+
+        /// <summary>
+        /// Saves the Model, first committing changes
+        /// if ManagedObjectLifetime is true.
+        /// </summary>
+        protected virtual async System.Threading.Tasks.Task<T> SaveAsync()
+        {
+            try
+            {
+                var savable = Model as ISavable;
+                if (ManageObjectLifetime)
+                {
+                    // clone the object if possible
+                    ICloneable clonable = Model as ICloneable;
+                    if (clonable != null)
+                        savable = (ISavable)clonable.Clone();
+
+                    //apply changes
+                    var undoable = savable as ISupportUndo;
+                    if (undoable != null)
+                        undoable.ApplyEdit();
+                }
+
+                Error = null;
+                IsBusy = true;
+                OnSaving(Model);
+                Model = (T)await savable.SaveAsync();
+                IsBusy = false;
+                OnSaved();
+            }
+            catch (Exception ex)
+            {
+                IsBusy = false;
+                Error = ex;
+                OnSaved();
+            }
+            return Model;
+        }
 
         /// <summary>
         /// Saves the Model, first committing changes
@@ -770,6 +918,7 @@ namespace CslaContrib.Caliburn.Micro
         }
 
 #if SILVERLIGHT
+
         /// <summary>
         /// Adds a new item to the Model (if it
         /// is a collection).
@@ -788,9 +937,11 @@ namespace CslaContrib.Caliburn.Micro
                 var iobl = ((IObservableBindingList)Model);
                 iobl.AddNew();
             }
-            SetProperties();
+            OnSetProperties();
         }
+
 #else
+
         /// <summary>
         /// Adds a new item to the Model (if it
         /// is a collection).
@@ -810,9 +961,10 @@ namespace CslaContrib.Caliburn.Micro
                 var ibl = ((IBindingList)Model);
                 result = ibl.AddNew();
             }
-            SetProperties();
+            OnSetProperties();
             return result;
         }
+
 #endif
 
         /// <summary>
@@ -822,7 +974,7 @@ namespace CslaContrib.Caliburn.Micro
         protected virtual void DoRemove(object item)
         {
             ((IList)Model).Remove(item);
-            SetProperties();
+            OnSetProperties();
         }
 
         /// <summary>
@@ -883,6 +1035,14 @@ namespace CslaContrib.Caliburn.Micro
                     cc.CollectionChanged += Model_CollectionChanged;
             }
 
+            OnSetProperties();
+        }
+
+        /// <summary>
+        /// Override this method to hook into to logic of setting properties when model is changed or edited.
+        /// </summary>
+        protected virtual void OnSetProperties()
+        {
             SetProperties();
         }
 
@@ -893,29 +1053,29 @@ namespace CslaContrib.Caliburn.Micro
             if (e.PropertyName == string.Empty)
                 IsBusy = e.Busy;
             else
-                SetProperties();
+                OnSetProperties();
         }
 
         private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            SetProperties();
+            OnSetProperties();
         }
 
         private void Model_ChildChanged(object sender, ChildChangedEventArgs e)
         {
-            SetProperties();
+            OnSetProperties();
         }
 
         private void Model_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            SetProperties();
+            OnSetProperties();
         }
 
         #endregion
 
         #endregion
 
-        #region IHaveModel Members
+        #region Implementation of IHaveModel
 
         object IHaveModel.Model
         {
@@ -930,12 +1090,12 @@ namespace CslaContrib.Caliburn.Micro
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-#if !SILVERLIGHT && !WinRT
+#if !SILVERLIGHT && !NETFX_CORE
         [field: NonSerialized]
 #endif
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
-#if !SILVERLIGHT && !WinRT
+#if !SILVERLIGHT && !NETFX_CORE
         [field: NonSerialized]
 #endif
         private bool isNotifying; //serializator try to serialize even autogenerated fields
@@ -943,7 +1103,7 @@ namespace CslaContrib.Caliburn.Micro
         /// <summary>
         /// Enables/Disables property change notification.
         /// </summary>
-#if !WinRT
+#if !NETFX_CORE
         [Browsable(false)]
 #endif
         public bool IsNotifying
@@ -964,7 +1124,7 @@ namespace CslaContrib.Caliburn.Micro
         /// Notifies subscribers of the property change.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-#if WinRT
+#if NETFX_CORE || NET45
         public virtual void NotifyOfPropertyChange([CallerMemberName]string propertyName = "")
 #else
         public virtual void NotifyOfPropertyChange(string propertyName)
@@ -1000,7 +1160,9 @@ namespace CslaContrib.Caliburn.Micro
         {
             var handler = PropertyChanged;
             if (handler != null)
+            {
                 handler(this, e);
+            }
         }
 
         /// <summary>
@@ -1098,10 +1260,15 @@ namespace CslaContrib.Caliburn.Micro
         /// </summary>
         public event EventHandler<ActivationEventArgs> Activated = delegate { };
 
+        /// <summary>
+        /// Activates this instance.
+        /// </summary>
         void IActivate.Activate()
         {
             if (IsActive)
+            {
                 return;
+            }
 
             var initialized = false;
 
@@ -1135,6 +1302,10 @@ namespace CslaContrib.Caliburn.Micro
 
         #region Implementation of IDeactivate (Screen)
 
+        /// <summary>
+        /// Deactivates this instance.
+        /// </summary>
+        /// <param name="close">Indicates whether or not this instance is being closed.</param>
         void IDeactivate.Deactivate(bool close)
         {
             if (IsActive || (IsInitialized && close))
@@ -1194,30 +1365,6 @@ namespace CslaContrib.Caliburn.Micro
 
         #region Implementation of IClose (Screen)
 
-#if WinRT
-        System.Action GetViewCloseAction(bool? dialogResult) {
-            var conductor = Parent as IConductor;
-            if (conductor != null) {
-                return () => conductor.CloseItem(this);
-            }
-
-            foreach (var contextualView in Views.Values) {
-                var viewType = contextualView.GetType();
-
-                var closeMethod = viewType.GetRuntimeMethod("Close", new Type[0]);
-                if (closeMethod != null) {
-                    return () => { closeMethod.Invoke(contextualView, null); };
-                }
-
-                var isOpenProperty = viewType.GetRuntimeProperty("IsOpen");
-                if (isOpenProperty != null) {
-                    return () => isOpenProperty.SetValue(contextualView, false, null);
-                }
-            }
-
-            return () => Log.Info("TryClose requires a parent IConductor or a view with a Close method or IsOpen property.");
-        }
-#else
         System.Action GetViewCloseAction(bool? dialogResult)
         {
             var conductor = Parent as IConductor;
@@ -1230,21 +1377,28 @@ namespace CslaContrib.Caliburn.Micro
             {
                 var viewType = contextualView.GetType();
 
+#if NETFX_CORE
+                var closeMethod = viewType.GetRuntimeMethod("Close", new Type[0]);
+#else
                 var closeMethod = viewType.GetMethod("Close");
+#endif
                 if (closeMethod != null)
                     return () =>
                     {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !NETFX_CORE
                         var isClosed = false;
-                        if(dialogResult != null) {
+                        if(dialogResult != null)
+                        {
                             var resultProperty = contextualView.GetType().GetProperty("DialogResult");
-                            if (resultProperty != null) {
+                            if (resultProperty != null)
+                            {
                                 resultProperty.SetValue(contextualView, dialogResult, null);
                                 isClosed = true;
                             }
                         }
 
-                        if (!isClosed) {
+                        if (!isClosed)
+                        {
                             closeMethod.Invoke(contextualView, null);
                         }
 #else
@@ -1252,7 +1406,11 @@ namespace CslaContrib.Caliburn.Micro
 #endif
                     };
 
+#if NETFX_CORE
+                var isOpenProperty = viewType.GetRuntimeProperty("IsOpen");
+#else
                 var isOpenProperty = viewType.GetProperty("IsOpen");
+#endif
                 if (isOpenProperty != null)
                 {
                     return () => isOpenProperty.SetValue(contextualView, false, null);
@@ -1261,12 +1419,11 @@ namespace CslaContrib.Caliburn.Micro
 
             return () => Log.Info("TryClose requires a parent IConductor or a view with a Close method or IsOpen property.");
         }
-#endif
 
         /// <summary>
         /// Tries to close this instance by asking its Parent to initiate shutdown or by asking its corresponding view to close.
         /// </summary>
-        public void TryClose()
+        public virtual void TryClose()
         {
             Execute.OnUIThread(() =>
             {
@@ -1297,7 +1454,7 @@ namespace CslaContrib.Caliburn.Micro
 
         #region Implementation of IViewAware (ViewAware)
 
-        private bool _cacheViews;
+        private bool cacheViews;
 
         private static readonly DependencyProperty PreviouslyAttachedProperty = DependencyProperty.RegisterAttached(
             "PreviouslyAttached",
@@ -1326,16 +1483,21 @@ namespace CslaContrib.Caliburn.Micro
         ///</summary>
         protected bool CacheViews
         {
-            get { return _cacheViews; }
+            get { return cacheViews; }
             set
             {
-                _cacheViews = value;
-                if (!_cacheViews)
+                cacheViews = value;
+                if (!cacheViews)
                     Views.Clear();
             }
         }
 
-        public void AttachView(object view, object context)
+        /// <summary>
+        /// Attaches a view to this instance.
+        /// </summary>
+        /// <param name="view">The view.</param>
+        /// <param name="context">The context in which the view appears.</param>
+        void IViewAware.AttachView(object view, object context)
         {
             if (CacheViews)
             {
@@ -1345,14 +1507,14 @@ namespace CslaContrib.Caliburn.Micro
             var nonGeneratedView = View.GetFirstNonGeneratedView(view);
 
             var element = nonGeneratedView as FrameworkElement;
-            if (element != null && !(bool)element.GetValue(PreviouslyAttachedProperty))
+            if (element != null && !(bool) element.GetValue(PreviouslyAttachedProperty))
             {
                 element.SetValue(PreviouslyAttachedProperty, true);
                 View.ExecuteOnLoad(element, (s, e) => OnViewLoaded(s));
             }
 
             OnViewAttached(nonGeneratedView, context);
-            ViewAttached(this, new ViewAttachedEventArgs { View = nonGeneratedView, Context = context });
+            ViewAttached(this, new ViewAttachedEventArgs {View = nonGeneratedView, Context = context});
         }
 
         /// <summary>
@@ -1360,20 +1522,31 @@ namespace CslaContrib.Caliburn.Micro
         /// </summary>
         /// <param name="view">The view.</param>
         /// <param name="context">The context in which the view appears.</param>
-        protected internal virtual void OnViewAttached(object view, object context) { }
+        protected virtual void OnViewAttached(object view, object context) { }
 
         /// <summary>
         /// Called when an attached view's Loaded event fires.
         /// </summary>
         /// <param name="view"></param>
-        protected internal virtual void OnViewLoaded(object view) { }
+        protected virtual void OnViewLoaded(object view) { }
 
-#if WP71 || WinRT
+#if WINDOWS_PHONE || NETFX_CORE
+
+        /// <summary>
+        /// Called the first time the view's LayoutUpdated event fires after it is navigated to.
+        /// </summary>
+        /// <param name = "view">The view.</param>
+        void IViewAware.OnViewReady(object view)
+        {
+            OnViewReady(view);
+        }
+
         /// <summary>
         /// Called the first time the page's LayoutUpdated event fires after it is navigated to.
         /// </summary>
         /// <param name="view"></param>
-        protected internal virtual void OnViewReady(object view) { }
+        protected virtual void OnViewReady(object view) { }
+
 #endif
 
         /// <summary>

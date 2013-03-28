@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6381085E-3F99-46F5-8383-9063A26B280A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CslaContrib.Windows</RootNamespace>
+    <AssemblyName>CslaContrib.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\NET4\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Debug\NET4\CslaContrib.Windows.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\NET4\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Release\NET4\CslaContrib.Windows.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.5.20\lib\net40\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.Windows">
+      <HintPath>..\packages\CSLA-WindowsForms.4.5.20\lib\net40\Csla.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.14-rc\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.14-rc\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.14-rc\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.16-rc\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.16-rc\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CslaContrib.Windows\BindableRadioButtons.cs">
+      <Link>BindableRadioButtons.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\BindableRadioButtons.Designer.cs">
+      <Link>BindableRadioButtons.Designer.cs</Link>
+      <DependentUpon>BindableRadioButtons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\BindingSourceExtensions.cs">
+      <Link>BindingSourceExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\CslaComboBox.cs">
+      <Link>CslaComboBox.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\ErrorWarnInfoProvider.cs">
+      <Link>ErrorWarnInfoProvider.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\ListSelectForm.cs">
+      <Link>ListSelectForm.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\ListSelectForm.designer.cs">
+      <Link>ListSelectForm.designer.cs</Link>
+      <DependentUpon>ListSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\Properties\Resources.Designer.cs">
+      <Link>Properties\Resources.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\SmartDateTimePicker.cs">
+      <Link>SmartDateTimePicker.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\SplashPanel.cs">
+      <Link>SplashPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows\StatusStripExtender.cs">
+      <Link>StatusStripExtender.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <EmbeddedResource Include="..\CslaContrib.Windows\BindableRadioButtons.resx">
+      <Link>BindableRadioButtons.resx</Link>
+      <DependentUpon>BindableRadioButtons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows\ListSelectForm.resx">
+      <Link>ListSelectForm.resx</Link>
+      <DependentUpon>ListSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\CslaContrib.Windows\BindableRadioButtons.bmp">
+      <Link>BindableRadioButtons.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\CslaComboBox.bmp">
+      <Link>CslaComboBox.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\ErrorWarnInfoProvider.bmp">
+      <Link>ErrorWarnInfoProvider.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\ListSelectForm.bmp">
+      <Link>ListSelectForm.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\AboutBack.png">
+      <Link>Resources\AboutBack.png</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\AboutPicture.png">
+      <Link>Resources\AboutPicture.png</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\InformationIco16.ico">
+      <Link>Resources\InformationIco16.ico</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\progressbar_green.gif">
+      <Link>Resources\progressbar_green.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\progresscircle_black.gif">
+      <Link>Resources\progresscircle_black.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\status_anim.gif">
+      <Link>Resources\status_anim.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\Resources\WarningIco16.ico">
+      <Link>Resources\WarningIco16.ico</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows\SmartDateTimePicker.bmp">
+      <Link>SmartDateTimePicker.bmp</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.0-rc\tools\Microsoft.Bcl.Build.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.0-rc\tools\Microsoft.Bcl.Build.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.0-rc\tools\Microsoft.Bcl.Build.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

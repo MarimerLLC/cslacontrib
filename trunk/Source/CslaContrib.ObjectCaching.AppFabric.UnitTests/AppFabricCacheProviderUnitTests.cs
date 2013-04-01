@@ -33,6 +33,7 @@ namespace CslaContrib.ObjectCaching.AppFabric.UnitTests
         public void Provider_Initialize()
         {
             Assert.IsNotNull(provider);
+            var x = new CslaContrib.ObjectCaching.AppFabric.CacheProvider();
         }
 
         [TestMethod]

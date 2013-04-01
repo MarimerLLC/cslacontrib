@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using Csla.DataPortalClient;
 using Csla.Server;
 
@@ -33,34 +34,34 @@ namespace CslaContrib.ObjectCaching
 
         #region IDataPortalServer Members
 
-        public Csla.Server.DataPortalResult Create(Type objectType, object criteria, Csla.Server.DataPortalContext context)
+        public async Task<DataPortalResult> Create(Type objectType, object criteria, Csla.Server.DataPortalContext context, bool isSync)
         {
             //evict cache items based on ObjectCacheEvictionAttribute
             RemoveCacheItems(objectType);
 
             proxy = GetDataPortalProxy();
-            return proxy.Create(objectType, criteria, context);
+            return await proxy.Create(objectType, criteria, context, isSync);
         }
 
-        public Csla.Server.DataPortalResult Update(object obj, Csla.Server.DataPortalContext context)
+        public async Task<DataPortalResult> Update(object obj, Csla.Server.DataPortalContext context, bool isSync)
         {
             //evict cache items based on ObjectCacheEvictionAttribute
             RemoveCacheItems(obj.GetType());
 
             proxy = GetDataPortalProxy();
-            return proxy.Update(obj, context);
+            return await proxy.Update(obj, context, isSync);
         }
 
-        public Csla.Server.DataPortalResult Delete(Type objectType, object criteria, Csla.Server.DataPortalContext context)
+        public async Task<DataPortalResult> Delete(Type objectType, object criteria, Csla.Server.DataPortalContext context, bool isSync)
         {
             //evict cache items based on ObjectCacheEvictionAttribute
             RemoveCacheItems(objectType);
 
             proxy = GetDataPortalProxy();
-            return proxy.Delete(objectType, criteria, context);
+            return await proxy.Delete(objectType, criteria, context, isSync);
         }
 
-        public DataPortalResult Fetch(Type objectType, object criteria, DataPortalContext context)
+        public async Task<DataPortalResult> Fetch(Type objectType, object criteria, DataPortalContext context, bool isSync)
         {
             var cachingAttribute = ObjectCacheAttribute.GetObjectCacheAttribute(objectType);
             var cacheProvider = CacheManager.GetCacheProvider();
@@ -84,24 +85,29 @@ namespace CslaContrib.ObjectCaching
                 {
                     //cache miss
                     proxy = GetDataPortalProxy();
-                    var results = proxy.Fetch(objectType, criteria, context);
+                    var results = await proxy.Fetch(objectType, criteria, context, isSync);
                     if (expiration > 0)
-                        cacheProvider.Put(key, results, new TimeSpan(0, expiration, 0));
+                        cacheProvider.Put(key, results.ReturnObject, new TimeSpan(0, expiration, 0));
                     else
-                        cacheProvider.Put(key, results);
+                        cacheProvider.Put(key, results.ReturnObject);
 
                     return results;
                 }
                 else
                 {
                     //cache hit
-                    return (DataPortalResult)data;
+#if !NET45
+                    await TaskEx.Delay(0);
+#else
+                    await Task.Delay(0);
+#endif
+                    return new DataPortalResult(data);
                 }
             }
             else
             {
                 proxy = GetDataPortalProxy();
-                return proxy.Fetch(objectType, criteria, context);
+                return await proxy.Fetch(objectType, criteria, context, isSync);
             }
         }
 
@@ -112,7 +118,7 @@ namespace CslaContrib.ObjectCaching
             if (cachingAttribute.Scope == CacheScope.Group)
             {
                 var group = Csla.ApplicationContext.ClientContext[CacheGroup];
-                if (group == null) throw new ApplicationException("ClientContext group required for Group scope data caching");
+                if (group == null) throw new Exception("ClientContext group required for Group scope data caching");
                 key = string.Format("{0}::{1}", key, group);
             }
             else if (cachingAttribute.Scope == CacheScope.User)
@@ -120,7 +126,7 @@ namespace CslaContrib.ObjectCaching
                 var group = Csla.ApplicationContext.ClientContext[CacheGroup];
                 if (group == null) group = string.Empty; //allow user scope with or without a specified grouping
                 var user = Csla.ApplicationContext.User;
-                if (!user.Identity.IsAuthenticated) throw new ApplicationException("Authenticated user required for User scope data caching");
+                if (!user.Identity.IsAuthenticated) throw new Exception("Authenticated user required for User scope data caching");
                 key = string.Format("{0}::{1}::{2}", key, group, user.Identity.Name);
             }
 
@@ -150,6 +156,7 @@ namespace CslaContrib.ObjectCaching
 
         #region DataPortal Proxy
 
+        private static string _proxyTypeName = null;
         private static Type _proxyType;
 
         /* The cache data portal proxy can be inserted in front of the default data portal proxy using a chain of command pattern configued like this example where WCF
@@ -164,15 +171,26 @@ namespace CslaContrib.ObjectCaching
         {
             if (_proxyType == null)
             {
-                string proxyTypeName = ConfigurationManager.AppSettings["CslaDataPortalDefaultProxy"];
-                if (string.IsNullOrEmpty(proxyTypeName))
-                    proxyTypeName = "Local";
-                if (proxyTypeName == "Local")
-                    _proxyType = typeof(Csla.DataPortalClient.LocalProxy);
-                else
-                    _proxyType = Type.GetType(proxyTypeName, true, true);
+#if !SILVERLIGHT
+                if (string.IsNullOrEmpty(_proxyTypeName))
+                {
+                    string proxyTypeName = ConfigurationManager.AppSettings["CslaDataPortalDefaultProxy"];
+                    SetProxyTypeName(proxyTypeName);
+                }
+#endif
             }
             return (Csla.DataPortalClient.IDataPortalProxy)Activator.CreateInstance(_proxyType);
+        }
+
+        public static void SetProxyTypeName(string proxyName)
+        {
+            _proxyTypeName = proxyName;
+            if (string.IsNullOrEmpty(_proxyTypeName))
+                _proxyTypeName = "Local";
+            if (_proxyTypeName == "Local")
+                _proxyType = typeof(Csla.DataPortalClient.LocalProxy);
+            else
+                _proxyType = Type.GetType(_proxyTypeName, true, true);
         }
 
         public static void ResetProxyType()
@@ -181,5 +199,6 @@ namespace CslaContrib.ObjectCaching
         }
 
         #endregion
+
     }
 }

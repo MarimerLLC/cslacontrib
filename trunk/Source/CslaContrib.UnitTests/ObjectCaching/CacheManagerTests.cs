@@ -70,7 +70,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(Exception))]
         public void Manager_Get_InvalidConfig()
         {
             var cm = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);

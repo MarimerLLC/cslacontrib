@@ -73,7 +73,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(Exception))]
         public void Portal_AttributeCachePortalGroup_Exception()
         {
             var id = 999;
@@ -92,7 +92,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
+        [ExpectedException(typeof(Exception))]
         public void Portal_AttributeCachePortalUser_Exception()
         {
             var id = 999;

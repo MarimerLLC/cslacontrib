@@ -25,6 +25,7 @@ namespace CslaContrib.ObjectCaching
         {
             if(cacheProvider != null) return cacheProvider;
 
+#if !SILVERLIGHT
             lock (syncProvider)
             {
                 var providerType = ConfigurationManager.AppSettings[PROVIDER_CONFIG];
@@ -33,6 +34,8 @@ namespace CslaContrib.ObjectCaching
                 cacheProvider = ActivateProvider(providerType);
                 return cacheProvider;
             }
+#endif
+            throw new Exception("Missing CacheProvider configuration.");
         }
 
         /// <summary>
@@ -64,7 +67,7 @@ namespace CslaContrib.ObjectCaching
             if (string.IsNullOrEmpty(providerType)) return null;
  
             var type = Type.GetType(providerType);
-            if (type == null) throw new ApplicationException(string.Format("Unable to load configured cache provider, could not resolve {0}.", providerType));
+            if (type == null) throw new Exception(string.Format("Unable to load configured cache provider, could not resolve {0}.", providerType));
             var provider = (ICacheProvider)Activator.CreateInstance(type);
             if (provider != null) provider.Initialize();
             return provider;

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using Csla;
+#if SILVERLIGHT
+using Csla.Serialization;
+#endif
 
 namespace CslaContrib.MEF
 {

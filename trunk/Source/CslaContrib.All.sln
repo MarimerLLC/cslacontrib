@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net4", "Csl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.Net4", "CslaContrib.ObjectCaching.AppFabric.Net4\CslaContrib.ObjectCaching.AppFabric.Net4.csproj", "{37F3CEB1-D604-4E55-90F6-7FFDB85A9940}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Silverlight", "CslaContrib.MEF.Silverlight\CslaContrib.MEF.Silverlight.csproj", "{AEC6A994-F72B-4862-B751-7019B2EF8768}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = CslaContrib.vsmdi
@@ -265,6 +267,16 @@ Global
 		{37F3CEB1-D604-4E55-90F6-7FFDB85A9940}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{37F3CEB1-D604-4E55-90F6-7FFDB85A9940}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{37F3CEB1-D604-4E55-90F6-7FFDB85A9940}.Release|x86.ActiveCfg = Release|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AEC6A994-F72B-4862-B751-7019B2EF8768}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -802,36 +802,36 @@ namespace CslaContrib.Caliburn.Micro
         /// </summary>
         protected virtual async System.Threading.Tasks.Task<T> SaveAsync()
         {
-            try
+          try
+          {
+            var savable = Model as ISavable;
+            if (ManageObjectLifetime)
             {
-                var savable = Model as ISavable;
-                if (ManageObjectLifetime)
-                {
-                    // clone the object if possible
-                    ICloneable clonable = Model as ICloneable;
-                    if (clonable != null)
-                        savable = (ISavable)clonable.Clone();
+              // clone the object if possible
+              ICloneable clonable = Model as ICloneable;
+              if (clonable != null)
+                savable = (ISavable)clonable.Clone();
 
-                    //apply changes
-                    var undoable = savable as ISupportUndo;
-                    if (undoable != null)
-                        undoable.ApplyEdit();
-                }
+              //apply changes
+              var undoable = savable as ISupportUndo;
+              if (undoable != null)
+                undoable.ApplyEdit();
+            }
 
-                Error = null;
-                IsBusy = true;
-                OnSaving(Model);
-                Model = (T)await savable.SaveAsync();
-                IsBusy = false;
-                OnSaved();
-            }
-            catch (Exception ex)
-            {
-                IsBusy = false;
-                Error = ex;
-                OnSaved();
-            }
-            return Model;
+            Error = null;
+            IsBusy = true;
+            OnSaving(Model);
+            Model = (T)await savable.SaveAsync();
+            IsBusy = false;
+            OnSaved();
+          }
+          catch (Exception ex)
+          {
+            IsBusy = false;
+            Error = ex;
+            OnSaved();
+          }
+          return Model;
         }
 
         /// <summary>
@@ -906,15 +906,24 @@ namespace CslaContrib.Caliburn.Micro
         /// </summary>
         protected virtual void DoCancel()
         {
-            if (ManageObjectLifetime)
+          if (ManageObjectLifetime)
+          {
+            var undo = Model as ISupportUndo;
+            if (undo != null)
             {
-                var undo = Model as ISupportUndo;
-                if (undo != null)
-                {
-                    undo.CancelEdit();
-                    undo.BeginEdit();
-                }
+              UnhookChangedEvents(Model);
+              try
+              {
+                undo.CancelEdit();
+                undo.BeginEdit();
+              }
+              finally
+              {
+                HookChangedEvents(Model);
+                OnSetProperties();
+              }
             }
+          }
         }
 
 #if SILVERLIGHT
@@ -999,43 +1008,59 @@ namespace CslaContrib.Caliburn.Micro
         /// <param name="newValue">New Model reference.</param>
         protected virtual void OnModelChanged(T oldValue, T newValue)
         {
-            if (ReferenceEquals(oldValue, newValue)) return;
+          if (ReferenceEquals(oldValue, newValue)) return;
 
-            // unhook events from old value
-            if (oldValue != null)
-            {
-                var npc = oldValue as INotifyPropertyChanged;
-                if (npc != null)
-                    npc.PropertyChanged -= Model_PropertyChanged;
-                var ncc = oldValue as INotifyChildChanged;
-                if (ncc != null)
-                    ncc.ChildChanged -= Model_ChildChanged;
-                var nb = oldValue as INotifyBusy;
-                if (nb != null)
-                    nb.BusyChanged -= Model_BusyChanged;
-                var cc = oldValue as INotifyCollectionChanged;
-                if (cc != null)
-                    cc.CollectionChanged -= Model_CollectionChanged;
-            }
+          // unhook events from old value
+          if (oldValue != null)
+          {
+            UnhookChangedEvents(oldValue);
 
-            // hook events on new value
-            if (newValue != null)
-            {
-                var npc = newValue as INotifyPropertyChanged;
-                if (npc != null)
-                    npc.PropertyChanged += Model_PropertyChanged;
-                var ncc = newValue as INotifyChildChanged;
-                if (ncc != null)
-                    ncc.ChildChanged += Model_ChildChanged;
-                var nb = newValue as INotifyBusy;
-                if (nb != null)
-                    nb.BusyChanged += Model_BusyChanged;
-                var cc = newValue as INotifyCollectionChanged;
-                if (cc != null)
-                    cc.CollectionChanged += Model_CollectionChanged;
-            }
+            var nb = oldValue as INotifyBusy;
+            if (nb != null)
+              nb.BusyChanged -= Model_BusyChanged;
+          }
 
-            OnSetProperties();
+          // hook events on new value
+          if (newValue != null)
+          {
+            HookChangedEvents(newValue);
+
+            var nb = newValue as INotifyBusy;
+            if (nb != null)
+              nb.BusyChanged += Model_BusyChanged;
+          }
+
+          OnSetProperties();
+        }
+
+        private void UnhookChangedEvents(T model)
+        {
+          var npc = model as INotifyPropertyChanged;
+          if (npc != null)
+            npc.PropertyChanged -= Model_PropertyChanged;
+
+          var ncc = model as INotifyChildChanged;
+          if (ncc != null)
+            ncc.ChildChanged -= Model_ChildChanged;
+
+          var cc = model as INotifyCollectionChanged;
+          if (cc != null)
+            cc.CollectionChanged -= Model_CollectionChanged;
+        }
+
+        private void HookChangedEvents(T model)
+        {
+          var npc = model as INotifyPropertyChanged;
+          if (npc != null)
+            npc.PropertyChanged += Model_PropertyChanged;
+
+          var ncc = model as INotifyChildChanged;
+          if (ncc != null)
+            ncc.ChildChanged += Model_ChildChanged;
+
+          var cc = model as INotifyCollectionChanged;
+          if (cc != null)
+            cc.CollectionChanged += Model_CollectionChanged;
         }
 
         /// <summary>

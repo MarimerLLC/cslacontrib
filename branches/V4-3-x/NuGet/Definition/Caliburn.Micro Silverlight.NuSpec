@@ -22,9 +22,9 @@ Supports the creation of CSLA. NET applications for Silverlight that use Calibur
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.13]" />
-      <dependency id="CSLA-Silverlight" version="[4.3.13]" />
-      <dependency id="Caliburn.Micro" version="" />
+      <dependency id="CSLA-Core" version="[4.3.13,4.5.0)" />
+      <dependency id="CSLA-Silverlight" version="[4.3.13,4.5.0)" />
+      <dependency id="Caliburn.Micro" version="[1.4,)" />
     </dependencies>
   </metadata>
   <files>

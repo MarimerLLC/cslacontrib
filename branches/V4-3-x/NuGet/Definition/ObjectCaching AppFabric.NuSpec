@@ -18,8 +18,8 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.13]" />
-      <dependency id="CslaContrib" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.3.13,4.5.0)" />
+      <dependency id="CslaContrib" version="[4.3.14]" />
     </dependencies>
   </metadata>
   <files>

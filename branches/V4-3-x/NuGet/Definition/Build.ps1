@@ -129,7 +129,7 @@ try
     {
         $productVersion = [System.String]::Format( "{0}.{1}.{2}", $cslaContribAssembly.VersionInfo.ProductMajorPart, $cslaContribAssembly.VersionInfo.ProductMinorPart, $cslaContribAssembly.VersionInfo.ProductBuildPart )
     }
-    ChangeNuSpecVersion "$basePath\$package.NuSpec" $productVersion
+    #ChangeNuSpecVersion "$basePath\$package.NuSpec" $productVersion
     
     ## Launch NuGet.exe to build package
     Write-Host "Build NuGet package: $package..." -ForegroundColor Yellow

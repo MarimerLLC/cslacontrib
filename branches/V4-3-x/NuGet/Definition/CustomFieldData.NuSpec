@@ -18,7 +18,7 @@ Extends CSLA .NET framework with Custom Field Data that checks old/new value to 
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.3.13]" />
+      <dependency id="CSLA-Core" version="[4.3.13,4.5.0)" />
     </dependencies>
   </metadata>
   <files>

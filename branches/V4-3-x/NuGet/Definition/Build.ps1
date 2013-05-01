@@ -41,7 +41,7 @@ function ChangeNuSpecVersion( $nuSpecFilePath, $version="0.0.0.0" )
         $idAttribute = $dependency.Attributes( "id" ) | Select-Object -First 1
         if ( $idAttribute -ne $null )
         {
-            if ( $idAttribute.Value -eq "CSLA-Core" )
+            if ( $idAttribute.Value -eq "CslaContrib" )
             {
                 $dependency.SetAttributeValue( "version", "[$version]" )
             }
@@ -129,7 +129,7 @@ try
     {
         $productVersion = [System.String]::Format( "{0}.{1}.{2}", $cslaContribAssembly.VersionInfo.ProductMajorPart, $cslaContribAssembly.VersionInfo.ProductMinorPart, $cslaContribAssembly.VersionInfo.ProductBuildPart )
     }
-    #ChangeNuSpecVersion "$basePath\$package.NuSpec" $productVersion
+    ChangeNuSpecVersion "$basePath\$package.NuSpec" $productVersion
     
     ## Launch NuGet.exe to build package
     Write-Host "Build NuGet package: $package..." -ForegroundColor Yellow

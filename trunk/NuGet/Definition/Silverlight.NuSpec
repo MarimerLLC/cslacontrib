@@ -18,7 +18,7 @@ Supports the creation of Silverlight applications.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.20]" />
+      <dependency id="CSLA-Core" version="[4.5.0,)" />
     </dependencies>
   </metadata>
   <files>

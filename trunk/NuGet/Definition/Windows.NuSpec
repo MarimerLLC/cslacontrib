@@ -18,7 +18,7 @@ Additional controls to support the creation of CSLA. NET applications for Window
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.20]" />
+      <dependency id="CSLA-Core" version="[4.5.0,)" />
     </dependencies>
   </metadata>
   <files>
@@ -34,6 +34,8 @@ Additional controls to support the creation of CSLA. NET applications for Window
     <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.xml*" target="lib\net45" />
+    <!-- Windows Phone 7 Client -->
+    <!-- > None -->
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.Windows\**\*.cs" target="src" />
   </files>

@@ -18,7 +18,7 @@ Supports the creation of CSLA. NET applications for Visual WebGUI.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.20]" />
+      <dependency id="CSLA-Core" version="[4.5.0,)" />
     </dependencies>
   </metadata>
   <files>
@@ -34,6 +34,8 @@ Supports the creation of CSLA. NET applications for Visual WebGUI.
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.dll*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net45" />
     <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.xml*" target="lib\net45" />
+    <!-- Windows Phone 7 Client -->
+    <!-- > None -->
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.WebGUI\**\*.cs" target="src" />
   </files>

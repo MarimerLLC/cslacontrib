@@ -1,14 +1,19 @@
+REM 2013-04-26 changed "svn export" to "XCOPY" as Codeplex server is too slow
+
 rd /q /s Release
 md Release
 cd Release
 
-svn export https://cslacontrib.svn.codeplex.com/svn/trunk/samples CslaContribSamples
+xcopy /E /I ..\..\samples CslaContribSamples
+rem svn export https://cslacontrib.svn.codeplex.com/svn/trunk/samples CslaContribSamples
 
-svn export https://cslacontrib.svn.codeplex.com/svn/trunk/License.txt
-svn export https://cslacontrib.svn.codeplex.com/svn/trunk/Readme.txt
+copy ..\..\License.txt
+copy ..\..\Readme.txt
+rem svn export https://cslacontrib.svn.codeplex.com/svn/trunk/License.txt
+rem svn export https://cslacontrib.svn.codeplex.com/svn/trunk/Readme.txt
 
-del /q ..\CslaContribSamples.zip
-"C:\Program Files\7-Zip\7z" a -r -tzip ..\CslaContribSamples *
+del /q ..\CslaContribSamples-4.5.20.zip
+"C:\Program Files\7-Zip\7z" a -r -tzip ..\CslaContribSamples-4.5.20.zip *
 
 cd ..
 rd /q/s Release

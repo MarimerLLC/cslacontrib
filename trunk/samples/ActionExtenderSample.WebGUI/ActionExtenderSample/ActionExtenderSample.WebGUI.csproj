@@ -92,6 +92,9 @@
     <Content Include="Resources\Icons\Undo16.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ActionExtenderSample.Business\DataPortalHookArgs.cs" />
     <Compile Include="ActionExtenderSample.Business\Order.cs" />
     <Compile Include="ActionExtenderSample.Business\Order.Designer.cs">
@@ -131,7 +134,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="OrderMaint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,11 +174,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Capture\" />
     <Folder Include="Resources\Generated\" />
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\UserData\" />
-    <Folder Include="Resources\Xaml\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

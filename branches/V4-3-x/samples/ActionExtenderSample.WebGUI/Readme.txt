@@ -1,6 +1,6 @@
 Targets
 -------
-This sample targets Csla 4.3.13 and CslaContrib 4.3.14
+This sample targets Csla 4.3.13 and CslaContrib 4.3.15
 
 Database engine
 ---------------

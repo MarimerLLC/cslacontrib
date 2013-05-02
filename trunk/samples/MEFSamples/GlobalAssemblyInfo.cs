@@ -6,4 +6,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("4.5.20.0")]
-[assembly: AssemblyFileVersion("4.3.14.0")]
+[assembly: AssemblyFileVersion("4.5.20.0")]

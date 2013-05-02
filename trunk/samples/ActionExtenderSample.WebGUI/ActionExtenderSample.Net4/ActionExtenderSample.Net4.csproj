@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40AC362B-83CC-427A-AB40-52C4ECEBBB0E}</ProjectGuid>
+    <ProjectTypeGuids>{563295b5-8906-4a76-be2d-ff8e711c1204};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActionExtenderSample</RootNamespace>
+    <AssemblyName>ActionExtenderSample</AssemblyName>
+    <StartPageUrl>Form1.wgx</StartPageUrl>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartPageUrl>Form1.wgx</StartPageUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=4.5.24.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.24-RC\lib\net40\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="CslaContrib.WebGUI">
+      <HintPath>..\..\Dependencies\Net4\CslaContrib.WebGUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.Async.1.0.16\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.Async.1.0.16\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.16.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.Async.1.0.16\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime">
+      <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.1.0.19\lib\net40\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.1.0.19\lib\net40\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Gizmox.WebGUI.Forms, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Common, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Server, Version=4.0.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d">
+      <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\ActionExtenderSample\App_Data\CslaActionExtenderSample.mdf">
+      <Link>App_Data\CslaActionExtenderSample.mdf</Link>
+    </Content>
+    <Content Include="..\ActionExtenderSample\App_Data\CslaActionExtenderSample_log.ldf">
+      <Link>App_Data\CslaActionExtenderSample_log.ldf</Link>
+      <DependentUpon>CslaActionExtenderSample.mdf</DependentUpon>
+    </Content>
+    <Content Include="Resources\Icons\Close16.png" />
+    <Content Include="Resources\Icons\Save16-disabled.png" />
+    <Content Include="Resources\Icons\Save16.png" />
+    <Content Include="Resources\Icons\Undo16-disabled.png" />
+    <Content Include="Resources\Icons\Undo16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\DataPortalHookArgs.cs">
+      <Link>ActionExtenderSample.Business\DataPortalHookArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\Order.cs">
+      <Link>ActionExtenderSample.Business\Order.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\Order.designer.cs">
+      <Link>ActionExtenderSample.Business\Order.designer.cs</Link>
+      <DependentUpon>Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetail.cs">
+      <Link>ActionExtenderSample.Business\OrderDetail.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetail.designer.cs">
+      <Link>ActionExtenderSample.Business\OrderDetail.designer.cs</Link>
+      <DependentUpon>OrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetailCollection.cs">
+      <Link>ActionExtenderSample.Business\OrderDetailCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetailCollection.designer.cs">
+      <Link>ActionExtenderSample.Business\OrderDetailCollection.designer.cs</Link>
+      <DependentUpon>OrderDetailCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs">
+      <Link>ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDal.cs">
+      <Link>ActionExtenderSample.DataAccess.Sql\OrderDal.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDal.designer.cs">
+      <Link>ActionExtenderSample.DataAccess.Sql\OrderDal.designer.cs</Link>
+      <DependentUpon>OrderDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs">
+      <Link>ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.designer.cs">
+      <Link>ActionExtenderSample.DataAccess.Sql\OrderDetailDal.designer.cs</Link>
+      <DependentUpon>OrderDetailDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs">
+      <Link>ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\DataNotFoundException.cs">
+      <Link>ActionExtenderSample.DataAccess\DataNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs">
+      <Link>ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDal.cs">
+      <Link>ActionExtenderSample.DataAccess\IOrderDal.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDal.designer.cs">
+      <Link>ActionExtenderSample.DataAccess\IOrderDal.designer.cs</Link>
+      <DependentUpon>IOrderDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDetailDal.cs">
+      <Link>ActionExtenderSample.DataAccess\IOrderDetailDal.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDetailDal.designer.cs">
+      <Link>ActionExtenderSample.DataAccess\IOrderDetailDal.designer.cs</Link>
+      <DependentUpon>IOrderDetailDal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\Form1.cs">
+      <Link>Form1.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\Form1.designer.cs">
+      <Link>Form1.designer.cs</Link>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint.cs">
+      <Link>OrderMaint.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint.designer.cs">
+      <Link>OrderMaint.designer.cs</Link>
+      <DependentUpon>OrderMaint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint2.cs">
+      <Link>OrderMaint2.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint2.designer.cs">
+      <Link>OrderMaint2.designer.cs</Link>
+      <DependentUpon>OrderMaint2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint3.cs">
+      <Link>OrderMaint3.cs</Link>
+    </Compile>
+    <Compile Include="..\ActionExtenderSample\OrderMaint3.designer.cs">
+      <Link>OrderMaint3.designer.cs</Link>
+      <DependentUpon>OrderMaint3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Properties\DataSources\ActionExtenderSample.Business.Order.datasource" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Generated\" />
+    <Folder Include="Resources\Images\" />
+    <Folder Include="Resources\UserData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\ActionExtenderSample\Form1.resx">
+      <Link>Form1.resx</Link>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint.resx">
+      <Link>OrderMaint.resx</Link>
+      <DependentUpon>OrderMaint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint2.resx">
+      <Link>OrderMaint2.resx</Link>
+      <DependentUpon>OrderMaint2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint3.resx">
+      <Link>OrderMaint3.resx</Link>
+      <DependentUpon>OrderMaint3.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Condition="" Project="$(MSBuildExtensionsPath)\Gizmox\v10.0\Gizmox.VWGApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2701</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\..\Dependencies\packages\Microsoft.Bcl.Build.1.0.5\tools\Microsoft.Bcl.Build.targets" />
+</Project>

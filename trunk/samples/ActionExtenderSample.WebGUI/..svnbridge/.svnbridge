@@ -7,4 +7,10 @@ ActionExtenderSample.sln.DotSettings.user
 Bin
 bin
 obj
+</Value></Property><Property><Name>bugtraq:warnifnoissue</Name><Value>true</Value></Property><Property><Name>bugtraq:label</Name><Value>Work item #:</Value></Property><Property><Name>bugtraq:url</Name><Value>http://cslacontrib.codeplex.com/workitem/%BUGID%</Value></Property><Property><Name>bugtraq:message</Name><Value>Work Item #%BUGID%</Value></Property><Property><Name>svn:ignore</Name><Value>*.suo
+ActionExtenderSample.Net4.sln.DotSettings.user
+ActionExtenderSample.sln.DotSettings.user
+Bin
+bin
+obj
 </Value></Property></Properties></ItemProperties>

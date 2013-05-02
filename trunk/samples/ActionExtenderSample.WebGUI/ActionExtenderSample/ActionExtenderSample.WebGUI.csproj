@@ -157,7 +157,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\DataSources\ActionExtenderSample.Business.Order.datasource" />
-    <None Include="Web.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">

@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="..\ActionExtenderSample\Form1.cs">
       <Link>Form1.cs</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\ActionExtenderSample\Form1.designer.cs">
       <Link>Form1.designer.cs</Link>
@@ -168,6 +169,7 @@
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint.cs">
       <Link>OrderMaint.cs</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint.designer.cs">
       <Link>OrderMaint.designer.cs</Link>
@@ -175,6 +177,7 @@
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint2.cs">
       <Link>OrderMaint2.cs</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint2.designer.cs">
       <Link>OrderMaint2.designer.cs</Link>
@@ -182,6 +185,7 @@
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint3.cs">
       <Link>OrderMaint3.cs</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\ActionExtenderSample\OrderMaint3.designer.cs">
       <Link>OrderMaint3.designer.cs</Link>
@@ -240,8 +244,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2701</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:2701/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

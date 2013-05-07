@@ -16,3 +16,8 @@ Connection string
 In order to have a path independent connection string, the database file is 
 copied to the build folder. The side efect is that any changes you made to 
 database will go away when you clean the solution or the project.
+
+Visual WebGUI
+-------------
+The project file and web.config were created using
+Visual WebGUI Professional Studio 7.0.0 (April 21, 2013)

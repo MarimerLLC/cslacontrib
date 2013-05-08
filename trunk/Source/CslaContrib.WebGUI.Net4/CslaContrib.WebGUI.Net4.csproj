@@ -20,8 +20,7 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -148,24 +147,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\CslaContrib.WebGUI\ErrorProvider.bmp">
-      <Link>ErrorProvider.bmp</Link>
-    </Content>
-    <Content Include="..\CslaContrib.WebGUI\ErrorWarnInfoProvider.bmp">
-      <Link>ErrorWarnInfoProvider.bmp</Link>
-    </Content>
-    <Content Include="..\CslaContrib.WebGUI\favicon.ico">
-      <Link>favicon.ico</Link>
-    </Content>
-    <Content Include="..\CslaContrib.WebGUI\Resources\ErrorIcon.png">
-      <Link>Resources\ErrorIcon.png</Link>
-    </Content>
-    <Content Include="..\CslaContrib.WebGUI\Resources\InformationIcon.png">
-      <Link>Resources\InformationIcon.png</Link>
-    </Content>
-    <Content Include="..\CslaContrib.WebGUI\Resources\WarningIcon.png">
-      <Link>Resources\WarningIcon.png</Link>
-    </Content>
+    <EmbeddedResource Include="ErrorProvider.bmp" />
+    <EmbeddedResource Include="ErrorWarnInfoProvider.bmp" />
+    <EmbeddedResource Include="favicon.ico" />
+    <EmbeddedResource Include="Resources\ErrorIcon.png" />
+    <EmbeddedResource Include="Resources\InformationIcon.png" />
+    <EmbeddedResource Include="Resources\WarningIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Gizmox\v10.0\Gizmox.VWGLibrary.targets" />

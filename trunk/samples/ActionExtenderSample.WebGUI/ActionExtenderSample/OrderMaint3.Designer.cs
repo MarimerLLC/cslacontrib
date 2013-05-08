@@ -64,7 +64,7 @@ namespace ActionExtenderSample
       this.toolSaveClose = new Gizmox.WebGUI.Forms.ToolStripButton();
       this.toolCancel = new Gizmox.WebGUI.Forms.ToolStripButton();
       this.toolClose = new Gizmox.WebGUI.Forms.ToolStripButton();
-      this.errorProvider1 = new CslaContrib.WebGUI.ErrorProvider(this.components);
+      this.errorProvider1 = new CslaContrib.WebGUI.ErrorWarnInfoProvider(this.components);
       this.bindingSourceRefresh1 = new CslaContrib.WebGUI.BindingSourceRefresh(this.components);
       this.dataGridViewTextBoxColumn1 = new Gizmox.WebGUI.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn3 = new Gizmox.WebGUI.Forms.DataGridViewTextBoxColumn();
@@ -404,7 +404,7 @@ namespace ActionExtenderSample
     private Gizmox.WebGUI.Forms.ToolStripButton toolSaveClose;
     private Gizmox.WebGUI.Forms.ToolStripButton toolCancel;
     private Gizmox.WebGUI.Forms.ToolStripButton toolClose;
-    private CslaContrib.WebGUI.ErrorProvider errorProvider1;
+    private CslaContrib.WebGUI.ErrorWarnInfoProvider errorProvider1;
     private CslaContrib.WebGUI.BindingSourceRefresh bindingSourceRefresh1;
     private Gizmox.WebGUI.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private Gizmox.WebGUI.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

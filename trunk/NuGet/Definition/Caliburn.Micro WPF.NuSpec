@@ -4,7 +4,7 @@
     <id>CslaContrib-Caliburn.Micro.WPF</id>
     <title>CSLA .NET Contrib - Caliburn.Micro.WPF</title>
     <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
-    <version>4.5.20</version>
+    <version>4.5.30</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>

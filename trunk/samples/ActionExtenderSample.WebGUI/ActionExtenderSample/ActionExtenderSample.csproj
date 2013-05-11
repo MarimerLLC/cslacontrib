@@ -40,11 +40,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla">
-      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.24-RC\lib\net45\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.5.30.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net45\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="Csla.XmlSerializers">
-      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.24-RC\lib\net45\Csla.XmlSerializers.dll</HintPath>
+    <Reference Include="Csla.XmlSerializers, Version=4.5.30.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net45\Csla.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib.WebGUI">
       <HintPath>..\..\Dependencies\Net\CslaContrib.WebGUI.dll</HintPath>

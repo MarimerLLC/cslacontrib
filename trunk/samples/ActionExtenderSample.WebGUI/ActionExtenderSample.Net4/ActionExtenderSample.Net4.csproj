@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.24-RC\lib\net40\Csla.dll</HintPath>
+      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net40\Csla.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib.WebGUI">
       <HintPath>..\..\Dependencies\Net4\CslaContrib.WebGUI.dll</HintPath>

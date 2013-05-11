@@ -1,3 +1,7 @@
++------------------------------------------------+
+| Read me file for ActionExtenderSample.Net4.sln |
++------------------------------------------------+
+
 Target
 ------
 This sample targets Csla 4.5.x, CslaContrib 4.5.20 and NET 4.0
@@ -21,3 +25,12 @@ Visual WebGUI
 -------------
 The project file and web.config were created using
 Visual WebGUI Professional Studio 7.0.0 (April 21, 2013)
+
+Solution doesn't load?
+======================
+Go to http://www.visualwebgui.com/Developers/Downloads/tabid/110/Default.aspx
+Register yourself and login. Now download:
+    - Professional Studio 7.0.0 (.NET 4.0)
+
+If running the solution on Visual Studio 2012, download also
+    - Professional Studio 7.0.0 (.NET 4.5)

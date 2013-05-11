@@ -11,8 +11,8 @@ copy ..\..\Readme.txt
 rem svn export https://cslacontrib.svn.codeplex.com/svn/trunk/License.txt
 rem svn export https://cslacontrib.svn.codeplex.com/svn/trunk/Readme.txt
 
-del /q ..\CslaContrib-4.3.15.zip
-"C:\Program Files\7-Zip\7z" a -r -tzip ..\CslaContrib-4.3.15.zip *
+del /q ..\CslaContrib-4.3.16.zip
+"C:\Program Files\7-Zip\7z" a -r -tzip ..\CslaContrib-4.3.16.zip *
 
 cd ..
 rd /q/s Release

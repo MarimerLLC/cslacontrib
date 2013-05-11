@@ -1,6 +1,10 @@
++-------------------------------------------+
+| Read me file for ActionExtenderSample.sln |
++-------------------------------------------+
+
 Targets
 -------
-This sample targets Csla 4.3.13 and CslaContrib 4.3.15
+This sample targets Csla 4.3.14 and CslaContrib 4.3.16
 
 Database engine
 ---------------
@@ -16,3 +20,9 @@ Connection string
 In order to have a path independent connection string, the database file is 
 copied to the build folder. The side efect is that any changes you made to 
 database will go away when you clean the solution or the project.
+
+Solution doesn't load?
+======================
+Go to http://www.visualwebgui.com/Developers/Downloads/tabid/110/Default.aspx
+Register yourself and login. Now download:
+    - Professional Studio 7.0.0 (.NET 4.0)

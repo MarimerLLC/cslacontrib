@@ -59,8 +59,10 @@
       <HintPath>..\packages\Caliburn.Micro.1.4\lib\sl5\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="Csla">
-      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl50\Csla.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\CSLA-Core.4.3.14\lib\sl50\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla.Xaml">
+      <HintPath>..\packages\CSLA-Silverlight.4.3.14\lib\sl50\Csla.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

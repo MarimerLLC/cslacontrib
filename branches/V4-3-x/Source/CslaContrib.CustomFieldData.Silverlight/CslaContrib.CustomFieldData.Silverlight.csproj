@@ -51,15 +51,8 @@
     <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.CustomFieldData.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.3.13\lib\sl50\Csla.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Csla.Xaml, Version=4.3.13.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Silverlight.4.3.13\lib\sl50\Csla.Xaml.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla">
+      <HintPath>..\packages\CSLA-Core.4.3.14\lib\sl50\Csla.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />

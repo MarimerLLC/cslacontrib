@@ -41,9 +41,6 @@
     <Reference Include="Csla">
       <HintPath>..\..\..\Dependencies\Net\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib">
-      <HintPath>..\..\..\Dependencies\Net\CslaContrib.dll</HintPath>
-    </Reference>
     <Reference Include="CslaContrib.MEF">
       <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
     </Reference>

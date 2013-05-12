@@ -42,9 +42,6 @@
     <Reference Include="CslaContrib">
       <HintPath>..\..\..\Dependencies\Net\CslaContrib.dll</HintPath>
     </Reference>
-    <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

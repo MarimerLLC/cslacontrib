@@ -41,6 +41,6 @@ Supports the creation of CSLA. NET applications for Silverlight that use Calibur
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.Silverlight\**\*.cs" target="src" />
   </files>
 </package>

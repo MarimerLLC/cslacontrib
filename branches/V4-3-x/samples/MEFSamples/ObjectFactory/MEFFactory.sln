@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFFactory.UI", "MEFSample.UI\MEFFactory.UI.csproj", "{A46A49E3-655D-40D3-89A8-3EAC81E7D54E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.Factory.Business", "MEFSample.Business\MEFSample.Factory.Business.csproj", "{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}"

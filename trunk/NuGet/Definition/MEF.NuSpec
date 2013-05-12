@@ -46,6 +46,6 @@ Extends CSLA .NET framework with MEF support for Repository and ObjectFactory da
     <file src="..\..\bin\Release\WinRT\**\CslaContrib.MEF.pri*" target="lib\NetCore45" />
     <file src="..\..\bin\Release\WinRT\**\CslaContrib.MEF.xml*" target="lib\NetCore45" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.MEF\**\*.cs" target="src" />
   </files>
 </package>

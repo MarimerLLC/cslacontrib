@@ -11,6 +11,8 @@
     <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
+Extends CSLA .NET framework with Custom Field Data that checks old/new value to determine if the object is dirty/changed.
+
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
     </description>
     <summary>

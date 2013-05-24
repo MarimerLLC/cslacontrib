@@ -11,10 +11,12 @@
     <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
+Additional controls to support the creation of CSLA. NET applications for Visual WebGUI.
+
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
     </description>
     <summary>
-Supports the creation of CSLA. NET applications for Visual WebGUI.
+Additional controls to support the creation of CSLA. NET applications for Visual WebGUI.
     </summary>
     <language>en-US</language>
     <dependencies>

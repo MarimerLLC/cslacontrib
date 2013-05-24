@@ -108,6 +108,9 @@
     <Compile Include="..\CslaContrib\Rules\CommonRules.cs">
       <Link>Rules\CommonRules.cs</Link>
     </Compile>
+    <Compile Include="..\CslaContrib\SmartDateExtendedParser.cs">
+      <Link>SmartDateExtendedParser.cs</Link>
+    </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>

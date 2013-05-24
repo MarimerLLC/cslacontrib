@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CslaContrib.MEF</RootNamespace>
-    <AssemblyName>CslaContrib.MEF.Silverlight</AssemblyName>
+    <AssemblyName>CslaContrib.MEF</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -36,7 +36,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.MEF.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.MEF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,7 +47,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.MEF.Silverlight.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.MEF.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">

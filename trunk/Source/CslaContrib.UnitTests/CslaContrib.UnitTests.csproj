@@ -78,6 +78,8 @@
     <Compile Include="ObjectCaching\TestInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\RuleTestRoot.cs" />
+    <Compile Include="SmartDateExtendedParserTest_en_US.cs" />
+    <Compile Include="SmartDateExtendedParserTest_fr_FR.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

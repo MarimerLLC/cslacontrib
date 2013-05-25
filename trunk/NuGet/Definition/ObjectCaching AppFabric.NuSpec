@@ -4,7 +4,7 @@
     <id>CslaContrib-ObjectCaching.AppFabric</id>
     <title>CSLA .NET Contrib - ObjectCaching.AppFabric</title>
     <tags>CSLA CslaContrib ObjectCaching AppFabric</tags>
-    <version>4.5.30</version>
+    <version>4.5.31-RC</version>
     <authors>CslaContrib</authors>
     <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
     <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
@@ -21,7 +21,7 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     <language>en-US</language>
     <dependencies>
       <dependency id="CSLA-Core" version="[4.5.0,)" />
-      <dependency id="CslaContrib" version="[4.5.30]" />
+      <dependency id="CslaContrib" version="[4.5.31-RC]" />
       <dependency id="ServerAppFabric.Client" version="[1.1.2106,)" />
     </dependencies>
   </metadata>

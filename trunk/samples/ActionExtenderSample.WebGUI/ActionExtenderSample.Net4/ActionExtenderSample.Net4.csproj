@@ -34,6 +34,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
       <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net40\Csla.dll</HintPath>
@@ -195,7 +199,7 @@
       <Link>OrderMaint3.designer.cs</Link>
       <DependentUpon>OrderMaint3.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

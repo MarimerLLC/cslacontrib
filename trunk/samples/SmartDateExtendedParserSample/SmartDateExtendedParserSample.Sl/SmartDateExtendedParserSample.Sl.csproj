@@ -65,10 +65,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.31\lib\sl50\Csla.dll</HintPath>
+      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\sl50\Csla.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib">
-      <HintPath>..\..\Dependencies\packages\CslaContrib.4.5.31-RC\lib\sl50\CslaContrib.dll</HintPath>
+      <HintPath>..\..\Dependencies\Sl\CslaContrib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\Dependencies\packages\Microsoft.Bcl.Async.1.0.16\lib\sl4\Microsoft.Threading.Tasks.dll</HintPath>

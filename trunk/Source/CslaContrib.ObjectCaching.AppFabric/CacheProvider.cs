@@ -18,7 +18,7 @@ namespace CslaContrib.ObjectCaching.AppFabric
         public void Initialize()
         {
             var hostName = ConfigurationManager.AppSettings["CacheHost"] ?? "localhost";
-            var cachePort = string.IsNullOrEmpty(ConfigurationManager.AppSettings["CacheName"]) ? 22233 : int.Parse(ConfigurationManager.AppSettings["CacheName"]);
+            var cachePort = string.IsNullOrEmpty(ConfigurationManager.AppSettings["CachePort"]) ? 22233 : int.Parse(ConfigurationManager.AppSettings["CachePort"]);
             var cacheName = ConfigurationManager.AppSettings["CacheName"] ?? "default";
 
             List<DataCacheServerEndpoint> servers = new List<DataCacheServerEndpoint>(1);

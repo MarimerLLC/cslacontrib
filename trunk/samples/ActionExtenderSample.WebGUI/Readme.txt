@@ -4,7 +4,7 @@
 
 Target
 ------
-This sample targets Csla 4.5.x, CslaContrib 4.5.20 and NET 4.5
+This sample targets Csla 4.5.501, CslaContrib 4.5.50 and NET 4.5
 
 Database engine
 ---------------
@@ -24,10 +24,10 @@ database will go away when you clean the solution or the project.
 Visual WebGUI
 -------------
 The project file and web.config were created using
-Visual WebGUI Professional Studio 7.0.0 (April 21, 2013)
+Visual WebGUI Professional Studio 7.1.3 (May 11, 2014)
 
 Solution doesn't load?
 ======================
 Go to http://www.visualwebgui.com/Developers/Downloads/tabid/110/Default.aspx
 Register yourself and login. Now download:
-    - Professional Studio 7.0.0 (.NET 4.5)
+    - Professional Studio 7.1.3 (.NET 4.5)

@@ -43,10 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net45\Csla.dll</HintPath>
-    </Reference>
-    <Reference Include="Csla.XmlSerializers">
-      <HintPath>..\..\..\Dependencies\packages\CSLA-Core.4.5.30\lib\net45\Csla.XmlSerializers.dll</HintPath>
+      <HintPath>..\..\..\Dependencies\packages\CSLA-Core.4.5.501\lib\net45\Csla.dll</HintPath>
     </Reference>
     <Reference Include="CslaContrib">
       <HintPath>..\..\..\Dependencies\Net\CslaContrib.dll</HintPath>
@@ -76,9 +73,6 @@
     <Compile Include="MyRoot.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Callisto</id>
+    <version>1.4.0</version>
+    <title>Callisto</title>
+    <authors>Tim Heuer</authors>
+    <owners>Tim Heuer</owners>
+    <licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
+    <projectUrl>http://timheuer.github.io/callisto</projectUrl>
+    <iconUrl>http://storage2.timheuer.com/CallistoMoon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A control suite for some common things a Windows 8.1 XAML application might want to include such as a Flyout, Menu, Rating, Settings Pane, and other controls.</description>
+    <releaseNotes>* WARNING: BREAKING CHANGES -- NO LONGER SUPPORTS WINDOWS 8 IN THIS AND FUTURE VERSIONS!!!
+        * Complete details - https://github.com/timheuer/callisto/blob/master/changelog.md
+        * 1.4.0 - Change to support Windows 8.1 applications; deprecating some controls; XAML Binary Format</releaseNotes>
+    <language>en-US</language>
+    <tags>xaml winrt flyout settings popup menu win8 win8.1 metro pivot ratings flipview watermark</tags>
+  </metadata>
+</package>

@@ -46,13 +46,13 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="Csla, Version=4.5.600.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+    <Reference Include="Csla, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.5.600\lib\net45\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="Csla.Xaml, Version=4.5.600.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+    <Reference Include="Csla.Xaml, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-WPF.4.5.600\lib\net45\Csla.Xaml.dll</HintPath>
+      <HintPath>..\packages\CSLA-WPF.4.5.601\lib\net45\Csla.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

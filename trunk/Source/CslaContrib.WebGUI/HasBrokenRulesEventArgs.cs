@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Event args object containing information about a</summary>
 //-----------------------------------------------------------------------
+
 using System.ComponentModel;
 
 namespace CslaContrib.WebGUI
@@ -112,6 +113,5 @@ namespace CslaContrib.WebGUI
     {
       get { return _autoShowBrokenRules; }
     }
-
   }
 }

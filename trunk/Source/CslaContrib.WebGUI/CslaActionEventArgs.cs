@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Event args for an action.</summary>
 //-----------------------------------------------------------------------
+
 using System;
 
 namespace CslaContrib.WebGUI

@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>User control that displays busy animation</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace CslaContrib.WebGUI
   /// <summary>
   /// User control that displays busy animation
   /// </summary>
-  [ToolboxItem(true), ToolboxBitmap(typeof(BusyAnimation), "CslaContrib.WebGUI.BusyAnimation")]
+  [ToolboxItem(true), ToolboxBitmap(typeof (BusyAnimation), "CslaContrib.WebGUI.BusyAnimation")]
   public partial class BusyAnimation : UserControl
   {
     /// <summary>
@@ -29,25 +30,23 @@ namespace CslaContrib.WebGUI
     {
       InitializeComponent();
       this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-      this.BusyProgressBar.GetType().GetMethod("SetStyle", System.Reflection.BindingFlags.FlattenHierarchy | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).Invoke(this.BusyProgressBar, new object[] { ControlStyles.SupportsTransparentBackColor, true });
+      this.BusyProgressBar.GetType().GetMethod("SetStyle", System.Reflection.BindingFlags.FlattenHierarchy | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.IgnoreCase).Invoke(this.BusyProgressBar, new object[] {ControlStyles.SupportsTransparentBackColor, true});
       if (!IsInDesignMode)
         this.BusyProgressBar.BackColor = _progressBarBackColor;
     }
 
     private Color _progressBarForeColor = System.Drawing.Color.LawnGreen;
+
     /// <summary>
     /// Set or get foreground color for busy animation's progress bar
     /// </summary>
     [Category("Csla")]
     [Description("Foreground color for busy animation's progress bar.")]
-    [DefaultValue(typeof(System.Drawing.Color), "LawnGreen")]
+    [DefaultValue(typeof (System.Drawing.Color), "LawnGreen")]
     [Browsable(true)]
     public Color ProgressBarForeColor
     {
-      get
-      {
-        return _progressBarForeColor;
-      }
+      get { return _progressBarForeColor; }
       set
       {
         _progressBarForeColor = value;
@@ -55,21 +54,18 @@ namespace CslaContrib.WebGUI
       }
     }
 
-
     private Color _progressBarBackColor = System.Drawing.Color.White;
+
     /// <summary>
     /// Set or get background color for busy animation's progress bar 
     /// </summary>
     [Category("Csla")]
     [Description("Background color for busy animation's progress bar.")]
-    [DefaultValue(typeof(System.Drawing.Color), "White")]
+    [DefaultValue(typeof (System.Drawing.Color), "White")]
     [Browsable(true)]
     public Color ProgressBarBackColor
     {
-      get
-      {
-        return _progressBarBackColor;
-      }
+      get { return _progressBarBackColor; }
       set
       {
         _progressBarBackColor = value;
@@ -78,6 +74,7 @@ namespace CslaContrib.WebGUI
     }
 
     private bool _isRunning = false;
+
     /// <summary>
     /// Indicates if animation needs to be shown.  Set to true to start 
     /// progress bar animation
@@ -89,10 +86,7 @@ namespace CslaContrib.WebGUI
     [Browsable(true)]
     public bool IsRunning
     {
-      get
-      {
-        return _isRunning;
-      }
+      get { return _isRunning; }
       set
       {
         _isRunning = value;
@@ -109,7 +103,6 @@ namespace CslaContrib.WebGUI
         this.ProgressTimer.Enabled = run;
       }
     }
-
 
     private void ProgressTimer_Tick(object sender, EventArgs e)
     {
@@ -131,7 +124,7 @@ namespace CslaContrib.WebGUI
     {
       get
       {
-        if (this.GetService(typeof(System.ComponentModel.Design.IDesignerHost)) != null)
+        if (this.GetService(typeof (System.ComponentModel.Design.IDesignerHost)) != null)
           return true;
         else
           return false;
@@ -142,10 +135,9 @@ namespace CslaContrib.WebGUI
     {
       if (IsInDesignMode)
       {
-        this.BusyProgressBar.Value = (int)(this.BusyProgressBar.Maximum / 2);
+        this.BusyProgressBar.Value = (int) (this.BusyProgressBar.Maximum/2);
         this.BusyProgressBar.Visible = true;
       }
     }
-
   }
 }

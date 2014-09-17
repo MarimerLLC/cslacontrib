@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>HostPropertyAttribute is used on components to </summary>
 //-----------------------------------------------------------------------
+
 using System;
 
 namespace CslaContrib.WebGUI
@@ -16,7 +17,6 @@ namespace CslaContrib.WebGUI
   /// </summary>
   public class HostPropertyAttribute : Attribute
   {
-
     #region Property Fields
 
     private string _hostPropertyName = string.Empty;
@@ -47,6 +47,5 @@ namespace CslaContrib.WebGUI
     }
 
     #endregion
-
   }
 }

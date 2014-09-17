@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Helper methods for dealing with BindingSource</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -72,6 +73,5 @@ namespace CslaContrib.WebGUI
 
       return children;
     }
-
   }
 }

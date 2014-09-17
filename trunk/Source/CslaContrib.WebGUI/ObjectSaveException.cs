@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Exception indicating a failure during an object</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace CslaContrib.WebGUI
   /// Exception indicating a failure during an object
   /// save operation.
   /// </summary>
-  public class ObjectSaveException : Exception 
+  public class ObjectSaveException : Exception
   {
     /// <summary>
     /// Creates an instance of the object.
     /// </summary>
-    public ObjectSaveException() : base() { }
+    public ObjectSaveException() : base()
+    {
+    }
 
     /// <summary>
     /// Creates an instance of the object.
@@ -30,7 +33,9 @@ namespace CslaContrib.WebGUI
     /// <param name="message">
     /// Exception message text.
     /// </param>
-    public ObjectSaveException(string message) : base(message) { }
+    public ObjectSaveException(string message) : base(message)
+    {
+    }
 
     /// <summary>
     /// Creates an instance of the object.
@@ -41,7 +46,9 @@ namespace CslaContrib.WebGUI
     /// <param name="innerException">
     /// Reference to an inner exception.
     /// </param>
-    public ObjectSaveException(string message, Exception innerException) : base(message, innerException) { }
+    public ObjectSaveException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
 
     /// <summary>
     /// Creates an instance of the object.
@@ -49,6 +56,8 @@ namespace CslaContrib.WebGUI
     /// <param name="innerException">
     /// Reference to an inner exception.
     /// </param>
-    public ObjectSaveException(Exception innerException) : base(Resources.ExceptionOccurredDuringSaveOperation, innerException) { }
+    public ObjectSaveException(Exception innerException) : base(Resources.ExceptionOccurredDuringSaveOperation, innerException)
+    {
+    }
   }
 }

@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>no summary</summary>
 //-----------------------------------------------------------------------
+
 using System;
 
 namespace CslaContrib.WebGUI
@@ -13,12 +14,12 @@ namespace CslaContrib.WebGUI
   {
     #region Defaults
 
-    static internal CslaFormAction ActionTypeDefault = CslaFormAction.None;
-    static internal PostSaveActionType PostSaveActionDefault = PostSaveActionType.None;
-    static internal bool RebindAfterSaveDefault = true;
-    static internal bool DisableWhenCleanDefault = false;
-    static internal bool DisableWhenUselessDefault = false;
-    static internal string CommandNameDefault = string.Empty;
+    internal static CslaFormAction ActionTypeDefault = CslaFormAction.None;
+    internal static PostSaveActionType PostSaveActionDefault = PostSaveActionType.None;
+    internal static bool RebindAfterSaveDefault = true;
+    internal static bool DisableWhenCleanDefault = false;
+    internal static bool DisableWhenUselessDefault = false;
+    internal static string CommandNameDefault = string.Empty;
 
     #endregion
 

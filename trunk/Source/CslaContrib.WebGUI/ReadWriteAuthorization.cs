@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>WebGUI extender control that automatically</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Drawing;
 using System.ComponentModel;
@@ -22,8 +23,8 @@ namespace CslaContrib.WebGUI
   /// business object.
   /// </summary>
   [DesignerCategory("")]
-  [ProvideProperty("ApplyAuthorization", typeof(Control))]
-  [ToolboxItem(true), ToolboxBitmap(typeof(ReadWriteAuthorization), "CslaContrib.WebGUI.ReadWriteAuthorization")]
+  [ProvideProperty("ApplyAuthorization", typeof (Control))]
+  [ToolboxItem(true), ToolboxBitmap(typeof (ReadWriteAuthorization), "CslaContrib.WebGUI.ReadWriteAuthorization")]
   public class ReadWriteAuthorization : System.ComponentModel.Component, IExtenderProvider
   {
     // this class keeps track of the control status 
@@ -41,7 +42,9 @@ namespace CslaContrib.WebGUI
     /// </summary>
     /// <param name="container">The container of the control.</param>
     public ReadWriteAuthorization(IContainer container)
-    { container.Add(this); }
+    {
+      container.Add(this);
+    }
 
     /// <summary>
     /// Gets a value indicating whether the extender control
@@ -55,7 +58,7 @@ namespace CslaContrib.WebGUI
     public bool CanExtend(object extendee)
     {
       if (IsPropertyImplemented(extendee, "ReadOnly")
-        || IsPropertyImplemented(extendee, "Enabled"))
+          || IsPropertyImplemented(extendee, "Enabled"))
         return true;
       else
         return false;
@@ -90,8 +93,8 @@ namespace CslaContrib.WebGUI
         status.ApplyAuthorization = value;
       else
         _sources.Add(
-          source, 
-          new ControlStatus { ApplyAuthorization = value, CanRead = true });
+          source,
+          new ControlStatus {ApplyAuthorization = value, CanRead = true});
     }
 
     /// <summary>
@@ -122,7 +125,7 @@ namespace CslaContrib.WebGUI
         if (binding.DataSource is BindingSource)
         {
           BindingSource bs =
-            (BindingSource)binding.DataSource;
+            (BindingSource) binding.DataSource;
           // get the BusinessObject if appropriate
           Csla.Security.IAuthorizeReadWrite ds =
             bs.Current as Csla.Security.IAuthorizeReadWrite;
@@ -177,9 +180,9 @@ namespace CslaContrib.WebGUI
         {
           propertyInfo.SetValue(ctl,
             GetEmptyValue(
-            Utilities.GetPropertyType(
-              propertyInfo.PropertyType)),
-            new object[] { });
+              Utilities.GetPropertyType(
+                propertyInfo.PropertyType)),
+            new object[] {});
         }
       }
 
@@ -196,16 +199,16 @@ namespace CslaContrib.WebGUI
       // enable/disable writing of the value
       PropertyInfo propertyInfo =
         ctl.GetType().GetProperty("ReadOnly",
-        BindingFlags.FlattenHierarchy |
-        BindingFlags.Instance |
-        BindingFlags.Public);
+          BindingFlags.FlattenHierarchy |
+          BindingFlags.Instance |
+          BindingFlags.Public);
       if (propertyInfo != null)
       {
         bool couldWrite =
-          (!(bool)propertyInfo.GetValue(
-          ctl, new object[] { }));
+          (!(bool) propertyInfo.GetValue(
+            ctl, new object[] {}));
         propertyInfo.SetValue(
-          ctl, !canWrite, new object[] { });
+          ctl, !canWrite, new object[] {});
         if ((!couldWrite) && (canWrite))
           binding.ReadValue();
       }

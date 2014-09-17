@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>The possible form actions.</summary>
 //-----------------------------------------------------------------------
+
 namespace CslaContrib.WebGUI
 {
   /// <summary>
@@ -16,18 +17,22 @@ namespace CslaContrib.WebGUI
     /// No action.
     /// </summary>
     None,
+
     /// <summary>
     /// Perform a save.
     /// </summary>
     Save,
+
     /// <summary>
     /// Undo changes.
     /// </summary>
     Cancel,
+
     /// <summary>
     /// Close the form.
     /// </summary>
     Close,
+
     /// <summary>
     /// Display a message box with any broken rules
     /// </summary>
@@ -43,10 +48,12 @@ namespace CslaContrib.WebGUI
     /// No action.
     /// </summary>
     None,
+
     /// <summary>
     /// Also close the form.
     /// </summary>
     AndClose,
+
     /// <summary>
     /// Also create a new object.
     /// </summary>

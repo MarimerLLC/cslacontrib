@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Extender control providing automation around</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -708,7 +709,7 @@ namespace CslaContrib.WebGUI
                 case CslaFormAction.Save:
                   raiseClicked = ExecuteSaveAction(savableObject, trackableObject, props);
                   break;
-                // case CslaFormAction.Save
+                  // case CslaFormAction.Save
 
                 case CslaFormAction.Cancel:
 
@@ -734,7 +735,7 @@ namespace CslaContrib.WebGUI
 #endif
 
                   break;
-                // case CslaFormAction.Cancel
+                  // case CslaFormAction.Cancel
 
                 case CslaFormAction.Close:
 
@@ -770,7 +771,7 @@ namespace CslaContrib.WebGUI
 #endif
 
                   break;
-                // case CslaFormAction.Close
+                  // case CslaFormAction.Close
 
                 case CslaFormAction.Validate:
 
@@ -812,8 +813,7 @@ namespace CslaContrib.WebGUI
                   }
 
                   break;
-                //case CslaFormAction.Validate
-
+                  //case CslaFormAction.Validate
               } // switch (props.ActionType)
 
               // raiseClicked is true if
@@ -848,9 +848,7 @@ namespace CslaContrib.WebGUI
                 }
 #endif
               }
-
             } // if (!sourceObjectError)
-
           } // if (!args.Cancel)
 
 #if !WEBGUI
@@ -940,7 +938,7 @@ namespace CslaContrib.WebGUI
             ISavable objectToSave;
 
             if (Csla.ApplicationContext.AutoCloneOnUpdate == false)
-              objectToSave = ((ICloneable)savableObject).Clone() as ISavable;// if not AutoClone, clone manually
+              objectToSave = ((ICloneable) savableObject).Clone() as ISavable; // if not AutoClone, clone manually
             else
               objectToSave = savableObject;
 
@@ -1051,7 +1049,7 @@ namespace CslaContrib.WebGUI
               ChangeEnabled(ctl, trackableObject.IsNew || trackableObject.IsDirty || trackableObject.IsDeleted);
             if (pair.Value.ActionType == CslaFormAction.Save)
               ChangeEnabled(ctl, (trackableObject.IsNew || trackableObject.IsDirty || trackableObject.IsDeleted)
-                && trackableObject.IsValid);
+                                 && trackableObject.IsValid);
           }
         }
       }
@@ -1117,14 +1115,14 @@ namespace CslaContrib.WebGUI
       MessageBoxConfirm(
         _warnOnCancelMessage,
         delegate(object delegateSender, EventArgs eventArgs)
+        {
+          if (((Form) delegateSender).DialogResult == DialogResult.Yes)
           {
-            if (((Form) delegateSender).DialogResult == DialogResult.Yes)
-            {
-              _bindingSourceTree.Cancel(savableObject);
-              InitializeControls(true);
-              OnClicked(new CslaActionEventArgs(commandName));
-            }
+            _bindingSourceTree.Cancel(savableObject);
+            InitializeControls(true);
+            OnClicked(new CslaActionEventArgs(commandName));
           }
+        }
         );
     }
 
@@ -1133,15 +1131,15 @@ namespace CslaContrib.WebGUI
       MessageBoxConfirm(
         _dirtyWarningMessage + Environment.NewLine + Resources.ActionExtenderCloseConfirmation,
         delegate(object delegateSender, EventArgs eventArgs)
+        {
+          if (((Form) delegateSender).DialogResult == DialogResult.Yes)
           {
-            if (((Form) delegateSender).DialogResult == DialogResult.Yes)
-            {
-              _bindingSourceTree.Close();
-              _closeForm = true;
-              OnClicked(new CslaActionEventArgs(commandName));
-              CloseForm();
-            }
+            _bindingSourceTree.Close();
+            _closeForm = true;
+            OnClicked(new CslaActionEventArgs(commandName));
+            CloseForm();
           }
+        }
         );
     }
 #endif

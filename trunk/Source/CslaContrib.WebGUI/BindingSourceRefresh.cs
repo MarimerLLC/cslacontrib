@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>BindingSourceRefresh contains functionality for refreshing the data bound to controls on Host as well as a mechinism for catching data</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
@@ -25,21 +26,26 @@ namespace CslaContrib.WebGUI
   /// data refresh issue with data bound detail controls
   /// as discussed in Chapter 5.</remarks>
   [DesignerCategory("")]
-  [ProvideProperty("ReadValuesOnChange", typeof(BindingSource))]
+  [ProvideProperty("ReadValuesOnChange", typeof (BindingSource))]
   public class BindingSourceRefresh : System.ComponentModel.Component, IExtenderProvider, ISupportInitialize
   {
     #region Fields
+
     private readonly Dictionary<BindingSource, bool> _sources = new Dictionary<BindingSource, bool>();
+
     #endregion
 
     #region Events
+
     /// <summary>
     /// BindingError event is raised when a data binding error occurs due to a exception.
     /// </summary>
     public event BindingErrorEventHandler BindingError = null;
+
     #endregion
 
     #region Constructors
+
     /// <summary>
     /// Constructor creates a new BindingSourceRefresh component then initialises all the different sub components.
     /// </summary>
@@ -47,6 +53,7 @@ namespace CslaContrib.WebGUI
     {
       InitializeComponent();
     }
+
     /// <summary>
     /// Constructor creates a new BindingSourceRefresh component, adds the component to the container supplied before initialising all the different sub components.
     /// </summary>
@@ -56,13 +63,16 @@ namespace CslaContrib.WebGUI
       container.Add(this);
       InitializeComponent();
     }
+
     #endregion
 
     #region Designer Functionality
+
     /// <summary>
     /// Required designer variable.
     /// </summary>
     private System.ComponentModel.IContainer components = null;
+
     /// <summary>
     /// Clean up any resources being used.
     /// </summary>
@@ -75,7 +85,9 @@ namespace CslaContrib.WebGUI
       }
       base.Dispose(disposing);
     }
+
     #region Component Designer generated code
+
     /// <summary>
     /// Required method for Designer support - do not modify
     /// the contents of this method with the code editor.
@@ -84,7 +96,9 @@ namespace CslaContrib.WebGUI
     {
       components = new System.ComponentModel.Container();
     }
+
     #endregion
+
     #endregion
 
     #region Public Methods
@@ -98,6 +112,7 @@ namespace CslaContrib.WebGUI
     {
       return (extendee is BindingSource);
     }
+
     /// <summary>
     /// GetReadValuesOnChange() gets the value of the custom ReadValuesOnChange extender property added to extended controls.
     /// property added to extended controls.
@@ -112,6 +127,7 @@ namespace CslaContrib.WebGUI
       else
         return false;
     }
+
     /// <summary>
     /// SetReadValuesOnChange() sets the value of the custom ReadValuesOnChange extender
     /// property added to extended controls.
@@ -129,6 +145,7 @@ namespace CslaContrib.WebGUI
         RegisterControlEvents(source, value);
       }
     }
+
     #endregion
 
     #region Properties
@@ -138,7 +155,7 @@ namespace CslaContrib.WebGUI
     /// </summary>
     [Browsable(false)]
     [DefaultValue(null)]
-    public ContainerControl Host {get; set;}
+    public ContainerControl Host { get; set; }
 
     /// <summary>
     /// Forces the binding to re-read after an exception is thrown when changing the binding value
@@ -147,9 +164,10 @@ namespace CslaContrib.WebGUI
     [DefaultValue(false)]
     public bool RefreshOnException { get; set; }
 
-    #endregion 
+    #endregion
 
     #region Private Methods
+
     /// <summary>
     /// RegisterControlEvents() registers all the relevant events for the container control supplied and also to all child controls
     /// in the oontainer control.
@@ -165,7 +183,7 @@ namespace CslaContrib.WebGUI
         currencyManager.Bindings.CollectionChanged += Bindings_CollectionChanged;
         currencyManager.Bindings.CollectionChanging += Bindings_CollectionChanging;
       }
-      // Else unregister them.
+        // Else unregister them.
       else
       {
         currencyManager.Bindings.CollectionChanged -= Bindings_CollectionChanged;
@@ -174,7 +192,6 @@ namespace CslaContrib.WebGUI
       // Reigster the binding complete events for the currencymanagers bindings.
       RegisterBindingEvents(currencyManager.Bindings, register);
     }
-
 
     /// <summary>
     /// Registers the control events.
@@ -188,6 +205,7 @@ namespace CslaContrib.WebGUI
         RegisterBindingEvent(binding, register);
       }
     }
+
     /// <summary>
     /// Registers the binding event.
     /// </summary>
@@ -204,6 +222,7 @@ namespace CslaContrib.WebGUI
         binding.BindingComplete -= Control_BindingComplete;
       }
     }
+
     #endregion
 
     #region Event Methods
@@ -221,15 +240,15 @@ namespace CslaContrib.WebGUI
       {
         case CollectionChangeAction.Refresh:
           // remove events for entire list
-          RegisterBindingEvents((BindingsCollection)sender, false);
+          RegisterBindingEvents((BindingsCollection) sender, false);
           break;
         case CollectionChangeAction.Add:
           // adding new element -  remove events for element
-          RegisterBindingEvent((Binding)e.Element, false);
+          RegisterBindingEvent((Binding) e.Element, false);
           break;
         case CollectionChangeAction.Remove:
           // removing element - remove events for element
-          RegisterBindingEvent((Binding)e.Element, false);
+          RegisterBindingEvent((Binding) e.Element, false);
           break;
       }
     }
@@ -247,11 +266,11 @@ namespace CslaContrib.WebGUI
       {
         case CollectionChangeAction.Refresh:
           // refresh entire list  - add event to all items
-          RegisterBindingEvents((BindingsCollection)sender, true);
+          RegisterBindingEvents((BindingsCollection) sender, true);
           break;
         case CollectionChangeAction.Add:
           // new element added - add event to element
-          RegisterBindingEvent((Binding)e.Element, true);
+          RegisterBindingEvent((Binding) e.Element, true);
           break;
         case CollectionChangeAction.Remove:
           // element has been removed - do nothing
@@ -272,21 +291,21 @@ namespace CslaContrib.WebGUI
       switch (e.BindingCompleteState)
       {
         case BindingCompleteState.Exception:
-           if ((RefreshOnException)
-                  && e.Binding.DataSource is BindingSource
-                  && GetReadValuesOnChange((BindingSource)e.Binding.DataSource))
-            {
-              e.Binding.ReadValue();
-            }         
-            if (BindingError != null)
-          {                        
+          if ((RefreshOnException)
+              && e.Binding.DataSource is BindingSource
+              && GetReadValuesOnChange((BindingSource) e.Binding.DataSource))
+          {
+            e.Binding.ReadValue();
+          }
+          if (BindingError != null)
+          {
             BindingError(this, new BindingErrorEventArgs(e.Binding, e.Exception));
           }
           break;
         default:
           if ((e.BindingCompleteContext == BindingCompleteContext.DataSourceUpdate)
-                  && e.Binding.DataSource is BindingSource
-                  && GetReadValuesOnChange((BindingSource)e.Binding.DataSource))
+              && e.Binding.DataSource is BindingSource
+              && GetReadValuesOnChange((BindingSource) e.Binding.DataSource))
           {
             e.Binding.ReadValue();
           }
@@ -297,7 +316,9 @@ namespace CslaContrib.WebGUI
     #endregion
 
     #region ISupportInitialize Interface
+
     private bool _isInitialising = false;
+
     /// <summary>
     /// BeginInit() is called when the component is starting to be initialised. BeginInit() simply sets the initialisation flag to true.
     /// </summary>
@@ -305,6 +326,7 @@ namespace CslaContrib.WebGUI
     {
       _isInitialising = true;
     }
+
     /// <summary>
     /// EndInit() is called when the component has finished being initialised.  EndInt() sets the initialise flag to false then runs
     /// through registering all the different events that the component needs to hook into in Host.
@@ -318,6 +340,7 @@ namespace CslaContrib.WebGUI
           RegisterControlEvents(source.Key, true);
       }
     }
+
     #endregion
   }
 
@@ -339,7 +362,6 @@ namespace CslaContrib.WebGUI
   /// </summary>
   public class BindingErrorEventArgs : EventArgs
   {
-
     #region Property Fields
 
     private Exception _exception = null;
@@ -381,7 +403,6 @@ namespace CslaContrib.WebGUI
     }
 
     #endregion
-
   }
 
   #endregion

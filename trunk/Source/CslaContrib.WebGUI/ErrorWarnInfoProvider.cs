@@ -105,9 +105,9 @@ namespace CslaContrib.WebGUI
     /// </summary>
     static ErrorWarnInfoProvider()
     {
-      DefaultIconInformation = new AssemblyResourceHandle(typeof(ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.InformationIcon.png");
-      DefaultIconWarning = new AssemblyResourceHandle(typeof(ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.WarningIcon.png");
-      DefaultIconError = new AssemblyResourceHandle(typeof(ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.ErrorIcon.png");
+      DefaultIconInformation = new AssemblyResourceHandle(typeof (ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.InformationIcon.png");
+      DefaultIconWarning = new AssemblyResourceHandle(typeof (ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.WarningIcon.png");
+      DefaultIconError = new AssemblyResourceHandle(typeof (ErrorWarnInfoProvider), "CslaContrib.WebGUI.Resources.ErrorIcon.png");
     }
 
     /// <summary>

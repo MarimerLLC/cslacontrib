@@ -5,6 +5,7 @@
 // </copyright>
 // <summary>Maintains a reference to a BindingSource object</summary>
 //-----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -186,6 +187,5 @@ namespace CslaContrib.WebGUI
       SetEvents(false);
       Unbind(true);
     }
-
   }
 }

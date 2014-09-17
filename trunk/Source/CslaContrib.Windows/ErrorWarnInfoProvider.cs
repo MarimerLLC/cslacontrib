@@ -56,7 +56,7 @@ using System.Windows.Forms;
 namespace CslaContrib.Windows
 {
   [DesignerCategory("")]
-  [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
+  [ToolboxItem(true), ToolboxBitmap(typeof (ErrorWarnInfoProvider), "Cascade.ico")]
   public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
   {
     #region internal variables
@@ -111,7 +111,6 @@ namespace CslaContrib.Windows
       container.Add(this);
     }
 
-
     protected override void Dispose(bool disposing)
     {
       if (disposing && (components != null))
@@ -153,6 +152,7 @@ namespace CslaContrib.Windows
     #endregion
 
     #region Public properties
+
     /// <summary>
     /// Gets or sets the blink rate information.
     /// </summary>
@@ -162,10 +162,7 @@ namespace CslaContrib.Windows
     [Description("The rate in milliseconds at which the error icon blinks.")]
     public new int BlinkRate
     {
-      get
-      {
-        return base.BlinkRate;
-      }
+      get { return base.BlinkRate; }
       set
       {
         if (value < 0)
@@ -217,7 +214,6 @@ namespace CslaContrib.Windows
       }
     }
 
-
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the error icon blinks when an error is set.")]
@@ -251,16 +247,12 @@ namespace CslaContrib.Windows
     /// <value></value>
     /// <returns>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</returns>
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
-    [DefaultValue((string)null)]
+    [DefaultValue((string) null)]
     public new object DataSource
     {
-      get
-      {
-        return base.DataSource;
-      }
+      get { return base.DataSource; }
       set
       {
-
         if (base.DataSource != value)
         {
           var bs1 = base.DataSource as BindingSource;
@@ -269,7 +261,6 @@ namespace CslaContrib.Windows
             bs1.CurrentItemChanged -= DataSource_CurrentItemChanged;
           }
         }
-
 
         base.DataSource = value;
 
@@ -290,7 +281,6 @@ namespace CslaContrib.Windows
       ProcessAllControls();
     }
 
-
     /// <summary>
     /// Gets or sets the icon information.
     /// </summary>
@@ -299,10 +289,7 @@ namespace CslaContrib.Windows
     [Description("The icon used to indicate information.")]
     public Icon IconInformation
     {
-      get
-      {
-        return _errorProviderInfo.Icon;
-      }
+      get { return _errorProviderInfo.Icon; }
       set
       {
         if (value == null)
@@ -320,10 +307,7 @@ namespace CslaContrib.Windows
     [Description("The icon used to indicate a warning.")]
     public Icon IconWarning
     {
-      get
-      {
-        return _errorProviderWarn.Icon;
-      }
+      get { return _errorProviderWarn.Icon; }
       set
       {
         if (value == null)
@@ -341,14 +325,8 @@ namespace CslaContrib.Windows
     [DefaultValue(32), Description("The number of pixels the information icon will be offset from the error icon.")]
     public int OffsetInformation
     {
-      get
-      {
-        return _offsetInformation;
-      }
-      set
-      {
-        _offsetInformation = value;
-      }
+      get { return _offsetInformation; }
+      set { _offsetInformation = value; }
     }
 
     /// <summary>
@@ -359,14 +337,8 @@ namespace CslaContrib.Windows
     [DefaultValue(16), Description("The number of pixels the warning icon will be offset from the error icon.")]
     public int OffsetWarning
     {
-      get
-      {
-        return _offsetWarning;
-      }
-      set
-      {
-        _offsetWarning = value;
-      }
+      get { return _offsetWarning; }
+      set { _offsetWarning = value; }
     }
 
     /// <summary>
@@ -377,14 +349,8 @@ namespace CslaContrib.Windows
     [DefaultValue(true), Description("Determines if the information icon should be displayed when information exists.")]
     public bool ShowInformation
     {
-      get
-      {
-        return _showInformation;
-      }
-      set
-      {
-        _showInformation = value;
-      }
+      get { return _showInformation; }
+      set { _showInformation = value; }
     }
 
     /// <summary>
@@ -395,14 +361,8 @@ namespace CslaContrib.Windows
     [DefaultValue(true), Description("Determines if the warning icon should be displayed when warnings exist.")]
     public bool ShowWarning
     {
-      get
-      {
-        return _showWarning;
-      }
-      set
-      {
-        _showWarning = value;
-      }
+      get { return _showWarning; }
+      set { _showWarning = value; }
     }
 
     /// <summary>
@@ -413,10 +373,7 @@ namespace CslaContrib.Windows
     [DefaultValue(true), Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
     public bool ShowOnlyMostSevere
     {
-      get
-      {
-        return _showMostSevereOnly;
-      }
+      get { return _showMostSevereOnly; }
       set
       {
         if (_showMostSevereOnly != value)
@@ -427,7 +384,6 @@ namespace CslaContrib.Windows
         }
       }
     }
-
 
     #endregion
 
@@ -473,7 +429,6 @@ namespace CslaContrib.Windows
       Initialize(controls);
     }
 
-
     private void Initialize(Control.ControlCollection controls)
     {
       //We don't provide an extended property, so if the control is
@@ -498,7 +453,7 @@ namespace CslaContrib.Windows
       }
     }
 
-    void DataSource_CurrentItemChanged(object sender, EventArgs e)
+    private void DataSource_CurrentItemChanged(object sender, EventArgs e)
     {
       Debug.Print("ErrorWarnInfo: CurrentItemChanged, {0}", DateTime.Now.Ticks);
       ProcessAllControls();
@@ -514,15 +469,13 @@ namespace CslaContrib.Windows
       ProcessControls();
     }
 
-
-
     private void GetWarnInfoList()
     {
       _infoList.Clear();
       _warningList.Clear();
       _errorList.Clear();
 
-      BindingSource bs = (BindingSource)DataSource;
+      BindingSource bs = (BindingSource) DataSource;
       if (bs == null) return;
       if (bs.Position == -1) return;
 
@@ -537,7 +490,7 @@ namespace CslaContrib.Windows
           foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
           {
             // we do not want to import result of object level broken rules 
-            if (br.Property == null) continue; 
+            if (br.Property == null) continue;
 
             switch (br.Severity)
             {
@@ -545,7 +498,7 @@ namespace CslaContrib.Windows
                 if (_errorList.ContainsKey(br.Property))
                 {
                   _errorList[br.Property] =
-                      String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
+                    String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
                 }
                 else
                 {
@@ -556,7 +509,7 @@ namespace CslaContrib.Windows
                 if (_warningList.ContainsKey(br.Property))
                 {
                   _warningList[br.Property] =
-                      String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
+                    String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
                 }
                 else
                 {
@@ -567,7 +520,7 @@ namespace CslaContrib.Windows
                 if (_infoList.ContainsKey(br.Property))
                 {
                   _infoList[br.Property] =
-                      String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
+                    String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
                 }
                 else
                 {
@@ -587,7 +540,6 @@ namespace CslaContrib.Windows
         ProcessControl(control);
       }
     }
-
 
     /// <summary>
     /// Processes the control.
@@ -655,16 +607,15 @@ namespace CslaContrib.Windows
         offsetInformation = _offsetInformation - _offsetWarning;
       }
 
-
       // should warning be visible
       if (_showWarning && bWarn)
       {
         _errorProviderWarn.SetError(control, sbWarn.ToString());
         _errorProviderWarn.SetIconPadding(control,
-                                          base.GetIconPadding(control) +
-                                              offsetWarning);
+          base.GetIconPadding(control) +
+          offsetWarning);
         _errorProviderWarn.SetIconAlignment(control,
-                                                base.GetIconAlignment(control));
+          base.GetIconAlignment(control));
         hasWarning = true;
       }
 
@@ -673,16 +624,16 @@ namespace CslaContrib.Windows
       {
         _errorProviderInfo.SetError(control, sbInfo.ToString());
         _errorProviderInfo.SetIconPadding(control,
-                                              base.GetIconPadding(control) +
-                                              offsetInformation);
+          base.GetIconPadding(control) +
+          offsetInformation);
         _errorProviderInfo.SetIconAlignment(control,
-                                                base.GetIconAlignment(control));
+          base.GetIconAlignment(control));
 
         hasInfo = true;
       }
 
-      if (!hasWarning) _errorProviderWarn.SetError((Control)control, string.Empty);
-      if (!hasInfo) _errorProviderInfo.SetError((Control)control, string.Empty);
+      if (!hasWarning) _errorProviderWarn.SetError((Control) control, string.Empty);
+      if (!hasInfo) _errorProviderInfo.SetError((Control) control, string.Empty);
     }
 
     private void ResetBlinkStyleInformation()

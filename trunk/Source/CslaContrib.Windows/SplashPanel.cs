@@ -13,6 +13,7 @@ namespace CslaContrib.Windows
     /// Green horizontal bar
     /// </summary>
     Bar,
+
     /// <summary>
     /// Black and gray circle
     /// </summary>
@@ -101,11 +102,11 @@ namespace CslaContrib.Windows
       _splashOuterPanel.SuspendLayout();
       _splashOuterTable.SuspendLayout();
       _splashInnerTable.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(_splashAnimation)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize) (_splashAnimation)).BeginInit();
       _form.SuspendLayout();
 
-      var splashX = (_form.ClientRectangle.Width / 2) - (262 / 2);
-      var splashY = (_form.ClientRectangle.Height / 2) - (117 / 2);
+      var splashX = (_form.ClientRectangle.Width/2) - (262/2);
+      var splashY = (_form.ClientRectangle.Height/2) - (117/2);
 
       // 
       // splashOuterPanel
@@ -191,7 +192,7 @@ namespace CslaContrib.Windows
       _splashOuterTable.ResumeLayout(false);
       _splashOuterTable.PerformLayout();
       _splashInnerTable.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(_splashAnimation)).EndInit();
+      ((System.ComponentModel.ISupportInitialize) (_splashAnimation)).EndInit();
       _form.ResumeLayout(false);
 
       _splashOuterPanel.BringToFront();
@@ -214,11 +215,11 @@ namespace CslaContrib.Windows
       _splashOuterPanel.SuspendLayout();
       _splashOuterTable.SuspendLayout();
       _splashInnerTable.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(_splashAnimation)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize) (_splashAnimation)).BeginInit();
       _form.SuspendLayout();
 
-      var splashX = (_form.ClientRectangle.Width / 2) - (262 / 2);
-      var splashY = (_form.ClientRectangle.Height / 2) - (80 / 2);
+      var splashX = (_form.ClientRectangle.Width/2) - (262/2);
+      var splashY = (_form.ClientRectangle.Height/2) - (80/2);
       // 
       // splashOuterPanel
       //             
@@ -302,7 +303,7 @@ namespace CslaContrib.Windows
       _splashOuterTable.ResumeLayout(false);
       _splashOuterTable.PerformLayout();
       _splashInnerTable.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(_splashAnimation)).EndInit();
+      ((System.ComponentModel.ISupportInitialize) (_splashAnimation)).EndInit();
       _form.ResumeLayout(false);
 
       _splashOuterPanel.BringToFront();

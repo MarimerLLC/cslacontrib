@@ -28,7 +28,7 @@ namespace CslaContrib.Windows
   [Description("Csla ready ComboBox that supports Read Only property.")]
   [DefaultEvent("GetNameValueList")]
   [ToolboxItem(true)]
-  [ToolboxBitmap(typeof(CslaComboBox), "CslaComboBox.bmp")]
+  [ToolboxBitmap(typeof (CslaComboBox), "CslaComboBox.bmp")]
   public class CslaComboBox : ComboBox, ISupportInitialize
   {
     #region Member variables

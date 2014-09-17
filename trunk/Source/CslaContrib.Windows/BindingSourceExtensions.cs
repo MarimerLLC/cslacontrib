@@ -52,7 +52,6 @@ namespace CslaContrib.Windows
       source.Rebind(data, false);
     }
 
-
     /// <summary>
     /// Rebind the binding source and business object.
     /// </summary>

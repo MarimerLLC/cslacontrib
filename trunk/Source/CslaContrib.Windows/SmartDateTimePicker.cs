@@ -10,21 +10,22 @@ namespace CslaContrib.Windows
   /// Custom DateTime picker that understands additional commands.
   /// Ex: td, +, -
   /// </summary>
-    [DesignerCategory("")]
-    [ToolboxItem(true), ToolboxBitmap(typeof(SmartDateTimePicker), "SmartDateTimePicker.bmp")]
-    public class SmartDateTimePicker : DateTimePicker
-    {
-        #region Private variables
-        private const int checkWidth = 0;
-        private const int buttonWidth = 16;
+  [DesignerCategory("")]
+  [ToolboxItem(true), ToolboxBitmap(typeof (SmartDateTimePicker), "SmartDateTimePicker.bmp")]
+  public class SmartDateTimePicker : DateTimePicker
+  {
+    #region Private variables
 
-        private TextBox _myDateTextBox;
-        private SmartDate _mySmartDate;
-        private string _customFormat;
-        #endregion
+    private const int checkWidth = 0;
+    private const int buttonWidth = 16;
+
+    private TextBox _myDateTextBox;
+    private SmartDate _mySmartDate;
+    private string _customFormat;
+
+    #endregion
 
     #region Constructor and destructor
-
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SmartDateTimePicker"/> class.
@@ -43,6 +44,7 @@ namespace CslaContrib.Windows
     #endregion Constructor and destructor
 
     #region Component Designer generated code
+
     /// <summary>
     /// Required method for Designer support - do not modify 
     /// the contents of this method with the code editor.
@@ -87,35 +89,32 @@ namespace CslaContrib.Windows
 
     #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets or sets the text associated with this control.
-        /// </summary>
-        /// <value></value>
-        /// <returns>
-        /// A string that represents the text associated with this control.
-        /// </returns>
-        /// <PermissionSet>
-        /// 	<IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
-        /// 	<IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
-        /// 	<IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/>
-        /// 	<IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
-        /// </PermissionSet>
-        /// 
-        [Bindable(true)]
-        public new string Text
-        {
-            get
-            {
-                return _mySmartDate.Text;
-            }
-            set
-            {
-                // set the Text property of _mySmartDate
-                SetMyValue(value, true);
-            }
-        }
+    #region Properties
 
+    /// <summary>
+    /// Gets or sets the text associated with this control.
+    /// </summary>
+    /// <value></value>
+    /// <returns>
+    /// A string that represents the text associated with this control.
+    /// </returns>
+    /// <PermissionSet>
+    /// 	<IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
+    /// 	<IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
+    /// 	<IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/>
+    /// 	<IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
+    /// </PermissionSet>
+    /// 
+    [Bindable(true)]
+    public new string Text
+    {
+      get { return _mySmartDate.Text; }
+      set
+      {
+        // set the Text property of _mySmartDate
+        SetMyValue(value, true);
+      }
+    }
 
     /// <summary>
     /// Gets or sets the date/time value assigned to the control.
@@ -132,10 +131,7 @@ namespace CslaContrib.Windows
     [Bindable(true)]
     public new DateTime Value
     {
-      get
-      {
-        return _mySmartDate.Date;
-      }
+      get { return _mySmartDate.Date; }
       set
       {
         // set the Date property of _mySmartDate
@@ -162,14 +158,8 @@ namespace CslaContrib.Windows
     [Description("Constant - overridden and can only be DateTimePickerFormat.Custom."), DefaultValue(DateTimePickerFormat.Custom)]
     public new DateTimePickerFormat Format
     {
-      get
-      {
-        return base.Format;
-      }
-      set
-      {
-        base.Format = DateTimePickerFormat.Custom;
-      }
+      get { return base.Format; }
+      set { base.Format = DateTimePickerFormat.Custom; }
     }
 
     /// <summary>
@@ -188,10 +178,7 @@ namespace CslaContrib.Windows
     [Description("Sets the display format for use in DateTimePicker"), DefaultValue("d"), Browsable(true)]
     public new string CustomFormat
     {
-      get
-      {
-        return _customFormat;
-      }
+      get { return _customFormat; }
       set
       {
         _customFormat = value;
@@ -204,33 +191,31 @@ namespace CslaContrib.Windows
     [Description("Set if Empty is min (true) or Empty is Max (false)"), DefaultValue(true), Browsable(true)]
     public bool EmptyIsMin
     {
-      get
-      {
-        return _mySmartDate.EmptyIsMin;
-      }
+      get { return _mySmartDate.EmptyIsMin; }
       set
       {
         if (_mySmartDate.EmptyIsMin != value)
         {
-          _mySmartDate = new SmartDate(value) { Date = _mySmartDate.Date };
+          _mySmartDate = new SmartDate(value) {Date = _mySmartDate.Date};
           _mySmartDate.FormatString = _customFormat;
         }
       }
     }
 
-        #endregion
+    #endregion
 
-        #region DateTimePicker events
-        /// <summary>
-        /// Handles the Resize event of the DateTimePicker control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void SmartDateTimePicker_Resize(object sender, EventArgs e)
-        {
-            _myDateTextBox.Location = new System.Drawing.Point(-2 + checkWidth, -2);
-            _myDateTextBox.Size = new System.Drawing.Size(Width - buttonWidth - checkWidth, Height);
-        }
+    #region DateTimePicker events
+
+    /// <summary>
+    /// Handles the Resize event of the DateTimePicker control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void SmartDateTimePicker_Resize(object sender, EventArgs e)
+    {
+      _myDateTextBox.Location = new System.Drawing.Point(-2 + checkWidth, -2);
+      _myDateTextBox.Size = new System.Drawing.Size(Width - buttonWidth - checkWidth, Height);
+    }
 
     //private void MyDateTextBox_Validating(object sender, CancelEventArgs args)
     //{

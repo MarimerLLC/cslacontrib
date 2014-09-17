@@ -15,7 +15,7 @@ namespace CslaContrib.Windows
   /// </summary>
   [LookupBindingProperties("DataSource", "DisplayMember", "ValueMember", "SelectedValue")]
   [DesignerCategory("")]
-  [ToolboxItem(true), ToolboxBitmap(typeof(BindableRadioButtons), "BindableRadioButtons.bmp")]
+  [ToolboxItem(true), ToolboxBitmap(typeof (BindableRadioButtons), "BindableRadioButtons.bmp")]
   public partial class BindableRadioButtons : UserControl
   {
     private readonly Hashtable _controlTable = new Hashtable();
@@ -57,7 +57,7 @@ namespace CslaContrib.Windows
     /// Indicates the list that this control will use to get its items
     /// </summary>
     [Category("Data")]
-    [AttributeProvider(typeof(IListSource))]
+    [AttributeProvider(typeof (IListSource))]
     //[TypeConverter("System.Windows.Forms.Design.DataSourceConverter, System.Design, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [Description("Indicates the list that this control will use to get its items")]
     [RefreshProperties(RefreshProperties.Repaint)]
@@ -78,16 +78,16 @@ namespace CslaContrib.Windows
     //, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
     [Category("Data")]
     [Editor(
-        "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-        , typeof(UITypeEditor)), DefaultValue("")]
+      "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+      , typeof (UITypeEditor)), DefaultValue("")]
     public string DisplayMember { get; set; }
 
     /// <summary>
     /// Indicates the property to use as the actual value for the items in the control.
     /// </summary>
     [Editor(
-        "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-        , typeof(UITypeEditor)), DefaultValue("")]
+      "System.Windows.Forms.Design.DataMemberFieldEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+      , typeof (UITypeEditor)), DefaultValue("")]
     [Category("Data")]
     public string ValueMember { get; set; }
 
@@ -193,14 +193,14 @@ namespace CslaContrib.Windows
       // Databind
       if (_dataSource != null)
       {
-        var bs = (BindingSource)_dataSource;
+        var bs = (BindingSource) _dataSource;
         //object boundEntity = bs.DataSource;
 
         // If this is design-time & count=0, render default values instead
         var skipClear = false;
         if (bs.Count == 0)
         {
-          if (GetService(typeof(IDesignerHost)) != null)
+          if (GetService(typeof (IDesignerHost)) != null)
           {
             skipClear = true;
           }
@@ -263,12 +263,12 @@ namespace CslaContrib.Windows
     {
       if (_dataSource is BindingSource)
       {
-        var bs = (BindingSource)_dataSource;
+        var bs = (BindingSource) _dataSource;
         bs.DataSourceChanged += BindingSource_DataSourceChanged;
         if (bs.DataSource is BindingSource)
         {
           // If datasource's datasource change
-          ((BindingSource)bs.DataSource).DataSourceChanged += BindingSource_DataSourceChanged;
+          ((BindingSource) bs.DataSource).DataSourceChanged += BindingSource_DataSourceChanged;
         }
       }
     }
@@ -285,7 +285,7 @@ namespace CslaContrib.Windows
       var value = _controlTable[key];
       if (value != null)
       {
-        var rb = (RadioButton)value;
+        var rb = (RadioButton) value;
         rb.Checked = true;
         return true;
       }
@@ -310,7 +310,7 @@ namespace CslaContrib.Windows
     /// <returns>A hashtable of the buttons</returns>
     public Hashtable GetButtonTable()
     {
-      return (Hashtable)_controlTable.Clone(); // Shallow copy
+      return (Hashtable) _controlTable.Clone(); // Shallow copy
     }
 
     /// <summary>
@@ -339,10 +339,10 @@ namespace CslaContrib.Windows
 
     private void radioButton_CheckedChanged(object sender, EventArgs e)
     {
-      var rSender = (RadioButton)sender;
+      var rSender = (RadioButton) sender;
       if (rSender.Checked)
       {
-        _selectedValue = ((RadioButton)sender).Tag;
+        _selectedValue = ((RadioButton) sender).Tag;
         NotifyDatabindings();
         DoSelectedIndexChanged();
       }
@@ -377,7 +377,6 @@ namespace CslaContrib.Windows
       return base.IsInputKey(keyData);
     }
 
-
     //protected override void OnKeyDown(KeyEventArgs e)
     //{
     //    KeyPressed(e.KeyCode);
@@ -405,7 +404,6 @@ namespace CslaContrib.Windows
 
     //    //Debug.Print("FlowBreak: {0}", this.flowLayoutPanel1.);
 
-
     //    if (index < 0) index = 0;
     //    if (index >= bindingSource.Count) index = bindingSource.Count - 1;
 
@@ -423,4 +421,3 @@ namespace CslaContrib.Windows
     public event EventHandler SelectedIndexChanged;
   }
 }
-

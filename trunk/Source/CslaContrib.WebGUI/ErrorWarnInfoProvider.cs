@@ -78,7 +78,7 @@ namespace CslaContrib.WebGUI
   [ToolboxBitmap(typeof (ErrorWarnInfoProvider), "ErrorWarnInfoProvider.bmp")]
   public class ErrorWarnInfoProvider : Gizmox.WebGUI.Forms.ErrorProvider, IExtenderProvider, ISupportInitialize
   {
-    #region Private variables
+    #region private variables
 
     private readonly IContainer components;
     private readonly Gizmox.WebGUI.Forms.ErrorProvider _errorProviderInfo;

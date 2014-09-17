@@ -65,11 +65,11 @@ namespace CslaContrib.Windows
   [ToolboxItem(true), ToolboxBitmap(typeof (ErrorWarnInfoProvider), "Cascade.ico")]
   public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
   {
-    #region internal variables
+    #region private variables
 
-    private readonly System.ComponentModel.IContainer components = null;
-    private readonly System.Windows.Forms.ErrorProvider _errorProviderInfo;
-    private readonly System.Windows.Forms.ErrorProvider _errorProviderWarn;
+    private readonly IContainer components;
+    private readonly ErrorProvider _errorProviderInfo;
+    private readonly ErrorProvider _errorProviderWarn;
     private readonly List<Control> _controls = new List<Control>();
     private static readonly Icon DefaultIconInformation;
     private static readonly Icon DefaultIconWarning;
@@ -81,7 +81,7 @@ namespace CslaContrib.Windows
     private readonly Dictionary<string, string> _errorList = new Dictionary<string, string>();
     private readonly Dictionary<string, string> _warningList = new Dictionary<string, string>();
     private readonly Dictionary<string, string> _infoList = new Dictionary<string, string>();
-    private bool _isInitializing = false;
+    private bool _isInitializing;
 
     #endregion
 

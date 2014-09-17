@@ -55,6 +55,12 @@ using System.Windows.Forms;
 
 namespace CslaContrib.Windows
 {
+  /// <summary>
+  /// WindowsForms extender control that automatically
+  /// displays error, warning, or information icons and
+  /// text for the form controls based on the
+  /// BrokenRulesCollection of a CSLA .NET business object.
+  /// </summary>
   [DesignerCategory("")]
   [ToolboxItem(true), ToolboxBitmap(typeof (ErrorWarnInfoProvider), "Cascade.ico")]
   public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
@@ -81,12 +87,18 @@ namespace CslaContrib.Windows
 
     #region Constructors
 
+    /// <summary>
+    /// Initializes the <see cref="ErrorWarnInfoProvider"/> class.
+    /// </summary>
     static ErrorWarnInfoProvider()
     {
       DefaultIconInformation = CslaContrib.Windows.Properties.Resources.InformationIco16;
       DefaultIconWarning = CslaContrib.Windows.Properties.Resources.WarningIco16;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ErrorWarnInfoProvider"/> class.
+    /// </summary>
     public ErrorWarnInfoProvider()
     {
       this.components = new System.ComponentModel.Container();
@@ -111,6 +123,10 @@ namespace CslaContrib.Windows
       container.Add(this);
     }
 
+    /// <summary>
+    /// Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Component"></see> and optionally releases the managed resources.
+    /// </summary>
+    /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected override void Dispose(bool disposing)
     {
       if (disposing && (components != null))
@@ -154,9 +170,10 @@ namespace CslaContrib.Windows
     #region Public properties
 
     /// <summary>
-    /// Gets or sets the blink rate information.
+    /// Gets or sets the rate at which the error icon flashes.
     /// </summary>
-    /// <value>The blink rate information.</value>
+    /// <value>The rate, in milliseconds, at which the error icon should flash. The default is 250 milliseconds.</returns>
+    /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
     [Category("Behavior")]
     [DefaultValue(0)]
     [Description("The rate in milliseconds at which the error icon blinks.")]
@@ -178,6 +195,11 @@ namespace CslaContrib.Windows
       }
     }
 
+    /// <summary>
+    /// Gets or sets the rate at which the information icon flashes.
+    /// </summary>
+    /// <value>The rate, in milliseconds, at which the information icon should flash. The default is 250 milliseconds.</value>
+    /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
     [Category("Behavior")]
     [DefaultValue(0)]
     [Description("The rate in milliseconds at which the information icon blinks.")]
@@ -196,6 +218,12 @@ namespace CslaContrib.Windows
       }
     }
 
+    /// <summary>
+    /// Gets or sets the rate at which the warning icon flashes.
+    /// </summary>
+    /// <value>The rate, in milliseconds, at which the warning icon should flash.
+    /// The default is 250 milliseconds.</value>
+    /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
     [Category("Behavior")]
     [DefaultValue(0)]
     [Description("The rate in milliseconds at which the warning icon blinks.")]
@@ -214,6 +242,12 @@ namespace CslaContrib.Windows
       }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating when the error icon flashes.
+    /// </summary>
+    /// <value>One of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values.
+    /// The default is <see cref="F:System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
+    /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values. </exception>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the error icon blinks when an error is set.")]
@@ -223,6 +257,12 @@ namespace CslaContrib.Windows
       set { base.BlinkStyle = value; }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating when the information icon flashes.
+    /// </summary>
+    /// <value>One of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values.
+    /// The default is <see cref="F:System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
+    /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values. </exception>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the information icon blinks when information is set.")]
@@ -232,6 +272,11 @@ namespace CslaContrib.Windows
       set { _errorProviderWarn.BlinkStyle = value; }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating when the warning icon flashes.
+    /// </summary>
+    /// <value>One of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values. The default is <see cref="F:System.Windows.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
+    /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:System.Windows.Forms.ErrorBlinkStyle"/> values. </exception>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
     [Description("Controls whether the warning icon blinks when a warning is set.")]
@@ -245,7 +290,7 @@ namespace CslaContrib.Windows
     /// Gets or sets the data source that the <see cref="T:System.Windows.Forms.ErrorProvider"></see> monitors.
     /// </summary>
     /// <value></value>
-    /// <returns>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</returns>
+    /// <value>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</value>
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [DefaultValue((string) null)]
     public new object DataSource
@@ -401,20 +446,20 @@ namespace CslaContrib.Windows
     }
 
     /// <summary>
-    /// Gets the information.
+    /// Returns the current information description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <returns></returns>
+    /// <param name="control">The item to get the error description string for.</param>
+    /// <returns>The information description string for the specified control.</returns>
     public string GetInformation(Control control)
     {
       return _errorProviderInfo.GetError(control);
     }
 
     /// <summary>
-    /// Gets the warning.
+    /// Returns the current warning description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <returns></returns>
+    /// <param name="control">The item to get the error description string for.</param>
+    /// <returns>The warning description string for the specified control.</returns>
     public string GetWarning(Control control)
     {
       return _errorProviderWarn.GetError(control);
@@ -547,7 +592,8 @@ namespace CslaContrib.Windows
     /// <param name="control">The control.</param>
     private void ProcessControl(Control control)
     {
-      if (control == null) throw new ArgumentNullException("control");
+      if (control == null)
+        throw new ArgumentNullException("control");
 
       bool hasWarning = false;
       bool hasInfo = false;

@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace CslaContrib.Windows
 {
+  /// <summary>
+  /// Helper class to manually do correct Bind and Unbind.
+  /// </summary>
   public static class BindingSourceExtensions
   {
     /// <summary>

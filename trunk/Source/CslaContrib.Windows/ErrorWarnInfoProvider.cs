@@ -172,7 +172,7 @@ namespace CslaContrib.Windows
     /// <summary>
     /// Gets or sets the rate at which the error icon flashes.
     /// </summary>
-    /// <value>The rate, in milliseconds, at which the error icon should flash. The default is 250 milliseconds.</returns>
+    /// <value>The rate, in milliseconds, at which the error icon should flash. The default is 250 milliseconds.</value>
     /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
     [Category("Behavior")]
     [DefaultValue(0)]
@@ -387,9 +387,9 @@ namespace CslaContrib.Windows
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether broken rules with severity Infomation should be visible.
+    /// Gets or sets a value indicating whether broken rules with severity information should be visible.
     /// </summary>
-    /// <value><c>true</c> if Infomation is visible; otherwise, <c>false</c>.</value>
+    /// <value><c>true</c> if information is visible; otherwise, <c>false</c>.</value>
     [Category("Behavior")]
     [DefaultValue(true), Description("Determines if the information icon should be displayed when information exists.")]
     public bool ShowInformation
@@ -506,9 +506,10 @@ namespace CslaContrib.Windows
 
     private void ProcessAllControls()
     {
-      if (_isInitializing) return;
+      if (_isInitializing)
+        return;
 
-      // get error/warn/info list from bussiness object
+      // get error/warn/info list from business object
       GetWarnInfoList();
       // process controls in window
       ProcessControls();
@@ -521,8 +522,10 @@ namespace CslaContrib.Windows
       _errorList.Clear();
 
       BindingSource bs = (BindingSource) DataSource;
-      if (bs == null) return;
-      if (bs.Position == -1) return;
+      if (bs == null)
+        return;
+      if (bs.Position == -1)
+        return;
 
       // we can only deal with CSLA BusinessBase objects
       if (bs.Current is Csla.Core.BusinessBase)
@@ -535,7 +538,8 @@ namespace CslaContrib.Windows
           foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
           {
             // we do not want to import result of object level broken rules 
-            if (br.Property == null) continue;
+            if (br.Property == null)
+              continue;
 
             switch (br.Severity)
             {
@@ -703,20 +707,20 @@ namespace CslaContrib.Windows
     }
 
     /// <summary>
-    /// Sets the information.
+    /// Sets the information description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <param name="value">The value.</param>
+    /// <param name="control">The control to set the information description string for.</param>
+    /// <param name="value">The information description string, or null or System.String.Empty to remove the information description.</param>
     public void SetInformation(Control control, string value)
     {
       _errorProviderInfo.SetError(control, value);
     }
 
     /// <summary>
-    /// Sets the warning.
+    /// Sets the warning description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <param name="value">The value.</param>
+    /// <param name="control">The control to set the warning description string for.</param>
+    /// <param name="value">The warning description string, or null or System.String.Empty to remove the warning description.</param>
     public void SetWarning(Control control, string value)
     {
       _errorProviderWarn.SetError(control, value);

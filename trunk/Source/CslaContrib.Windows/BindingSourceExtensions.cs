@@ -9,7 +9,8 @@ namespace CslaContrib.Windows
   public static class BindingSourceExtensions
   {
     /// <summary>
-    /// Unbind the binding source and the Data object. Use this Method to safely disconnect the data object from a BindingSource before saving data.
+    /// Unbind the binding source and the Data object.
+    /// Use this Method to safely disconnect the data object from a BindingSource before saving data.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="cancel">if set to <c>true</c> then call CancelEdit else call EndEdit.</param>
@@ -29,8 +30,10 @@ namespace CslaContrib.Windows
       // tell currency manager to suspend binding
       source.SuspendBinding();
 
-      if (isRoot) source.DataSource = null;
-      if (current == null) return;
+      if (isRoot)
+        source.DataSource = null;
+      if (current == null)
+        return;
 
       if (cancel)
       {

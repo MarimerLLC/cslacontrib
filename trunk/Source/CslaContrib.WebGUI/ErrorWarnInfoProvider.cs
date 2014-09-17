@@ -55,8 +55,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
-using Csla.Core;
-using Csla.Rules;
 using Gizmox.WebGUI.Common.Resources;
 using Gizmox.WebGUI.Forms;
 using Gizmox.WebGUI.Forms.Design;
@@ -170,8 +168,8 @@ namespace CslaContrib.WebGUI
       {
         return !(extendee is ToolBar);
       }
-      return false;
-    }
+        return false;
+      }
 
     #endregion
 
@@ -180,10 +178,8 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets the rate at which the error icon flashes.
     /// </summary>
-    /// <returns>The rate, in milliseconds, at which the error icon should flash. The default is 250 milliseconds.</returns>
-    ///   
+    /// <value>The rate, in milliseconds, at which the error icon should flash. The default is 250 milliseconds.</value>
     /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
-    ///   
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(0)]
@@ -195,7 +191,7 @@ namespace CslaContrib.WebGUI
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException(@"BlinkRate", value, @"Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException("BlinkRate", value, "Blink rate must be zero or more");
         }
 
         base.BlinkRate = value;
@@ -209,10 +205,8 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets the rate at which the information icon flashes.
     /// </summary>
-    /// <returns>The rate, in milliseconds, at which the information icon should flash. The default is 250 milliseconds.</returns>
-    ///   
-    /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
-    ///   
+    /// <value>The rate, in milliseconds, at which the information icon should flash. The default is 250 milliseconds.</value>
+    /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception> 
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(0)]
@@ -223,7 +217,7 @@ namespace CslaContrib.WebGUI
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException(@"BlinkRateInformation", value, @"Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException("BlinkRateInformation", value, "Blink rate must be zero or more");
 
         _errorProviderInfo.BlinkRate = value;
 
@@ -235,11 +229,9 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets the rate at which the warning icon flashes.
     /// </summary>
-    /// <returns>The rate, in milliseconds, at which the warning icon should flash.
-    /// The default is 250 milliseconds.</returns>
-    ///   
+    /// <value>The rate, in milliseconds, at which the warning icon should flash.
+    /// The default is 250 milliseconds.</value>
     /// <exception cref="T:System.ArgumentOutOfRangeException">The value is less than zero. </exception>
-    ///   
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(0)]
@@ -250,7 +242,7 @@ namespace CslaContrib.WebGUI
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException(@"BlinkRateWarning", value, @"Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException("BlinkRateWarning", value, "Blink rate must be zero or more");
 
         _errorProviderWarn.BlinkRate = value;
 
@@ -262,11 +254,9 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets a value indicating when the error icon flashes.
     /// </summary>
-    /// <returns>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values.
-    /// The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</returns>
-    ///   
+    /// <value>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values.
+    /// The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
     /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values. </exception>
-    ///   
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
@@ -280,11 +270,9 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets a value indicating when the information icon flashes.
     /// </summary>
-    /// <returns>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values.
-    /// The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</returns>
-    ///   
+    /// <value>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values.
+    /// The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
     /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values. </exception>
-    ///   
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
@@ -298,10 +286,8 @@ namespace CslaContrib.WebGUI
     /// <summary>
     /// Gets or sets a value indicating when the warning icon flashes.
     /// </summary>
-    /// <returns>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values. The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</returns>
-    ///   
+    /// <value>One of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values. The default is <see cref="F:Gizmox.WebGUI.Forms.ErrorBlinkStyle.BlinkIfDifferentError"/>.</value>
     /// <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">The assigned value is not one of the <see cref="T:Gizmox.WebGUI.Forms.ErrorBlinkStyle"/> values. </exception>
-    ///   
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [Category("Behavior")]
     [DefaultValue(ErrorBlinkStyle.NeverBlink)]
@@ -316,7 +302,7 @@ namespace CslaContrib.WebGUI
     /// Gets or sets the data source that the <see cref="T:Gizmox.WebGUI.Forms.ErrorProvider"></see> monitors.
     /// </summary>
     /// <value></value>
-    /// <returns>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</returns>
+    /// <value>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</value>
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
     [DefaultValue((string) null)]
     public new object DataSource
@@ -353,9 +339,9 @@ namespace CslaContrib.WebGUI
     }*/
 
     /// <summary>
-    /// Gets or sets the information icon.
+    /// Gets or sets the icon information.
     /// </summary>
-    /// <value>The information icon.</value>
+    /// <value>The icon information.</value>
     [Category("Behavior")]
     [Description("The icon used to indicate information.")]
     public ResourceHandle IconInformation
@@ -371,9 +357,9 @@ namespace CslaContrib.WebGUI
     }
 
     /// <summary>
-    /// Gets or sets the warning icon.
+    /// Gets or sets the icon warning.
     /// </summary>
-    /// <value>The warning icon.</value>
+    /// <value>The icon warning.</value>
     [Category("Behavior")]
     [Description("The icon used to indicate a warning.")]
     public ResourceHandle IconWarning
@@ -403,7 +389,7 @@ namespace CslaContrib.WebGUI
           value = DefaultIconError;
 
         Icon = value;
-      }
+    }
     }
 
     /// <summary>
@@ -411,7 +397,7 @@ namespace CslaContrib.WebGUI
     /// </summary>
     /// <value><c>true</c> if information is visible; otherwise, <c>false</c>.</value>
     [Category("Behavior")]
-    [DefaultValue(true), Description("Determines if the information icon should be displayed when informations exists.")]
+    [DefaultValue(true), Description("Determines if the information icon should be displayed when information exists.")]
     public bool ShowInformation
     {
       get { return _showInformation; }
@@ -446,20 +432,20 @@ namespace CslaContrib.WebGUI
     }*/
 
     /// <summary>
-    /// Gets the information message.
+    /// Returns the current information description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <returns></returns>
+    /// <param name="control">The item to get the error description string for.</param>
+    /// <returns>The information description string for the specified control.</returns>
     public string GetInformation(Control control)
     {
       return _errorProviderInfo.GetError(control);
     }
 
     /// <summary>
-    /// Gets the warning message.
+    /// Returns the current warning description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <returns></returns>
+    /// <param name="control">The item to get the error description string for.</param>
+    /// <returns>The warning description string for the specified control.</returns>
     public string GetWarning(Control control)
     {
       return _errorProviderWarn.GetError(control);
@@ -476,7 +462,7 @@ namespace CslaContrib.WebGUI
 
     private void Initialize(Control.ControlCollection controls)
     {
-      // We don't provide an extended property, so if the control is
+      //We don't provide an extended property, so if the control is
       // not a Label then 'hook' the validating event here!
       foreach (Control control in controls)
       {
@@ -521,59 +507,62 @@ namespace CslaContrib.WebGUI
       _warningList.Clear();
       _errorList.Clear();
 
-      var bs = (BindingSource) DataSource;
+      BindingSource bs = (BindingSource) DataSource;
       if (bs == null)
         return;
       if (bs.Position == -1)
         return;
 
-      // get the BusinessBase object
-      var bb = bs.Current as BusinessBase;
-
       // we can only deal with CSLA BusinessBase objects
-      if (bb != null)
+      if (bs.Current is Csla.Core.BusinessBase)
       {
-        foreach (BrokenRule br in bb.BrokenRulesCollection)
+        // get the BusinessBase object
+        Csla.Core.BusinessBase bb = bs.Current as Csla.Core.BusinessBase;
+
+        if (bb != null)
         {
-          // we do not want to import result of object level broken rules
+          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
+          {
+            // we do not want to import result of object level broken rules 
           if (br.Property == null)
             continue;
 
-          switch (br.Severity)
-          {
-            case RuleSeverity.Error:
-              if (_errorList.ContainsKey(br.Property))
-              {
-                _errorList[br.Property] =
-                  String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
-              }
-              else
-              {
-                _errorList.Add(br.Property, br.Description);
-              }
-              break;
-            case RuleSeverity.Warning:
-              if (_warningList.ContainsKey(br.Property))
-              {
-                _warningList[br.Property] =
-                  String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
-              }
-              else
-              {
-                _warningList.Add(br.Property, br.Description);
-              }
-              break;
-            default: // consider it an Info
-              if (_infoList.ContainsKey(br.Property))
-              {
-                _infoList[br.Property] =
-                  String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
-              }
-              else
-              {
-                _infoList.Add(br.Property, br.Description);
-              }
-              break;
+            switch (br.Severity)
+            {
+              case Csla.Rules.RuleSeverity.Error:
+                if (_errorList.ContainsKey(br.Property))
+                {
+                  _errorList[br.Property] =
+                    String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
+                }
+                else
+                {
+                  _errorList.Add(br.Property, br.Description);
+                }
+                break;
+              case Csla.Rules.RuleSeverity.Warning:
+                if (_warningList.ContainsKey(br.Property))
+                {
+                  _warningList[br.Property] =
+                    String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
+                }
+                else
+                {
+                  _warningList.Add(br.Property, br.Description);
+                }
+                break;
+              default: // consider it an Info
+                if (_infoList.ContainsKey(br.Property))
+                {
+                  _infoList[br.Property] =
+                    String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
+                }
+                else
+                {
+                  _infoList.Add(br.Property, br.Description);
+                }
+                break;
+            }
           }
         }
       }
@@ -623,9 +612,9 @@ namespace CslaContrib.WebGUI
       bInfo = _showInformation && bInfo;
 
       if (bError)
-      {
+        {
         SetError(control, sbError.ToString());
-      }
+        }
       else if (bWarn)
       {
         _errorProviderWarn.SetError(control, sbWarn.ToString());
@@ -668,23 +657,23 @@ namespace CslaContrib.WebGUI
     }*/
 
     /// <summary>
-    /// Sets the information message.
+    /// Sets the information description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <param name="message">The information message.</param>
-    public void SetInformation(Control control, string message)
+    /// <param name="control">The control to set the information description string for.</param>
+    /// <param name="value">The information description string, or null or System.String.Empty to remove the information description.</param>
+    public void SetInformation(Control control, string value)
     {
-      _errorProviderInfo.SetError(control, message);
+      _errorProviderInfo.SetError(control, value);
     }
 
     /// <summary>
-    /// Sets the warning message.
+    /// Sets the warning description string for the specified control.
     /// </summary>
-    /// <param name="control">The control.</param>
-    /// <param name="message">The warning message.</param>
-    public void SetWarning(Control control, string message)
+    /// <param name="control">The control to set the warning description string for.</param>
+    /// <param name="value">The warning description string, or null or System.String.Empty to remove the warning description.</param>
+    public void SetWarning(Control control, string value)
     {
-      _errorProviderWarn.SetError(control, message);
+      _errorProviderWarn.SetError(control, value);
     }
 
     /*private bool ShouldSerializeIconInformation()

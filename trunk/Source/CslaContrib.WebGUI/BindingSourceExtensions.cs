@@ -21,7 +21,9 @@ namespace CslaContrib.WebGUI
       // position may be -1 when bindigsource is already unbound
       // and accessing source.Current will then throw Exception.
       if ((source.DataSource != null) && (source.Position > -1))
+      {
         current = source.Current as IEditableObject;
+      }
 
       // set Raise list changed to True
       source.RaiseListChangedEvents = false;
@@ -30,14 +32,17 @@ namespace CslaContrib.WebGUI
 
       if (isRoot)
         source.DataSource = null;
-
       if (current == null)
         return;
 
       if (cancel)
+      {
         current.CancelEdit();
+      }
       else
+      {
         current.EndEdit();
+      }
     }
 
     /// <summary>
@@ -62,7 +67,9 @@ namespace CslaContrib.WebGUI
       source.SuspendBinding();
 
       if (data != null)
+      {
         source.DataSource = data;
+      }
 
       // set Raise list changed to True
       source.RaiseListChangedEvents = true;

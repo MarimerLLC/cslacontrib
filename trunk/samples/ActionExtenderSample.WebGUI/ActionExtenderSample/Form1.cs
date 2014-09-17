@@ -17,6 +17,12 @@ namespace ActionExtenderSample
       InitializeComponent();
     }
 
+    private void Form1_Load(object sender, EventArgs e)
+    {
+      var diagResult = MessageBox.Show("Test modal dialog box.", "Test Message Box", MessageBoxButtons.YesNo, true);
+      MessageBox.Show("You clicked " + diagResult, "Your reply was...");
+    }
+
     private void button1_Click(object sender, EventArgs e)
     {
       var id = "aea60714-d38b-4c08-9c5c-22fe6e0e7e64";

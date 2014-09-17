@@ -663,9 +663,6 @@ namespace CslaContrib.WebGUI
       {
         try
         {
-#if WEBGUI
-          var pendingUserInput = false;
-#endif
           bool raiseClicked = true;
           CslaActionCancelEventArgs args = new CslaActionCancelEventArgs(false, props.CommandName);
           OnClicking(args);
@@ -700,9 +697,7 @@ namespace CslaContrib.WebGUI
 
             if (!sourceObjectError)
             {
-#if !WEBGUI
               DialogResult diagResult;
-#endif
 
               switch (props.ActionType)
               {
@@ -713,7 +708,6 @@ namespace CslaContrib.WebGUI
 
                 case CslaFormAction.Cancel:
 
-#if !WEBGUI
                   diagResult = DialogResult.Yes;
                   if (_warnOnCancel && trackableObject.IsDirty)
                     diagResult = MessageBox.Show(
@@ -722,24 +716,12 @@ namespace CslaContrib.WebGUI
 
                   if (diagResult == DialogResult.Yes)
                     _bindingSourceTree.Cancel(savableObject);
-#else
-                  if (_warnOnCancel && trackableObject.IsDirty)
-                  {
-                    pendingUserInput = true;
-                    ConfirmCancel(savableObject, props.CommandName);
-                  }
-                  else
-                  {
-                    _bindingSourceTree.Cancel(savableObject);
-                  }
-#endif
 
                   break;
                   // case CslaFormAction.Cancel
 
                 case CslaFormAction.Close:
 
-#if !WEBGUI
                   diagResult = DialogResult.Yes;
                   if (trackableObject.IsDirty || trackableObject.IsNew)
                   {
@@ -754,21 +736,6 @@ namespace CslaContrib.WebGUI
                     _bindingSourceTree.Close();
                     _closeForm = true;
                   }
-#else
-                  if (trackableObject.IsDirty || trackableObject.IsNew)
-                  {
-                    if (_warnIfCloseOnDirty)
-                    {
-                      pendingUserInput = true;
-                      ConfirmClose(props.CommandName);
-                    }
-                  }
-                  else
-                  {
-                    _bindingSourceTree.Close();
-                    _closeForm = true;
-                  }
-#endif
 
                   break;
                   // case CslaFormAction.Close
@@ -790,25 +757,13 @@ namespace CslaContrib.WebGUI
                             c => c.Name == lambdaBrokenRule.Property).FriendlyName;
                         brokenRules += string.Format("{0}: {1}{2}", friendlyName, brokenRule, Environment.NewLine);
                       }
-#if !WEBGUI
                       MessageBox.Show(brokenRules, Resources.ActionExtenderErrorCaption,
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
-#else
-                      MessageBox.Show(brokenRules, Resources.ActionExtenderErrorCaption,
-                        MessageBoxButtons.OK, MessageBoxIcon.Error,
-                        messageBoxClosedHandler, false);
-#endif
                     }
                     else
                     {
-#if !WEBGUI
                       MessageBox.Show(_objectIsValidMessage, Resources.ActionExtenderInformationCaption,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-#else
-                      MessageBox.Show(_objectIsValidMessage, Resources.ActionExtenderInformationCaption,
-                        MessageBoxButtons.OK, MessageBoxIcon.Information,
-                        messageBoxClosedHandler, false);
-#endif
                     }
                   }
 
@@ -830,7 +785,6 @@ namespace CslaContrib.WebGUI
                     InitializeControls(true);
                   }
                 }
-#if !WEBGUI
                 else
                 {
                   if (props.ActionType == CslaFormAction.Cancel)
@@ -838,22 +792,12 @@ namespace CslaContrib.WebGUI
                 }
 
                 OnClicked(new CslaActionEventArgs(props.CommandName));
-#else
-                if (!pendingUserInput)
-                  OnClicked(new CslaActionEventArgs(props.CommandName));
-#endif
               }
             } // if (!sourceObjectError)
           } // if (!args.Cancel)
 
-#if !WEBGUI
           if (_closeForm)
             CloseForm();
-#else
-          if (!pendingUserInput)
-            if (_closeForm)
-              CloseForm();
-#endif
         }
         catch (Exception ex)
         {
@@ -911,14 +855,8 @@ namespace CslaContrib.WebGUI
                   c => c.Name == lambdaBrokenRule.Property).FriendlyName;
               brokenRules += string.Format("{0}: {1}{2}", friendlyName, brokenRule, Environment.NewLine);
             }
-#if !WEBGUI
             MessageBox.Show(brokenRules, Resources.ActionExtenderErrorCaption,
               MessageBoxButtons.OK, MessageBoxIcon.Error);
-#else
-            MessageBox.Show(brokenRules, Resources.ActionExtenderErrorCaption,
-              MessageBoxButtons.OK, MessageBoxIcon.Error,
-              messageBoxClosedHandler, false);
-#endif
           }
         }
 
@@ -1098,51 +1036,6 @@ namespace CslaContrib.WebGUI
 
       return businessObject;
     }
-
-#if WEBGUI
-    private void messageBoxClosedHandler(object sender, EventArgs e)
-    {
-    }
-
-    private void MessageBoxConfirm(string message, EventHandler resultHandler)
-    {
-      MessageBox.Show(message, Resources.Warning, MessageBoxButtons.YesNo,
-        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, resultHandler, false);
-    }
-
-    private void ConfirmCancel(ISavable savableObject, string commandName)
-    {
-      MessageBoxConfirm(
-        _warnOnCancelMessage,
-        delegate(object delegateSender, EventArgs eventArgs)
-        {
-          if (((Form) delegateSender).DialogResult == DialogResult.Yes)
-          {
-            _bindingSourceTree.Cancel(savableObject);
-            InitializeControls(true);
-            OnClicked(new CslaActionEventArgs(commandName));
-          }
-        }
-        );
-    }
-
-    private void ConfirmClose(string commandName)
-    {
-      MessageBoxConfirm(
-        _dirtyWarningMessage + Environment.NewLine + Resources.ActionExtenderCloseConfirmation,
-        delegate(object delegateSender, EventArgs eventArgs)
-        {
-          if (((Form) delegateSender).DialogResult == DialogResult.Yes)
-          {
-            _bindingSourceTree.Close();
-            _closeForm = true;
-            OnClicked(new CslaActionEventArgs(commandName));
-            CloseForm();
-          }
-        }
-        );
-    }
-#endif
 
     #endregion
   }

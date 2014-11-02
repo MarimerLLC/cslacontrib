@@ -66,7 +66,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 16
+		SccNumberOfProjects = 18
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
 		SccProjectUniqueName0 = CslaContrib\\CslaContrib.csproj
@@ -149,6 +149,16 @@ Global
 		SccAuxPath15 = https://tfs.codeplex.com/tfs/tfs01
 		SccLocalPath15 = CslaContrib.ObjectCaching.AppFabric.Net4
 		SccProvider15 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName16 = CslaContrib.Caliburn.Micro.V2.WPF\\CslaContrib.Caliburn.Micro.V2.WPF.csproj
+		SccProjectName16 = CslaContrib.Caliburn.Micro.V2.WPF
+		SccAuxPath16 = https://tfs.codeplex.com/tfs/tfs01
+		SccLocalPath16 = CslaContrib.Caliburn.Micro.V2.WPF
+		SccProvider16 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName17 = CslaContrib.Caliburn.Micro.V2.Silverlight\\CslaContrib.Caliburn.Micro.V2.Silverlight.csproj
+		SccProjectName17 = CslaContrib.Caliburn.Micro.V2.Silverlight
+		SccAuxPath17 = https://tfs.codeplex.com/tfs/tfs01
+		SccLocalPath17 = CslaContrib.Caliburn.Micro.V2.Silverlight
+		SccProvider17 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

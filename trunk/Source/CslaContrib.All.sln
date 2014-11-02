@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib", "CslaContrib\CslaContrib.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
 EndProject
@@ -63,6 +63,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF", "CslaContrib.Caliburn.Micro.V2.WPF\CslaContrib.Caliburn.Micro.V2.WPF.csproj", "{EC9F93A3-906B-4F3C-A6AB-484BE69A3EDB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF.Net4", "CslaContrib.Caliburn.Micro.V2.WPF.Net4\CslaContrib.Caliburn.Micro.V2.WPF.Net4.csproj", "{4D914242-373C-4E1F-98AA-9D87662E6096}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{24A3BD6D-C76C-419E-A5FA-3DDAE13C36A0}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

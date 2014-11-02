@@ -71,7 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{24A3BD
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 17
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
 		SccProjectUniqueName0 = CslaContrib\\CslaContrib.csproj
@@ -159,11 +159,6 @@ Global
 		SccAuxPath16 = https://tfs.codeplex.com/tfs/tfs01
 		SccLocalPath16 = CslaContrib.Caliburn.Micro.V2.WPF
 		SccProvider16 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName17 = CslaContrib.Caliburn.Micro.V2.Silverlight\\CslaContrib.Caliburn.Micro.V2.Silverlight.csproj
-		SccProjectName17 = CslaContrib.Caliburn.Micro.V2.Silverlight
-		SccAuxPath17 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath17 = CslaContrib.Caliburn.Micro.V2.Silverlight
-		SccProvider17 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

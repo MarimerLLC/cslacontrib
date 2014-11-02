@@ -96,6 +96,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\CslaContrib.Caliburn.Micro.V2.Silverlight\Licenses\Caliburn.Micro\License.txt">
+      <Link>Licenses\Caliburn.Micro\License.txt</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

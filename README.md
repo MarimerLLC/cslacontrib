@@ -1,7 +1,7 @@
 ![](https://raw.github.com/MarimerLLC/csla/master/Support/Logos/csla%20win8_mid.png)
 CSLA .NET public contribution project
 ====
-CSLA .NET is copyright (c) 2012 Marimer LLC. Use of this software is 
+CSLA .NET is copyright (c) Marimer LLC. Use of this software is 
 governed by the attached license file. The license can also be found
 at https://github.com/MarimerLLC/csla/blob/master/license.txt.
 

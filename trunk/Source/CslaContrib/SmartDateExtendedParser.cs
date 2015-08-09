@@ -82,35 +82,11 @@ namespace CslaContrib
         }
         return true;
       }
-      if (ldate.Substring(0, 2) == "<<")
-      {
-        try
-        {
-          result = DateTime.Now.AddYears(-1*Convert.ToInt32(ldate.Substring(2)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
       if (ldate.Substring(0, 1) == "<")
       {
         try
         {
           result = DateTime.Now.AddMonths(-1*Convert.ToInt32(ldate.Substring(1)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
-      if (ldate.Substring(0, 2) == ">>")
-      {
-        try
-        {
-          result = DateTime.Now.AddYears(Convert.ToInt32(ldate.Substring(2)));
         }
         catch (FormatException)
         {
@@ -129,6 +105,33 @@ namespace CslaContrib
           return false;
         }
         return true;
+      }
+      if (ldate.Length > 1)
+      {
+        if (ldate.Substring(0, 2) == "<<")
+        {
+          try
+          {
+            result = DateTime.Now.AddYears(-1*Convert.ToInt32(ldate.Substring(2)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
+        if (ldate.Substring(0, 2) == ">>")
+        {
+          try
+          {
+            result = DateTime.Now.AddYears(Convert.ToInt32(ldate.Substring(2)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
       }
 #if !SILVERLIGHT
       if (Regex.IsMatch(ldate, @"^\d{1,2}$", RegexOptions.Compiled))

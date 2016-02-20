@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D382D568-C08E-45BF-9081-EDFC09559446}"
 	ProjectSection(SolutionItems) = preProject
 		Readme-WebGUI.txt = Readme-WebGUI.txt
@@ -8,6 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.Net4", "ActionExtenderSample.Net4\ActionExtenderSample.Net4.csproj", "{C121E3EB-1BC0-491B-AAC7-D50CEDCD46CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{5C72A8C8-CFD5-4C79-A51C-A39ED817A0CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WebGUI.Net4", "..\..\Source\CslaContrib.WebGUI.Net4\CslaContrib.WebGUI.Net4.csproj", "{8F035C15-5A6A-4C5D-B816-956354015F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +23,15 @@ Global
 		{C121E3EB-1BC0-491B-AAC7-D50CEDCD46CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C121E3EB-1BC0-491B-AAC7-D50CEDCD46CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C121E3EB-1BC0-491B-AAC7-D50CEDCD46CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F035C15-5A6A-4C5D-B816-956354015F82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F035C15-5A6A-4C5D-B816-956354015F82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F035C15-5A6A-4C5D-B816-956354015F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F035C15-5A6A-4C5D-B816-956354015F82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8F035C15-5A6A-4C5D-B816-956354015F82} = {5C72A8C8-CFD5-4C79-A51C-A39ED817A0CD}
 	EndGlobalSection
 EndGlobal

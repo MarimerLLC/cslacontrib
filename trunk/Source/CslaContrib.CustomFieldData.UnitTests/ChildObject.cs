@@ -7,7 +7,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 	internal sealed class ChildObject
 		: BusinessCore<ChildObject>
 	{
-		private ChildObject()
+	  public ChildObject()
 			: base() { }
 
 		internal static ChildObject Create()
@@ -32,7 +32,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 
 		private void Child_Insert() { }
 
-		private static PropertyInfo<string> referenceTypeProperty =
+	  public readonly static PropertyInfo<string> referenceTypeProperty =
 			ChildObject.RegisterProperty<string>(e => e.ReferenceType);
 		public string ReferenceType
 		{
@@ -40,7 +40,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			set { this.SetProperty(ChildObject.referenceTypeProperty, value); }
 		}
 
-		private static PropertyInfo<bool> valueTypeProperty =
+	  public readonly static PropertyInfo<bool> valueTypeProperty =
 			ChildObject.RegisterProperty<bool>(e => e.ValueType);
 		public bool ValueType
 		{

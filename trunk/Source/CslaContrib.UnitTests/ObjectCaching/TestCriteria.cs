@@ -5,7 +5,8 @@ using System.Text;
 
 namespace CslaContrib.UnitTests.ObjectCaching
 {
-    class TestCriteria : Csla.SingleCriteria<TestCachedInfo, int>
+  [Serializable]
+  class TestCriteria : Csla.SingleCriteria<TestCachedInfo, int>
     {
         public TestCriteria(int id) : base(id) { }
 

@@ -121,7 +121,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Assert.IsTrue(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedInfo).FullName)).Any());
             var save = TestEdit.NewTestEdit();
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedInfo).FullName)).Any());
         }
 
@@ -134,7 +134,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Assert.IsTrue(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedInfo).FullName)).Any());
             var save = TestEdit.GetTestEdit(0);
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedInfo).FullName)).Any());
         }
 
@@ -160,7 +160,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Assert.IsTrue(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Single().Key.Contains("group"));
             var save = TestGroupEdit.NewTestGroupEdit();
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Any());
         }
 
@@ -175,7 +175,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Assert.IsTrue(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Single().Key.Contains("group"));
             var save = TestGroupEdit.GetTestGroupEdit(0);
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Any());
         }
 
@@ -203,7 +203,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Csla.ApplicationContext.ClientContext.Remove(CacheDataPortal.CacheGroup);
             var save = TestGroupEdit.NewTestGroupEdit();
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Any());
         }
 
@@ -219,7 +219,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             Csla.ApplicationContext.ClientContext.Remove(CacheDataPortal.CacheGroup);
             var save = TestGroupEdit.GetTestGroupEdit(0);
             save.ID = id;
-            save.Save();
+            save = save.Save();
             Assert.IsFalse(InMemoryCacheProvider.cache.Where(c => c.Key.StartsWith(typeof(TestCachedGroupInfo).FullName)).Any());
         }
 

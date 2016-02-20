@@ -56,7 +56,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             DataPortal.Delete<TestEdit>(new SingleCriteria<TestEdit, int>(id));
         }
 
-        private TestEdit()
+        public TestEdit()
         { /* Require use of factory methods */ }
 
         #endregion

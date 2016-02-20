@@ -140,7 +140,7 @@ namespace CslaContrib.UnitTests.Rules
       return DataPortal.Create<RuleTestRoot>();
     }
 
-    private RuleTestRoot()
+    public RuleTestRoot()
     { /* Require use of factory methods */ }
 
     #endregion

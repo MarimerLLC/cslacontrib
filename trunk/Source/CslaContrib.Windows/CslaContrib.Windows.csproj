@@ -37,13 +37,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Windows, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CSLA-WindowsForms.4.5.601\lib\net45\Csla.Windows.dll</HintPath>
+    <Reference Include="Csla.Windows, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-WindowsForms.4.6.300\lib\net45\Csla.Windows.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,9 +55,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BindableRadioButtons.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="BindableRadioButtons.cs" />
     <Compile Include="BindableRadioButtons.Designer.cs">
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </Compile>
@@ -65,9 +63,7 @@
     <Compile Include="CslaComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ErrorWarnInfoProvider.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ErrorWarnInfoProvider.cs" />
     <Compile Include="ListSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,9 +76,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SmartDateTimePicker.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SmartDateTimePicker.cs" />
     <Compile Include="SplashPanel.cs" />
     <Compile Include="StatusStripExtender.cs">
       <SubType>Component</SubType>
@@ -114,6 +108,9 @@
     <EmbeddedResource Include="Resources\WarningIco16.ico" />
     <EmbeddedResource Include="Resources\InformationIco16.ico" />
     <Content Include="SmartDateTimePicker.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

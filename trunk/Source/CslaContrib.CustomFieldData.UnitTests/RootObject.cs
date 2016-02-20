@@ -7,7 +7,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 	internal sealed class RootObject
 		: BusinessCore<RootObject>
 	{
-		private RootObject()
+	  public RootObject()
 			: base() { }
 
 		internal static RootObject Create()
@@ -43,7 +43,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			this.FieldManager.UpdateChildren();
 		}
 
-		private static PropertyInfo<ChildObject> childProperty =
+    public readonly static PropertyInfo<ChildObject> childProperty =
 			RootObject.RegisterProperty<ChildObject>(e => e.Child);
 		public ChildObject Child
 		{
@@ -51,7 +51,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			set { this.SetProperty(RootObject.childProperty, value); }
 		}
 
-		private static PropertyInfo<ChildObject> nulledChildProperty =
+    public readonly static PropertyInfo<ChildObject> nulledChildProperty =
 			RootObject.RegisterProperty<ChildObject>(e => e.NulledChild);
 		public ChildObject NulledChild
 		{
@@ -59,7 +59,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			set { this.SetProperty(RootObject.nulledChildProperty, value); }
 		}
 
-		private static PropertyInfo<string> referenceTypeProperty =
+    public readonly static PropertyInfo<string> referenceTypeProperty =
 			RootObject.RegisterProperty<string>(e => e.ReferenceType);
 		public string ReferenceType
 		{
@@ -67,7 +67,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			set { this.SetProperty(RootObject.referenceTypeProperty, value); }
 		}
 
-		private static PropertyInfo<ReferenceTypeNotAString> referenceTypeNotAStringProperty =
+    public readonly static PropertyInfo<ReferenceTypeNotAString> referenceTypeNotAStringProperty =
 			RootObject.RegisterProperty<ReferenceTypeNotAString>(e => e.ReferenceTypeNotAString);
 		public ReferenceTypeNotAString ReferenceTypeNotAString
 		{
@@ -75,7 +75,7 @@ namespace CslaContrib.CustomFieldData.UnitTests
 			set { this.SetProperty(RootObject.referenceTypeNotAStringProperty, value); }
 		}
 
-		private static PropertyInfo<bool> valueTypeProperty =
+    public readonly static PropertyInfo<bool> valueTypeProperty =
 			RootObject.RegisterProperty<bool>(e => e.ValueType);
 		public bool ValueType
 		{

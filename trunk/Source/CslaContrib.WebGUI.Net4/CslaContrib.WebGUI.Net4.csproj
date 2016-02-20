@@ -12,6 +12,7 @@
     <RootNamespace>CslaContrib.WebGUI</RootNamespace>
     <AssemblyName>CslaContrib.WebGUI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
     <VisualWebGui>
       <Properties xmlns="">
         <ConfigFilePath>../CslaContrib.WebGUI</ConfigFilePath>

@@ -46,7 +46,6 @@ namespace CslaContrib.UnitTests.Rules
 
     #endregion
 
-    
     #region Factory Methods
 
     public static AnyRequiredRoot NewEditableRoot()
@@ -55,7 +54,7 @@ namespace CslaContrib.UnitTests.Rules
     }
 
 
-    private AnyRequiredRoot()
+    public AnyRequiredRoot()
     { /* Require use of factory methods */ }
 
     #endregion

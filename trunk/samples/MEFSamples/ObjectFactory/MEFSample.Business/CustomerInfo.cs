@@ -29,7 +29,7 @@ namespace MEFSample.Business
 
     #region Factory Methods
 
-    private CustomerInfo()
+    public CustomerInfo()
     { /* require use of factory methods */ }
 
     #endregion

@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.UI", "MEFSample.UI\MEFSample.UI.csproj", "{A46A49E3-655D-40D3-89A8-3EAC81E7D54E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.Repository.Business", "MEFSample.Business\MEFSample.Repository.Business.csproj", "{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}"
@@ -17,28 +19,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{D181CA24-2A21-44AF-A5FB-47CBE60C76DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib", "..\..\..\Source\CslaContrib\CslaContrib.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF", "..\..\..\Source\CslaContrib.MEF\CslaContrib.MEF.csproj", "{06189757-FBB9-4D00-8B9E-7BEBB543E66C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows", "..\..\..\Source\CslaContrib.Windows\CslaContrib.Windows.csproj", "{0E0AA042-151E-4D59-A26D-4D262660E491}"
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = MEFSample.UI\\MEFSample.UI.csproj
-		SccProjectName1 = MEFSample.UI
-		SccLocalPath1 = MEFSample.UI
-		SccProjectUniqueName2 = MEFSample.Business\\MEFSample.Repository.Business.csproj
-		SccProjectName2 = MEFSample.Business
-		SccLocalPath2 = MEFSample.Business
-		SccProjectUniqueName3 = MEFSample.Repository.DAL\\MEFSample.Repository.DAL.csproj
-		SccProjectName3 = MEFSample.Repository.DAL
-		SccLocalPath3 = MEFSample.Repository.DAL
-		SccProjectUniqueName4 = MEFSample.Respository.Business.Test\\MEFSample.Respository.Business.Test.csproj
-		SccProjectName4 = MEFSample.Respository.Business.Test
-		SccLocalPath4 = MEFSample.Respository.Business.Test
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = MEFRepository.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -88,8 +77,52 @@ Global
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|x86.Build.0 = Debug|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.ActiveCfg = Release|Any CPU
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.Build.0 = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|x86.Build.0 = Debug|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|x86.ActiveCfg = Release|Any CPU
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|x86.Build.0 = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|x86.Build.0 = Debug|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|x86.ActiveCfg = Release|Any CPU
+		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{267A47BA-E5E2-489F-B1D7-B0D663AF316B} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
+		{06189757-FBB9-4D00-8B9E-7BEBB543E66C} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
+		{0E0AA042-151E-4D59-A26D-4D262660E491} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = MEFRepository.vsmdi
 	EndGlobalSection
 EndGlobal

@@ -24,7 +24,7 @@ namespace MEFSample.Business
     }
 
 
-    private CustomerList()
+    public CustomerList()
     { /* require use of factory methods */ }
 
     #endregion

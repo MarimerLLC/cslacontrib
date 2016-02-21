@@ -204,7 +204,7 @@ namespace ActionExtenderSample.Business
     /// Initializes a new instance of the <see cref="Order"/> class.
     /// </summary>
     /// <remarks> Do not use to create a Csla object. Use factory methods instead.</remarks>
-    private Order()
+    public Order()
     {
       // Prevent direct creation
     }

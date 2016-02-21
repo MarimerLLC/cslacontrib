@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,12 +45,9 @@
     <AssemblyOriginatorKeyFile>..\..\CslaContrib.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.5.601.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
-    </Reference>
-    <Reference Include="CslaContrib.WebGUI">
-      <HintPath>..\..\Dependencies\Net\CslaContrib.WebGUI.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\CSLA-Core.4.6.300\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Common, Version=4.5.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
@@ -200,6 +198,15 @@
       <HintPath>C:\Visual Studio Projects\CslaContrib\samples\ActionExtenderSample.WebGUI\ActionExtenderSample\bin\Gizmox.WebGUI.Forms.Themes.dll</HintPath>
       <Visible>false</Visible>
     </CustomReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Source\CslaContrib.WebGUI\CslaContrib.WebGUI.csproj">
+      <Project>{0cb0ab81-4c10-46b7-8ab6-0468e312d267}</Project>
+      <Name>CslaContrib.WebGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

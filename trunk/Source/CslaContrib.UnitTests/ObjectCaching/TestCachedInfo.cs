@@ -26,7 +26,7 @@ namespace CslaContrib.UnitTests.ObjectCaching
             return DataPortal.Fetch<TestCachedInfo>(new TestCriteria(id));
         }
 
-        private TestCachedInfo()
+        public TestCachedInfo()
         { /* require use of factory methods */ }
 
         #endregion

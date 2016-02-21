@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31010.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib", "CslaContrib\CslaContrib.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
 EndProject
@@ -64,102 +64,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF.Net4", "CslaContrib.Caliburn.Micro.V2.WPF.Net4\CslaContrib.Caliburn.Micro.V2.WPF.Net4.csproj", "{4D914242-373C-4E1F-98AA-9D87662E6096}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{24A3BD6D-C76C-419E-A5FA-3DDAE13C36A0}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-	EndProjectSection
-EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
-		SccProjectUniqueName0 = CslaContrib\\CslaContrib.csproj
-		SccProjectName0 = CslaContrib
-		SccAuxPath0 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath0 = CslaContrib
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = CslaContrib.ObjectCaching.AppFabric\\CslaContrib.ObjectCaching.AppFabric.csproj
-		SccProjectName1 = CslaContrib.ObjectCaching.AppFabric
-		SccAuxPath1 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath1 = CslaContrib.ObjectCaching.AppFabric
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName2 = CslaContrib.Windows\\CslaContrib.Windows.csproj
-		SccProjectName2 = CslaContrib.Windows
-		SccAuxPath2 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath2 = CslaContrib.Windows
-		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName3 = CslaContrib.MEF\\CslaContrib.MEF.csproj
-		SccProjectName3 = CslaContrib.MEF
-		SccAuxPath3 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath3 = CslaContrib.MEF
-		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName4 = CslaContrib.Xaml.Silverlight\\CslaContrib.Xaml.Silverlight.csproj
-		SccProjectName4 = CslaContrib.Xaml.Silverlight
-		SccAuxPath4 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath4 = CslaContrib.Xaml.Silverlight
-		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName5 = CslaContrib.Xaml\\CslaContrib.Xaml.csproj
-		SccProjectName5 = CslaContrib.Xaml
-		SccAuxPath5 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath5 = CslaContrib.Xaml
-		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName6 = CslaContrib.CustomFieldData\\CslaContrib.CustomFieldData.csproj
-		SccProjectName6 = CslaContrib.CustomFieldData
-		SccAuxPath6 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath6 = CslaContrib.CustomFieldData
-		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName7 = CslaContrib.Caliburn.Micro.Silverlight\\CslaContrib.Caliburn.Micro.Silverlight.csproj
-		SccProjectName7 = CslaContrib.Caliburn.Micro.Silverlight
-		SccAuxPath7 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath7 = CslaContrib.Caliburn.Micro.Silverlight
-		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName8 = CslaContrib.Caliburn.Micro.WPF\\CslaContrib.Caliburn.Micro.WPF.csproj
-		SccProjectName8 = CslaContrib.Caliburn.Micro.WPF
-		SccAuxPath8 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath8 = CslaContrib.Caliburn.Micro.WPF
-		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName9 = CslaContrib.Caliburn.Micro.WPF.Net4\\CslaContrib.Caliburn.Micro.WPF.Net4.csproj
-		SccProjectName9 = CslaContrib.Caliburn.Micro.WPF.Net4
-		SccAuxPath9 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath9 = CslaContrib.Caliburn.Micro.WPF.Net4
-		SccProvider9 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName10 = CslaContrib.CustomFieldData.Net4\\CslaContrib.CustomFieldData.Net4.csproj
-		SccProjectName10 = CslaContrib.CustomFieldData.Net4
-		SccAuxPath10 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath10 = CslaContrib.CustomFieldData.Net4
-		SccProvider10 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName11 = CslaContrib.Net4\\CslaContrib.Net4.csproj
-		SccProjectName11 = CslaContrib.Net4
-		SccAuxPath11 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath11 = CslaContrib.Net4
-		SccProvider11 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName12 = CslaContrib.Windows.Net4\\CslaContrib.Windows.Net4.csproj
-		SccProjectName12 = CslaContrib.Windows.Net4
-		SccAuxPath12 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath12 = CslaContrib.Windows.Net4
-		SccProvider12 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName13 = CslaContrib.Xaml.Net4\\CslaContrib.Xaml.Net4.csproj
-		SccProjectName13 = CslaContrib.Xaml.Net4
-		SccAuxPath13 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath13 = CslaContrib.Xaml.Net4
-		SccProvider13 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName14 = CslaContrib.MEF.Net4\\CslaContrib.MEF.Net4.csproj
-		SccProjectName14 = CslaContrib.MEF.Net4
-		SccAuxPath14 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath14 = CslaContrib.MEF.Net4
-		SccProvider14 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName15 = CslaContrib.ObjectCaching.AppFabric.Net4\\CslaContrib.ObjectCaching.AppFabric.Net4.csproj
-		SccProjectName15 = CslaContrib.ObjectCaching.AppFabric.Net4
-		SccAuxPath15 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath15 = CslaContrib.ObjectCaching.AppFabric.Net4
-		SccProvider15 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName16 = CslaContrib.Caliburn.Micro.V2.WPF\\CslaContrib.Caliburn.Micro.V2.WPF.csproj
-		SccProjectName16 = CslaContrib.Caliburn.Micro.V2.WPF
-		SccAuxPath16 = https://tfs.codeplex.com/tfs/tfs01
-		SccLocalPath16 = CslaContrib.Caliburn.Micro.V2.WPF
-		SccProvider16 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM

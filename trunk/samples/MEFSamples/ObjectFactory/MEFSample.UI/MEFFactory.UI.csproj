@@ -39,26 +39,15 @@
     <AssemblyOriginatorKeyFile>..\..\..\CslaContrib.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla">
-      <HintPath>..\..\..\Dependencies\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
-    </Reference>
-    <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
-    </Reference>
-    <Reference Include="CslaContrib.Windows">
-      <HintPath>..\..\..\Dependencies\Net\CslaContrib.Windows.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\CSLA-Core.4.6.300\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\GlobalAssemblyInfo.cs">
@@ -118,6 +107,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Source\CslaContrib.MEF\CslaContrib.MEF.csproj">
+      <Project>{06189757-fbb9-4d00-8b9e-7bebb543e66c}</Project>
+      <Name>CslaContrib.MEF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Source\CslaContrib.Windows\CslaContrib.Windows.csproj">
+      <Project>{0e0aa042-151e-4d59-a26d-4d262660e491}</Project>
+      <Name>CslaContrib.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MEFSample.Business\MEFSample.Factory.Business.csproj">
       <Project>{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}</Project>
       <Name>MEFSample.Factory.Business</Name>
@@ -126,6 +123,9 @@
       <Project>{d50e948d-522b-443f-9866-b56c6411d1e3}</Project>
       <Name>MEFSample.ObjectFactoryDAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

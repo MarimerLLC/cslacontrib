@@ -39,25 +39,17 @@
     <AssemblyOriginatorKeyFile>..\..\..\CslaContrib.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla">
-      <HintPath>..\..\..\Dependencies\packages\CSLA-Core.4.5.601\lib\net45\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\CSLA-Core.4.6.300\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="CslaContrib.MEF">
-      <HintPath>..\..\..\Dependencies\Net\CslaContrib.MEF.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -73,6 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Source\CslaContrib.MEF\CslaContrib.MEF.csproj">
+      <Project>{06189757-fbb9-4d00-8b9e-7bebb543e66c}</Project>
+      <Name>CslaContrib.MEF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MEFSample.Business\MEFSample.Repository.Business.csproj">
       <Project>{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}</Project>
       <Name>MEFSample.Repository.Business</Name>
@@ -80,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

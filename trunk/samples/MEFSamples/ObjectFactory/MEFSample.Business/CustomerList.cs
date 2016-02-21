@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using Csla;
 using Csla.Server;
 using MEFSample.Business.FactoryInterfaces;
@@ -26,7 +25,7 @@ namespace MEFSample.Business
     }
 
 
-    private CustomerList()
+    public CustomerList()
     { /* require use of factory methods */ }
 
     #endregion

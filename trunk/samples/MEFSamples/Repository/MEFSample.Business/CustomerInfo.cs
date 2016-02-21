@@ -36,7 +36,7 @@ namespace MEFSample.Business
       return DataPortal.FetchChild<CustomerInfo>(childData);
     }
 
-    private CustomerInfo()
+    public CustomerInfo()
     { /* require use of factory methods */ }
 
     #endregion

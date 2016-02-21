@@ -92,7 +92,7 @@ namespace MEFSample.Business
       return DataPortal.Fetch<MyRoot>(id);
     }
 
-    private MyRoot() { }
+    public MyRoot() { }
 
     #endregion
 

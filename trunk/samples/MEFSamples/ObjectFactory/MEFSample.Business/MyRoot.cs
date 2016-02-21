@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.DataAnnotations;
 using Csla;
 using Csla.Rules.CommonRules;
@@ -93,7 +91,7 @@ namespace MEFSample.Business
       return DataPortal.Fetch<MyRoot>(null);
     }
 
-    private MyRoot() { }
+    public MyRoot() { }
 
     #endregion
 

@@ -3,10 +3,10 @@
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CslaContrib in .NET4")]
+[assembly: AssemblyTitle("CslaContrib in .NET 4")]
 [assembly: AssemblyDescription("Extends CSLA .NET framework with ObjectCaching data portal implementation including in-memory cache provider for simple cache and additional generic business and authorization rules.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib")]
+[assembly: AssemblyProduct("CslaContrib.NET4")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

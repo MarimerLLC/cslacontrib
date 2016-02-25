@@ -3,10 +3,10 @@
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CslaContrib.WebGUI")]
+[assembly: AssemblyTitle("CslaContrib.WebGUI in .NET 4.5")]
 [assembly: AssemblyDescription("Supports the creation of CSLA. NET applications for Visual WebGUI.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.WebGUI")]
+[assembly: AssemblyProduct("CslaContrib.WebGUI.NET45")]
 [assembly: AssemblyCulture("")]
 
 // Mark the assembly as CLS compliant

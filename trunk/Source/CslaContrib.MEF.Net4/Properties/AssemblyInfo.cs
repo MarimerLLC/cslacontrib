@@ -3,10 +3,10 @@
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CslaContrib.MEF in .NET4")]
+[assembly: AssemblyTitle("CslaContrib.MEF in .NET 4")]
 [assembly: AssemblyDescription("Extends CSLA .NET framework with MEF support for Repository and ObjectFactory data access.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.MEF")]
+[assembly: AssemblyProduct("CslaContrib.MEF.NET4")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

@@ -6,7 +6,7 @@
 [assembly: AssemblyTitle("CslaContrib.MEF for Silverlight 5")]
 [assembly: AssemblyDescription("Extends CSLA .NET framework with MEF support for Repository and ObjectFactory data access.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.MEF")]
+[assembly: AssemblyProduct("CslaContrib.MEF.SL5")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

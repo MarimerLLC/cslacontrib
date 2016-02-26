@@ -36,7 +36,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.MEF.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.MEF.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,7 +47,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.MEF.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.MEF.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla, Version=4.5.701.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
@@ -161,7 +161,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

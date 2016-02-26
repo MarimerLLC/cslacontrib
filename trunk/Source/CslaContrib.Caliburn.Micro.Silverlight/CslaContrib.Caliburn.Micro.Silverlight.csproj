@@ -36,7 +36,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.Caliburn.Micro.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.Caliburn.Micro.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,7 +47,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.Caliburn.Micro.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Sl5\CslaContrib.Caliburn.Micro.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
@@ -140,7 +140,6 @@
     <Compile Include="ScreenWithSubject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

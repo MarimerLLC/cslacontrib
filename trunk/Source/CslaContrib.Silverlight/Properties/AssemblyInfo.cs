@@ -7,7 +7,7 @@
 [assembly: AssemblyTitle("CslaContrib for Silverlight 5")]
 [assembly: AssemblyDescription("Extends CSLA .NET framework with ObjectCaching data portal implementation including in-memory cache provider for simple cache and additional generic business and authorization rules.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.Silverlight")]
+[assembly: AssemblyProduct("CslaContrib.SL5")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

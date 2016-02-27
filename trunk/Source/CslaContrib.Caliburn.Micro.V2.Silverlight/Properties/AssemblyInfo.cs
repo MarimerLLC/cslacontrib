@@ -6,5 +6,5 @@
 [assembly: AssemblyTitle("CslaContrib.Caliburn.Micro 2.0.2 for Silverlight 5")]
 [assembly: AssemblyDescription("CSLA .NET ViewModel adapter for Caliburn.Micro v.2.0.2.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.Caliburn.Micro.V2.Silverlight")]
+[assembly: AssemblyProduct("CslaContrib.Caliburn.Micro.V2.SL5")]
 [assembly: AssemblyCulture("")]

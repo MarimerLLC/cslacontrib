@@ -6,7 +6,7 @@
 [assembly: AssemblyTitle("CslaContrib.Xaml.Silverlight")]
 [assembly: AssemblyDescription("Supports the creation of Silverlight applications.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.Xaml.Silverlight")]
+[assembly: AssemblyProduct("CslaContrib.Xaml.SL5")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

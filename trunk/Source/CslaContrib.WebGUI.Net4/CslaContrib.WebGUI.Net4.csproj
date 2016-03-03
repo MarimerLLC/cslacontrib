@@ -101,61 +101,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.WebGUI\BindingSourceExtensions.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceExtensions.cs">
       <Link>BindingSourceExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\BindingSourceHelper.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceHelper.cs">
       <Link>BindingSourceHelper.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\BindingSourceNode.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceNode.cs">
       <Link>BindingSourceNode.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\BindingSourceRefresh.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceRefresh.cs">
       <Link>BindingSourceRefresh.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionCancelEventArgs.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionCancelEventArgs.cs">
       <Link>CslaActionCancelEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionEventArgs.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionEventArgs.cs">
       <Link>CslaActionEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionExtender.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtender.cs">
       <Link>CslaActionExtender.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionExtenderProperties.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderProperties.cs">
       <Link>CslaActionExtenderProperties.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionExtenderToolBar.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderToolBar.cs">
       <Link>CslaActionExtenderToolBar.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\CslaActionExtenderToolStrip.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderToolStrip.cs">
       <Link>CslaActionExtenderToolStrip.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\Enums.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\Enums.cs">
       <Link>Enums.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\ErrorEncounteredEventArgs.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorEncounteredEventArgs.cs">
       <Link>ErrorEncounteredEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\ErrorProvider.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorProvider.cs">
       <Link>ErrorProvider.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\ErrorWarnInfoProvider.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorWarnInfoProvider.cs">
       <Link>ErrorWarnInfoProvider.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\HasBrokenRulesEventArgs.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\HasBrokenRulesEventArgs.cs">
       <Link>HasBrokenRulesEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\HostPropertyAttribute.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\HostPropertyAttribute.cs">
       <Link>HostPropertyAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\ObjectSaveException.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ObjectSaveException.cs">
       <Link>ObjectSaveException.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.WebGUI\ReadWriteAuthorization.cs">
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ReadWriteAuthorization.cs">
       <Link>ReadWriteAuthorization.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">

@@ -76,11 +76,11 @@
     <Compile Include="RootObject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CslaContrib.CustomFieldData\CslaContrib.CustomFieldData.csproj">
+    <ProjectReference Include="..\CslaContrib.CustomFieldData.Net45\CslaContrib.CustomFieldData.Net45.csproj">
       <Project>{DE562221-E911-4908-B3C1-6269E1594242}</Project>
       <Name>CslaContrib.CustomFieldData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CslaContrib.ObjectCaching.AppFabric\CslaContrib.ObjectCaching.AppFabric.csproj">
+    <ProjectReference Include="..\CslaContrib.ObjectCaching.AppFabric.Net45\CslaContrib.ObjectCaching.AppFabric.Net45.csproj">
       <Project>{a2d36728-10a2-4fee-b23d-a41d6034510d}</Project>
       <Name>CslaContrib.ObjectCaching.AppFabric</Name>
     </ProjectReference>

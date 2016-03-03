@@ -44,7 +44,7 @@ namespace MEFSample.Business
     #endregion
 
     #region Data Access
-    public void DataPortal_Fetch(string criteria)
+    protected void DataPortal_Fetch(string criteria)
     {
       RaiseListChangedEvents = false;
       IsReadOnly = false;

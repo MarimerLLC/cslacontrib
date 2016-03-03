@@ -69,11 +69,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CslaContrib.ObjectCaching.AppFabric\CslaContrib.ObjectCaching.AppFabric.csproj">
+    <ProjectReference Include="..\CslaContrib.ObjectCaching.AppFabric.Net45\CslaContrib.ObjectCaching.AppFabric.Net45.csproj">
       <Project>{a2d36728-10a2-4fee-b23d-a41d6034510d}</Project>
       <Name>CslaContrib.ObjectCaching.AppFabric</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CslaContrib\CslaContrib.csproj">
+    <ProjectReference Include="..\CslaContrib.Net45\CslaContrib.Net45.csproj">
       <Project>{267a47ba-e5e2-489f-b1d7-b0d663af316b}</Project>
       <Name>CslaContrib</Name>
     </ProjectReference>

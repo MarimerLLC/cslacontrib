@@ -112,7 +112,7 @@ namespace MEFSample.Business
     #endregion
 
     #region Data Access
-    public void DataPortal_Fetch(int criteria)
+    protected void DataPortal_Fetch(int criteria)
     {
       var data = MyRootDataAccess.Get(criteria);
       using (BypassPropertyChecks)

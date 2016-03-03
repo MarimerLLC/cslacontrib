@@ -64,7 +64,7 @@
     <Analyzer Include="..\..\..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Source\CslaContrib\CslaContrib.csproj">
+    <ProjectReference Include="..\..\..\..\Source\CslaContrib.Net45\CslaContrib.Net45.csproj">
       <Project>{267a47ba-e5e2-489f-b1d7-b0d663af316b}</Project>
       <Name>CslaContrib</Name>
     </ProjectReference>

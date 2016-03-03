@@ -130,99 +130,99 @@
     <Content Include="Resources\Icons\Undo16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\DataPortalHookArgs.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\DataPortalHookArgs.cs">
       <Link>ActionExtenderSample.Business\DataPortalHookArgs.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\Order.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\Order.cs">
       <Link>ActionExtenderSample.Business\Order.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\Order.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\Order.designer.cs">
       <Link>ActionExtenderSample.Business\Order.designer.cs</Link>
       <DependentUpon>Order.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetail.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\OrderDetail.cs">
       <Link>ActionExtenderSample.Business\OrderDetail.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetail.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\OrderDetail.designer.cs">
       <Link>ActionExtenderSample.Business\OrderDetail.designer.cs</Link>
       <DependentUpon>OrderDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetailCollection.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\OrderDetailCollection.cs">
       <Link>ActionExtenderSample.Business\OrderDetailCollection.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.Business\OrderDetailCollection.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.Business\OrderDetailCollection.designer.cs">
       <Link>ActionExtenderSample.Business\OrderDetailCollection.designer.cs</Link>
       <DependentUpon>OrderDetailCollection.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs">
       <Link>ActionExtenderSample.DataAccess.Sql\DalManagerActionExtenderSample.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDal.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess.Sql\OrderDal.cs">
       <Link>ActionExtenderSample.DataAccess.Sql\OrderDal.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDal.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess.Sql\OrderDal.designer.cs">
       <Link>ActionExtenderSample.DataAccess.Sql\OrderDal.designer.cs</Link>
       <DependentUpon>OrderDal.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs">
       <Link>ActionExtenderSample.DataAccess.Sql\OrderDetailDal.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess.Sql\OrderDetailDal.designer.cs">
       <Link>ActionExtenderSample.DataAccess.Sql\OrderDetailDal.designer.cs</Link>
       <DependentUpon>OrderDetailDal.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs">
       <Link>ActionExtenderSample.DataAccess\DalFactoryActionExtenderSample.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\DataNotFoundException.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\DataNotFoundException.cs">
       <Link>ActionExtenderSample.DataAccess\DataNotFoundException.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs">
       <Link>ActionExtenderSample.DataAccess\IDalManagerActionExtenderSample.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDal.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\IOrderDal.cs">
       <Link>ActionExtenderSample.DataAccess\IOrderDal.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDal.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\IOrderDal.designer.cs">
       <Link>ActionExtenderSample.DataAccess\IOrderDal.designer.cs</Link>
       <DependentUpon>IOrderDal.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDetailDal.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\IOrderDetailDal.cs">
       <Link>ActionExtenderSample.DataAccess\IOrderDetailDal.cs</Link>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\ActionExtenderSample.DataAccess\IOrderDetailDal.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\ActionExtenderSample.DataAccess\IOrderDetailDal.designer.cs">
       <Link>ActionExtenderSample.DataAccess\IOrderDetailDal.designer.cs</Link>
       <DependentUpon>IOrderDetailDal.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\Form1.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\Form1.cs">
       <Link>Form1.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\Form1.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\Form1.designer.cs">
       <Link>Form1.designer.cs</Link>
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint.cs">
       <Link>OrderMaint.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint.designer.cs">
       <Link>OrderMaint.designer.cs</Link>
       <DependentUpon>OrderMaint.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint2.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint2.cs">
       <Link>OrderMaint2.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint2.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint2.designer.cs">
       <Link>OrderMaint2.designer.cs</Link>
       <DependentUpon>OrderMaint2.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint3.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint3.cs">
       <Link>OrderMaint3.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\ActionExtenderSample\OrderMaint3.designer.cs">
+    <Compile Include="..\ActionExtenderSample.Net45\OrderMaint3.designer.cs">
       <Link>OrderMaint3.designer.cs</Link>
       <DependentUpon>OrderMaint3.cs</DependentUpon>
     </Compile>
@@ -244,19 +244,19 @@
     <Folder Include="Resources\UserData\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\ActionExtenderSample\Form1.resx">
+    <EmbeddedResource Include="..\ActionExtenderSample.Net45\Form1.resx">
       <Link>Form1.resx</Link>
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint.resx">
+    <EmbeddedResource Include="..\ActionExtenderSample.Net45\OrderMaint.resx">
       <Link>OrderMaint.resx</Link>
       <DependentUpon>OrderMaint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint2.resx">
+    <EmbeddedResource Include="..\ActionExtenderSample.Net45\OrderMaint2.resx">
       <Link>OrderMaint2.resx</Link>
       <DependentUpon>OrderMaint2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\ActionExtenderSample\OrderMaint3.resx">
+    <EmbeddedResource Include="..\ActionExtenderSample.Net45\OrderMaint3.resx">
       <Link>OrderMaint3.resx</Link>
       <DependentUpon>OrderMaint3.cs</DependentUpon>
     </EmbeddedResource>

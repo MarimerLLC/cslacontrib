@@ -200,7 +200,7 @@
     </CustomReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\CslaContrib.WebGUI\CslaContrib.WebGUI.csproj">
+    <ProjectReference Include="..\..\..\Source\CslaContrib.WebGUI.Net45\CslaContrib.WebGUI.Net45.csproj">
       <Project>{0cb0ab81-4c10-46b7-8ab6-0468e312d267}</Project>
       <Name>CslaContrib.WebGUI</Name>
     </ProjectReference>

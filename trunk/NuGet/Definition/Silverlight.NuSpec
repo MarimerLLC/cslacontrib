@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib Silverlight UI</tags>
     <version>4.5.600</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Supports the creation of Silverlight applications.

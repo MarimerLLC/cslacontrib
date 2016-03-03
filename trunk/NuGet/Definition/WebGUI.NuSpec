@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib WebGUI UI</tags>
     <version>4.5.600</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Additional controls to support the creation of CSLA. NET applications for Visual WebGUI.
@@ -31,11 +31,17 @@ Additional controls to support the creation of CSLA. NET applications for Visual
     <file src="..\..\bin\Release\NET4\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net40-full" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.WebGUI.xml*" target="lib\net40-full" />
     <!-- .NET 4.5 Client -->
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.WebGUI.xml*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WebGUI.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WebGUI.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WebGUI.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WebGUI.xml*" target="lib\net45" />
+    <!-- .NET 4.6 Client -->
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.resources.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.xml*" target="lib\net46" />
     <!-- Windows Phone 7 Client -->
     <!-- > None -->
     <!-- Source Files for Symbol Server -->

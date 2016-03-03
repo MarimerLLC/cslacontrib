@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib WPF UI</tags>
     <version>4.5.50</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Supports the creation of WPF applications.
@@ -31,11 +31,17 @@ Supports the creation of WPF applications.
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Xaml.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Xaml.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Xaml.xml*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Xaml.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Xaml.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Xaml.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Xaml.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Xaml.xml*" target="lib\net45" />
+    <!-- .NET 4.6 Client -->
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Xaml.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Xaml.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Xaml.resources.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Xaml.resources.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Xaml.xml*" target="lib\net46" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.Xaml\**\*.cs" target="src" />
   </files>

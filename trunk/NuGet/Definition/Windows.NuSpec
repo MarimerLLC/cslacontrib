@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib WindowsForms WinForms UI</tags>
     <version>4.5.600</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Additional controls to support the creation of CSLA. NET applications for Windows Forms.
@@ -31,11 +31,17 @@ Additional controls to support the creation of CSLA. NET applications for Window
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Windows.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Windows.xml*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Windows.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Windows.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Windows.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Windows.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Windows.xml*" target="lib\net45" />
+    <!-- .NET 4.6 Client -->
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Windows.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Windows.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Windows.resources.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Windows.resources.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Windows.xml*" target="lib\net46" />
     <!-- Windows Phone 7 Client -->
     <!-- > None -->
     <!-- Source Files for Symbol Server -->

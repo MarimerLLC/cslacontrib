@@ -24,7 +24,7 @@ function ChangeNuSpecVersion( $nuSpecFilePath, $version="0.0.0.0" )
     $nuSpecFile = Get-Item $nuSpecFilePath | Select-Object -First 1
     
     # Bring the XML Linq namespace in
-    [Reflection.Assembly]::LoadWithPartialName( “System.Xml.Linq” ) | Out-Null
+    [Reflection.Assembly]::LoadWithPartialName( "System.Xml.Linq" ) | Out-Null
     
     # Update the XML document with the new version
     $xDoc = [System.Xml.Linq.XDocument]::Load( $nuSpecFile.FullName )

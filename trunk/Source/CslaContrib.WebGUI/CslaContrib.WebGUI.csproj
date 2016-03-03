@@ -26,21 +26,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\NET\</OutputPath>
+    <OutputPath>..\..\bin\Debug\NET45\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\NET\CslaContrib.WebGUI.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Debug\NET45\CslaContrib.WebGUI.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\NET\</OutputPath>
+    <OutputPath>..\..\bin\Release\NET45\</OutputPath>
     <DefineConstants>TRACE;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\NET\CslaContrib.WebGUI.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\NET45\CslaContrib.WebGUI.XML</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>

@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Source\CslaContrib.MEF\CslaContrib.MEF.csproj">
+    <ProjectReference Include="..\..\..\..\Source\CslaContrib.MEF.Net45\CslaContrib.MEF.Net45.csproj">
       <Project>{06189757-fbb9-4d00-8b9e-7bebb543e66c}</Project>
       <Name>CslaContrib.MEF</Name>
     </ProjectReference>

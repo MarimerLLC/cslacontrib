@@ -91,44 +91,44 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.Windows\BindableRadioButtons.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.cs">
       <Link>BindableRadioButtons.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\BindableRadioButtons.Designer.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.Designer.cs">
       <Link>BindableRadioButtons.Designer.cs</Link>
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\BindingSourceExtensions.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\BindingSourceExtensions.cs">
       <Link>BindingSourceExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\CslaComboBox.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\CslaComboBox.cs">
       <Link>CslaComboBox.cs</Link>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\ErrorWarnInfoProvider.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\ErrorWarnInfoProvider.cs">
       <Link>ErrorWarnInfoProvider.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\ListSelectForm.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\ListSelectForm.cs">
       <Link>ListSelectForm.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\ListSelectForm.designer.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\ListSelectForm.designer.cs">
       <Link>ListSelectForm.designer.cs</Link>
       <DependentUpon>ListSelectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\Properties\Resources.Designer.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\Properties\Resources.Designer.cs">
       <Link>Properties\Resources.Designer.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\SmartDateTimePicker.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\SmartDateTimePicker.cs">
       <Link>SmartDateTimePicker.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\SplashPanel.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\SplashPanel.cs">
       <Link>SplashPanel.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Windows\StatusStripExtender.cs">
+    <Compile Include="..\CslaContrib.Windows.Net45\StatusStripExtender.cs">
       <Link>StatusStripExtender.cs</Link>
       <SubType>Component</SubType>
     </Compile>
@@ -139,15 +139,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="..\CslaContrib.Windows\BindableRadioButtons.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.resx">
       <Link>BindableRadioButtons.resx</Link>
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Windows\ListSelectForm.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Net45\ListSelectForm.resx">
       <Link>ListSelectForm.resx</Link>
       <DependentUpon>ListSelectForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Windows\Properties\Resources.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Net45\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -155,40 +155,40 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\CslaContrib.Windows\BindableRadioButtons.bmp">
+    <Content Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.bmp">
       <Link>BindableRadioButtons.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\CslaComboBox.bmp">
+    <Content Include="..\CslaContrib.Windows.Net45\CslaComboBox.bmp">
       <Link>CslaComboBox.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\ErrorWarnInfoProvider.bmp">
+    <Content Include="..\CslaContrib.Windows.Net45\ErrorWarnInfoProvider.bmp">
       <Link>ErrorWarnInfoProvider.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\ListSelectForm.bmp">
+    <Content Include="..\CslaContrib.Windows.Net45\ListSelectForm.bmp">
       <Link>ListSelectForm.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\AboutBack.png">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\AboutBack.png">
       <Link>Resources\AboutBack.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\AboutPicture.png">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\AboutPicture.png">
       <Link>Resources\AboutPicture.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\InformationIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\InformationIco16.ico">
       <Link>Resources\InformationIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\progressbar_green.gif">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\progressbar_green.gif">
       <Link>Resources\progressbar_green.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\progresscircle_black.gif">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\progresscircle_black.gif">
       <Link>Resources\progresscircle_black.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\status_anim.gif">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\status_anim.gif">
       <Link>Resources\status_anim.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\Resources\WarningIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Net45\Resources\WarningIco16.ico">
       <Link>Resources\WarningIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows\SmartDateTimePicker.bmp">
+    <Content Include="..\CslaContrib.Windows.Net45\SmartDateTimePicker.bmp">
       <Link>SmartDateTimePicker.bmp</Link>
     </Content>
   </ItemGroup>

@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.txt = Readme.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample", "ActionExtenderSample\ActionExtenderSample.csproj", "{7C86F7E3-DC78-44FB-8827-E7E256FD7DC5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.Net45", "ActionExtenderSample.Net45\ActionExtenderSample.Net45.csproj", "{7C86F7E3-DC78-44FB-8827-E7E256FD7DC5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{571FC3AE-8AE4-477E-A0FA-634E7A23F462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WebGUI", "..\..\Source\CslaContrib.WebGUI\CslaContrib.WebGUI.csproj", "{0CB0AB81-4C10-46B7-8AB6-0468E312D267}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WebGUI.Net45", "..\..\Source\CslaContrib.WebGUI.Net45\CslaContrib.WebGUI.Net45.csproj", "{0CB0AB81-4C10-46B7-8AB6-0468E312D267}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

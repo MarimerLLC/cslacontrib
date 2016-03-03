@@ -99,7 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.ObjectCaching.AppFabric\CacheProvider.cs">
+    <Compile Include="..\CslaContrib.ObjectCaching.AppFabric.Net45\CacheProvider.cs">
       <Link>CacheProvider.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">

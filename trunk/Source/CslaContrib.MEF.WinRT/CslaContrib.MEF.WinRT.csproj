@@ -105,34 +105,34 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.MEF\MefBusinessBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefBusinessBase.cs">
       <Link>MefBusinessBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefBusinessBindingListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefBusinessBindingListBase.cs">
       <Link>MefBusinessBindingListBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefBusinessListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefBusinessListBase.cs">
       <Link>MefBusinessListBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefCommandBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefCommandBase.cs">
       <Link>MefCommandBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefDynamicBindingListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefDynamicBindingListBase.cs">
       <Link>MefDynamicBindingListBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefDynamicListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefDynamicListBase.cs">
       <Link>MefDynamicListBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefNameValueList.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefNameValueList.cs">
       <Link>MefNameValueList.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefReadOnlyBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefReadOnlyBase.cs">
       <Link>MefReadOnlyBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefReadOnlyBindingListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefReadOnlyBindingListBase.cs">
       <Link>MefReadOnlyBindingListBase.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF\MefReadOnlyListBase.cs">
+    <Compile Include="..\CslaContrib.MEF.Net45\MefReadOnlyListBase.cs">
       <Link>MefReadOnlyListBase.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">

@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib Custom Field Data</tags>
     <version>4.5.600</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Extends CSLA .NET framework with Custom Field Data that checks old/new value to determine if the object is dirty/changed.
@@ -31,11 +31,17 @@ Extends CSLA .NET framework with Custom Field Data that checks old/new value to 
     <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.CustomFieldData.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.CustomFieldData.xml*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.CustomFieldData.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.CustomFieldData.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.CustomFieldData.xml*" target="lib\net45" />
+    <!-- .NET 4.6 Client -->
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.xml*" target="lib\net46" />
     <!-- Silverlight 5.0 Client -->
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.dll*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.pdb*" target="lib\sl50" />

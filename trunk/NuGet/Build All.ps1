@@ -42,8 +42,8 @@ try
     $originalBackground = $host.UI.RawUI.BackgroundColor
     $originalForeground = $host.UI.RawUI.ForegroundColor
     $originalLocation = Get-Location
-    $packages = @("Caliburn.Micro Silverlight", "Caliburn.Micro WPF", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Silverlight", "WebGUI", "Windows") ## Leave out "WPF" until it has some content.
-    ## $packages = @("Caliburn.Micro Silverlight", "Caliburn.Micro WPF", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Silverlight", "WebGUI", "Windows", "WPF")
+    $packages = @("Caliburn.Micro Silverlight", "Caliburn.Micro Silverlight.V2", "Caliburn.Micro WPF", "Caliburn.Micro WPF.V2", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Silverlight", "WebGUI", "Windows") ## Leave out "WPF" until it has some content.
+    ## $packages = @("Caliburn.Micro Silverlight", "Caliburn.Micro Silverlight.V2", "Caliburn.Micro WPF.V2", "Caliburn.Micro WPF", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Silverlight", "WebGUI", "Windows", "WPF")
     
     $host.UI.RawUI.BackgroundColor = [System.ConsoleColor]::Black
     $host.UI.RawUI.ForegroundColor = [System.ConsoleColor]::White

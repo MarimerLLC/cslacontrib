@@ -6,9 +6,9 @@
     <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
     <version>4.5.600</version>
     <authors>CslaContrib</authors>
-    <licenseUrl>http://cslacontrib.codeplex.com/license</licenseUrl>
-    <projectUrl>http://cslacontrib.codeplex.com/</projectUrl>
-    <iconUrl>http://www.lhotka.net/images/csla.png</iconUrl>
+    <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
 Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro MVVM UI framework.
@@ -17,7 +17,7 @@ CSLA .NET is an application development framework that reduces the cost of build
 
 Caliburn.Micro is small, yet powerful framework designed for Xaml platforms, Caliburn.Micro implements a variety of UI patterns for solving real-world problems. Patterns that are highlighted include MVVM (Presentation Model), MVP and MVC.
 
-Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.1.5.1.
+Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.1.5.2.
     </description>
     <summary>
 Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro MVVM UI framework.
@@ -37,11 +37,17 @@ Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro 
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net40" />
     <file src="..\..\bin\Release\NET4\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net40" />
     <!-- .NET 4.5 Client -->
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net45" />
-    <file src="..\..\bin\Release\NET\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Caliburn.Micro.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net45" />
+    <!-- .NET 4.6 Client -->
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net46" />
+    <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.xml*" target="lib\net46" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.*\**\*.cs" target="src" />
   </files>

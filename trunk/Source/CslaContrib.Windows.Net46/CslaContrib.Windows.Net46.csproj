@@ -7,8 +7,8 @@
     <ProjectGuid>{7CE75DC9-2856-4403-BB6C-26046E0AB0A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.Windows.Net46</RootNamespace>
-    <AssemblyName>CslaContrib.Windows.Net46</AssemblyName>
+    <RootNamespace>CslaContrib.Windows</RootNamespace>
+    <AssemblyName>CslaContrib.Windows</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,11 +32,11 @@
   <ItemGroup>
     <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net46\Csla.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Csla.Windows, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSLA-WindowsForms.4.6.300\lib\net46\Csla.Windows.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{9F271FBB-2F69-4B12-B26F-06AB55EB5903}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.MEF.Net46</RootNamespace>
-    <AssemblyName>CslaContrib.MEF.Net46</AssemblyName>
+    <RootNamespace>CslaContrib.MEF</RootNamespace>
+    <AssemblyName>CslaContrib.MEF</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net46\Csla.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

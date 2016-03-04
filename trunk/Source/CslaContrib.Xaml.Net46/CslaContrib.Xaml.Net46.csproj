@@ -7,8 +7,8 @@
     <ProjectGuid>{765917B5-0CC4-46DB-A9D3-99053F9E7BCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CslaContrib.Xaml.Net46</RootNamespace>
-    <AssemblyName>CslaContrib.Xaml.Net46</AssemblyName>
+    <RootNamespace>CslaContrib.Xaml</RootNamespace>
+    <AssemblyName>CslaContrib.Xaml</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

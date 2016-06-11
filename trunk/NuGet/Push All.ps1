@@ -1,7 +1,7 @@
 ##
 ##	Publish All Packages
 ##  ====================
-##  Remeber the initial once off setting of your API Key
+##  Remember the initial once off setting of your API Key
 ##  
 ##      NuGet SetApiKey Your-API-Key
 ##
@@ -28,8 +28,8 @@ try
     $host.UI.RawUI.BackgroundColor = [System.ConsoleColor]::Black
     $host.UI.RawUI.ForegroundColor = [System.ConsoleColor]::White
     
-    Write-Host "Publish all CLSA .NET Contrib NuGet packages" -ForegroundColor White
-    Write-Host "============================================" -ForegroundColor White
+    Write-Host "Publish all CslaContrib NuGet packages" -ForegroundColor White
+    Write-Host "======================================" -ForegroundColor White
     
     ## Get list of packages (without ".symbols.") from Packages folder
     ## ---------------------------------------------------------------

@@ -14,21 +14,22 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\..\bin\Debug\NET46\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\..\bin\Release\NET46\</OutputPath>
+    <DefineConstants>TRACE;WEBGUI</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -37,25 +38,71 @@
       <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net46\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Gizmox.WebGUI.Server, Version=4.6.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
     <Reference Include="Gizmox.WebGUI.Forms, Version=4.6.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d">
-      <SpecificVersion>True</SpecificVersion>
-    </Reference>
-    <Reference Include="Gizmox.WebGUI.Forms.Themes, Version=4.6.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6">
       <SpecificVersion>True</SpecificVersion>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Common, Version=4.6.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6">
       <SpecificVersion>True</SpecificVersion>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceExtensions.cs">
+      <Link>BindingSourceExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceHelper.cs">
+      <Link>BindingSourceHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceNode.cs">
+      <Link>BindingSourceNode.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\BindingSourceRefresh.cs">
+      <Link>BindingSourceRefresh.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionCancelEventArgs.cs">
+      <Link>CslaActionCancelEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionEventArgs.cs">
+      <Link>CslaActionEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtender.cs">
+      <Link>CslaActionExtender.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderProperties.cs">
+      <Link>CslaActionExtenderProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderToolBar.cs">
+      <Link>CslaActionExtenderToolBar.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\CslaActionExtenderToolStrip.cs">
+      <Link>CslaActionExtenderToolStrip.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\Enums.cs">
+      <Link>Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorEncounteredEventArgs.cs">
+      <Link>ErrorEncounteredEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorProvider.cs">
+      <Link>ErrorProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ErrorWarnInfoProvider.cs">
+      <Link>ErrorWarnInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\HasBrokenRulesEventArgs.cs">
+      <Link>HasBrokenRulesEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.WebGUI.Net45\ObjectSaveException.cs">
+      <Link>ObjectSaveException.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
@@ -64,6 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ErrorProvider.bmp" />
+    <Content Include="ErrorWarnInfoProvider.bmp" />
+    <Content Include="favicon.ico" />
+    <Content Include="Resources\ErrorIcon.png" />
+    <Content Include="Resources\InformationIcon.png" />
+    <Content Include="Resources\WarningIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Condition="" Project="$(MSBuildExtensionsPath)\Gizmox\v14.0\Net4.6\Gizmox.VWGLibrary.targets" />

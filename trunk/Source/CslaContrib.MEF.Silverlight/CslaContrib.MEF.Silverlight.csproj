@@ -36,7 +36,6 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.MEF.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -92,9 +91,6 @@
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CslaContrib.MEF.Net45\Ioc.cs">
@@ -136,23 +132,23 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF.Shared.Resources\Resources.Designer.cs">
+    <Compile Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <Link>Properties\Resources.Designer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.es.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.es.resx">
       <Link>Properties\Resources.es.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.fr.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.fr.resx">
       <Link>Properties\Resources.fr.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.pt.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.pt.resx">
       <Link>Properties\Resources.pt.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
     </EmbeddedResource>
   </ItemGroup>

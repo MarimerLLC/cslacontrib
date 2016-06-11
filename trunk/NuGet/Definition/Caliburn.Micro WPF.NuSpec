@@ -26,7 +26,7 @@ Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro 
     <dependencies>
       <dependency id="CSLA-Core" version="[4.6.0,)" />
       <dependency id="CSLA-WPF" version="[4.6.0,)" />
-      <dependency id="Caliburn.Micro" version="[1.5.1,2.0))" />
+      <dependency id="Caliburn.Micro" version="[1.5.1,2.0)" />
     </dependencies>
   </metadata>
   <files>

@@ -1,5 +1,5 @@
 ##
-##	Create Modular CslaContrib NuGet
+##  Create Modular CslaContrib NuGet
 ##  ================================
 ##
 
@@ -7,11 +7,11 @@ param( [System.String] $commandLineOptions )
 
 function OutputCommandLineUsageHelp()
 {
-	Write-Host "Build all NuGet packages."
-    Write-Host "============================"
+    Write-Host "Build all NuGet packages."
+    Write-Host "========================="
     Write-Host "Usage: Build All.ps1 [/PreRelease:<PreReleaseVersion>]"
     Write-Host ">E.g.: Build All.ps1"
-	Write-Host ">E.g.: Build All.ps1 /PreRelease:RC1"
+    Write-Host ">E.g.: Build All.ps1 /PreRelease:RC1"
 }
 
 function Pause ($Message="Press any key to continue...")
@@ -24,15 +24,15 @@ function Pause ($Message="Press any key to continue...")
 ## Process CommandLine options
 if ( [System.String]::IsNullOrEmpty($commandLineOptions) -ne $true )
 {
-	if ( $commandLineOptions.StartsWith("/PreRelease:", [System.StringComparison]::OrdinalIgnoreCase) )
-	{
-		$preRelease = $commandLineOptions.Substring( "/PreRelease:".Length )
-	}
-	else
-	{
-		OutputCommandLineUsageHelp
-		return
-	}
+    if ( $commandLineOptions.StartsWith("/PreRelease:", [System.StringComparison]::OrdinalIgnoreCase) )
+    {
+        $preRelease = $commandLineOptions.Substring( "/PreRelease:".Length )
+    }
+    else
+    {
+        OutputCommandLineUsageHelp
+        return
+    }
 }
 
 try 

@@ -11,46 +11,92 @@
     <AssemblyName>CslaContrib</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\..\bin\Debug\NET46\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET46</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Debug\NET46\CslaContrib.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\..\bin\Release\NET46\</OutputPath>
+    <DefineConstants>TRACE;NET46</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Release\NET46\CslaContrib.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net46\Csla.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net46\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\CacheDataPortal.cs">
+      <Link>ObjectCaching\CacheDataPortal.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\CacheManager.cs">
+      <Link>ObjectCaching\CacheManager.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ICacheProvider.cs">
+      <Link>ObjectCaching\ICacheProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\InMemoryCacheProvider.cs">
+      <Link>ObjectCaching\InMemoryCacheProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ObjectCacheAttribute.cs">
+      <Link>ObjectCaching\ObjectCacheAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ObjectCacheEvictionAttribute.cs">
+      <Link>ObjectCaching\ObjectCacheEvictionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\CommonRules.cs">
+      <Link>Rules\CommonRules.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
+      <Link>SmartDateExtendedParser.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Shared.Resources\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Link>Properties\Resources.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.es.resx">
+      <Link>Properties\Resources.es.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.fr.resx">
+      <Link>Properties\Resources.fr.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.pt.resx">
+      <Link>Properties\Resources.pt.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

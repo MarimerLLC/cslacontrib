@@ -96,7 +96,7 @@ namespace CslaContrib.ObjectCaching
                 else
                 {
                     //cache hit
-#if !NET45
+#if !NET45 && !NET46
                     await TaskEx.Delay(0);
 #else
                     await Task.Delay(0);

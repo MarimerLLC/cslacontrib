@@ -38,13 +38,13 @@
       <HintPath>..\..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net46\Csla.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net46\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Xaml, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-WPF.4.6.300\lib\net46\Csla.Xaml.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla.Xaml, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-WPF.4.6.400\lib\net46\Csla.Xaml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -93,7 +93,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

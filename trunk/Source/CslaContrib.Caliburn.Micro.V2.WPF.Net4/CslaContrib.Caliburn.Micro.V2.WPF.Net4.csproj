@@ -43,13 +43,13 @@
       <HintPath>..\..\packages\Caliburn.Micro.2.0.2\lib\net40\Caliburn.Micro.Platform.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net40\Csla.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net40\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Xaml, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-WPF.4.6.300\lib\net40\Csla.Xaml.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla.Xaml, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-WPF.4.6.400\lib\net40\Csla.Xaml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -136,7 +136,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

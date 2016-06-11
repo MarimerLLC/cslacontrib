@@ -37,21 +37,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.6.300.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.300\lib\net45\Csla.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Csla">
+      <HintPath>..\..\..\..\..\..\VS Projects\Codisa.ItsCap\trunk\Dependencies\packages\CSLA-Core.4.6.400\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CslaContrib.Shared.Resources\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Link>Properties\Resources.Designer.cs</Link>
+    </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
@@ -62,28 +62,31 @@
     <Compile Include="ObjectCaching\ObjectCacheAttribute.cs" />
     <Compile Include="ObjectCaching\ObjectCacheEvictionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Rules\CommonRules.cs" />
     <Compile Include="SmartDateExtendedParser.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ObjectCaching\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.es.resx">
+      <Link>Properties\Resources.es.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.fr.resx">
+      <Link>Properties\Resources.fr.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.pt.resx">
+      <Link>Properties\Resources.pt.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.300\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\..\..\..\..\VS Projects\Codisa.ItsCap\trunk\Dependencies\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

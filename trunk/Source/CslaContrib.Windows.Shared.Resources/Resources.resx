@@ -117,7 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MoreThanOneFactoryTypeDefinedException" xml:space="preserve">
-    <value>Expected single implementation of type {0} but found more than one.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="AboutBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\Resources\AboutBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AboutPicture" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\Resources\AboutPicture.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="progressbar_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\Resources\progressbar_green.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="progresscircle_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\Resources\progresscircle_black.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashPanel_PleaseWait" xml:space="preserve">
+    <value>Please wait</value>
+  </data>
+  <data name="status_anim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\Resources\status_anim.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InformationIco16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\resources\informationico16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WarningIco16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>.\resources\warningico16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

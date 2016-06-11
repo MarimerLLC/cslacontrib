@@ -23,8 +23,8 @@ try
     $host.UI.RawUI.BackgroundColor = [System.ConsoleColor]::Black
     $host.UI.RawUI.ForegroundColor = [System.ConsoleColor]::White
     
-    Write-Host "Clean all CSLA .NET Contrib NuGet build outputs" -ForegroundColor White
-    Write-Host "===============================================" -ForegroundColor White
+    Write-Host "Clean all CslaContrib NuGet build outputs" -ForegroundColor White
+    Write-Host "=========================================" -ForegroundColor White
     
     ## NB - Cleanup destination package folder
     ## ---------------------------------------

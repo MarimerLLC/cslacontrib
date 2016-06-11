@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AnyRequiredRule" xml:space="preserve">
+    <value>Al menos uno de los campos {0} debe ser llenado.</value>
+  </data>
+  <data name="GreaterThanOrEqualRule" xml:space="preserve">
+    <value>{0} debe ser mayor que o igual a {1}.</value>
+  </data>
+  <data name="LessThanOrEqualRule" xml:space="preserve">
+    <value>{0} debe ser menor o igual a {1}.</value>
+  </data>
+  <data name="GreaterThanRule" xml:space="preserve">
+    <value>{0} debe ser mayor que {1}.</value>
+  </data>
+  <data name="LessThanRule" xml:space="preserve">
+    <value>{0} debe ser inferior a {1}.</value>
+  </data>
+  <data name="NoDuplicatesRule" xml:space="preserve">
+    <value>{0} debe ser único.</value>
+  </data>
+  <data name="RangeRule" xml:space="preserve">
+    <value>{0} debe estar entre {1} y {2}.</value>
+  </data>
 </root>

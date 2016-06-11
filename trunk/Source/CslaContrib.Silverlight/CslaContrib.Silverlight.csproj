@@ -36,7 +36,6 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\Sl5\CslaContrib.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -89,9 +88,6 @@
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CslaContrib.Net45\ObjectCaching\CacheDataPortal.cs">
@@ -118,7 +114,8 @@
     <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
       <Link>SmartDateExtendedParser.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Shared.Resources\Resources.Designer.cs">
+    <Compile Include="..\CslaContrib.Shared.Resources\Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
       <Link>Properties\Resources.Designer.cs</Link>
     </Compile>
     <Compile Include="..\GlobalAssemblyInfo.cs">
@@ -135,16 +132,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.es.resx">
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.es.resx">
       <Link>Properties\Resources.es.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.fr.resx">
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.fr.resx">
       <Link>Properties\Resources.fr.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.pt.resx">
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.pt.resx">
       <Link>Properties\Resources.pt.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Resources.resx">
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
     </EmbeddedResource>
   </ItemGroup>

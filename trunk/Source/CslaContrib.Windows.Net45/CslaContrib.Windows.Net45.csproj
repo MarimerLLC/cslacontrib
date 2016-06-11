@@ -23,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\NET45\CslaContrib.Windows.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -52,7 +51,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\CslaContrib.Windows.Shared.Resources\Resources.Designer.cs">
+    <Compile Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <Link>Properties\Resources.Designer.cs</Link>
     </Compile>
@@ -82,16 +81,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Resources.es.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.es.resx">
       <Link>Properties\Resources.es.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Resources.fr.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.fr.resx">
       <Link>Properties\Resources.fr.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Resources.pt.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.pt.resx">
       <Link>Properties\Resources.pt.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Resources.resx">
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="BindableRadioButtons.resx">
@@ -102,40 +101,40 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\BindableRadioButtons.bmp">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\BindableRadioButtons.bmp">
       <Link>BindableRadioButtons.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\CslaComboBox.bmp">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\CslaComboBox.bmp">
       <Link>CslaComboBox.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\ErrorWarnInfoProvider.bmp">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ErrorWarnInfoProvider.bmp">
       <Link>ErrorWarnInfoProvider.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\ListSelectForm.bmp">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ListSelectForm.bmp">
       <Link>ListSelectForm.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\AboutBack.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutBack.png">
       <Link>Resources\AboutBack.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\AboutPicture.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutPicture.png">
       <Link>Resources\AboutPicture.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\InformationIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\InformationIco16.ico">
       <Link>Resources\InformationIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\progressbar_green.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progressbar_green.gif">
       <Link>Resources\progressbar_green.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\progresscircle_black.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progresscircle_black.gif">
       <Link>Resources\progresscircle_black.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\status_anim.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\status_anim.gif">
       <Link>Resources\status_anim.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Resources\WarningIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\WarningIco16.ico">
       <Link>Resources\WarningIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\SmartDateTimePicker.bmp">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\SmartDateTimePicker.bmp">
       <Link>SmartDateTimePicker.bmp</Link>
     </Content>
     <None Include="packages.config" />

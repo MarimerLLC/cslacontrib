@@ -24,7 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Debug\NET4\CslaContrib.MEF.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -115,7 +114,7 @@
     <Compile Include="..\CslaContrib.MEF.Net45\Server\CslaFactoryLoader.cs">
       <Link>Server\CslaFactoryLoader.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.MEF.Shared.Resources\Resources.Designer.cs">
+    <Compile Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <Link>Properties\Resources.Designer.cs</Link>
     </Compile>
@@ -135,16 +134,16 @@
     <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.es.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.es.resx">
       <Link>Properties\Resources.es.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.fr.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.fr.resx">
       <Link>Properties\Resources.fr.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.pt.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.pt.resx">
       <Link>Properties\Resources.pt.resx</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Resources.resx">
+    <EmbeddedResource Include="..\CslaContrib.MEF.Shared.Resources\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
     </EmbeddedResource>
   </ItemGroup>

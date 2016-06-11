@@ -22,21 +22,21 @@ namespace CslaContrib.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        public Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CslaContrib.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace CslaContrib.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to At least on of the fields {0} must have a value..
         /// </summary>
-        internal static string AnyRequiredRule {
+        public static string AnyRequiredRule {
             get {
                 return ResourceManager.GetString("AnyRequiredRule", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be greater than or equal to {1}..
         /// </summary>
-        internal static string GreaterThanOrEqualRule {
+        public static string GreaterThanOrEqualRule {
             get {
                 return ResourceManager.GetString("GreaterThanOrEqualRule", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be greater than {1}..
         /// </summary>
-        internal static string GreaterThanRule {
+        public static string GreaterThanRule {
             get {
                 return ResourceManager.GetString("GreaterThanRule", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be less than or equal to {1}..
         /// </summary>
-        internal static string LessThanOrEqualRule {
+        public static string LessThanOrEqualRule {
             get {
                 return ResourceManager.GetString("LessThanOrEqualRule", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be less than {1}..
         /// </summary>
-        internal static string LessThanRule {
+        public static string LessThanRule {
             get {
                 return ResourceManager.GetString("LessThanRule", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be unique..
         /// </summary>
-        internal static string NoDuplicatesRule {
+        public static string NoDuplicatesRule {
             get {
                 return ResourceManager.GetString("NoDuplicatesRule", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace CslaContrib.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} must be between {1} and {2}..
         /// </summary>
-        internal static string RangeRule {
+        public static string RangeRule {
             get {
                 return ResourceManager.GetString("RangeRule", resourceCulture);
             }

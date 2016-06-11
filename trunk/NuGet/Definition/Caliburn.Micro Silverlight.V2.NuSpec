@@ -4,7 +4,7 @@
     <id>CslaContrib-Caliburn.Micro.Silverlight</id>
     <title>CSLA .NET Contrib - Caliburn.Micro.Silverlight</title>
     <tags>CSLA CslaContrib Silverlight Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
-    <version>4.5.600</version>
+    <version>4.6.400</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
@@ -24,19 +24,19 @@ Supports the creation of CSLA. NET applications for Silverlight that use Calibur
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.0,)" />
-      <dependency id="CSLA-Silverlight" version="[4.5.0,)" />
-      <dependency id="Caliburn.Micro" version="[2.0.1,)" />
+      <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
+      <dependency id="CSLA-Silverlight" version="[4.5.0,4.6.0)" />
+      <dependency id="Caliburn.Micro" version="[2.0.0,)" />
     </dependencies>
   </metadata>
   <files>
     <!-- Silverlight 5.0 Client -->
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.pdb*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.V2.dll*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.V2.pdb*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.resources.dll*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.xml*" target="lib\sl50" />
+    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Caliburn.Micro.V2.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.Silverlight\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.V2.Silverlight\**\*.cs" target="src" />
   </files>
 </package>

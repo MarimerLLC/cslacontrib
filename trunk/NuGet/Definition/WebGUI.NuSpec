@@ -4,7 +4,7 @@
     <id>CslaContrib-WebGUI</id>
     <title>CSLA .NET Contrib - WebGUI</title>
     <tags>CSLA CslaContrib WebGUI UI</tags>
-    <version>4.5.600</version>
+    <version>4.6.400</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
@@ -20,7 +20,7 @@ Additional controls to support the creation of CSLA. NET applications for Visual
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.0,)" />
+      <dependency id="CSLA-Core" version="[4.6.0,)" />
     </dependencies>
   </metadata>
   <files>
@@ -42,9 +42,7 @@ Additional controls to support the creation of CSLA. NET applications for Visual
     <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.resources.dll*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.WebGUI.xml*" target="lib\net46" />
-    <!-- Windows Phone 7 Client -->
-    <!-- > None -->
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.WebGUI\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.WebGUI.Net45\**\*.cs" target="src" />
   </files>
 </package>

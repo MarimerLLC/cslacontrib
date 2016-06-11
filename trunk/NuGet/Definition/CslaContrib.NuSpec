@@ -4,7 +4,7 @@
     <id>CslaContrib</id>
     <title>CSLA .NET Contrib</title>
     <tags>CSLA CslaContrib - ObjectCaching and Generic Rules</tags>
-    <version>4.5.600</version>
+    <version>4.6.400</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
@@ -20,7 +20,18 @@ Extends CSLA .NET framework with ObjectCaching data portal implementation, exten
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.0,)" />
+      <group targetFramework="sl50">
+        <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
+      </group>
+      <group targetFramework="net46">
+        <dependency id="CSLA-Core" version="[4.6.0,)" />
+      </group>
+      <group targetFramework="net45">
+        <dependency id="CSLA-Core" version="[4.6.0,)" />
+      </group>
+      <group targetFramework="net40">
+        <dependency id="CSLA-Core" version="[4.6.0,)" />
+      </group>
     </dependencies>
   </metadata>
   <files>
@@ -49,6 +60,7 @@ Extends CSLA .NET framework with ObjectCaching data portal implementation, exten
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.resources.pdb*" target="lib\sl50" />
     <file src="..\..\bin\Release\Sl5\**\CslaContrib.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Net45\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Shared.Resources\**\*.cs" target="src" />
   </files>
 </package>

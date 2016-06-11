@@ -4,7 +4,7 @@
     <id>CslaContrib-ObjectCaching.AppFabric</id>
     <title>CSLA .NET Contrib - ObjectCaching.AppFabric</title>
     <tags>CSLA CslaContrib ObjectCaching AppFabric</tags>
-    <version>4.5.600</version>
+    <version>4.6.400</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
@@ -20,8 +20,8 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.0,)" />
-      <dependency id="CslaContrib" version="[4.5.600]" />
+      <dependency id="CSLA-Core" version="[4.6.0,)" />
+      <dependency id="CslaContrib" version="[4.5.600,)" />
       <dependency id="ServerAppFabric.Client" version="[1.1.2106,)" />
     </dependencies>
   </metadata>
@@ -45,6 +45,6 @@ Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server
     <file src="..\..\bin\Release\NET46\**\CslaContrib.ObjectCaching.AppFabric.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.ObjectCaching.AppFabric.xml*" target="lib\net46" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.ObjectCaching.AppFabric\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.ObjectCaching.AppFabric.Net45\**\*.cs" target="src" />
   </files>
 </package>

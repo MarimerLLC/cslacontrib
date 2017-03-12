@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla">
-      <HintPath>..\..\..\..\..\..\VS Projects\Codisa.ItsCap\trunk\Dependencies\packages\CSLA-Core.4.6.400\lib\net45\Csla.dll</HintPath>
+      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net45\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -61,7 +61,25 @@
     <Compile Include="ObjectCaching\ObjectCacheAttribute.cs" />
     <Compile Include="ObjectCaching\ObjectCacheEvictionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\GatewayRules\CanWrite.cs" />
+    <Compile Include="Rules\ObjectRules\CollectionPopulated.cs" />
+    <Compile Include="Rules\ObjectRules\CommonObjectRule.cs" />
     <Compile Include="Rules\CommonRules.cs" />
+    <Compile Include="Rules\DateRules\DateNotInFuture.cs" />
+    <Compile Include="Rules\DependencyFrom.cs" />
+    <Compile Include="Rules\GatewayRules\FieldExists.cs" />
+    <Compile Include="Rules\AuthorizationRules\IsEmptyOrIsInRole.cs" />
+    <Compile Include="Rules\GatewayRules\IsNew.cs" />
+    <Compile Include="Rules\AuthorizationRules\IsNewOrIsInRole.cs" />
+    <Compile Include="Rules\GatewayRules\IsNotNew.cs" />
+    <Compile Include="Rules\AuthorizationRules\IsOwner.cs" />
+    <Compile Include="Rules\AuthorizationRules\IsOwnerOrIsInRole.cs" />
+    <Compile Include="Rules\ObjectRules\ObjectRuleEx.cs" />
+    <Compile Include="Rules\ConditionalRequired\RequiredWhenCanWrite.cs" />
+    <Compile Include="Rules\ConditionalRequired\RequiredWhenIsNotNew.cs" />
+    <Compile Include="Rules\ConditionalRequired\RequiredWhenNew.cs" />
+    <Compile Include="Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs" />
+    <Compile Include="Rules\ShortCircuitingRule\StopIfIsNew.cs" />
     <Compile Include="SmartDateExtendedParser.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +103,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\..\..\..\VS Projects\Codisa.ItsCap\trunk\Dependencies\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

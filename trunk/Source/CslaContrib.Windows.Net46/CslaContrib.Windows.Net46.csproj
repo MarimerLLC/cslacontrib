@@ -33,12 +33,12 @@
     <DocumentationFile>..\..\bin\Release\NET46\CslaContrib.Windows.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net46\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.603\lib\net46\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Windows, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-WindowsForms.4.6.400\lib\net46\Csla.Windows.dll</HintPath>
+    <Reference Include="Csla.Windows, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-WindowsForms.4.6.603\lib\net46\Csla.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -95,12 +95,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.resx">
       <DependentUpon>BindableRadioButtons.cs</DependentUpon>
       <Link>BindableRadioButtons.resx</Link>
@@ -136,30 +130,36 @@
     <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ListSelectForm.bmp">
       <Link>ListSelectForm.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutBack.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutBack.png">
       <Link>Resources\AboutBack.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutPicture.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutPicture.png">
       <Link>Resources\AboutPicture.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\InformationIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\InformationIco16.ico">
       <Link>Resources\InformationIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progressbar_green.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progressbar_green.gif">
       <Link>Resources\progressbar_green.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progresscircle_black.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progresscircle_black.gif">
       <Link>Resources\progresscircle_black.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\status_anim.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\status_anim.gif">
       <Link>Resources\status_anim.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\WarningIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\WarningIco16.ico">
       <Link>Resources\WarningIco16.ico</Link>
     </Content>
     <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\SmartDateTimePicker.bmp">
       <Link>SmartDateTimePicker.bmp</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -35,12 +35,12 @@
     <DocumentationFile>..\..\bin\Release\NET4\CslaContrib.Windows.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.400\lib\net40\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-Core.4.6.603\lib\net40\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Windows, Version=4.6.400.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-WindowsForms.4.6.400\lib\net40\Csla.Windows.dll</HintPath>
+    <Reference Include="Csla.Windows, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CSLA-WindowsForms.4.6.603\lib\net40\Csla.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -165,25 +165,25 @@
     <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ListSelectForm.bmp">
       <Link>ListSelectForm.bmp</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutBack.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutBack.png">
       <Link>Resources\AboutBack.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\AboutPicture.png">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutPicture.png">
       <Link>Resources\AboutPicture.png</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\InformationIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\InformationIco16.ico">
       <Link>Resources\InformationIco16.ico</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progressbar_green.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progressbar_green.gif">
       <Link>Resources\progressbar_green.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\progresscircle_black.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progresscircle_black.gif">
       <Link>Resources\progresscircle_black.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\status_anim.gif">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\status_anim.gif">
       <Link>Resources\status_anim.gif</Link>
     </Content>
-    <Content Include="..\CslaContrib.Windows.Shared.Resources\Properties\Images\WarningIco16.ico">
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\WarningIco16.ico">
       <Link>Resources\WarningIco16.ico</Link>
     </Content>
     <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\SmartDateTimePicker.bmp">
@@ -191,7 +191,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.400\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

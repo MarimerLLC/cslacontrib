@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDateExtendedParserSample.Net45", "SmartDateExtendedParserSample.Net45\SmartDateExtendedParserSample.Net45.csproj", "{524E3B61-6F79-4F3E-BEB6-C1740287419E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartDateExtendedParserSample.Sl", "SmartDateExtendedParserSample.Sl\SmartDateExtendedParserSample.Sl.csproj", "{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C23FC3A-5F4D-42FF-9B3E-71949C244E8F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Solution Items", "- Solution Items", "{8C23FC3A-5F4D-42FF-9B3E-71949C244E8F}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
 	EndProjectSection
@@ -15,8 +13,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{E86BEAA0-A441-4064-8BD8-38D905494F79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net45", "..\..\Source\CslaContrib.Net45\CslaContrib.Net45.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Silverlight", "..\..\Source\CslaContrib.Silverlight\CslaContrib.Silverlight.csproj", "{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,16 +34,6 @@ Global
 		{524E3B61-6F79-4F3E-BEB6-C1740287419E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{524E3B61-6F79-4F3E-BEB6-C1740287419E}.Release|x86.ActiveCfg = Release|x86
 		{524E3B61-6F79-4F3E-BEB6-C1740287419E}.Release|x86.Build.0 = Release|x86
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{03B5A3F2-C21C-4C36-AD9C-B29329676CE7}.Release|x86.ActiveCfg = Release|Any CPU
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -60,24 +46,11 @@ Global
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.ActiveCfg = Release|Any CPU
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.Build.0 = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Debug|x86.Build.0 = Debug|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|x86.ActiveCfg = Release|Any CPU
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{267A47BA-E5E2-489F-B1D7-B0D663AF316B} = {E86BEAA0-A441-4064-8BD8-38D905494F79}
-		{1FC9E3C3-9DD8-4821-A38B-A6BA60FF2F18} = {E86BEAA0-A441-4064-8BD8-38D905494F79}
 	EndGlobalSection
 EndGlobal

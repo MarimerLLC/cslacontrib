@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.UI", "MEFSample.UI\MEFSample.UI.csproj", "{A46A49E3-655D-40D3-89A8-3EAC81E7D54E}"
 EndProject
@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.Repository.DAL", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFSample.Respository.Business.Test", "MEFSample.Respository.Business.Test\MEFSample.Respository.Business.Test.csproj", "{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF96518C-CA60-4078-AB53-5886502D4F59}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Solution Items", "- Solution Items", "{CF96518C-CA60-4078-AB53-5886502D4F59}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
 		MEFRepository.vsmdi = MEFRepository.vsmdi

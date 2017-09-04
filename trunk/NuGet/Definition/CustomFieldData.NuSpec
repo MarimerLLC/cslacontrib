@@ -20,9 +20,6 @@ Extends CSLA .NET framework with Custom Field Data that checks old/new value to 
     </summary>
     <language>en-US</language>
     <dependencies>
-      <group targetFramework="sl50">
-        <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
-      </group>
       <group targetFramework="net46">
         <dependency id="CSLA-Core" version="[4.6.0,)" />
       </group>
@@ -53,12 +50,6 @@ Extends CSLA .NET framework with Custom Field Data that checks old/new value to 
     <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.CustomFieldData.xml*" target="lib\net46" />
-    <!-- Silverlight 5.0 Client -->
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.resources.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.resources.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.CustomFieldData.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.CustomFieldData.Net45\**\*.cs" target="src" />
   </files>

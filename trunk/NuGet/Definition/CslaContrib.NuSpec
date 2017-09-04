@@ -20,9 +20,6 @@ Extends CSLA .NET framework with ObjectCaching data portal implementation, exten
     </summary>
     <language>en-US</language>
     <dependencies>
-      <group targetFramework="sl50">
-        <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
-      </group>
       <group targetFramework="net46">
         <dependency id="CSLA-Core" version="[4.6.0,)" />
       </group>
@@ -53,12 +50,6 @@ Extends CSLA .NET framework with ObjectCaching data portal implementation, exten
     <file src="..\..\bin\Release\NET46\**\CslaContrib.resources.dll*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.xml*" target="lib\net46" />
-    <!-- Silverlight 5.0 Client -->
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.resources.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.resources.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.xml*" target="lib\sl50" />
     <!-- Source Files for Symbol Server -->
     <file src="..\..\Source\**\CslaContrib.Net45\**\*.cs" target="src" />
     <file src="..\..\Source\**\CslaContrib.Shared.Resources\**\*.cs" target="src" />

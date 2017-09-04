@@ -20,9 +20,6 @@ Extends CSLA .NET framework with MEF support for Repository and ObjectFactory da
     </summary>
     <language>en-US</language>
     <dependencies>
-      <group targetFramework="sl50">
-        <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
-      </group>
       <group targetFramework="net46">
         <dependency id="CSLA-Core" version="[4.6.0,)" />
       </group>
@@ -53,12 +50,6 @@ Extends CSLA .NET framework with MEF support for Repository and ObjectFactory da
     <file src="..\..\bin\Release\NET46\**\CslaContrib.MEF.resources.dll*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.MEF.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.MEF.xml*" target="lib\net46" />
-    <!-- Silverlight 5.0 Client -->
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.MEF.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.MEF.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.MEF.resources.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.MEF.resources.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.MEF.xml*" target="lib\sl50" />
     <!-- Windows Runtime Client -->
     <file src="..\..\bin\Release\WinRT\**\CslaContrib.MEF.dll*" target="lib\NetCore45" />
     <file src="..\..\bin\Release\WinRT\**\CslaContrib.MEF.pdb*" target="lib\NetCore45" />

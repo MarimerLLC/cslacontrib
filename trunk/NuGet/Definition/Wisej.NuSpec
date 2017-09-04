@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>CslaContrib-Silverlight</id>
-    <title>CSLA .NET Contrib - Silverlight</title>
-    <tags>CSLA CslaContrib Silverlight UI</tags>
+    <id>CslaContrib-Wisej</id>
+    <title>CSLA .NET Contrib - Wisej</title>
+    <tags>CSLA CslaContrib Wisej UI</tags>
     <version>4.6.600</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
@@ -11,26 +11,26 @@
     <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-Supports the creation of Silverlight applications.
+Additional controls to support the creation of CSLA. NET applications for Wisej.
 
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
     </description>
     <summary>
-Supports the creation of Silverlight applications.
+Additional controls to support the creation of CSLA. NET applications for Wisej.
     </summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="CSLA-Core" version="[4.5.0,4.6.0)" />
+      <dependency id="CSLA-Core" version="[4.6.0,)" />
     </dependencies>
   </metadata>
   <files>
-    <!-- Silverlight 5.0 Client -->
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.resources.dll*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.resources.pdb*" target="lib\sl50" />
-    <file src="..\..\bin\Release\Sl5\**\CslaContrib.Xaml.Silverlight.xml*" target="lib\sl50" />
+    <!-- .NET 4.5 Client -->
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WisejWeb.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WisejWeb.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WisejWeb.resources.dll*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WisejWeb.resources.pdb*" target="lib\net45" />
+    <file src="..\..\bin\Release\NET45\**\CslaContrib.WisejWeb.xml*" target="lib\net45" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.Xaml.Silverlight\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.WisejWeb.Net45\**\*.cs" target="src" />
   </files>
 </package>

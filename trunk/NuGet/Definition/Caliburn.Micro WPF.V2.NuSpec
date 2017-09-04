@@ -2,16 +2,16 @@
 <package>
   <metadata>
     <id>CslaContrib-Caliburn.Micro.V2.WPF</id>
-    <title>CSLA .NET Contrib - Caliburn.Micro.WPF</title>
-    <tags>CSLA CslaContrib WPF Caliburn.Micro MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
-    <version>4.6.400</version>
+    <title>CSLA .NET Contrib - Caliburn.Micro.WPF v.2</title>
+    <tags>CSLA CslaContrib WPF Caliburn.Micro v.2 MVVM Model-View-ViewModel Presentation UI ViewModel</tags>
+    <version>4.6.600</version>
     <authors>CslaContrib</authors>
     <licenseUrl>https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/MarimerLLC/cslacontrib</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/MarimerLLC/csla/master/Support/Logos/csla.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
-Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro MVVM UI framework.
+Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro v.2 MVVM UI framework.
 
 CSLA .NET is an application development framework that reduces the cost of building and maintaining applications. The framework enables developers to build an object-oriented business layer for their application that encapsulates all business, authorization and validation logic for the application.
 
@@ -20,7 +20,7 @@ Caliburn.Micro is small, yet powerful framework designed for Xaml platforms, Cal
 Note - Although not dependant on any specific version of Caliburn.Micro, the ViewModel adapter uses code from v.2.0.1.
     </description>
     <summary>
-Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro MVVM UI framework.
+Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro v.2 MVVM UI framework.
     </summary>
     <language>en-US</language>
     <dependencies>
@@ -49,6 +49,6 @@ Supports the creation of CSLA. NET applications for WPF that use Caliburn.Micro 
     <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.resources.pdb*" target="lib\net46" />
     <file src="..\..\bin\Release\NET46\**\CslaContrib.Caliburn.Micro.V2.xml*" target="lib\net46" />
     <!-- Source Files for Symbol Server -->
-    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.V2.Silverlight\**\*.cs" target="src" />
+    <file src="..\..\Source\**\CslaContrib.Caliburn.Micro.V2.WPF.Net45\**\*.cs" target="src" />
   </files>
 </package>

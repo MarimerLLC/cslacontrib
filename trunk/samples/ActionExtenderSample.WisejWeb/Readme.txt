@@ -1,3 +1,10 @@
+Wisej
+-----
+Wisej is a de facto replacement for Visual WebGUI.
+Take your WinForms project, port it to Wisej retaining all your BO/DAL code and most UI code.
+Now run it as a Web application.
+Get Wisej at http://wisej.com
+
 Database engine
 ---------------
 The database file is attached to LocalDb - the new dedicated version of 

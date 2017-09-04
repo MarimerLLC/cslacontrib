@@ -38,6 +38,8 @@ namespace CslaContrib
       }
 
       var ldate = value.Trim().ToLower();
+
+      // simple relative dates
       if (ldate == "<")
       {
         result = DateTime.Now.AddMonths(-1);
@@ -58,56 +60,40 @@ namespace CslaContrib
         result = DateTime.Now.AddYears(1);
         return true;
       }
-      if (ldate.Substring(0, 1) == "+")
-      {
-        try
-        {
-          result = DateTime.Now.AddDays(Convert.ToInt32(ldate.Substring(1)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
-      if (ldate.Substring(0, 1) == "-")
-      {
-        try
-        {
-          result = DateTime.Now.AddDays(-1*Convert.ToInt32(ldate.Substring(1)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
-      if (ldate.Substring(0, 1) == "<")
-      {
-        try
-        {
-          result = DateTime.Now.AddMonths(-1*Convert.ToInt32(ldate.Substring(1)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
-      if (ldate.Substring(0, 1) == ">")
-      {
-        try
-        {
-          result = DateTime.Now.AddMonths(Convert.ToInt32(ldate.Substring(1)));
-        }
-        catch (FormatException)
-        {
-          return false;
-        }
-        return true;
-      }
+
+      // complex relative dates
       if (ldate.Length > 1)
       {
+
+        // days ago
+        if (ldate.Substring(0, 1) == "-")
+        {
+          try
+          {
+            result = DateTime.Now.AddDays(-1 * Convert.ToInt32(ldate.Substring(1)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
+
+        // days from today
+        if (ldate.Substring(0, 1) == "+")
+        {
+          try
+          {
+            result = DateTime.Now.AddDays(Convert.ToInt32(ldate.Substring(1)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
+
+        // years ago
         if (ldate.Substring(0, 2) == "<<")
         {
           try
@@ -120,6 +106,8 @@ namespace CslaContrib
           }
           return true;
         }
+
+        // years from today
         if (ldate.Substring(0, 2) == ">>")
         {
           try
@@ -132,12 +120,37 @@ namespace CslaContrib
           }
           return true;
         }
+
+        // months ago
+        if (ldate.Substring(0, 1) == "<")
+        {
+          try
+          {
+            result = DateTime.Now.AddMonths(-1 * Convert.ToInt32(ldate.Substring(1)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
+
+        // months from today
+        if (ldate.Substring(0, 1) == ">")
+        {
+          try
+          {
+            result = DateTime.Now.AddMonths(Convert.ToInt32(ldate.Substring(1)));
+          }
+          catch (FormatException)
+          {
+            return false;
+          }
+          return true;
+        }
       }
-#if !SILVERLIGHT
+
       if (Regex.IsMatch(ldate, @"^\d{1,2}$", RegexOptions.Compiled))
-#else
-      if (Regex.IsMatch(ldate, @"^\d{1,2}$"))
-#endif
       {
         int day;
         try
@@ -173,18 +186,12 @@ namespace CslaContrib
     private static string NormalizeAllShortForms(string value)
     {
       var pattern = System.Globalization.DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
-#if! SILVERLIGHT
+
       var separator = System.Globalization.DateTimeFormatInfo.CurrentInfo.DateSeparator;
-#else
-      var separator = pattern.Replace("y", string.Empty).Replace("d", string.Empty).Replace("M", string.Empty).Substring(0, 1);
-#endif
 
       // Normalize separator
-#if !SILVERLIGHT
       value = Regex.Replace(value, @"[ .,/\-\\]", separator, RegexOptions.Compiled);
-#else
-      value = Regex.Replace(value, @"[ .,/\-\\]", separator);
-#endif
+
       // Insert missing zeros
       var valueParts = value.Split(separator.ToCharArray());
       for (var i = 0; i < valueParts.Length; i++)
@@ -198,15 +205,10 @@ namespace CslaContrib
 
       var nrDigits = value.Length;
       var patternElements = pattern.Split(separator.ToCharArray());
-#if !SILVERLIGHT
+
       if (Regex.IsMatch(value, @"^\d{4}$", RegexOptions.Compiled) ||
           Regex.IsMatch(value, @"^\d{6}$", RegexOptions.Compiled) ||
           Regex.IsMatch(value, @"^\d{8}$", RegexOptions.Compiled))
-#else
-      if (Regex.IsMatch(value, @"^\d{4}$") ||
-          Regex.IsMatch(value, @"^\d{6}$") ||
-          Regex.IsMatch(value, @"^\d{8}$"))
-#endif
       {
         var tempValue = string.Empty;
         var valuePointer = 0;
@@ -246,11 +248,7 @@ namespace CslaContrib
     {
       result = DateTime.MaxValue;
 
-#if !SILVERLIGHT
       if (Regex.IsMatch(value, @"^\d{1,2}$", RegexOptions.Compiled))
-#else
-      if (Regex.IsMatch(value, @"^\d{1,2}$"))
-#endif
       {
         // Convert day-only to nearest date and return
         int day;

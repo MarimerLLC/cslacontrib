@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Xaml.Net45", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Xaml.Net46", "CslaContrib.Xaml.Net46\CslaContrib.Xaml.Net46.csproj", "{765917B5-0CC4-46DB-A9D3-99053F9E7BCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WisejWeb.Net45", "CslaContrib.WisejWeb.Net45\CslaContrib.WisejWeb.Net45.csproj", "{60310B97-943A-4068-BF43-A8EC6676AB3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -480,6 +482,26 @@ Global
 		{765917B5-0CC4-46DB-A9D3-99053F9E7BCB}.Release|x64.Build.0 = Release|Any CPU
 		{765917B5-0CC4-46DB-A9D3-99053F9E7BCB}.Release|x86.ActiveCfg = Release|Any CPU
 		{765917B5-0CC4-46DB-A9D3-99053F9E7BCB}.Release|x86.Build.0 = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|x64.Build.0 = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|x86.Build.0 = Debug|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|ARM.Build.0 = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|x64.ActiveCfg = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|x64.Build.0 = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

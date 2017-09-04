@@ -385,7 +385,7 @@ namespace CslaContrib.Rules.CommonRules
 
       if (!business.CanWriteProperty(context.Rule.PrimaryProperty))
       {
-        // shortcurcuit as success
+        // shortcurcuit as user cannot write to the property (set stopProcessing)
         context.AddSuccessResult(true);
       }
     }
@@ -403,7 +403,8 @@ namespace CslaContrib.Rules.CommonRules
     public StopIfNotIsNew(IPropertyInfo property) : base(property) { }
 
     /// <summary>
-    /// Executes the rule in specified context.
+    /// Rule indicating whether the target object is not new.
+    /// Will always be silent and never set rule to broken.
     /// </summary>
     /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
@@ -411,13 +412,14 @@ namespace CslaContrib.Rules.CommonRules
       var target = (ITrackStatus)context.Target;
       if (!target.IsNew)
       {
+        // shortcurcuit as target object isn't new (set stopProcessing)
         context.AddSuccessResult(true);
       }
     }
   }
 
   /// <summary>
-  /// ShortCircuit rule processing if target is not an existing object.
+  /// ShortCircuit rule processing if target is not an existing object (exists and is not deleted).
   /// </summary>
   public class StopIfNotIsExisting : BusinessRule
   {
@@ -428,21 +430,23 @@ namespace CslaContrib.Rules.CommonRules
     public StopIfNotIsExisting(IPropertyInfo property) : base(property) { }
 
     /// <summary>
-    /// Executes the rule in specified context.
+    /// Rule indicating whether the target object is an existing object (exists and is not deleted).
+    /// Will always be silent and never set rule to broken.
     /// </summary>
     /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
     {
       var target = (ITrackStatus)context.Target;
-      if (target.IsNew)
+      if (target == null || target.IsDeleted)
       {
+        // shortcurcuit as target object doesn't exist or was deleted (set stopProcessing)
         context.AddSuccessResult(true);
       }
     }
   }
 
   /// <summary>
-  /// If any of the additional properties has a value stop rule processing 
+  /// If any of the additional properties has a value stop rule processing
   /// for this field and make field valid. 
   /// </summary>
   public class StopIfAnyAdditionalHasValue : BusinessRule
@@ -460,7 +464,8 @@ namespace CslaContrib.Rules.CommonRules
     }
 
     /// <summary>
-    /// Executes the rule in specified context.
+    /// Rule indicating whether any of the additional properties has a value.
+    /// Will always be silent and never set rule to broken.
     /// </summary>
     /// <param name="context">The context.</param>
     protected override void Execute(RuleContext context)
@@ -482,8 +487,11 @@ namespace CslaContrib.Rules.CommonRules
         }
       }
 
-      // if hasValue then shortcut rule processing      
-      if (hasValue) context.AddSuccessResult(true);
+      if (hasValue)
+      {
+        // shortcurcuit as a value was found (set stopProcessing)
+        context.AddSuccessResult(true);
+      }
     }
   }
 

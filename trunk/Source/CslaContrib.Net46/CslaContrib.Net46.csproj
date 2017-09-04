@@ -62,62 +62,65 @@
     <Compile Include="..\CslaContrib.Net45\ObjectCaching\ObjectCacheEvictionAttribute.cs">
       <Link>ObjectCaching\ObjectCacheEvictionAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\authorizationrules\IsEmptyOrIsInRole.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsEmptyOrIsInRole.cs">
       <Link>Rules\AuthorizationRules\IsEmptyOrIsInRole.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\authorizationrules\IsNewOrIsInRole.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsNewOrIsInRole.cs">
       <Link>Rules\AuthorizationRules\IsNewOrIsInRole.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\authorizationrules\IsOwner.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsOwner.cs">
       <Link>Rules\AuthorizationRules\IsOwner.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\authorizationrules\IsOwnerOrIsInRole.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsOwnerOrIsInRole.cs">
       <Link>Rules\AuthorizationRules\IsOwnerOrIsInRole.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\authorizationrules\RestrictByStatusOrIsInRole.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs">
       <Link>Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\Rules\CommonRules.cs">
       <Link>Rules\CommonRules.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\conditionalrequired\RequiredWhenCanWrite.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenCanWrite.cs">
       <Link>Rules\ConditionalRequired\RequiredWhenCanWrite.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\conditionalrequired\RequiredWhenIsNotNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenIsNotNew.cs">
       <Link>Rules\ConditionalRequired\RequiredWhenIsNotNew.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\conditionalrequired\RequiredWhenNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenNew.cs">
       <Link>Rules\ConditionalRequired\RequiredWhenNew.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\daterules\DateNotInFuture.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\DateRules\DateNotInFuture.cs">
       <Link>Rules\DateRules\DateNotInFuture.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\Rules\DependencyFrom.cs">
       <Link>Rules\DependencyFrom.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\gatewayrules\CanWrite.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\CanWrite.cs">
       <Link>Rules\GatewayRules\CanWrite.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\FieldExists.cs">
       <Link>Rules\GatewayRules\FieldExists.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\gatewayrules\IsNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\IsNew.cs">
       <Link>Rules\GatewayRules\IsNew.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\gatewayrules\IsNotNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\IsNotNew.cs">
       <Link>Rules\GatewayRules\IsNotNew.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\objectrules\CollectionPopulated.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\CollectionPopulated.cs">
       <Link>Rules\ObjectRules\CollectionPopulated.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\objectrules\CommonObjectRule.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\CommonObjectRule.cs">
       <Link>Rules\ObjectRules\CommonObjectRule.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\objectrules\ObjectRuleEx.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\ObjectRuleEx.cs">
       <Link>Rules\ObjectRules\ObjectRuleEx.cs</Link>
     </Compile>
-    <Compile Include="..\cslacontrib.net45\rules\shortcircuitingrule\StopIfIsNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfIsNew.cs">
       <Link>Rules\ShortCircuitingRules\StopIfIsNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotFieldExists.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotFieldExists.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
       <Link>SmartDateExtendedParser.cs</Link>

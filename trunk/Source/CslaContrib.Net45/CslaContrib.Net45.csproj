@@ -79,7 +79,8 @@
     <Compile Include="Rules\ConditionalRequired\RequiredWhenIsNotNew.cs" />
     <Compile Include="Rules\ConditionalRequired\RequiredWhenNew.cs" />
     <Compile Include="Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs" />
-    <Compile Include="Rules\ShortCircuitingRule\StopIfIsNew.cs" />
+    <Compile Include="Rules\ShortCircuitingRules\StopIfIsNew.cs" />
+    <Compile Include="Rules\ShortCircuitingRules\StopIfNotFieldExists.cs" />
     <Compile Include="SmartDateExtendedParser.cs" />
   </ItemGroup>
   <ItemGroup>

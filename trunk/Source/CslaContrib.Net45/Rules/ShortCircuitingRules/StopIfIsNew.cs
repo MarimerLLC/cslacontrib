@@ -28,7 +28,8 @@ namespace CslaContrib.Rules.ShortCircuitingRules
         }
 
         /// <summary>
-        /// The execute.
+        /// Rule indicating whether the target object is new.
+        /// Will always be silent and never set rule to broken.
         /// </summary>
         /// <param name="context">
         /// The context.
@@ -38,6 +39,7 @@ namespace CslaContrib.Rules.ShortCircuitingRules
             var target = (ITrackStatus) context.Target;
             if (target.IsNew)
             {
+                // shortcurcuit as target object is new (set stopProcessing)
                 context.AddSuccessResult(true);
             }
         }

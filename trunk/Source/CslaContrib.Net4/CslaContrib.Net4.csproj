@@ -153,8 +153,11 @@
     <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\ObjectRuleEx.cs">
       <Link>Rules\ObjectRules\ObjectRuleEx.cs</Link>
     </Compile>
-    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRule\StopIfIsNew.cs">
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfIsNew.cs">
       <Link>Rules\ShortCircuitingRules\StopIfIsNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotFieldExists.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotFieldExists.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
       <Link>SmartDateExtendedParser.cs</Link>

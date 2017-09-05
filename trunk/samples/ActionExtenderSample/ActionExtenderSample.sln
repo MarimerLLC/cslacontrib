@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.UI", "ActionExtenderSample.UI\ActionExtenderSample.UI.csproj", "{BA22EE1E-C853-40B1-A5C1-ED2B10300AC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.WisejWeb", "ActionExtenderSample.WisejWeb\ActionExtenderSample.WisejWeb.csproj", "{BA22EE1E-C853-40B1-A5C1-ED2B10300AC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.Business", "ActionExtenderSample.Business\ActionExtenderSample.Business.csproj", "{95A0456E-6FFD-41F5-87F4-E4497192D2C8}"
 EndProject

@@ -1,2 +1,0 @@
-Build solutions before running normally (CTRL F5),
-or else the destination folder will be missing the concrete Data Access Layer as well as the MDF database file.

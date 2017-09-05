@@ -4,20 +4,35 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A993DBF-5F32-4AFC-8EE8-DD52A44775AC}</ProjectGuid>
+    <ProjectGuid>{04BE2B13-D0CC-4D31-98DC-022B68106842}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ActionExtenderSample.DataAccess</RootNamespace>
-    <AssemblyName>ActionExtenderSample.DataAccess</AssemblyName>
+    <RootNamespace>ActionExtenderSample.DataAccess.Sql</RootNamespace>
+    <AssemblyName>ActionExtenderSample.DataAccess.Sql</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\ActionExtenderSample.UI\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,7 +40,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\ActionExtenderSample.UI\bin\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,18 +58,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DalFactoryActionExtenderSample.cs" />
-    <Compile Include="DataNotFoundException.cs" />
-    <Compile Include="IDalManagerActionExtenderSample.cs" />
-    <Compile Include="IOrderDal.cs" />
-    <Compile Include="IOrderDal.Designer.cs">
-      <DependentUpon>IOrderDal.cs</DependentUpon>
+    <Compile Include="DalManagerActionExtenderSample.cs" />
+    <Compile Include="OrderDal.cs" />
+    <Compile Include="OrderDal.Designer.cs">
+      <DependentUpon>OrderDal.cs</DependentUpon>
     </Compile>
-    <Compile Include="IOrderDetailDal.cs" />
-    <Compile Include="IOrderDetailDal.Designer.cs">
-      <DependentUpon>IOrderDetailDal.cs</DependentUpon>
+    <Compile Include="OrderDetailDal.cs" />
+    <Compile Include="OrderDetailDal.Designer.cs">
+      <DependentUpon>OrderDetailDal.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ActionExtenderSample.DataAccess\ActionExtenderSample.DataAccess.csproj">
+      <Project>{2a993dbf-5f32-4afc-8ee8-dd52a44775ac}</Project>
+      <Name>ActionExtenderSample.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

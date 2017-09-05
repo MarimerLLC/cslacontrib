@@ -129,6 +129,10 @@
       <Project>{95a0456e-6ffd-41f5-87f4-e4497192d2c8}</Project>
       <Name>ActionExtenderSample.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ActionExtenderSample.DataAccess.Sql\ActionExtenderSample.DataAccess.Sql.csproj">
+      <Project>{04be2b13-d0cc-4d31-98dc-022b68106842}</Project>
+      <Name>ActionExtenderSample.DataAccess.Sql</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

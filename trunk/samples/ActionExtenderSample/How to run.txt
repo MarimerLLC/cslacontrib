@@ -1,4 +1,4 @@
-Set ActionExtenderSample.WinForms as Startup Project.
+Set ActionExtenderSample.WisejWeb as Startup Project.
 
-On the same project open App.config.
+On the same project open Web.config.
 Under <connectionStrings> select the appropriate connection string for SQL Server 2012 or SQL Server 2014.

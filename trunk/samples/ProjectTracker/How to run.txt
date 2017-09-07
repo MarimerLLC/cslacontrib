@@ -1,4 +1,4 @@
-1. Build teh solution
+1. Build the solution
 First of all, build the solution (CTRL+SHIT+B) or else the server folder will be missing 
 the implementation assemblies of the Data Access Layer (DAL).
 

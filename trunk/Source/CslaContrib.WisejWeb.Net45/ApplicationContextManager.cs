@@ -1,12 +1,25 @@
-﻿using System;
-using System.Security.Principal;
-using System.Threading;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ApplicationContextManager.cs" company="Marimer LLC">
+//     Copyright (c) Marimer LLC. All rights reserved.
+//     Website: http://www.lhotka.net/cslanet/
+// </copyright>
+// <summary>Application context manager that uses
+// Wisej.Base.ApplicationBase (aka WisejContext)</summary>
+//-----------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Csla.Core;
+using System.Web;
+using Csla.Security;
+using WisejContext = Wisej.Base.ApplicationBase;
 
 namespace CslaContrib.WisejWeb
 {
   /// <summary>
-  /// ApplicationContextManager for Windows Forms applications
+  /// Application context manager that uses Wisej.Base.ApplicationBase (aka WisejContext)
+  /// to store context values.
   /// </summary>
   public class ApplicationContextManager : IContextManager
   {
@@ -14,7 +27,17 @@ namespace CslaContrib.WisejWeb
     private const string _clientContextName = "Csla.ClientContext";
     private const string _globalContextName = "Csla.GlobalContext";
 
-    private static IPrincipal _principal;
+    private static string _sessionId;
+
+    public ApplicationContextManager()
+    {
+      _sessionId = WisejContext.SessionId;
+      WisejContext.Session.User = new UnauthenticatedPrincipal();
+      WisejContext.Session.Items = new Dictionary<string, ContextDictionary>();
+      SetLocalContext(new ContextDictionary());
+      SetClientContext(new ContextDictionary());
+      SetGlobalContext(new ContextDictionary());
+    }
 
     /// <summary>
     /// Gets a value indicating whether this
@@ -23,45 +46,35 @@ namespace CslaContrib.WisejWeb
     /// </summary>
     public bool IsValid
     {
-      get { return true; }
+      get
+      {
+        return _sessionId == WisejContext.SessionId;
+      }
     }
 
     /// <summary>
     /// Gets the current principal.
     /// </summary>
-    /// <returns></returns>
-    public IPrincipal GetUser()
+    public System.Security.Principal.IPrincipal GetUser()
     {
-      IPrincipal current;
-      if (_principal == null)
-      {
-        if (Csla.ApplicationContext.AuthenticationType != "Windows")
-          _principal = new Csla.Security.UnauthenticatedPrincipal();
-        else
-          _principal = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-      }
-      current = _principal;
-      return current;
+      return WisejContext.Session.User;
     }
 
     /// <summary>
     /// Sets the current principal.
     /// </summary>
     /// <param name="principal">Principal object.</param>
-    public void SetUser(IPrincipal principal)
+    public void SetUser(System.Security.Principal.IPrincipal principal)
     {
-      _principal = principal;
-      Thread.CurrentPrincipal = principal;
+      WisejContext.Session.User = principal;
     }
 
     /// <summary>
     /// Gets the local context.
     /// </summary>
-    /// <returns></returns>
     public ContextDictionary GetLocalContext()
     {
-      LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_localContextName);
-      return (ContextDictionary)Thread.GetData(slot);
+      return (ContextDictionary)WisejContext.Session.Items[_localContextName];
     }
 
     /// <summary>
@@ -70,25 +83,15 @@ namespace CslaContrib.WisejWeb
     /// <param name="localContext">Local context.</param>
     public void SetLocalContext(ContextDictionary localContext)
     {
-      LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_localContextName);
-      Thread.SetData(slot, localContext);
+      WisejContext.Session.Items[_localContextName] = localContext;
     }
 
     /// <summary>
     /// Gets the client context.
     /// </summary>
-    /// <returns></returns>
     public ContextDictionary GetClientContext()
     {
-      if (Csla.ApplicationContext.ExecutionLocation == Csla.ApplicationContext.ExecutionLocations.Client)
-      {
-        return (ContextDictionary)AppDomain.CurrentDomain.GetData(_clientContextName);
-      }
-      else
-      {
-        LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_clientContextName);
-        return (ContextDictionary)Thread.GetData(slot);
-      }
+      return (ContextDictionary)WisejContext.Session.Items[_clientContextName];
     }
 
     /// <summary>
@@ -97,25 +100,15 @@ namespace CslaContrib.WisejWeb
     /// <param name="clientContext">Client context.</param>
     public void SetClientContext(ContextDictionary clientContext)
     {
-      if (Csla.ApplicationContext.ExecutionLocation == Csla.ApplicationContext.ExecutionLocations.Client)
-      {
-        AppDomain.CurrentDomain.SetData(_clientContextName, clientContext);
-      }
-      else
-      {
-        LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_clientContextName);
-        Thread.SetData(slot, clientContext);
-      }
+      WisejContext.Session.Items[_clientContextName] = clientContext;
     }
 
     /// <summary>
     /// Gets the global context.
     /// </summary>
-    /// <returns></returns>
     public ContextDictionary GetGlobalContext()
     {
-      LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_globalContextName);
-      return (ContextDictionary)Thread.GetData(slot);
+      return (ContextDictionary)WisejContext.Session.Items[_globalContextName];
     }
 
     /// <summary>
@@ -124,8 +117,7 @@ namespace CslaContrib.WisejWeb
     /// <param name="globalContext">Global context.</param>
     public void SetGlobalContext(ContextDictionary globalContext)
     {
-      LocalDataStoreSlot slot = Thread.GetNamedDataSlot(_globalContextName);
-      Thread.SetData(slot, globalContext);
+      WisejContext.Session.Items[_globalContextName] = globalContext;
     }
   }
 }

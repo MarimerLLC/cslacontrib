@@ -1,0 +1,19 @@
+1. Build the solution
+First of all, build the solution (CTRL+SHIT+B) or else the server folder will be missing 
+the implementation assemblies of the Data Access Layer (DAL).
+
+2. Set Startup Project
+Set ProjectTracker.Ui.WisejWeb or ProjectTracker.Ui.WinForm as Startup Project.
+
+3. Fix connection string for LocalDb
+On ProjectTracker.AppServerHost open Web.config.
+Under <connectionStrings> select the appropriate connection string for SQL Server 2012 or SQL Server 2014.
+
+4. Running with Application Server
+Debug with F5 to start the Application Server (ProjectTracker.AppServerHost).
+You can break the debug and run normally with CTRL F5.
+You can switch the Startup Project (WisejWeb/WinForms) and don't need to start the Application Server again.
+
+5. Running without the Application Server (direct access to the databases)
+On ProjectTracker.Ui.WisejWeb, open "Web.config-no-server" and copy its content to "Web.config".
+On ProjectTracker.Ui.WinForm, open "App.config-no-server" and copy its content to "App.config".

@@ -2,7 +2,6 @@
 using Csla;
 using Csla.Security;
 using System.Threading.Tasks;
-using Csla.Serialization.Mobile;
 
 namespace ProjectTracker.Library.Security
 {

@@ -69,10 +69,11 @@ namespace PTWisej
       this.toolStrip1.TabIndex = 1;
       this.toolStrip1.TabStop = false;
       this.toolStrip1.TextAlign = Wisej.Web.ToolBarTextAlign.Right;
-      // 
-      // ProjectsStripDropDownButton1
-      // 
-      this.ProjectsStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("ProjectsStripDropDownButton1.Image")));
+      this.toolStrip1.ButtonDropDown += new Wisej.Web.ToolBarButtonClickEventHandler(this.DocumentsToolStripDropDownButton_DropDownOpening);
+            // 
+            // ProjectsStripDropDownButton1
+            // 
+            this.ProjectsStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("ProjectsStripDropDownButton1.Image")));
       this.ProjectsStripDropDownButton1.Name = "ProjectsStripDropDownButton1";
       this.ProjectsStripDropDownButton1.Text = "Projects";
       this.ProjectsStripDropDownButton1.DropDownMenu = this.projectsMenu;
@@ -113,6 +114,7 @@ namespace PTWisej
       this.DocumentsToolStripDropDownButton.Text = "Documents";
       this.DocumentsToolStripDropDownButton.DropDownMenu = this.documentsMenu;
       this.DocumentsToolStripDropDownButton.Style = ToolBarButtonStyle.DropDownButton;
+      //this.DocumentsToolStripDropDownButton.DropDownOpening += new System.EventHandler(this.DocumentsToolStripDropDownButton_DropDownOpening);
       // 
       // NewProjectToolStripMenuItem
       // 

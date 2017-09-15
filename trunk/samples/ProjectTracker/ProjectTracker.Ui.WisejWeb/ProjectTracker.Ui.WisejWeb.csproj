@@ -51,7 +51,6 @@
     <Content Include="Properties\DataSources\ProjectTracker.Library.ResourceList.datasource" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.RoleList.datasource" />
     <Content Include="packages.config" />
-    <Content Include="Web.config-no-server" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -169,10 +168,6 @@
     <ProjectReference Include="..\ProjectTracker.BusinessLibrary.Net\ProjectTracker.BusinessLibrary.Net.csproj">
       <Project>{4eb86750-17f4-4ad6-a63a-c56cb7836b6b}</Project>
       <Name>ProjectTracker.BusinessLibrary.Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProjectTracker.DalEf\ProjectTracker.DalEf.csproj">
-      <Project>{90ea85e8-b0f9-453e-a4c8-837939211c44}</Project>
-      <Name>ProjectTracker.DalEf</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectTracker.Dal\ProjectTracker.Dal.csproj">
       <Project>{677efbd4-1565-4d5d-a022-c2a85078db64}</Project>

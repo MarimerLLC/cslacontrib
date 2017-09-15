@@ -393,6 +393,15 @@ namespace PTWisej
     /// <summary>
     /// Populate the Documents dropdown list.
     /// </summary>
+    private void DocumentsToolStripDropDownButton_DropDownOpening(
+      object sender, EventArgs e)
+    {
+      PopulateDocuments();
+    }
+
+    /// <summary>
+    /// Populate the Documents dropdown list.
+    /// </summary>
     private void PopulateDocuments()
     {
       Menu.MenuItemCollection items =
@@ -401,7 +410,7 @@ namespace PTWisej
         item.Click -= new EventHandler(DocumentClick);
       items.Clear();
 
-      foreach (Control ctl in Panel1.Controls)    
+      foreach (Control ctl in Panel1.Controls)
         if (ctl is WinPart)
         {
           MenuItem item = new MenuItem();

@@ -1,13 +1,12 @@
 using System;
 using System.Security.Principal;
 using Csla.Security;
-using Csla.Serialization.Mobile;
 
 namespace ProjectTracker.Library.Security
 {
   [Serializable]
   public class PTPrincipal : CslaPrincipal
-    {
+  {
     public PTPrincipal()
     { }
 

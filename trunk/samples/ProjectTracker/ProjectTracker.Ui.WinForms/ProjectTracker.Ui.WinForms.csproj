@@ -142,7 +142,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
-    <None Include="App.config-no-server" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ProjectTracker.Library.ProjectList.datasource" />
     <None Include="Properties\DataSources\ProjectTracker.Library.ResourceList.datasource" />

@@ -14,7 +14,7 @@ using Csla.Rules;
 namespace CslaContrib.Rules.ObjectRules
 {
     /// <summary>
-    /// Base class for an object rule 
+    /// Base class for an object rule
     /// </summary>
     public abstract class ObjectRuleEx : BusinessRule
     {
@@ -30,8 +30,8 @@ namespace CslaContrib.Rules.ObjectRules
 
         /// <summary>
         /// Gets or sets the error message function for this rule.
-        /// Use this for localizable messages from a resource file. 
-        /// </summary>    
+        /// Use this for localizable messages from a resource file.
+        /// </summary>
         /// <value>The error message function.</value>
         public Func<string> MessageDelegate { get; set; }
 
@@ -39,7 +39,7 @@ namespace CslaContrib.Rules.ObjectRules
         /// Gets a value indicating whether this instance has message delegate.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance has message delegate; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance has message delegate; otherwise, <c>false</c>.
         /// </value>
         protected bool HasMessageDelegate
         {
@@ -88,7 +88,7 @@ namespace CslaContrib.Rules.ObjectRules
         /// Gets or sets a value indicating whether this instance can run in logical serverside data portal.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance can run logical serverside data portal; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance can run logical serverside data portal; otherwise, <c>false</c>.
         /// </value>
         public bool CanRunOnServer
         {
@@ -110,7 +110,7 @@ namespace CslaContrib.Rules.ObjectRules
         /// Gets or sets a value indicating whether this instance can run when CheckRules is called on BO.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance can run when CheckRules is called; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance can run when CheckRules is called; otherwise, <c>false</c>.
         /// </value>
         public bool CanRunInCheckRules
         {

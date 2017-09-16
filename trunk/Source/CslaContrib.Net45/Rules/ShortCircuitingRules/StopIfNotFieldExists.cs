@@ -31,7 +31,7 @@ namespace CslaContrib.Rules.ShortCircuitingRules
 
         /// <summary>
         /// Rule indicating whether the lazy loaded field is not initalized
-		/// (ie: not included in InputPropertyValues).
+        /// (ie: not included in InputPropertyValues).
         /// Will always be silent and never set rule to broken.
         /// </summary>
         /// <param name="context">Rule context object.</param>

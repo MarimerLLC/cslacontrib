@@ -116,11 +116,23 @@
     <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\ObjectRuleEx.cs">
       <Link>Rules\ObjectRules\ObjectRuleEx.cs</Link>
     </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfAnyAdditionalHasValue.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfAnyAdditionalHasValue.cs</Link>
+    </Compile>
     <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfIsNew.cs">
       <Link>Rules\ShortCircuitingRules\StopIfIsNew.cs</Link>
     </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotCanWrite.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotCanWrite.cs</Link>
+    </Compile>
     <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotFieldExists.cs">
       <Link>Rules\ShortCircuitingRules\StopIfNotFieldExists.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotIsExisting.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotIsExisting.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotIsNew.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotIsNew.cs</Link>
     </Compile>
     <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
       <Link>SmartDateExtendedParser.cs</Link>

@@ -3,12 +3,10 @@
 //   Copyright (c) Marimer LLC. All rights reserved. Website: http://www.lhotka.net/cslanet
 // </copyright>
 // <summary>
-//   Establishes a dependency from properties to PrimaryProperty, raising NotifyPropertyChanged and re-running the 
+//   Establishes a dependency from properties to PrimaryProperty, raising NotifyPropertyChanged and re-running the
 //   rules for PrimaryProperty whenever one of the dependencyProperties is changed.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-
 using System.Collections.Generic;
 using Csla.Core;
 using Csla.Rules;
@@ -18,7 +16,7 @@ namespace CslaContrib.Rules
     /// <summary>
     /// A rule that establishes a dependency from properties to PrimaryProperty.
     /// The rules for PrimaryProperty will be rerun whenever one of the dependencyProperties is changed.
-    /// NotifyPropertyChanged will also be raised for PrimaryProperty when any of input properties is changed. 
+    /// NotifyPropertyChanged will also be raised for PrimaryProperty when any of input properties is changed.
     /// </summary>
     public class DependencyFrom : BusinessRule
     {

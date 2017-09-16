@@ -725,12 +725,11 @@ namespace CslaContrib.Rules.CommonRules
 
   #region List rules
 
-
   /// <summary>
   /// Validation rule for checking a property is unique at the collection level.
   /// </summary>
   public class NoDuplicates<T, C> : CommonBusinessRule
-    where T : Csla.BusinessListBase<T, C>
+    where T : System.Collections.ObjectModel.Collection<C>
     where C : Csla.BusinessBase<C>
   {
     /// <summary>
@@ -775,12 +774,11 @@ namespace CslaContrib.Rules.CommonRules
 
       var value = Convert.ToString(o);
 
-
       var target = (C)context.Target;
       var parent = (T)target.Parent;
       if (parent != null)
       {
-        if (parent.Any(item => value.Equals(Convert.ToString(ReadProperty(item, PrimaryProperty)), StringComparison.InvariantCultureIgnoreCase) 
+        if (parent.Any(item => value.Equals(Convert.ToString(ReadProperty(item, PrimaryProperty)), StringComparison.InvariantCultureIgnoreCase)
                                && !(ReferenceEquals(item, target))))
         {
           var message = string.Format(GetMessage(), InputProperties[0].FriendlyName);
@@ -789,5 +787,6 @@ namespace CslaContrib.Rules.CommonRules
       }
     }
   }
+
   #endregion
 }

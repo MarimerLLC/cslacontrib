@@ -6,14 +6,12 @@
 //   Gateway rule that will only call inner rule when lazy loaded field (primary property) is initialized.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-
 using System.Collections.Generic;
 using System.Linq;
 using Csla.Core;
 using Csla.Rules;
 
-namespace CslaContrib.Rules
+namespace CslaContrib.Rules.GatewayRules
 {
     /// <summary>
     /// Gateway rule that will only call inner rule when lazy loaded field (primary property) is initialized.
@@ -40,13 +38,13 @@ namespace CslaContrib.Rules
             InnerRule = innerRule;
             RuleUri.AddQueryParameter("rule", System.Uri.EscapeUriString(InnerRule.RuleName));
 
-            // merge InnerRule input property list into this rule's list 
+            // merge InnerRule input property list into this rule's list
             if (InnerRule.InputProperties != null)
             {
                 InputProperties.AddRange(InnerRule.InputProperties);
             }
 
-            // remove any duplicates 
+            // remove any duplicates
             InputProperties = new List<IPropertyInfo>(InputProperties.Distinct());
             AffectedProperties.AddRange(innerRule.AffectedProperties);
         }

@@ -117,6 +117,9 @@
     <Compile Include="..\CslaContrib.Caliburn.Micro.V2.WPF.Net45\WeakValueDictionary.cs">
       <Link>WeakValueDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

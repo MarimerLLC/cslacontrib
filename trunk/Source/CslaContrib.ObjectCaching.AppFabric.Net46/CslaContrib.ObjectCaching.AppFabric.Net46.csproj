@@ -33,14 +33,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CSLA-Core.4.6.603\lib\net46\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.6.603\lib\net46\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.ApplicationServer.Caching.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServerAppFabric.Client.1.1.2106.32\lib\net35\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+      <HintPath>..\packages\ServerAppFabric.Client.1.1.2106.32\lib\net35\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationServer.Caching.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServerAppFabric.Client.1.1.2106.32\lib\net35\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+      <HintPath>..\packages\ServerAppFabric.Client.1.1.2106.32\lib\net35\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -56,16 +56,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CslaContrib.Net46\CslaContrib.Net46.csproj">
       <Project>{0c7d0fcf-27fe-42ec-8d6d-0a4fce69ea51}</Project>
       <Name>CslaContrib.Net46</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

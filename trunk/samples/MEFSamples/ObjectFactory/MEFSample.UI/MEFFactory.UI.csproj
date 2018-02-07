@@ -40,7 +40,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CslaContrib.MEF, Version=4.6.602.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-MEF.4.6.602\lib\net45\CslaContrib.MEF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CslaContrib.Windows, Version=4.6.602.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-Windows.4.6.602\lib\net45\CslaContrib.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -107,14 +115,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Source\CslaContrib.MEF.Net45\CslaContrib.MEF.Net45.csproj">
-      <Project>{06189757-fbb9-4d00-8b9e-7bebb543e66c}</Project>
-      <Name>CslaContrib.MEF.Net45</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Source\CslaContrib.Windows.Net45\CslaContrib.Windows.Net45.csproj">
-      <Project>{0e0aa042-151e-4d59-a26d-4d262660e491}</Project>
-      <Name>CslaContrib.Windows.Net45</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MEFSample.Business\MEFSample.Factory.Business.csproj">
       <Project>{AE8E6F84-2F8F-4F9D-8D93-40B6C9FAE18B}</Project>
       <Name>MEFSample.Factory.Business</Name>
@@ -125,7 +125,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

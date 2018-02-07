@@ -90,11 +90,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CslaContrib.WisejWeb, Version=4.6.602.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-Wisej.4.6.602\lib\net45\CslaContrib.WisejWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -121,10 +122,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Source\CslaContrib.WisejWeb.Net45\CslaContrib.WisejWeb.Net45.csproj">
-      <Project>{60310b97-943a-4068-bf43-a8ec6676ab3f}</Project>
-      <Name>CslaContrib.WisejWeb.Net45</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ActionExtenderSample.Business\ActionExtenderSample.Business.csproj">
       <Project>{95a0456e-6ffd-41f5-87f4-e4497192d2c8}</Project>
       <Name>ActionExtenderSample.Business</Name>
@@ -133,6 +130,9 @@
       <Project>{04be2b13-d0cc-4d31-98dc-022b68106842}</Project>
       <Name>ActionExtenderSample.DataAccess.Sql</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

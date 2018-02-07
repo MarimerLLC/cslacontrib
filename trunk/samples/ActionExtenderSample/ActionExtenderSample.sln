@@ -11,10 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.DataAc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionExtenderSample.DataAccess.Sql", "ActionExtenderSample.DataAccess.Sql\ActionExtenderSample.DataAccess.Sql.csproj", "{04BE2B13-D0CC-4D31-98DC-022B68106842}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{81C2C10D-DC47-4FC6-90C9-F18184C39F6A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WisejWeb.Net45", "..\..\Source\CslaContrib.WisejWeb.Net45\CslaContrib.WisejWeb.Net45.csproj", "{60310B97-943A-4068-BF43-A8EC6676AB3F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "How to run", "How to run", "{5CC98BDC-BF75-45F2-8B5C-EF7AAAAC9561}"
 	ProjectSection(SolutionItems) = preProject
 		How to run.txt = How to run.txt
@@ -47,15 +43,8 @@ Global
 		{04BE2B13-D0CC-4D31-98DC-022B68106842}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BE2B13-D0CC-4D31-98DC-022B68106842}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BE2B13-D0CC-4D31-98DC-022B68106842}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60310B97-943A-4068-BF43-A8EC6676AB3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{60310B97-943A-4068-BF43-A8EC6676AB3F} = {81C2C10D-DC47-4FC6-90C9-F18184C39F6A}
 	EndGlobalSection
 EndGlobal

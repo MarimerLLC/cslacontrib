@@ -142,11 +142,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Csla, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
+      <HintPath>..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CslaContrib.WisejWeb, Version=4.6.601.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\CslaContrib-Wisej.4.6.601\lib\net45\CslaContrib.WisejWeb.dll</HintPath>
+    <Reference Include="CslaContrib.WisejWeb, Version=4.6.602.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-Wisej.4.6.602\lib\net45\CslaContrib.WisejWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -175,7 +175,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

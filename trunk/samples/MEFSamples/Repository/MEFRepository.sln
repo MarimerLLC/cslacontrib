@@ -19,14 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "- Solution Items", "- Solut
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework projects", "Framework projects", "{D181CA24-2A21-44AF-A5FB-47CBE60C76DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net45", "..\..\..\Source\CslaContrib.Net45\CslaContrib.Net45.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net45", "..\..\..\Source\CslaContrib.MEF.Net45\CslaContrib.MEF.Net45.csproj", "{06189757-FBB9-4D00-8B9E-7BEBB543E66C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows.Net45", "..\..\..\Source\CslaContrib.Windows.Net45\CslaContrib.Windows.Net45.csproj", "{0E0AA042-151E-4D59-A26D-4D262660E491}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,50 +69,9 @@ Global
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AFF58DA2-C75C-4F48-BC4D-58F061AFBC8C}.Release|x86.ActiveCfg = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Debug|x86.Build.0 = Debug|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.ActiveCfg = Release|Any CPU
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B}.Release|x86.Build.0 = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Debug|x86.Build.0 = Debug|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|x86.ActiveCfg = Release|Any CPU
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C}.Release|x86.Build.0 = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Debug|x86.Build.0 = Debug|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|x86.ActiveCfg = Release|Any CPU
-		{0E0AA042-151E-4D59-A26D-4D262660E491}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{267A47BA-E5E2-489F-B1D7-B0D663AF316B} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
-		{06189757-FBB9-4D00-8B9E-7BEBB543E66C} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
-		{0E0AA042-151E-4D59-A26D-4D262660E491} = {D181CA24-2A21-44AF-A5FB-47CBE60C76DA}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = MEFRepository.vsmdi

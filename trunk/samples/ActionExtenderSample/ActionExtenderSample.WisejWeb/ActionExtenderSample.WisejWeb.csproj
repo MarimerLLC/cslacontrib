@@ -50,6 +50,7 @@
     <Content Include="Default.json" />
     <Content Include="favicon.ico" />
     <Content Include="Themes\Classic-2.theme" />
+    <Content Include="Themes\Classic-3.theme" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

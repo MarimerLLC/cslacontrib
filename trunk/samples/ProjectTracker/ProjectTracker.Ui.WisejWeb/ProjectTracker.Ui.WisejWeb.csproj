@@ -47,6 +47,7 @@
     <Content Include="Default.json" />
     <Content Include="favicon.ico" />
     <Content Include="Themes\Classic-2.theme" />
+    <Content Include="Themes\Classic-3.theme" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.ProjectList.datasource" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.ResourceList.datasource" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.RoleList.datasource" />

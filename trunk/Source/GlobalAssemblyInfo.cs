@@ -2,8 +2,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("CslaContrib project")]
-[assembly: AssemblyCopyright("Copyright © CslaContrib 2009-2017")]
+[assembly: AssemblyCopyright("Copyright © 2009-2018 Marimer LLC")]
 [assembly: AssemblyTrademark("")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("4.6.602")]
-[assembly: AssemblyFileVersion("4.6.602")]
+[assembly: AssemblyVersion("4.6.603")]
+[assembly: AssemblyFileVersion("4.6.603")]

@@ -23,6 +23,7 @@ namespace CslaContrib.Caliburn.Micro.V2
 #if NET45
     using System.Runtime.CompilerServices;
 #endif
+    using ICloneable = Csla.ICloneable;
 
     /// <summary>
     /// Base class used to create ScreenWithModel objects that

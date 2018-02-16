@@ -1,3 +1,12 @@
+Importanta notice
+=================
+
+The factory configuration uses CSLA .NET Azure DataPortal.
+You just need to select the Startup Project and hit run.
+
+The below instructions only apply if you want to play around.
+
+
 1. Build the solution
 First of all, build the solution (CTRL+SHIT+B) or else the server folder will be missing 
 the implementation assemblies of the Data Access Layer (DAL).

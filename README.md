@@ -1,4 +1,5 @@
 ![](https://raw.github.com/MarimerLLC/csla/master/Support/Logos/csla%20win8_mid.png)
+
 CSLA .NET public contribution project
 ====
 The use (and contribution to) cslacontrib is governed by the [LICENSE.md](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md) file in this repo.

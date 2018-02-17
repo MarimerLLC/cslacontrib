@@ -19,13 +19,13 @@ function Pause( $Message="Press any key to continue..." )
 function ChangeNuSpecVersion( $nuSpecFilePath, $version="0.0.0.0" )
 {
     Write-Host "Dynamically setting NuSpec version: $Version" -ForegroundColor Yellow
-    
+
     # Get full path or save operation fails when launched in standalone powershell
     $nuSpecFile = Get-Item $nuSpecFilePath | Select-Object -First 1
-    
+
     # Bring the XML Linq namespace in
     [Reflection.Assembly]::LoadWithPartialName( "System.Xml.Linq" ) | Out-Null
-    
+
     # Update the XML document with the new version
     $xDoc = [System.Xml.Linq.XDocument]::Load( $nuSpecFile.FullName )
     $versionNode = $xDoc.Descendants( "version" ) | Select-Object -First 1
@@ -33,7 +33,7 @@ function ChangeNuSpecVersion( $nuSpecFilePath, $version="0.0.0.0" )
     {
         $versionNode.SetValue($version)
     }
-    
+
     # Update the XML document dependencies with the new version
     $dependencies = $xDoc.Descendants( "dependency" )
     foreach( $dependency in $dependencies )
@@ -47,7 +47,7 @@ function ChangeNuSpecVersion( $nuSpecFilePath, $version="0.0.0.0" )
             }
         }
     }
-    
+
     # Save file
     $xDoc.Save( $nuSpecFile.FullName )
 }
@@ -58,10 +58,10 @@ function CopyMaintainingSubDirectories( $basePath, $includes, $targetBasePath )
     $filesToCopy = Get-ChildItem "$basePath\*" -Include $includes -Recurse
     #$filesToCopy | Write-Host -ForegroundColor DarkGray # Debug.Print
     foreach( $file in $filesToCopy )
-    { 
+    {
         $targetDirectory = Join-Path $targetBasePath $file.Directory.FullName.Substring( $basePathLength )
         if ( (Test-Path $targetDirectory) -ne $true)
-        { 
+        {
             [System.IO.Directory]::CreateDirectory( $targetDirectory ) | Out-Null
         }
         Copy-Item $file -Destination $targetDirectory
@@ -90,7 +90,7 @@ if ( [System.String]::IsNullOrEmpty($commandLineOptions) -ne $true )
     }
 }
 
-try 
+try
 {
     ## Initialise
     ## ----------
@@ -101,7 +101,7 @@ try
     $pathToNuGetPackageOutput = [System.IO.Path]::GetFullPath( "$basePath\..\Packages" )
     $originalBackground = $host.UI.RawUI.BackgroundColor
     $originalForeground = $host.UI.RawUI.ForegroundColor
-    
+
     $host.UI.RawUI.BackgroundColor = [System.ConsoleColor]::Black
     $host.UI.RawUI.ForegroundColor = [System.ConsoleColor]::White
 
@@ -114,13 +114,13 @@ try
     }
 
     ## Update Package Version
-    ## ----------------------    
+    ## ----------------------
     ## Before building NuGet package, extract CslaContrib Version number and update .NuSpec to automate versioning of .NuSpec document
     ## - JH: Not sure if I should get direct from source code file or from file version of compiled library instead.
     ## - JH: Going with product version in assembly for now
     $cslaContribAssembly = Get-ChildItem "$pathToBin\NET46\CslaContrib.dll" | Select-Object -First 1
     ## - JH: If $preRelease is specified, then append it with a dash following the 3rd component of the quad-dotted-version number
-    ##       Refer: http://docs.nuget.org/docs/Reference/Versioning 
+    ##       Refer: http://docs.nuget.org/docs/Reference/Versioning
     if ( [System.String]::IsNullOrEmpty( $preRelease ) -ne $true )
     {
         $productVersion = [System.String]::Format( "{0}.{1}.{2}-{3}", $cslaContribAssembly.VersionInfo.ProductMajorPart, $cslaContribAssembly.VersionInfo.ProductMinorPart, $cslaContribAssembly.VersionInfo.ProductBuildPart, $preRelease )
@@ -130,24 +130,24 @@ try
         $productVersion = [System.String]::Format( "{0}.{1}.{2}", $cslaContribAssembly.VersionInfo.ProductMajorPart, $cslaContribAssembly.VersionInfo.ProductMinorPart, $cslaContribAssembly.VersionInfo.ProductBuildPart )
     }
     ChangeNuSpecVersion "$basePath\$package.NuSpec" $productVersion
-    
+
     ## Launch NuGet.exe to build package
     Write-Host "Build NuGet package: $package..." -ForegroundColor Yellow
     & $pathToNuGetPackager pack "$basePath\$package.NuSpec" -Symbols
-    
+
     ## Publish package to Gallery using API Key
     ## JH - TODO
 
     ## Move NuGet package to Package Release folder"
     Write-Host "Move package to ..\Packages folder..." -ForegroundColor Yellow
     Move-Item "*.nupkg" -Destination $pathToNuGetPackageOutput -Force
-    
+
     ## Cleanup after ourselves
     ## JH - TODO
 
     Write-Host "Done." -ForegroundColor Green
 }
-catch 
+catch
 {
     $baseException = $_.Exception.GetBaseException()
     if ( $_.Exception -ne $baseException )
@@ -156,8 +156,8 @@ catch
     }
     Write-Host $_.Exception.Message -ForegroundColor Magenta
     Pause
-} 
-finally 
+}
+finally
 {
     $host.UI.RawUI.BackgroundColor = $originalBackground
     $host.UI.RawUI.ForegroundColor = $originalForeground

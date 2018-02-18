@@ -35,7 +35,7 @@ if ( [System.String]::IsNullOrEmpty($commandLineOptions) -ne $true )
     }
 }
 
-try 
+try
 {
     ## Initialise
     ## ----------
@@ -44,10 +44,10 @@ try
     $originalLocation = Get-Location
     $packages = @("Caliburn.Micro WPF", "Caliburn.Micro WPF.V2", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Wisej", "Windows") ## Leave out "WPF" until it has some content.
     ## $packages = @("Caliburn.Micro WPF", "Caliburn.Micro WPF.V2", "CslaContrib", "CustomFieldData", "MEF", "ObjectCaching AppFabric", "Wisej", "Windows", "WPF")
-    
+
     $host.UI.RawUI.BackgroundColor = [System.ConsoleColor]::Black
     $host.UI.RawUI.ForegroundColor = [System.ConsoleColor]::White
-    
+
     Write-Host "Build All CslaContrib NuGet packages" -ForegroundColor White
     Write-Host "====================================" -ForegroundColor White
 
@@ -58,24 +58,24 @@ try
     ## ---------------------------------------
     Write-Host "Clean destination folders..." -ForegroundColor Yellow
     Remove-Item ".\Packages\*.nupkg" -Recurse -Force -ErrorAction SilentlyContinue
-    
+
     ## RDL - Copy definition files to temp folder
     ## ------------------------------------------
     Write-Host "Copy NuSpec files to working directory..." -ForegroundColor Yellow
     mkdir deftmp  -ErrorAction Ignore
     Remove-Item ".\deftmp\*" -Recurse -Force -ErrorAction SilentlyContinue
     Copy -Recurse $originalLocation\Definition\* $originalLocation\deftmp
-    
+
     ## Spawn off individual build processes...
     ## ---------------------------------------
     Set-Location "$originalLocation\deftmp" ## Adjust current working directory since scripts are using relative paths
     $packages | ForEach { & ".\Build.ps1" $_ $commandLineOptions }
 
-    Set-Location "$originalLocation" 
+    Set-Location "$originalLocation"
     Remove-Item "deftmp" -Recurse -Force -ErrorAction SilentlyContinue
     Write-Host "Build All - Done." -ForegroundColor Green
 }
-catch 
+catch
 {
     $baseException = $_.Exception.GetBaseException()
     if ($_.Exception -ne $baseException)
@@ -84,8 +84,8 @@ catch
     }
     Write-Host $_.Exception.Message -ForegroundColor Magenta
     Pause
-} 
-finally 
+}
+finally
 {
     ## Restore original values
     $host.UI.RawUI.BackgroundColor = $originalBackground

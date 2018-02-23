@@ -52,6 +52,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Csla.Core;
 
 namespace CslaContrib.Windows
 {
@@ -62,7 +63,7 @@ namespace CslaContrib.Windows
   /// BrokenRulesCollection of a CSLA .NET business object.
   /// </summary>
   [DesignerCategory("")]
-  [ToolboxItem(true), ToolboxBitmap(typeof (ErrorWarnInfoProvider), "Cascade.ico")]
+  [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
   public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
   {
     #region private variables
@@ -133,6 +134,7 @@ namespace CslaContrib.Windows
       {
         components?.Dispose();
       }
+
       base.Dispose(disposing);
     }
 
@@ -305,6 +307,14 @@ namespace CslaContrib.Windows
           {
             bs1.CurrentItemChanged -= DataSource_CurrentItemChanged;
           }
+          else
+          {
+            var npc1 = base.DataSource as INotifyPropertyChanged;
+            if (npc1 != null)
+            {
+              npc1.PropertyChanged -= DataSource_CurrentItemChanged;
+            }
+          }
         }
 
         base.DataSource = value;
@@ -314,17 +324,31 @@ namespace CslaContrib.Windows
         {
           bs.CurrentItemChanged += DataSource_CurrentItemChanged;
         }
+        else
+        {
+          var npc = value as INotifyPropertyChanged;
+          if (npc != null)
+          {
+            npc.PropertyChanged += DataSource_CurrentItemChanged;
+          }
+        }
+
+        if (_controls.Count == 0)
+        {
+          UpdateBindingsAndProcessAllControls();
+        }
       }
     }
 
-    /*private void UpdateBindingsAndProcessAllControls()
+    private void UpdateBindingsAndProcessAllControls()
     {
       if (ContainerControl != null)
       {
         InitializeAllControls(ContainerControl.Controls);
       }
+
       ProcessAllControls();
-    }*/
+    }
 
     /// <summary>
     /// Gets or sets the icon information.
@@ -415,7 +439,8 @@ namespace CslaContrib.Windows
     /// </summary>
     /// <value><c>true</c> if show only most severe; otherwise, <c>false</c>.</value>
     [Category("Behavior")]
-    [DefaultValue(true), Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
+    [DefaultValue(true),
+     Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
     public bool ShowOnlyMostSevere
     {
       get { return _showMostSevereOnly; }
@@ -480,7 +505,9 @@ namespace CslaContrib.Windows
       // not a Label then 'hook' the validating event here!
       foreach (Control control in controls)
       {
-        if (control is Label) continue;
+        if (control is Label)
+          continue;
+
         // Initialize bindings
         foreach (Binding binding in control.DataBindings)
         {
@@ -490,6 +517,7 @@ namespace CslaContrib.Windows
             _controls.Add(control);
           }
         }
+
         // Initialize any subcontrols
         if (control.Controls.Count > 0)
         {
@@ -521,15 +549,14 @@ namespace CslaContrib.Windows
       _warningList.Clear();
       _errorList.Clear();
 
-      BindingSource bs = (BindingSource) DataSource;
-      if (bs == null)
-        return;
-      if (bs.Position == -1)
-        return;
-
       // we can only deal with CSLA BusinessBase objects
-      // get the BusinessBase object
-      Csla.Core.BusinessBase bb = bs.Current as Csla.Core.BusinessBase;
+
+      // try to get the BusinessBase object as a BindingSource
+      var bb = GetAsBindingSource();
+
+      // if not a BindingSource, try to get it as an INotifyPropertyChanged
+      if (bb == null)
+        bb = GetAsNotifyPropertyChanged();
 
       if (bb != null)
       {
@@ -551,6 +578,7 @@ namespace CslaContrib.Windows
               {
                 _errorList.Add(br.Property, br.Description);
               }
+
               break;
             case Csla.Rules.RuleSeverity.Warning:
               if (_warningList.ContainsKey(br.Property))
@@ -562,6 +590,7 @@ namespace CslaContrib.Windows
               {
                 _warningList.Add(br.Property, br.Description);
               }
+
               break;
             default: // consider it an Info
               if (_infoList.ContainsKey(br.Property))
@@ -573,10 +602,29 @@ namespace CslaContrib.Windows
               {
                 _infoList.Add(br.Property, br.Description);
               }
+
               break;
           }
         }
       }
+    }
+
+    private BusinessBase GetAsBindingSource()
+    {
+      BindingSource bs = DataSource as BindingSource;
+      if (bs == null)
+        return null;
+      if (bs.Position == -1)
+        return null;
+
+      return bs.Current as BusinessBase;
+    }
+
+    private BusinessBase GetAsNotifyPropertyChanged()
+    {
+      INotifyPropertyChanged npc = DataSource as INotifyPropertyChanged;
+
+      return npc as BusinessBase;
     }
 
     private void ProcessControls()
@@ -615,7 +663,7 @@ namespace CslaContrib.Windows
           if (_warningList.ContainsKey(propertyName))
             sbWarn.AppendLine(_warningList[propertyName]);
           if (_infoList.ContainsKey(propertyName))
-            sbInfo.AppendLine(propertyName);
+            sbInfo.AppendLine(_infoList[propertyName]);
         }
       }
 
@@ -679,8 +727,11 @@ namespace CslaContrib.Windows
         hasInfo = true;
       }
 
-      if (!hasWarning) _errorProviderWarn.SetError(control, string.Empty);
-      if (!hasInfo) _errorProviderInfo.SetError(control, string.Empty);
+      if (!hasWarning)
+        _errorProviderWarn.SetError(control, string.Empty);
+
+      if (!hasInfo)
+        _errorProviderInfo.SetError(control, string.Empty);
     }
 
     private void ResetBlinkStyleInformation()

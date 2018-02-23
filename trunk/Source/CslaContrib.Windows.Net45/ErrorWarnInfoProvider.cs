@@ -92,8 +92,8 @@ namespace CslaContrib.Windows
     /// </summary>
     static ErrorWarnInfoProvider()
     {
-      DefaultIconInformation = CslaContrib.Windows.Properties.Resources.InformationIco16;
-      DefaultIconWarning = CslaContrib.Windows.Properties.Resources.WarningIco16;
+      DefaultIconInformation = Properties.Resources.InformationIco16;
+      DefaultIconWarning = Properties.Resources.WarningIco16;
     }
 
     /// <summary>
@@ -101,9 +101,9 @@ namespace CslaContrib.Windows
     /// </summary>
     public ErrorWarnInfoProvider()
     {
-      this.components = new System.ComponentModel.Container();
-      this._errorProviderInfo = new System.Windows.Forms.ErrorProvider(this.components);
-      this._errorProviderWarn = new System.Windows.Forms.ErrorProvider(this.components);
+      components = new Container();
+      _errorProviderInfo = new ErrorProvider(components);
+      _errorProviderWarn = new ErrorProvider(components);
       BlinkRate = 0;
 
       _errorProviderInfo.BlinkRate = 0;
@@ -129,9 +129,9 @@ namespace CslaContrib.Windows
     /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected override void Dispose(bool disposing)
     {
-      if (disposing && (components != null))
+      if (disposing)
       {
-        components.Dispose();
+        components?.Dispose();
       }
       base.Dispose(disposing);
     }
@@ -184,7 +184,7 @@ namespace CslaContrib.Windows
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException("BlinkRate", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
         }
 
         base.BlinkRate = value;
@@ -209,7 +209,7 @@ namespace CslaContrib.Windows
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException("BlinkRateInformation", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
 
         _errorProviderInfo.BlinkRate = value;
 
@@ -233,7 +233,7 @@ namespace CslaContrib.Windows
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException("BlinkRateWarning", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
 
         _errorProviderWarn.BlinkRate = value;
 
@@ -292,7 +292,7 @@ namespace CslaContrib.Windows
     /// <value></value>
     /// <value>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</value>
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
-    [DefaultValue((string) null)]
+    [DefaultValue(null)]
     public new object DataSource
     {
       get { return base.DataSource; }
@@ -317,14 +317,14 @@ namespace CslaContrib.Windows
       }
     }
 
-    private void UpdateBindingsAndProcessAllControls()
+    /*private void UpdateBindingsAndProcessAllControls()
     {
       if (ContainerControl != null)
       {
         InitializeAllControls(ContainerControl.Controls);
       }
       ProcessAllControls();
-    }
+    }*/
 
     /// <summary>
     /// Gets or sets the icon information.
@@ -528,55 +528,52 @@ namespace CslaContrib.Windows
         return;
 
       // we can only deal with CSLA BusinessBase objects
-      if (bs.Current is Csla.Core.BusinessBase)
+      // get the BusinessBase object
+      Csla.Core.BusinessBase bb = bs.Current as Csla.Core.BusinessBase;
+
+      if (bb != null)
       {
-        // get the BusinessBase object
-        Csla.Core.BusinessBase bb = bs.Current as Csla.Core.BusinessBase;
-
-        if (bb != null)
+        foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
         {
-          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
-          {
-            // we do not want to import result of object level broken rules 
-            if (br.Property == null)
-              continue;
+          // we do not want to import result of object level broken rules 
+          if (br.Property == null)
+            continue;
 
-            switch (br.Severity)
-            {
-              case Csla.Rules.RuleSeverity.Error:
-                if (_errorList.ContainsKey(br.Property))
-                {
-                  _errorList[br.Property] =
-                    String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _errorList.Add(br.Property, br.Description);
-                }
-                break;
-              case Csla.Rules.RuleSeverity.Warning:
-                if (_warningList.ContainsKey(br.Property))
-                {
-                  _warningList[br.Property] =
-                    String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _warningList.Add(br.Property, br.Description);
-                }
-                break;
-              default: // consider it an Info
-                if (_infoList.ContainsKey(br.Property))
-                {
-                  _infoList[br.Property] =
-                    String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _infoList.Add(br.Property, br.Description);
-                }
-                break;
-            }
+          switch (br.Severity)
+          {
+            case Csla.Rules.RuleSeverity.Error:
+              if (_errorList.ContainsKey(br.Property))
+              {
+                _errorList[br.Property] =
+                  string.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _errorList.Add(br.Property, br.Description);
+              }
+              break;
+            case Csla.Rules.RuleSeverity.Warning:
+              if (_warningList.ContainsKey(br.Property))
+              {
+                _warningList[br.Property] =
+                  string.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _warningList.Add(br.Property, br.Description);
+              }
+              break;
+            default: // consider it an Info
+              if (_infoList.ContainsKey(br.Property))
+              {
+                _infoList[br.Property] =
+                  string.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _infoList.Add(br.Property, br.Description);
+              }
+              break;
           }
         }
       }
@@ -597,7 +594,7 @@ namespace CslaContrib.Windows
     private void ProcessControl(Control control)
     {
       if (control == null)
-        throw new ArgumentNullException("control");
+        throw new ArgumentNullException(nameof(control));
 
       bool hasWarning = false;
       bool hasInfo = false;
@@ -662,10 +659,10 @@ namespace CslaContrib.Windows
       {
         _errorProviderWarn.SetError(control, sbWarn.ToString());
         _errorProviderWarn.SetIconPadding(control,
-          base.GetIconPadding(control) +
+          GetIconPadding(control) +
           offsetWarning);
         _errorProviderWarn.SetIconAlignment(control,
-          base.GetIconAlignment(control));
+          GetIconAlignment(control));
         hasWarning = true;
       }
 
@@ -674,16 +671,16 @@ namespace CslaContrib.Windows
       {
         _errorProviderInfo.SetError(control, sbInfo.ToString());
         _errorProviderInfo.SetIconPadding(control,
-          base.GetIconPadding(control) +
+          GetIconPadding(control) +
           offsetInformation);
         _errorProviderInfo.SetIconAlignment(control,
-          base.GetIconAlignment(control));
+          GetIconAlignment(control));
 
         hasInfo = true;
       }
 
-      if (!hasWarning) _errorProviderWarn.SetError((Control) control, string.Empty);
-      if (!hasInfo) _errorProviderInfo.SetError((Control) control, string.Empty);
+      if (!hasWarning) _errorProviderWarn.SetError(control, string.Empty);
+      if (!hasInfo) _errorProviderInfo.SetError(control, string.Empty);
     }
 
     private void ResetBlinkStyleInformation()
@@ -710,7 +707,7 @@ namespace CslaContrib.Windows
     /// Sets the information description string for the specified control.
     /// </summary>
     /// <param name="control">The control to set the information description string for.</param>
-    /// <param name="value">The information description string, or null or System.String.Empty to remove the information description.</param>
+    /// <param name="value">The information description string, or null or System.string.Empty to remove the information description.</param>
     public void SetInformation(Control control, string value)
     {
       _errorProviderInfo.SetError(control, value);
@@ -720,7 +717,7 @@ namespace CslaContrib.Windows
     /// Sets the warning description string for the specified control.
     /// </summary>
     /// <param name="control">The control to set the warning description string for.</param>
-    /// <param name="value">The warning description string, or null or System.String.Empty to remove the warning description.</param>
+    /// <param name="value">The warning description string, or null or System.string.Empty to remove the warning description.</param>
     public void SetWarning(Control control, string value)
     {
       _errorProviderWarn.SetError(control, value);
@@ -769,9 +766,9 @@ namespace CslaContrib.Windows
     void ISupportInitialize.EndInit()
     {
       _isInitializing = false;
-      if (this.ContainerControl != null)
+      if (ContainerControl != null)
       {
-        InitializeAllControls(this.ContainerControl.Controls);
+        InitializeAllControls(ContainerControl.Controls);
       }
     }
 

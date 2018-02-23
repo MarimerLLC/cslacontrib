@@ -42,7 +42,11 @@
 * Revised      : 10/05/2009, Jonny Bekkum
 *     Change: Added initialization of controls list (controls attached to BindingSource) 
 *           and will update errors on all controls. Optimized retrieval of error, warn, info 
-*           messages and setting these on the controls. 
+*           messages and setting these on the controls.
+* Revised      : 23/02/2018, Tiago Freitas Leal
+*     Change: Added support for INotifyPropertyChanged objects (instead of BindingSource).
+*     Change: Can discover controls only when the DataSource is set.
+*     Fix: Long standing issue on Information message (incomplete message).
 ****************************************************************************/
 
 using System;

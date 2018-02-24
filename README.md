@@ -17,6 +17,7 @@ at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
 
 This release is focused on ErrorWarnInfoProvider (enhancements and bug fixing).
 
---
+</br>
+</br>
 
 [View all releases](https://github.com/MarimerLLC/cslacontrib/releases)

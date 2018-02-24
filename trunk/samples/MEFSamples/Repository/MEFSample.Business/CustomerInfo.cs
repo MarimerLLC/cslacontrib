@@ -15,6 +15,7 @@ namespace MEFSample.Business
 
     // example with managed backing field
     private static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(p => p.Id);
+
     public int Id
     {
       get { return GetProperty(IdProperty); }
@@ -22,6 +23,7 @@ namespace MEFSample.Business
 
     // example with private backing field
     private static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(p => p.Name);
+
     public string Name
     {
       get { return GetProperty(NameProperty); }
@@ -37,7 +39,9 @@ namespace MEFSample.Business
     }
 
     public CustomerInfo()
-    { /* require use of factory methods */ }
+    {
+      /* require use of factory methods */
+    }
 
     #endregion
 
@@ -45,7 +49,7 @@ namespace MEFSample.Business
 
     private void Child_Fetch(object childData)
     {
-      var data = (CustomerData)childData;
+      var data = (CustomerData) childData;
 
       LoadProperty(IdProperty, data.Id);
       LoadProperty(NameProperty, data.Name);

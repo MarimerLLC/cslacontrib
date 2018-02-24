@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Csla;
 using Csla.Server;
 using MEFSample.Business.FactoryInterfaces;
@@ -19,16 +18,17 @@ namespace MEFSample.Business
       return DataPortal.Fetch<CustomerList>(filter);
     }
 
-    public static void  BeginGetReadOnlyList(string filter, EventHandler<DataPortalResult<CustomerList>> callback)
+    public static void BeginGetReadOnlyList(string filter, EventHandler<DataPortalResult<CustomerList>> callback)
     {
       DataPortal.BeginFetch<CustomerList>(filter, callback);
     }
 
 
     public CustomerList()
-    { /* require use of factory methods */ }
+    {
+      /* require use of factory methods */
+    }
 
     #endregion
-
   }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.DataAnnotations;
 using Csla;
 using Csla.Rules;
@@ -10,11 +9,10 @@ using CslaContrib.MEF;
 using CslaContrib.Rules.CommonRules;
 using MEFSample.Business.Repository;
 
-
 namespace MEFSample.Business
 {
   [Serializable]
-  public partial class MyRoot : MefBusinessBase<MyRoot>
+  public class MyRoot : MefBusinessBase<MyRoot>
   {
     #region Business Methods
 
@@ -46,7 +44,8 @@ namespace MEFSample.Business
       set { SetProperty(Num1Property, value); }
     }
 
-    [Range(1, 6000)] public static readonly PropertyInfo<int> Num2Property = RegisterProperty<int>(c => c.Num2);
+    [Range(1, 6000)]
+    public static readonly PropertyInfo<int> Num2Property = RegisterProperty<int>(c => c.Num2);
 
     public int Num2
     {
@@ -68,7 +67,7 @@ namespace MEFSample.Business
 
     protected override void AddBusinessRules()
     {
-      //// call base class implementation to add data annotation rules to BusinessRules 
+      // call base class implementation to add data annotation rules to BusinessRules 
       base.AddBusinessRules();
 
       BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000)
@@ -102,10 +101,6 @@ namespace MEFSample.Business
       return DataPortal.Fetch<MyRoot>(id);
     }
 
-    public MyRoot()
-    {
-    }
-
     #endregion
 
     #region Injected properties - must have private field marked was NonSerialized and NotUndoable
@@ -134,6 +129,7 @@ namespace MEFSample.Business
       }
 
       MarkOld();
+      BusinessRules.CheckRules();
     }
 
     #endregion

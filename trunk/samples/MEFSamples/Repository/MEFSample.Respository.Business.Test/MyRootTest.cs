@@ -1,39 +1,33 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using Csla;
+using CslaContrib.MEF;
 using MEFSample.Business;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace MEFSample.Respository.Business.Test
 {
-    
-  [TestClass()]
+  [TestClass]
   public class MyRootTest
   {
-    private TestContext testContextInstance;
-    public TestContext TestContext
-    {
-      get {return testContextInstance;}
-      set {testContextInstance = value;}
-    }
+    public TestContext TestContext { get; set; }
 
-    [ClassInitialize()]
+    [ClassInitialize]
     public static void MyClassInitialize(TestContext testContext)
     {
       // set uo IoC container to use MyRootFakeData
       var container = new CompositionContainer();
       container.ComposeParts(new MyRootFakeData());
-      CslaContrib.MEF.Ioc.InjectContainer(container);
+      Ioc.InjectContainer(container);
     }
 
-    [ClassCleanup()]
+    [ClassCleanup]
     public static void MyClassCleanup()
     {
-      CslaContrib.MEF.Ioc.InjectContainer(null);
+      Ioc.InjectContainer(null);
     }
 
-    [TestMethod()]
+    [TestMethod]
     public void GetRootTest()
     {
       var root1 = MyRoot.GetRoot(1);
@@ -46,7 +40,7 @@ namespace MEFSample.Respository.Business.Test
       Assert.AreEqual("Matt", root2.Name);
     }
 
-    [TestMethod()]
+    [TestMethod]
     [ExpectedException(typeof(DataPortalException))]
     public void GetRootThrowsDataPortalException()
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.Composition;
 using Csla.Reflection;
 using Csla.Server;
 using MEFSample.Business;
@@ -13,9 +9,9 @@ namespace MEFSample.ObjectFactoryDAL.ChildFactories
   [Export(typeof(ICustomerInfoFactory))]
   public class CustomerInfoFactory : ObjectFactory, ICustomerInfoFactory
   {
-    public Business.CustomerInfo GetCustomerInfo(DataEntitites.CustomerData data)
+    public CustomerInfo GetCustomerInfo(DataEntitites.CustomerData data)
     {
-      var customer = (CustomerInfo)MethodCaller.CreateInstance(typeof(CustomerInfo));
+      var customer = (CustomerInfo) MethodCaller.CreateInstance(typeof(CustomerInfo));
 
       LoadProperty(customer, CustomerInfo.IdProperty, data.Id);
       LoadProperty(customer, CustomerInfo.NameProperty, data.Name);

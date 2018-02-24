@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using Csla;
+using Csla.Rules;
 using Csla.Rules.CommonRules;
 using Csla.Server;
 using CslaContrib.Rules.CommonRules;
@@ -17,6 +18,7 @@ namespace MEFSample.Business
     #region Business Methods
 
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+
     /// <Summary>
     /// Gets or sets the Id value.
     /// </Summary>
@@ -27,7 +29,8 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(c => c.Name);
-    [Required]   // Data Annotations rule for Required field
+
+    [Required] // Data Annotations rule for Required field
     public string Name
     {
       get { return GetProperty(NameProperty); }
@@ -35,6 +38,7 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<int> Num1Property = RegisterProperty<int>(c => c.Num1);
+
     public int Num1
     {
       get { return GetProperty(Num1Property); }
@@ -43,6 +47,7 @@ namespace MEFSample.Business
 
     [Range(1, 6000)]
     public static readonly PropertyInfo<int> Num2Property = RegisterProperty<int>(c => c.Num2);
+
     public int Num2
     {
       get { return GetProperty(Num2Property); }
@@ -50,6 +55,7 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<int> SumProperty = RegisterProperty<int>(c => c.Sum);
+
     public int Sum
     {
       get { return GetProperty(SumProperty); }
@@ -65,15 +71,20 @@ namespace MEFSample.Business
       // call base class implementation to add data annotation rules to BusinessRules 
       base.AddBusinessRules();
 
-      BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000));
-      BusinessRules.AddRule(new LessThan(Num1Property, Num2Property));
+      BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000)
+      {
+        Severity = RuleSeverity.Warning
+      });
+      BusinessRules.AddRule(new GreaterThan(Num2Property, Num1Property)
+      {
+        Severity = RuleSeverity.Information
+      });
 
       // calculates sum rule - must alwas un before MinValue with lower priority
-      BusinessRules.AddRule(new CalcSum(SumProperty, Num1Property, Num2Property) { Priority = -1 });
+      BusinessRules.AddRule(new CalcSum(SumProperty, Num1Property, Num2Property) {Priority = -1});
       BusinessRules.AddRule(new MinValue<int>(SumProperty, 1));
 
       // Name Property
-      //BusinessRules.AddRule(new Required(NameProperty));
       BusinessRules.AddRule(new MaxLength(NameProperty, 10));
     }
 
@@ -88,12 +99,15 @@ namespace MEFSample.Business
 
     public static MyRoot GetRoot()
     {
-      return DataPortal.Fetch<MyRoot>(null);
+      var myRoot= DataPortal.Fetch<MyRoot>(null);
+      myRoot.BusinessRules.CheckRules();
+      return myRoot;
     }
 
-    public MyRoot() { }
+    public MyRoot()
+    {
+    }
 
     #endregion
-
   }
 }

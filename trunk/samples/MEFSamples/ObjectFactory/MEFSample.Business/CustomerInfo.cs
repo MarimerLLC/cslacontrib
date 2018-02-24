@@ -13,6 +13,7 @@ namespace MEFSample.Business
 
     // example with managed backing field
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(p => p.Id);
+
     public int Id
     {
       get { return GetProperty(IdProperty); }
@@ -20,6 +21,7 @@ namespace MEFSample.Business
 
     // example with private backing field
     public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(p => p.Name);
+
     public string Name
     {
       get { return GetProperty(NameProperty); }
@@ -30,9 +32,10 @@ namespace MEFSample.Business
     #region Factory Methods
 
     public CustomerInfo()
-    { /* require use of factory methods */ }
+    {
+      /* require use of factory methods */
+    }
 
     #endregion
-
   }
 }

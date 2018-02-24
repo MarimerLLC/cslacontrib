@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.Composition;
 using MEFSample.Business.Repository;
 
 namespace MEFSample.Respository.DAL
@@ -13,12 +9,12 @@ namespace MEFSample.Respository.DAL
     public CustomerData[] Get(string filter)
     {
       return new[]
-               {
-                 new CustomerData {Id = 1, Name = "Baker, Jonathan"},
-                 new CustomerData {Id = 2, Name = "Peterson, Peter"},
-                 new CustomerData {Id = 3, Name = "Olsen, Egon"},
-                 new CustomerData {Id = 4, Name = "Hansen, hans"}
-               };
+      {
+        new CustomerData {Id = 1, Name = "Baker, Jonathan"},
+        new CustomerData {Id = 2, Name = "Peterson, Peter"},
+        new CustomerData {Id = 3, Name = "Olsen, Egon"},
+        new CustomerData {Id = 4, Name = "Hansen, hans"}
+      };
     }
   }
 }

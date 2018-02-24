@@ -1,23 +1,23 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.DataAnnotations;
 using Csla;
+using Csla.Rules;
 using Csla.Rules.CommonRules;
 using CslaContrib.MEF;
 using CslaContrib.Rules.CommonRules;
 using MEFSample.Business.Repository;
 
-
 namespace MEFSample.Business
 {
   [Serializable]
-  public partial class MyRoot : MefBusinessBase<MyRoot>
+  public class MyRoot : MefBusinessBase<MyRoot>
   {
     #region Business Methods
 
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+
     /// <Summary>
     /// Gets or sets the Id value.
     /// </Summary>
@@ -28,7 +28,8 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(c => c.Name);
-    [Required]   // Data Annotations rule for Required field
+
+    [Required] // Data Annotations rule for Required field
     public string Name
     {
       get { return GetProperty(NameProperty); }
@@ -36,6 +37,7 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<int> Num1Property = RegisterProperty<int>(c => c.Num1);
+
     public int Num1
     {
       get { return GetProperty(Num1Property); }
@@ -44,6 +46,7 @@ namespace MEFSample.Business
 
     [Range(1, 6000)]
     public static readonly PropertyInfo<int> Num2Property = RegisterProperty<int>(c => c.Num2);
+
     public int Num2
     {
       get { return GetProperty(Num2Property); }
@@ -51,6 +54,7 @@ namespace MEFSample.Business
     }
 
     public static readonly PropertyInfo<int> SumProperty = RegisterProperty<int>(c => c.Sum);
+
     public int Sum
     {
       get { return GetProperty(SumProperty); }
@@ -63,18 +67,23 @@ namespace MEFSample.Business
 
     protected override void AddBusinessRules()
     {
-      //// call base class implementation to add data annotation rules to BusinessRules 
+      // call base class implementation to add data annotation rules to BusinessRules 
       base.AddBusinessRules();
 
-      BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000));
-      BusinessRules.AddRule(new LessThan(Num1Property, Num2Property));
+      BusinessRules.AddRule(new MaxValue<int>(Num1Property, 5000)
+      {
+        Severity = RuleSeverity.Warning
+      });
+      BusinessRules.AddRule(new GreaterThan(Num2Property, Num1Property)
+      {
+        Severity = RuleSeverity.Information
+      });
 
       // calculates sum rule - must alwas un before MinValue with lower priority
-      BusinessRules.AddRule(new CalcSum(SumProperty, Num1Property, Num2Property) { Priority = -1 });
+      BusinessRules.AddRule(new CalcSum(SumProperty, Num1Property, Num2Property) {Priority = -1});
       BusinessRules.AddRule(new MinValue<int>(SumProperty, 1));
 
       // Name Property
-      //BusinessRules.AddRule(new Required(NameProperty));
       BusinessRules.AddRule(new MaxLength(NameProperty, 10));
     }
 
@@ -92,14 +101,11 @@ namespace MEFSample.Business
       return DataPortal.Fetch<MyRoot>(id);
     }
 
-    public MyRoot() { }
-
     #endregion
 
     #region Injected properties - must have private field marked was NonSerialized and NotUndoable
 
-    [NonSerialized, NotUndoable]
-    private IRootDataAccess _myRootDataAccess;
+    [NonSerialized, NotUndoable] private IRootDataAccess _myRootDataAccess;
 
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Import(typeof(IRootDataAccess))]
@@ -112,6 +118,7 @@ namespace MEFSample.Business
     #endregion
 
     #region Data Access
+
     protected void DataPortal_Fetch(int criteria)
     {
       var data = MyRootDataAccess.Get(criteria);
@@ -120,8 +127,11 @@ namespace MEFSample.Business
         Id = data.Id;
         Name = data.Name;
       }
+
       MarkOld();
+      BusinessRules.CheckRules();
     }
+
     #endregion
   }
 }

@@ -4,16 +4,16 @@ using MEFSample.Business;
 
 namespace MEFSample.UI
 {
-  public partial class MyRootForm : Form
+  public partial class MyRootBindingSource : Form
   {
-    public MyRootForm()
+    public MyRootBindingSource()
     {
       InitializeComponent();
     }
 
     private void MyRootForm_Load(object sender, System.EventArgs e)
     {
-      rootBindingSource.Rebind(MyRoot.GetRoot(5));
+      rootBindingSource.Rebind(MyRoot.GetRoot());
     }
   }
 }

@@ -40,9 +40,13 @@
 *           not to use the control in this manner (which could have
 *           performance implications).
 * Revised      : 10/05/2009, Jonny Bekkum
-*     Change: Added initialization of controls list (controls attached to BindingSource) 
+*     Change   : Added initialization of controls list (controls attached to BindingSource) 
 *           and will update errors on all controls. Optimized retrieval of error, warn, info 
-*           messages and setting these on the controls. 
+*           messages and setting these on the controls.
+* Revised      : 23/02/2018, Tiago Freitas Leal
+*     Change   : Added support for INotifyPropertyChanged objects (instead of BindingSource).
+*     Can discover controls only when the DataSource is set.
+*     Fix long standing issue on Information message (incomplete message).
 ****************************************************************************/
 
 using System;
@@ -52,17 +56,18 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using Wisej.Web;
+using Csla.Core;
 
 namespace CslaContrib.WisejWeb
 {
   /// <summary>
-  /// WindowsForms extender control that automatically
+  /// Wisej.Web extender control that automatically
   /// displays error, warning, or information icons and
   /// text for the form controls based on the
   /// BrokenRulesCollection of a CSLA .NET business object.
   /// </summary>
   [DesignerCategory("")]
-  [ToolboxItem(true), ToolboxBitmap(typeof (ErrorWarnInfoProvider), "Cascade.ico")]
+  [ToolboxItem(true), ToolboxBitmap(typeof(ErrorWarnInfoProvider), "Cascade.ico")]
   public class ErrorWarnInfoProvider : ErrorProvider, IExtenderProvider, ISupportInitialize
   {
     #region private variables
@@ -92,8 +97,8 @@ namespace CslaContrib.WisejWeb
     /// </summary>
     static ErrorWarnInfoProvider()
     {
-      DefaultIconInformation = CslaContrib.WisejWeb.Properties.Resources.InformationIcon;
-      DefaultIconWarning = CslaContrib.WisejWeb.Properties.Resources.WarningIcon;
+      DefaultIconInformation = Properties.Resources.InformationIcon;
+      DefaultIconWarning = Properties.Resources.WarningIcon;
     }
 
     /// <summary>
@@ -101,9 +106,9 @@ namespace CslaContrib.WisejWeb
     /// </summary>
     public ErrorWarnInfoProvider()
     {
-      this.components = new System.ComponentModel.Container();
-      this._errorProviderInfo = new Wisej.Web.ErrorProvider(this.components);
-      this._errorProviderWarn = new Wisej.Web.ErrorProvider(this.components);
+      components = new Container();
+      _errorProviderInfo = new ErrorProvider(components);
+      _errorProviderWarn = new ErrorProvider(components);
       BlinkRate = 0;
 
       _errorProviderInfo.BlinkRate = 0;
@@ -129,10 +134,11 @@ namespace CslaContrib.WisejWeb
     /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected override void Dispose(bool disposing)
     {
-      if (disposing && (components != null))
+      if (disposing)
       {
-        components.Dispose();
+        components?.Dispose();
       }
+
       base.Dispose(disposing);
     }
 
@@ -184,7 +190,7 @@ namespace CslaContrib.WisejWeb
       {
         if (value < 0)
         {
-          throw new ArgumentOutOfRangeException("BlinkRate", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
         }
 
         base.BlinkRate = value;
@@ -209,7 +215,7 @@ namespace CslaContrib.WisejWeb
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException("BlinkRateInformation", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
 
         _errorProviderInfo.BlinkRate = value;
 
@@ -233,7 +239,7 @@ namespace CslaContrib.WisejWeb
       set
       {
         if (value < 0)
-          throw new ArgumentOutOfRangeException("BlinkRateWarning", value, "Blink rate must be zero or more");
+          throw new ArgumentOutOfRangeException(nameof(value), value, "Blink rate must be zero or more");
 
         _errorProviderWarn.BlinkRate = value;
 
@@ -292,7 +298,7 @@ namespace CslaContrib.WisejWeb
     /// <value></value>
     /// <value>A data source based on the <see cref="T:System.Collections.IList"></see> interface to be monitored for errors. Typically, this is a <see cref="T:System.Data.DataSet"></see> to be monitored for errors.</value>
     /// <PermissionSet><IPermission class="System.Security.Permissions.EnvironmentPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode, ControlEvidence"/><IPermission class="System.Diagnostics.PerformanceCounterPermission, System, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/></PermissionSet>
-    [DefaultValue((string) null)]
+    [DefaultValue(null)]
     public new object DataSource
     {
       get { return base.DataSource; }
@@ -305,6 +311,14 @@ namespace CslaContrib.WisejWeb
           {
             bs1.CurrentItemChanged -= DataSource_CurrentItemChanged;
           }
+          else
+          {
+            var npc1 = base.DataSource as INotifyPropertyChanged;
+            if (npc1 != null)
+            {
+              npc1.PropertyChanged -= DataSource_CurrentItemChanged;
+            }
+          }
         }
 
         base.DataSource = value;
@@ -313,6 +327,19 @@ namespace CslaContrib.WisejWeb
         if (bs != null)
         {
           bs.CurrentItemChanged += DataSource_CurrentItemChanged;
+        }
+        else
+        {
+          var npc = value as INotifyPropertyChanged;
+          if (npc != null)
+          {
+            npc.PropertyChanged += DataSource_CurrentItemChanged;
+          }
+        }
+
+        if (_controls.Count == 0)
+        {
+          UpdateBindingsAndProcessAllControls();
         }
       }
     }
@@ -323,6 +350,7 @@ namespace CslaContrib.WisejWeb
       {
         InitializeAllControls(ContainerControl.Controls);
       }
+
       ProcessAllControls();
     }
 
@@ -415,7 +443,8 @@ namespace CslaContrib.WisejWeb
     /// </summary>
     /// <value><c>true</c> if show only most severe; otherwise, <c>false</c>.</value>
     [Category("Behavior")]
-    [DefaultValue(true), Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
+    [DefaultValue(true),
+     Description("Determines if the broken rules are show by severity - if true only most severe level is shown.")]
     public bool ShowOnlyMostSevere
     {
       get { return _showMostSevereOnly; }
@@ -480,7 +509,9 @@ namespace CslaContrib.WisejWeb
       // not a Label then 'hook' the validating event here!
       foreach (Control control in controls)
       {
-        if (control is Label) continue;
+        if (control is Label)
+          continue;
+
         // Initialize bindings
         foreach (Binding binding in control.DataBindings)
         {
@@ -490,6 +521,7 @@ namespace CslaContrib.WisejWeb
             _controls.Add(control);
           }
         }
+
         // Initialize any subcontrols
         if (control.Controls.Count > 0)
         {
@@ -521,65 +553,82 @@ namespace CslaContrib.WisejWeb
       _warningList.Clear();
       _errorList.Clear();
 
-      BindingSource bs = (BindingSource) DataSource;
-      if (bs == null)
-        return;
-      if (bs.Position == -1)
-        return;
-
       // we can only deal with CSLA BusinessBase objects
-      if (bs.Current is Csla.Core.BusinessBase)
+
+      // try to get the BusinessBase object as a BindingSource
+      var bb = GetAsBindingSource();
+
+      // if not a BindingSource, try to get it as an INotifyPropertyChanged
+      if (bb == null)
+        bb = GetAsNotifyPropertyChanged();
+
+      if (bb != null)
       {
-        // get the BusinessBase object
-        Csla.Core.BusinessBase bb = bs.Current as Csla.Core.BusinessBase;
-
-        if (bb != null)
+        foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
         {
-          foreach (Csla.Rules.BrokenRule br in bb.BrokenRulesCollection)
-          {
-            // we do not want to import result of object level broken rules 
-            if (br.Property == null)
-              continue;
+          // we do not want to import result of object level broken rules 
+          if (br.Property == null)
+            continue;
 
-            switch (br.Severity)
-            {
-              case Csla.Rules.RuleSeverity.Error:
-                if (_errorList.ContainsKey(br.Property))
-                {
-                  _errorList[br.Property] =
-                    String.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _errorList.Add(br.Property, br.Description);
-                }
-                break;
-              case Csla.Rules.RuleSeverity.Warning:
-                if (_warningList.ContainsKey(br.Property))
-                {
-                  _warningList[br.Property] =
-                    String.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _warningList.Add(br.Property, br.Description);
-                }
-                break;
-              default: // consider it an Info
-                if (_infoList.ContainsKey(br.Property))
-                {
-                  _infoList[br.Property] =
-                    String.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
-                }
-                else
-                {
-                  _infoList.Add(br.Property, br.Description);
-                }
-                break;
-            }
+          switch (br.Severity)
+          {
+            case Csla.Rules.RuleSeverity.Error:
+              if (_errorList.ContainsKey(br.Property))
+              {
+                _errorList[br.Property] =
+                  string.Concat(_errorList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _errorList.Add(br.Property, br.Description);
+              }
+
+              break;
+            case Csla.Rules.RuleSeverity.Warning:
+              if (_warningList.ContainsKey(br.Property))
+              {
+                _warningList[br.Property] =
+                  string.Concat(_warningList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _warningList.Add(br.Property, br.Description);
+              }
+
+              break;
+            default: // consider it an Info
+              if (_infoList.ContainsKey(br.Property))
+              {
+                _infoList[br.Property] =
+                  string.Concat(_infoList[br.Property], Environment.NewLine, br.Description);
+              }
+              else
+              {
+                _infoList.Add(br.Property, br.Description);
+              }
+
+              break;
           }
         }
       }
+    }
+
+    private BusinessBase GetAsBindingSource()
+    {
+      BindingSource bs = DataSource as BindingSource;
+      if (bs == null)
+        return null;
+      if (bs.Position == -1)
+        return null;
+
+      return bs.Current as BusinessBase;
+    }
+
+    private BusinessBase GetAsNotifyPropertyChanged()
+    {
+      INotifyPropertyChanged npc = DataSource as INotifyPropertyChanged;
+
+      return npc as BusinessBase;
     }
 
     private void ProcessControls()
@@ -597,7 +646,7 @@ namespace CslaContrib.WisejWeb
     private void ProcessControl(Control control)
     {
       if (control == null)
-        throw new ArgumentNullException("control");
+        throw new ArgumentNullException(nameof(control));
 
       bool hasWarning = false;
       bool hasInfo = false;
@@ -618,7 +667,7 @@ namespace CslaContrib.WisejWeb
           if (_warningList.ContainsKey(propertyName))
             sbWarn.AppendLine(_warningList[propertyName]);
           if (_infoList.ContainsKey(propertyName))
-            sbInfo.AppendLine(propertyName);
+            sbInfo.AppendLine(_infoList[propertyName]);
         }
       }
 
@@ -662,10 +711,10 @@ namespace CslaContrib.WisejWeb
       {
         _errorProviderWarn.SetError(control, sbWarn.ToString());
         _errorProviderWarn.SetIconPadding(control,
-          base.GetIconPadding(control) +
+          GetIconPadding(control) +
           offsetWarning);
         _errorProviderWarn.SetIconAlignment(control,
-          base.GetIconAlignment(control));
+          GetIconAlignment(control));
         hasWarning = true;
       }
 
@@ -674,16 +723,19 @@ namespace CslaContrib.WisejWeb
       {
         _errorProviderInfo.SetError(control, sbInfo.ToString());
         _errorProviderInfo.SetIconPadding(control,
-          base.GetIconPadding(control) +
+          GetIconPadding(control) +
           offsetInformation);
         _errorProviderInfo.SetIconAlignment(control,
-          base.GetIconAlignment(control));
+          GetIconAlignment(control));
 
         hasInfo = true;
       }
 
-      if (!hasWarning) _errorProviderWarn.SetError((Control) control, string.Empty);
-      if (!hasInfo) _errorProviderInfo.SetError((Control) control, string.Empty);
+      if (!hasWarning)
+        _errorProviderWarn.SetError(control, string.Empty);
+
+      if (!hasInfo)
+        _errorProviderInfo.SetError(control, string.Empty);
     }
 
     private void ResetBlinkStyleInformation()
@@ -710,7 +762,7 @@ namespace CslaContrib.WisejWeb
     /// Sets the information description string for the specified control.
     /// </summary>
     /// <param name="control">The control to set the information description string for.</param>
-    /// <param name="value">The information description string, or null or System.String.Empty to remove the information description.</param>
+    /// <param name="value">The information description string, or null or System.string.Empty to remove the information description.</param>
     public void SetInformation(Control control, string value)
     {
       _errorProviderInfo.SetError(control, value);
@@ -720,7 +772,7 @@ namespace CslaContrib.WisejWeb
     /// Sets the warning description string for the specified control.
     /// </summary>
     /// <param name="control">The control to set the warning description string for.</param>
-    /// <param name="value">The warning description string, or null or System.String.Empty to remove the warning description.</param>
+    /// <param name="value">The warning description string, or null or System.string.Empty to remove the warning description.</param>
     public void SetWarning(Control control, string value)
     {
       _errorProviderWarn.SetError(control, value);
@@ -769,9 +821,9 @@ namespace CslaContrib.WisejWeb
     void ISupportInitialize.EndInit()
     {
       _isInitializing = false;
-      if (this.ContainerControl != null)
+      if (ContainerControl != null)
       {
-        InitializeAllControls(this.ContainerControl.Controls);
+        InitializeAllControls(ContainerControl.Controls);
       }
     }
 

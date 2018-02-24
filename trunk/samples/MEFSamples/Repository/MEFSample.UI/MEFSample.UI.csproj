@@ -43,12 +43,16 @@
       <HintPath>..\packages\CSLA-Core.4.6.603\lib\net45\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CslaContrib.MEF, Version=4.6.604.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
-      <HintPath>..\packages\CslaContrib-MEF.4.6.604\lib\net45\CslaContrib.MEF.dll</HintPath>
+    <Reference Include="Csla.Windows, Version=4.6.603.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-WindowsForms.4.6.603\lib\net45\Csla.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CslaContrib.Windows, Version=4.6.604.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
-      <HintPath>..\packages\CslaContrib-Windows.4.6.604\lib\net45\CslaContrib.Windows.dll</HintPath>
+    <Reference Include="CslaContrib.MEF, Version=4.6.605.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-MEF.4.6.605\lib\net45\CslaContrib.MEF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CslaContrib.Windows, Version=4.6.605.0, Culture=neutral, PublicKeyToken=eafe756dec3874e6, processorArchitecture=MSIL">
+      <HintPath>..\packages\CslaContrib-Windows.4.6.605\lib\net45\CslaContrib.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,11 +70,11 @@
     <Compile Include="CustomerListForm.Designer.cs">
       <DependentUpon>CustomerListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyRootForm.cs">
+    <Compile Include="MyRootBindingSource.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyRootForm.Designer.cs">
-      <DependentUpon>MyRootForm.cs</DependentUpon>
+    <Compile Include="MyRootBindingSource.Designer.cs">
+      <DependentUpon>MyRootBindingSource.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuForm.cs">
       <SubType>Form</SubType>
@@ -78,20 +82,30 @@
     <Compile Include="MenuForm.Designer.cs">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyRootNotifyPropertyChanged.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyRootNotifyPropertyChanged.Designer.cs">
+      <DependentUpon>MyRootNotifyPropertyChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CustomerListForm.resx">
       <DependentUpon>CustomerListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyRootForm.resx">
-      <DependentUpon>MyRootForm.cs</DependentUpon>
+    <EmbeddedResource Include="MyRootBindingSource.resx">
+      <DependentUpon>MyRootBindingSource.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyRootNotifyPropertyChanged.resx">
+      <DependentUpon>MyRootNotifyPropertyChanged.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\MEFSample.Business.CustomerList.datasource" />
+    <None Include="Properties\DataSources\MEFSample.Business.MyRoot.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MEFSample.Business\MEFSample.Repository.Business.csproj">
@@ -106,6 +120,7 @@
   <ItemGroup>
     <Analyzer Include="..\packages\CSLA-Core.4.6.603\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

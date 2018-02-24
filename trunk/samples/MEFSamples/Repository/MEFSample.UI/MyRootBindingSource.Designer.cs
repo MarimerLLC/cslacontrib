@@ -1,6 +1,6 @@
 ﻿namespace MEFSample.UI
 {
-  partial class MyRootForm
+  partial class MyRootBindingSource
   {
     /// <summary>
     /// Required designer variable.
@@ -34,15 +34,16 @@
       System.Windows.Forms.Label num2Label;
       System.Windows.Forms.Label sumLabel;
       System.Windows.Forms.Label label1;
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRootForm));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRootBindingSource));
       this.nameTextBox = new System.Windows.Forms.TextBox();
       this.rootBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.num1TextBox = new System.Windows.Forms.TextBox();
       this.num2TextBox = new System.Windows.Forms.TextBox();
       this.sumTextBox = new System.Windows.Forms.TextBox();
-      this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+      this.errorProvider1 = new CslaContrib.Windows.ErrorWarnInfoProvider(this.components);
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.textBox2 = new System.Windows.Forms.TextBox();
+      this.bindingSourceRefresh1 = new Csla.Windows.BindingSourceRefresh(this.components);
       nameLabel = new System.Windows.Forms.Label();
       num1Label = new System.Windows.Forms.Label();
       num2Label = new System.Windows.Forms.Label();
@@ -50,6 +51,7 @@
       label1 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.rootBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bindingSourceRefresh1)).BeginInit();
       this.SuspendLayout();
       // 
       // nameLabel
@@ -108,6 +110,7 @@
       // rootBindingSource
       // 
       this.rootBindingSource.DataSource = typeof(MEFSample.Business.MyRoot);
+      this.bindingSourceRefresh1.SetReadValuesOnChange(this.rootBindingSource, true);
       // 
       // num1TextBox
       // 
@@ -135,7 +138,6 @@
       // 
       // errorProvider1
       // 
-      this.errorProvider1.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
       this.errorProvider1.ContainerControl = this;
       this.errorProvider1.DataSource = this.rootBindingSource;
       // 
@@ -157,7 +159,7 @@
       this.textBox2.Size = new System.Drawing.Size(104, 20);
       this.textBox2.TabIndex = 13;
       // 
-      // MyRootForm
+      // MyRootBindingSource
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -173,11 +175,12 @@
       this.Controls.Add(this.num2TextBox);
       this.Controls.Add(sumLabel);
       this.Controls.Add(this.sumTextBox);
-      this.Name = "MyRootForm";
-      this.Text = "Form1";
+      this.Name = "MyRootBindingSource";
+      this.Text = "Root Data BindingSource";
       this.Load += new System.EventHandler(this.MyRootForm_Load);
       ((System.ComponentModel.ISupportInitialize)(this.rootBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bindingSourceRefresh1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -190,9 +193,11 @@
     private System.Windows.Forms.TextBox num1TextBox;
     private System.Windows.Forms.TextBox num2TextBox;
     private System.Windows.Forms.TextBox sumTextBox;
-    private System.Windows.Forms.ErrorProvider errorProvider1;
+    private CslaContrib.Windows.ErrorWarnInfoProvider errorProvider1;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.TextBox textBox2;
+    private Csla.Windows.BindingSourceRefresh bindingSourceRefresh1;
+
   }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace MEFSample.UI
 {
-  partial class MyRootForm
+  partial class MyRootBindingSource
   {
     /// <summary>
     /// Required designer variable.
@@ -34,7 +34,7 @@
       System.Windows.Forms.Label num2Label;
       System.Windows.Forms.Label sumLabel;
       System.Windows.Forms.Label label1;
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRootForm));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyRootBindingSource));
       this.nameTextBox = new System.Windows.Forms.TextBox();
       this.rootBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.num1TextBox = new System.Windows.Forms.TextBox();
@@ -159,7 +159,7 @@
       this.textBox2.Size = new System.Drawing.Size(104, 20);
       this.textBox2.TabIndex = 13;
       // 
-      // MyRootForm
+      // MyRootBindingSource
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -175,8 +175,8 @@
       this.Controls.Add(this.num2TextBox);
       this.Controls.Add(sumLabel);
       this.Controls.Add(this.sumTextBox);
-      this.Name = "MyRootForm";
-      this.Text = "Root Data";
+      this.Name = "MyRootBindingSource";
+      this.Text = "Root Data BindingSource";
       this.Load += new System.EventHandler(this.MyRootForm_Load);
       ((System.ComponentModel.ISupportInitialize)(this.rootBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

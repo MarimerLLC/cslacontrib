@@ -6,8 +6,7 @@ The use (and contribution to) cslacontrib is governed by the [LICENSE.md](https:
 
 CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET framework. The project is focused on extending the features of CSLA .NET.
 
-</br>
-</br>
+--
 
 [CSLA .NET](http://www.cslanet.com) is copyright (c) Marimer LLC. Use of CSLA.NET is governed by the license 
 at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
@@ -18,7 +17,6 @@ at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
 
 This release is focused on ErrorWarnInfoProvider (enhancements and bug fixing).
 
-</br>
-</br>
+--
 
 [View all releases](https://github.com/MarimerLLC/cslacontrib/releases)

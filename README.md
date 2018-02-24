@@ -14,6 +14,7 @@ at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
 ## Releases
 
 [Release 4.6.605](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.605) published on NuGet (24-02-2018).
+
 This release is focused on ErrorWarnInfoProvider (enhancements and bug fixing).
 
 [View all releases](https://github.com/MarimerLLC/cslacontrib/releases)

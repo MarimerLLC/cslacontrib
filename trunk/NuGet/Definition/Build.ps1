@@ -118,7 +118,7 @@ try
     ## Before building NuGet package, extract CslaContrib Version number and update .NuSpec to automate versioning of .NuSpec document
     ## - JH: Not sure if I should get direct from source code file or from file version of compiled library instead.
     ## - JH: Going with product version in assembly for now
-    $cslaContribAssembly = Get-ChildItem "$pathToBin\NET46\CslaContrib.dll" | Select-Object -First 1
+    $cslaContribAssembly = Get-ChildItem "$pathToBin\NET461\CslaContrib.dll" | Select-Object -First 1
     ## - JH: If $preRelease is specified, then append it with a dash following the 3rd component of the quad-dotted-version number
     ##       Refer: http://docs.nuget.org/docs/Reference/Versioning
     if ( [System.String]::IsNullOrEmpty( $preRelease ) -ne $true )

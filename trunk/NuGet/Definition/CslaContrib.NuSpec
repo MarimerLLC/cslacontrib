@@ -20,7 +20,7 @@ Extends CSLA .NET framework with ObjectCaching data portal implementation, exten
     </summary>
     <language>en-US</language>
     <dependencies>
-      <group targetFramework="net46">
+      <group targetFramework="net461">
         <dependency id="CSLA-Core" version="[4.6.100,)" />
       </group>
       <group targetFramework="net45">

@@ -7,5 +7,5 @@ using System.Reflection;
 [assembly: AssemblyProduct("CslaContrib.CustomFieldData.NET4")]
 [assembly: AssemblyCulture("")]
 
-// Mark the assembly as CLS compliant
+// Mark the assembly as NOT CLS compliant
 [assembly: CLSCompliant(false)]

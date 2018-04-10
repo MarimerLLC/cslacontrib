@@ -19,43 +19,43 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF.Net45", "CslaContrib.Caliburn.Micro.V2.WPF.Net45\CslaContrib.Caliburn.Micro.V2.WPF.Net45.csproj", "{EC9F93A3-906B-4F3C-A6AB-484BE69A3EDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF.Net46", "CslaContrib.Caliburn.Micro.V2.WPF.Net46\CslaContrib.Caliburn.Micro.V2.WPF.Net46.csproj", "{2465823A-A11E-4265-9852-4BB72534E062}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.V2.WPF.Net461", "CslaContrib.Caliburn.Micro.V2.WPF.Net461\CslaContrib.Caliburn.Micro.V2.WPF.Net461.csproj", "{2465823A-A11E-4265-9852-4BB72534E062}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.WPF.Net4", "CslaContrib.Caliburn.Micro.WPF.Net4\CslaContrib.Caliburn.Micro.WPF.Net4.csproj", "{F56D3360-1AC4-4404-AF7E-A535E400B38A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.WPF.Net45", "CslaContrib.Caliburn.Micro.WPF.Net45\CslaContrib.Caliburn.Micro.WPF.Net45.csproj", "{AEC13539-BCFB-4CEE-A324-479D41E39D39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.WPF.Net46", "CslaContrib.Caliburn.Micro.WPF.Net46\CslaContrib.Caliburn.Micro.WPF.Net46.csproj", "{52564359-6CD0-4B56-8211-57710AA3BD4C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Caliburn.Micro.WPF.Net461", "CslaContrib.Caliburn.Micro.WPF.Net461\CslaContrib.Caliburn.Micro.WPF.Net461.csproj", "{52564359-6CD0-4B56-8211-57710AA3BD4C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData.Net4", "CslaContrib.CustomFieldData.Net4\CslaContrib.CustomFieldData.Net4.csproj", "{D2272FC3-EFC6-4DB4-A94F-823CEB5A039A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData.Net45", "CslaContrib.CustomFieldData.Net45\CslaContrib.CustomFieldData.Net45.csproj", "{DE562221-E911-4908-B3C1-6269E1594242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData.Net46", "CslaContrib.CustomFieldData.Net46\CslaContrib.CustomFieldData.Net46.csproj", "{0D9A041C-F232-4106-A469-56AC4B5DAD98}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.CustomFieldData.Net461", "CslaContrib.CustomFieldData.Net461\CslaContrib.CustomFieldData.Net461.csproj", "{0D9A041C-F232-4106-A469-56AC4B5DAD98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net4", "CslaContrib.MEF.Net4\CslaContrib.MEF.Net4.csproj", "{68D09101-3908-4C74-AFB4-0FE1EBE3BD3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net45", "CslaContrib.MEF.Net45\CslaContrib.MEF.Net45.csproj", "{06189757-FBB9-4D00-8B9E-7BEBB543E66C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net46", "CslaContrib.MEF.Net46\CslaContrib.MEF.Net46.csproj", "{9F271FBB-2F69-4B12-B26F-06AB55EB5903}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.MEF.Net461", "CslaContrib.MEF.Net461\CslaContrib.MEF.Net461.csproj", "{9F271FBB-2F69-4B12-B26F-06AB55EB5903}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net4", "CslaContrib.Net4\CslaContrib.Net4.csproj", "{480F0ECD-13E4-453C-8719-750E5A1F1929}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net45", "CslaContrib.Net45\CslaContrib.Net45.csproj", "{267A47BA-E5E2-489F-B1D7-B0D663AF316B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net46", "CslaContrib.Net46\CslaContrib.Net46.csproj", "{0C7D0FCF-27FE-42EC-8D6D-0A4FCE69EA51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Net461", "CslaContrib.Net461\CslaContrib.Net461.csproj", "{0C7D0FCF-27FE-42EC-8D6D-0A4FCE69EA51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.Net4", "CslaContrib.ObjectCaching.AppFabric.Net4\CslaContrib.ObjectCaching.AppFabric.Net4.csproj", "{37F3CEB1-D604-4E55-90F6-7FFDB85A9940}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.Net45", "CslaContrib.ObjectCaching.AppFabric.Net45\CslaContrib.ObjectCaching.AppFabric.Net45.csproj", "{A2D36728-10A2-4FEE-B23D-A41D6034510D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.Net46", "CslaContrib.ObjectCaching.AppFabric.Net46\CslaContrib.ObjectCaching.AppFabric.Net46.csproj", "{3E6AD8F6-2856-4EA6-A133-462EA3B1A8AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.ObjectCaching.AppFabric.Net461", "CslaContrib.ObjectCaching.AppFabric.Net461\CslaContrib.ObjectCaching.AppFabric.Net461.csproj", "{3E6AD8F6-2856-4EA6-A133-462EA3B1A8AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows.Net4", "CslaContrib.Windows.Net4\CslaContrib.Windows.Net4.csproj", "{6381085E-3F99-46F5-8383-9063A26B280A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows.Net45", "CslaContrib.Windows.Net45\CslaContrib.Windows.Net45.csproj", "{0E0AA042-151E-4D59-A26D-4D262660E491}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows.Net46", "CslaContrib.Windows.Net46\CslaContrib.Windows.Net46.csproj", "{7CE75DC9-2856-4403-BB6C-26046E0AB0A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.Windows.Net461", "CslaContrib.Windows.Net461\CslaContrib.Windows.Net461.csproj", "{7CE75DC9-2856-4403-BB6C-26046E0AB0A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CslaContrib.WisejWeb.Net45", "CslaContrib.WisejWeb.Net45\CslaContrib.WisejWeb.Net45.csproj", "{60310B97-943A-4068-BF43-A8EC6676AB3F}"
 EndProject

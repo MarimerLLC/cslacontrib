@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C7D0FCF-27FE-42EC-8D6D-0A4FCE69EA51}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CslaContrib</RootNamespace>
+    <AssemblyName>CslaContrib</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\NET461\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\NET461\</OutputPath>
+    <DefineConstants>TRACE;NET46</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Release\NET461\CslaContrib.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=4.6.100.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-Core.4.6.100\lib\net46\Csla.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\CacheDataPortal.cs">
+      <Link>ObjectCaching\CacheDataPortal.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\CacheManager.cs">
+      <Link>ObjectCaching\CacheManager.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ICacheProvider.cs">
+      <Link>ObjectCaching\ICacheProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\InMemoryCacheProvider.cs">
+      <Link>ObjectCaching\InMemoryCacheProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ObjectCacheAttribute.cs">
+      <Link>ObjectCaching\ObjectCacheAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\ObjectCaching\ObjectCacheEvictionAttribute.cs">
+      <Link>ObjectCaching\ObjectCacheEvictionAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsEmptyOrIsInRole.cs">
+      <Link>Rules\AuthorizationRules\IsEmptyOrIsInRole.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsNewOrIsInRole.cs">
+      <Link>Rules\AuthorizationRules\IsNewOrIsInRole.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsOwner.cs">
+      <Link>Rules\AuthorizationRules\IsOwner.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\IsOwnerOrIsInRole.cs">
+      <Link>Rules\AuthorizationRules\IsOwnerOrIsInRole.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs">
+      <Link>Rules\AuthorizationRules\RestrictByStatusOrIsInRole.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\CommonRules.cs">
+      <Link>Rules\CommonRules.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenCanWrite.cs">
+      <Link>Rules\ConditionalRequired\RequiredWhenCanWrite.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenIsNotNew.cs">
+      <Link>Rules\ConditionalRequired\RequiredWhenIsNotNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ConditionalRequired\RequiredWhenNew.cs">
+      <Link>Rules\ConditionalRequired\RequiredWhenNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\DateRules\DateNotInFuture.cs">
+      <Link>Rules\DateRules\DateNotInFuture.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\DependencyFrom.cs">
+      <Link>Rules\DependencyFrom.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\CanWrite.cs">
+      <Link>Rules\GatewayRules\CanWrite.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\FieldExists.cs">
+      <Link>Rules\GatewayRules\FieldExists.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\IsNew.cs">
+      <Link>Rules\GatewayRules\IsNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\GatewayRules\IsNotNew.cs">
+      <Link>Rules\GatewayRules\IsNotNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\CollectionPopulated.cs">
+      <Link>Rules\ObjectRules\CollectionPopulated.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\CommonObjectRule.cs">
+      <Link>Rules\ObjectRules\CommonObjectRule.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ObjectRules\ObjectRuleEx.cs">
+      <Link>Rules\ObjectRules\ObjectRuleEx.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfAnyAdditionalHasValue.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfAnyAdditionalHasValue.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfIsNew.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfIsNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotCanWrite.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotCanWrite.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotFieldExists.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotFieldExists.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotIsExisting.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotIsExisting.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\Rules\ShortCircuitingRules\StopIfNotIsNew.cs">
+      <Link>Rules\ShortCircuitingRules\StopIfNotIsNew.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Net45\SmartDateExtendedParser.cs">
+      <Link>SmartDateExtendedParser.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Shared.Resources\Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Link>Properties\Resources.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.es.resx">
+      <Link>Properties\Resources.es.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.fr.resx">
+      <Link>Properties\Resources.fr.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.pt.resx">
+      <Link>Properties\Resources.pt.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Shared.Resources\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\CSLA-Core.4.6.100\analyzers\c#\Csla.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

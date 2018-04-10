@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7CE75DC9-2856-4403-BB6C-26046E0AB0A8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CslaContrib.Windows</RootNamespace>
+    <AssemblyName>CslaContrib.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CslaContrib.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\NET461\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\NET461\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Release\NET461\CslaContrib.Windows.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=4.6.100.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-Core.4.6.100\lib\net46\Csla.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Csla.Windows, Version=4.6.100.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-WindowsForms.4.6.100\lib\net46\Csla.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.cs">
+      <Link>BindableRadioButtons.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.Designer.cs">
+      <Link>BindableRadioButtons.Designer.cs</Link>
+      <DependentUpon>BindableRadioButtons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\BindingSourceExtensions.cs">
+      <Link>BindingSourceExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\CslaComboBox.cs">
+      <Link>CslaComboBox.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\ErrorWarnInfoProvider.cs">
+      <Link>ErrorWarnInfoProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\ListSelectForm.cs">
+      <Link>ListSelectForm.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\ListSelectForm.designer.cs">
+      <Link>ListSelectForm.designer.cs</Link>
+      <DependentUpon>ListSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\SmartDateTimePicker.cs">
+      <Link>SmartDateTimePicker.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\SplashPanel.cs">
+      <Link>SplashPanel.cs</Link>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Net45\StatusStripExtender.cs">
+      <Link>StatusStripExtender.cs</Link>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <Link>Properties\Resources.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Net45\BindableRadioButtons.resx">
+      <DependentUpon>BindableRadioButtons.cs</DependentUpon>
+      <Link>BindableRadioButtons.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Net45\ListSelectForm.resx">
+      <DependentUpon>ListSelectForm.cs</DependentUpon>
+      <Link>ListSelectForm.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.es.resx">
+      <Link>Properties\Resources.es.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.fr.resx">
+      <Link>Properties\Resources.fr.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.pt.resx">
+      <Link>Properties\Resources.pt.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\CslaContrib.Windows.Shared.Resources\Properties\Resources.resx">
+      <Link>Properties\Resources.resx</Link>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\BindableRadioButtons.bmp">
+      <Link>BindableRadioButtons.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\CslaComboBox.bmp">
+      <Link>CslaComboBox.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ErrorWarnInfoProvider.bmp">
+      <Link>ErrorWarnInfoProvider.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\ListSelectForm.bmp">
+      <Link>ListSelectForm.bmp</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutBack.png">
+      <Link>Resources\AboutBack.png</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\AboutPicture.png">
+      <Link>Resources\AboutPicture.png</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\InformationIco16.ico">
+      <Link>Resources\InformationIco16.ico</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progressbar_green.gif">
+      <Link>Resources\progressbar_green.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\progresscircle_black.gif">
+      <Link>Resources\progresscircle_black.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\status_anim.gif">
+      <Link>Resources\status_anim.gif</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\WarningIco16.ico">
+      <Link>Resources\WarningIco16.ico</Link>
+    </Content>
+    <Content Include="..\CslaContrib.Windows.Shared.Resources\Images\SmartDateTimePicker.bmp">
+      <Link>SmartDateTimePicker.bmp</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\CSLA-Core.4.6.100\analyzers\c#\Csla.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

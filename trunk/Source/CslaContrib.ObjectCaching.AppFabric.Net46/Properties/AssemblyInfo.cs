@@ -6,7 +6,7 @@
 [assembly: AssemblyTitle("CslaContrib.ObjectCaching.AppFabric in .NET 4.6")]
 [assembly: AssemblyDescription("Extends CSLA .NET framework with ObjectCaching cache provider for Windows Server AppFabric.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.ObjectCaching.AppFabric.NET46")]
+[assembly: AssemblyProduct("CslaContrib.ObjectCaching.AppFabric.NET461")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

@@ -15,10 +15,15 @@ at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
 
 [View all releases](https://github.com/MarimerLLC/cslacontrib/releases)
 
-Release 4.6.606
+[Release 4.6.606](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.606) published on NuGet (10-04-2018).
 
-Promote 4.6 projects to 4.6.1 (#104).
-Use NuGet Wisej (#103)
+Maintenance release:
+1. Promote .NET 4.6 projects to .NET 4.6.1
+2. Fetch Wisej dependency from NuGet
+
+All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
+
+This means that Wisej samples can be run without installling Wisej.
 
 [Release 4.6.605](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.605) published on NuGet (24-02-2018).
 

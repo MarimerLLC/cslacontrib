@@ -23,7 +23,7 @@ Maintenance release:
 
 All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
 
-This means that Wisej samples can be run without installling Wisej.
+This means that Wisej samples can run without installling Wisej.
 
 [Release 4.6.605](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.605) published on NuGet (24-02-2018).
 

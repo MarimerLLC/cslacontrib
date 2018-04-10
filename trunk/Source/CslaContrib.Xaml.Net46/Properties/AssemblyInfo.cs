@@ -6,7 +6,7 @@
 [assembly: AssemblyTitle("CslaContrib.Xaml in .NET 4.6")]
 [assembly: AssemblyDescription("Supports the creation of WPF applications.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("CslaContrib.Xaml.NET46")]
+[assembly: AssemblyProduct("CslaContrib.Xaml.NET461")]
 [assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM

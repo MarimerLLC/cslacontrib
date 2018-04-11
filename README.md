@@ -8,8 +8,7 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 
 --
 
-[CSLA .NET](http://www.cslanet.com) is copyright (c) Marimer LLC. Use of CSLA.NET is governed by the license 
-at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
+[CSLA .NET](http://www.cslanet.com) is copyright (c) Marimer LLC. Use of CSLA.NET and CslaContrib is governed by the [MIT license](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md).
 
 ## Releases
 

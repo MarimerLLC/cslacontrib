@@ -13,8 +13,6 @@ at https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md.
 
 ## Releases
 
-[View all releases](https://github.com/MarimerLLC/cslacontrib/releases)
-
 [Release 4.6.606](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.606) published on NuGet (10-04-2018).
 
 Maintenance release:
@@ -23,7 +21,7 @@ Maintenance release:
 
 All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
 
-This means that Wisej samples can run without installling Wisej.
+__N.B. - To run Wisej Web samples you don't need to install Wisej.__
 
 [Release 4.6.605](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.605) published on NuGet (24-02-2018).
 

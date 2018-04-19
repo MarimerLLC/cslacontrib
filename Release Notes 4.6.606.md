@@ -26,5 +26,3 @@
 
 ## Release 4.6.601 CslaContrib-Wisej update
 - ApplicationContextManager now uses Wisej.Base.ApplicationBase.
-
-### The home of CslaContrib is at [https://github.com/MarimerLLC/cslacontrib](https://github.com/MarimerLLC/cslacontrib).

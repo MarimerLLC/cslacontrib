@@ -1,5 +1,3 @@
-CslaContrib 4.6.600 on NuGet
-
 # CslaContrib 4.6.600 Release Notes
 
 ## Published modules
@@ -31,5 +29,3 @@ CslaContrib 4.6.600 on NuGet
 - last version was 4.6.400
 - all Silverlight modules as CSLA .NET no longer supports Silverlight
 - WebGUI module as Visual WebGUI no longer exists
-
-Home of CslaContrib is at [https://github.com/MarimerLLC/cslacontrib](https://github.com/MarimerLLC/cslacontrib)

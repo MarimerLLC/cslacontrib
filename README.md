@@ -24,5 +24,5 @@ __N.B. - To run Wisej Web samples you don't need to install Wisej.__
 
 ### Release Notes
 
-[Releases 4.6.601 to 4.6.606](Release_Notes_4.6.606.md)
-[Release 4.6.600](Release_Notes_4.6.600.md)
+- [Releases 4.6.601 to 4.6.606](Release_Notes_4.6.606.md)
+- [Release 4.6.600](Release_Notes_4.6.600.md)

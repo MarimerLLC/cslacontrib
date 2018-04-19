@@ -16,7 +16,7 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 
 Maintenance release:
 1. Promote .NET 4.6 projects to .NET 4.6.1
-2. Fetch Wisej dependency from NuGet
+2. Fetch Wisej dependency from [NuGet](https://www.nuget.org/packages/Wisej/) (no need to intall Wisej)
 
 All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
 

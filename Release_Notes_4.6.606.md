@@ -4,7 +4,7 @@
 
 ## Release 4.6.606 - maintenance
 - Promote 4.6 projects to 4.6.1 (tested against CSLA .NET 4.7.100 under .NET 4.6.1)
-- Use [NuGet Wisej](https://www.nuget.org/packages/Wisej/) (no need to intall Wisej)
+- Fetch Wisej dependency from [NuGet](https://www.nuget.org/packages/Wisej/) (no need to intall Wisej)
 
 ## Release 4.6.605 - ErrorWarnInfoProvider fixes and enhancements
 - Fixes to CslaContrib-Windows and CslaContrib-Wisej

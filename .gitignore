@@ -155,3 +155,4 @@ Thumbs.db
 *.userprefs
 /Source/Csla.WinRT/resources
 /Source/Csla.Uwp/resources
+/trunk/samples/ActionExtenderSample/CodeGenFiles/*.Layout

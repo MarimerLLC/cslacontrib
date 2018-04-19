@@ -10,7 +10,7 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 
 [CSLA .NET](http://www.cslanet.com) is copyright (c) Marimer LLC. Use of CSLA.NET and CslaContrib is governed by the [MIT license](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md).
 
-## Releases
+## News
 
 ### [Release 4.6.606](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.606) published on NuGet (10-04-2018).
 
@@ -22,6 +22,7 @@ All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
 
 __N.B. - To run Wisej Web samples you don't need to install Wisej.__
 
-### [Release 4.6.605](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.605) published on NuGet (24-02-2018).
+### Release Notes
 
-This release is focused on ErrorWarnInfoProvider (enhancements and bug fixing).
+[Releases 4.6.601 to 4.6.606](Release Notes 4.6.606.md)
+[Release 4.6.600](Release Notes 4.6.600.md)

@@ -20,7 +20,7 @@ Maintenance release:
 
 All samples were updated to CSLA .Net 4.7.100 and CslaContrib 4.6.606
 
-__N.B. - To run Wisej Web samples you don't need to install Wisej.__
+__N.B. - To run [ProjectTracker Wisej Web](https://github.com/MarimerLLC/cslacontrib/tree/master/trunk/samples/ProjectTracker) sample you don't need to install Wisej.__
 
 ### Release Notes
 

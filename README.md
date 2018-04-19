@@ -12,6 +12,14 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 
 ## News
 
+#### Project Tracker Release mode build
+When you build the solution in __Release__ mode, at the root level there will be 3 folders with ready to run versions:
+- WinForms - Windows Forms desktop application
+- WebSite - web site IIS ready
+- WebStandalone - web site packed into a desktop .exe file
+
+These applications use the remote AppServerHost hosted on Azure.
+
 ### [Release 4.6.606](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.606) published on NuGet (10-04-2018).
 
 Maintenance release:

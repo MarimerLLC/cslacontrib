@@ -24,6 +24,8 @@
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
+    <WisejDir>$(SolutionDir)ProjectTracker.Ui.WisejWeb\</WisejDir>
+    <OutputDir>$(SolutionDir)..\WebSite\</OutputDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -209,6 +211,18 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+if "$(Configuration)" == "Release" (
+XCOPY /S /Y /K /R "$(WisejDir)bin" "$(OutputDir)bin\"
+XCOPY /S /Y /K /R "$(WisejDir)Themes" "$(OutputDir)Themes\"
+COPY /Y "$(WisejDir)Default.html" "$(OutputDir)Default.html"
+COPY /Y "$(WisejDir)Default.json" "$(OutputDir)Default.json"
+COPY /Y "$(WisejDir)Web.config" "$(OutputDir)Web.config"
+COPY /Y "$(WisejDir)favicon.ico" "$(OutputDir)favicon.ico"
+)
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

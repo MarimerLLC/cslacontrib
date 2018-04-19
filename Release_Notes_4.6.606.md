@@ -1,6 +1,6 @@
 # CslaContrib 4.6.606 Release Notes
 
-# Changes since release [4.6.600](https://github.com/MarimerLLC/cslaforum/issues/416)
+# Changes since release [4.6.600](Release_Notes_4.6.600.md)
 
 
 ## Release 4.6.606 maintenance

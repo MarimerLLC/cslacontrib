@@ -9,7 +9,7 @@
 ## Release 4.6.605 - ErrorWarnInfoProvider fixes and enhancements
 - Fixes to CslaContrib-Windows and CslaContrib-Wisej
 - ErrorWarnInfoProvider fixes and enhancements:
-  - support INotifyPropertyChanged objects.
+  - support INotifyPropertyChanged objects (used to support only BindingSource).
   - allow control discovery when the DataSource is set.
   - fix Information message that was showing only property name.
 

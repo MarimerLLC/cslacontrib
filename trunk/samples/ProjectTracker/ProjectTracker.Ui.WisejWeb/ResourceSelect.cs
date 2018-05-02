@@ -1,17 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using Wisej.Web;
 using ProjectTracker.Library;
+using Wisej.Web;
 
 namespace PTWisej
 {
   public partial class ResourceSelect : Form
   {
     private int _resourceId;
+
     public int ResourceId
     {
       get { return _resourceId; }
@@ -24,9 +20,9 @@ namespace PTWisej
 
     private void OK_Button_Click(object sender, EventArgs e)
     {
-      _resourceId = 
+      _resourceId =
         ((ResourceInfo)
-         this.ResourceListListBox.SelectedValue).Id;
+          this.ResourceListListBox.SelectedValue).Id;
       this.Close();
     }
 
@@ -43,9 +39,9 @@ namespace PTWisej
 
     private void ResourceListListBox_DoubleClick(object sender, EventArgs e)
     {
-      _resourceId = 
+      _resourceId =
         ((ResourceInfo)
-         this.ResourceListListBox.SelectedValue).Id;
+          this.ResourceListListBox.SelectedValue).Id;
       this.DialogResult = DialogResult.OK;
       this.Close();
     }

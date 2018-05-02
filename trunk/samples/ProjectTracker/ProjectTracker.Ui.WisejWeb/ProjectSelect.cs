@@ -1,26 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using Wisej.Web;
-using ProjectTracker.Library;
 using System.Linq;
+using ProjectTracker.Library;
+using Wisej.Web;
 
 namespace PTWisej
 {
   public partial class ProjectSelect : Form
   {
-
     private int _projectId;
 
     public int ProjectId
     {
       get { return _projectId; }
     }
-
-
 
     public ProjectSelect()
     {
@@ -29,7 +21,7 @@ namespace PTWisej
 
     private void OK_Button_Click(object sender, EventArgs e)
     {
-      _projectId = (int)this.ProjectListListBox.SelectedValue;
+      _projectId = (int) this.ProjectListListBox.SelectedValue;
       this.Close();
     }
 
@@ -61,7 +53,7 @@ namespace PTWisej
 
     private void ProjectListListBox_DoubleClick(object sender, EventArgs e)
     {
-      _projectId = (int)this.ProjectListListBox.SelectedValue;
+      _projectId = (int) this.ProjectListListBox.SelectedValue;
       this.DialogResult = DialogResult.OK;
       this.Close();
     }

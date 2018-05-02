@@ -40,9 +40,9 @@ namespace PTWisej
       // 
       // ResourceListListBox
       // 
-      this.ResourceListListBox.Anchor = ((Wisej.Web.AnchorStyles)((((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Bottom)
-                  | Wisej.Web.AnchorStyles.Left)
-                  | Wisej.Web.AnchorStyles.Right)));
+      this.ResourceListListBox.Anchor = ((Wisej.Web.AnchorStyles)((((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Bottom) 
+            | Wisej.Web.AnchorStyles.Left) 
+            | Wisej.Web.AnchorStyles.Right)));
       this.ResourceListListBox.DataSource = this.ResourceListBindingSource;
       this.ResourceListListBox.Location = new System.Drawing.Point(12, 12);
       this.ResourceListListBox.Name = "ResourceListListBox";
@@ -96,7 +96,6 @@ namespace PTWisej
       this.ClientSize = new System.Drawing.Size(443, 323);
       this.Controls.Add(this.ResourceListListBox);
       this.Controls.Add(this.TableLayoutPanel1);
-      //this.FormBorderStyle = Wisej.Web.FormBorderStyle.FixedDialog;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "ResourceSelect";
@@ -117,6 +116,5 @@ namespace PTWisej
     internal Wisej.Web.Button OK_Button;
     internal Wisej.Web.Button Cancel_Button;
     internal Wisej.Web.BindingSource ResourceListBindingSource;
-
   }
 }

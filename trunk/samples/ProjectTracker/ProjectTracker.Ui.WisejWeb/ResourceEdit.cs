@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using Wisej.Web;
 
 namespace PTWisej
 {
   public partial class ResourceEdit : WinPart
   {
-
     private ProjectTracker.Library.ResourceEdit _resource;
 
     public ProjectTracker.Library.ResourceEdit Resource
@@ -59,7 +54,8 @@ namespace PTWisej
 
     private void ApplyAuthorizationRules()
     {
-      bool canEdit = Csla.Rules.BusinessRules.HasPermission(Csla.Rules.AuthorizationActions.EditObject, typeof(ProjectTracker.Library.ResourceEdit));
+      bool canEdit = Csla.Rules.BusinessRules.HasPermission(Csla.Rules.AuthorizationActions.EditObject,
+        typeof(ProjectTracker.Library.ResourceEdit));
       if (!canEdit)
         RebindUI(false, true);
 
@@ -70,6 +66,8 @@ namespace PTWisej
       this.OKButton.Enabled = canEdit;
       this.ApplyButton.Enabled = canEdit;
       this.Cancel_Button.Enabled = canEdit;
+      this.AssignButton.Enabled = canEdit;
+      this.UnassignButton.Enabled = canEdit;
 
       // enable/disable role column in grid
       this.AssignmentsDataGridView.Columns[3].ReadOnly = !canEdit;
@@ -134,15 +132,13 @@ namespace PTWisej
           catch (Csla.DataPortalException ex)
           {
             MessageBox.Show(ex.BusinessException.ToString(),
-              "Error saving", MessageBoxButtons.OK,
-              MessageBoxIcon.Error);
+              "Error saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
           }
           catch (Exception ex)
           {
             MessageBox.Show(ex.ToString(),
-              "Error Saving", MessageBoxButtons.OK,
-              MessageBoxIcon.Error);
+              "Error Saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
           }
         }
@@ -181,14 +177,12 @@ namespace PTWisej
         catch (InvalidOperationException ex)
         {
           MessageBox.Show(ex.Message,
-            "Error Assigning", MessageBoxButtons.OK,
-            MessageBoxIcon.Information);
+            "Error Assigning", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
         {
           MessageBox.Show(ex.ToString(),
-            "Error Assigning", MessageBoxButtons.OK,
-            MessageBoxIcon.Error);
+            "Error Assigning", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -196,7 +190,7 @@ namespace PTWisej
     {
       if (this.AssignmentsDataGridView.SelectedRows.Count > 0)
       {
-        var projectId = (int)this.AssignmentsDataGridView.SelectedRows[0].Cells[0].Value;
+        var projectId = (int) this.AssignmentsDataGridView.SelectedRows[0].Cells[0].Value;
         _resource.Assignments.Remove(projectId);
       }
     }
@@ -214,8 +208,20 @@ namespace PTWisej
     {
       if (e.ColumnIndex == 1 && e.RowIndex > -1)
       {
-        var projectId = (int)this.AssignmentsDataGridView.Rows[e.RowIndex].Cells[0].Value;
+        var projectId = (int) this.AssignmentsDataGridView.Rows[e.RowIndex].Cells[0].Value;
         MainPage.Instance.ShowEditProject(projectId);
+      }
+    }
+
+    private void RefreshButton_Click(object sender, EventArgs e)
+    {
+      using (StatusBusy busy = new StatusBusy("Refreshing..."))
+      {
+        if (RebindUI(false, false))
+        {
+          _resource = ProjectTracker.Library.ResourceEdit.GetResourceEdit(_resource.Id);
+          ResourceEdit_Load(sender, e);
+        }
       }
     }
   }

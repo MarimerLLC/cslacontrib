@@ -48,13 +48,12 @@ namespace PTWisej
       this.GetListButton.Size = new System.Drawing.Size(75, 23);
       this.GetListButton.TabIndex = 2;
       this.GetListButton.Text = "Get list";
-      //this.GetListButton.UseVisualStyleBackColor = true;
       this.GetListButton.Click += new System.EventHandler(this.GetListButton_Click);
       // 
       // NameTextBox
       // 
-      this.NameTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left)
-                  | Wisej.Web.AnchorStyles.Right)));
+      this.NameTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
+            | Wisej.Web.AnchorStyles.Right)));
       this.NameTextBox.Location = new System.Drawing.Point(83, 9);
       this.NameTextBox.Name = "NameTextBox";
       this.NameTextBox.Size = new System.Drawing.Size(267, 20);
@@ -65,15 +64,15 @@ namespace PTWisej
       this.NameLabel.AutoSize = true;
       this.NameLabel.Location = new System.Drawing.Point(12, 12);
       this.NameLabel.Name = "NameLabel";
-      this.NameLabel.Size = new System.Drawing.Size(38, 13);
+      this.NameLabel.Size = new System.Drawing.Size(39, 14);
       this.NameLabel.TabIndex = 0;
       this.NameLabel.Text = "Name:";
       // 
       // ProjectListListBox
       // 
-      this.ProjectListListBox.Anchor = ((Wisej.Web.AnchorStyles)((((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Bottom)
-                  | Wisej.Web.AnchorStyles.Left)
-                  | Wisej.Web.AnchorStyles.Right)));
+      this.ProjectListListBox.Anchor = ((Wisej.Web.AnchorStyles)((((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Bottom) 
+            | Wisej.Web.AnchorStyles.Left) 
+            | Wisej.Web.AnchorStyles.Right)));
       this.ProjectListListBox.DataSource = this.projectListBindingSource;
       this.ProjectListListBox.DisplayMember = "Name";
       this.ProjectListListBox.Location = new System.Drawing.Point(12, 41);
@@ -127,7 +126,7 @@ namespace PTWisej
       // ProjectSelect
       // 
       this.AcceptButton = this.OK_Button;
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
       this.AutoScaleMode = Wisej.Web.AutoScaleMode.Font;
       this.CancelButton = this.Cancel_Button;
       this.ClientSize = new System.Drawing.Size(443, 323);
@@ -136,7 +135,6 @@ namespace PTWisej
       this.Controls.Add(this.NameLabel);
       this.Controls.Add(this.ProjectListListBox);
       this.Controls.Add(this.TableLayoutPanel1);
-      //this.FormBorderStyle = Wisej.Web.FormBorderStyle.FixedDialog;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "ProjectSelect";

@@ -45,10 +45,10 @@ namespace PTWisej
       this.ResourceId = new Wisej.Web.DataGridViewTextBoxColumn();
       this.FullName = new Wisej.Web.DataGridViewLinkColumn();
       this.Role = new Wisej.Web.DataGridViewComboBoxColumn();
-      this.roleListBindingSource = new Wisej.Web.BindingSource(this.components);
+      this.RoleListBindingSource = new Wisej.Web.BindingSource(this.components);
       this.assignedDataGridViewTextBoxColumn = new Wisej.Web.DataGridViewTextBoxColumn();
-      this.resourcesBindingSource = new Wisej.Web.BindingSource(this.components);
-      this.projectBindingSource = new Wisej.Web.BindingSource(this.components);
+      this.ResourcesBindingSource = new Wisej.Web.BindingSource(this.components);
+      this.ProjectBindingSource = new Wisej.Web.BindingSource(this.components);
       this.DescriptionTextBox = new Wisej.Web.TextBox();
       this.EndedTextBox = new Wisej.Web.TextBox();
       this.IdLabel1 = new Wisej.Web.Label();
@@ -64,9 +64,9 @@ namespace PTWisej
       StartedLabel = new Wisej.Web.Label();
       this.GroupBox1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ResourcesDataGridView)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.roleListBindingSource)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.RoleListBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ResourcesBindingSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ProjectBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -217,7 +217,7 @@ namespace PTWisej
             this.FullName,
             this.Role,
             this.assignedDataGridViewTextBoxColumn});
-      this.ResourcesDataGridView.DataSource = this.resourcesBindingSource;
+      this.ResourcesDataGridView.DataSource = this.ResourcesBindingSource;
       this.ResourcesDataGridView.Location = new System.Drawing.Point(6, 19);
       this.ResourcesDataGridView.MultiSelect = false;
       this.ResourcesDataGridView.Name = "ResourcesDataGridView";
@@ -255,7 +255,7 @@ namespace PTWisej
       // Role
       // 
       this.Role.DataPropertyName = "Role";
-      this.Role.DataSource = this.roleListBindingSource;
+      this.Role.DataSource = this.RoleListBindingSource;
       this.Role.DisplayMember = "Value";
       this.Role.FillWeight = 200F;
       this.Role.HeaderText = "Role";
@@ -265,10 +265,10 @@ namespace PTWisej
       this.Role.ValueType = typeof(int);
       this.Role.Width = 200;
       // 
-      // roleListBindingSource
+      // RoleListBindingSource
       // 
-      this.roleListBindingSource.DataSource = typeof(ProjectTracker.Library.RoleList);
-      this.roleListBindingSource.RefreshValueOnChange = true;
+      this.RoleListBindingSource.DataSource = typeof(ProjectTracker.Library.RoleList);
+      this.RoleListBindingSource.RefreshValueOnChange = true;
       // 
       // assignedDataGridViewTextBoxColumn
       // 
@@ -279,22 +279,22 @@ namespace PTWisej
       this.assignedDataGridViewTextBoxColumn.ReadOnly = true;
       this.assignedDataGridViewTextBoxColumn.ValueType = typeof(System.DateTime);
       // 
-      // resourcesBindingSource
+      // ResourcesBindingSource
       // 
-      this.resourcesBindingSource.DataMember = "Resources";
-      this.resourcesBindingSource.DataSource = this.projectBindingSource;
+      this.ResourcesBindingSource.DataMember = "Resources";
+      this.ResourcesBindingSource.DataSource = this.ProjectBindingSource;
       // 
-      // projectBindingSource
+      // ProjectBindingSource
       // 
-      this.projectBindingSource.DataSource = typeof(ProjectTracker.Library.ProjectEdit);
-      this.projectBindingSource.RefreshValueOnChange = true;
+      this.ProjectBindingSource.DataSource = typeof(ProjectTracker.Library.ProjectEdit);
+      this.ProjectBindingSource.RefreshValueOnChange = true;
       // 
       // DescriptionTextBox
       // 
       this.DescriptionTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
             | Wisej.Web.AnchorStyles.Right)));
       this.ReadWriteAuthorization1.SetApplyAuthorization(this.DescriptionTextBox, true);
-      this.DescriptionTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.projectBindingSource, "Description", true));
+      this.DescriptionTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.ProjectBindingSource, "Description", true));
       this.DescriptionTextBox.Location = new System.Drawing.Point(81, 117);
       this.DescriptionTextBox.Multiline = true;
       this.DescriptionTextBox.Name = "DescriptionTextBox";
@@ -306,7 +306,7 @@ namespace PTWisej
       this.EndedTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
             | Wisej.Web.AnchorStyles.Right)));
       this.ReadWriteAuthorization1.SetApplyAuthorization(this.EndedTextBox, true);
-      this.EndedTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.projectBindingSource, "Ended", true));
+      this.EndedTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.ProjectBindingSource, "Ended", true));
       this.EndedTextBox.Location = new System.Drawing.Point(81, 91);
       this.EndedTextBox.Name = "EndedTextBox";
       this.EndedTextBox.Size = new System.Drawing.Size(696, 20);
@@ -317,7 +317,7 @@ namespace PTWisej
       this.IdLabel1.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
             | Wisej.Web.AnchorStyles.Right)));
       this.ReadWriteAuthorization1.SetApplyAuthorization(this.IdLabel1, false);
-      this.IdLabel1.DataBindings.Add(new Wisej.Web.Binding("Text", this.projectBindingSource, "Id", true));
+      this.IdLabel1.DataBindings.Add(new Wisej.Web.Binding("Text", this.ProjectBindingSource, "Id", true));
       this.IdLabel1.Location = new System.Drawing.Point(81, 13);
       this.IdLabel1.Name = "IdLabel1";
       this.IdLabel1.Size = new System.Drawing.Size(696, 23);
@@ -328,7 +328,7 @@ namespace PTWisej
       this.NameTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
             | Wisej.Web.AnchorStyles.Right)));
       this.ReadWriteAuthorization1.SetApplyAuthorization(this.NameTextBox, true);
-      this.NameTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.projectBindingSource, "Name", true));
+      this.NameTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.ProjectBindingSource, "Name", true));
       this.NameTextBox.Location = new System.Drawing.Point(81, 39);
       this.NameTextBox.Name = "NameTextBox";
       this.NameTextBox.Size = new System.Drawing.Size(696, 20);
@@ -339,7 +339,7 @@ namespace PTWisej
       this.StartedTextBox.Anchor = ((Wisej.Web.AnchorStyles)(((Wisej.Web.AnchorStyles.Top | Wisej.Web.AnchorStyles.Left) 
             | Wisej.Web.AnchorStyles.Right)));
       this.ReadWriteAuthorization1.SetApplyAuthorization(this.StartedTextBox, true);
-      this.StartedTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.projectBindingSource, "Started", true));
+      this.StartedTextBox.DataBindings.Add(new Wisej.Web.Binding("Text", this.ProjectBindingSource, "Started", true));
       this.StartedTextBox.Location = new System.Drawing.Point(81, 65);
       this.StartedTextBox.Name = "StartedTextBox";
       this.StartedTextBox.Size = new System.Drawing.Size(696, 20);
@@ -349,7 +349,7 @@ namespace PTWisej
       // 
       this.ErrorProvider1.BlinkStyle = Wisej.Web.ErrorBlinkStyle.NeverBlink;
       this.ErrorProvider1.ContainerControl = this;
-      this.ErrorProvider1.DataSource = this.projectBindingSource;
+      this.ErrorProvider1.DataSource = this.ProjectBindingSource;
       // 
       // RefreshButton
       // 
@@ -387,9 +387,9 @@ namespace PTWisej
       this.Load += new System.EventHandler(this.ProjectEdit_Load);
       this.GroupBox1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.ResourcesDataGridView)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.roleListBindingSource)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.RoleListBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ResourcesBindingSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.ProjectBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -413,9 +413,9 @@ namespace PTWisej
     internal Wisej.Web.TextBox StartedTextBox;
     internal CslaContrib.WisejWeb.ReadWriteAuthorization ReadWriteAuthorization1;
     internal Wisej.Web.ErrorProvider ErrorProvider1;
-    internal Wisej.Web.BindingSource projectBindingSource;
-    internal Wisej.Web.BindingSource resourcesBindingSource;
-    internal Wisej.Web.BindingSource roleListBindingSource;
+    internal Wisej.Web.BindingSource ProjectBindingSource;
+    internal Wisej.Web.BindingSource ResourcesBindingSource;
+    internal Wisej.Web.BindingSource RoleListBindingSource;
     private Wisej.Web.DataGridViewTextBoxColumn ResourceId;
     private Wisej.Web.DataGridViewLinkColumn FullName;
     private Wisej.Web.DataGridViewComboBoxColumn Role;

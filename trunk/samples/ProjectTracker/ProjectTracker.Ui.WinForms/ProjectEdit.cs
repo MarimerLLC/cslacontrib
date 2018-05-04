@@ -184,7 +184,7 @@ namespace PTWin
       this.Close();
     }
 
-    private async void RefreshButton_Click(object sender, EventArgs e)
+    private void RefreshButton_Click(object sender, EventArgs e)
     {
       using (StatusBusy busy = new StatusBusy("Refreshing..."))
       {
@@ -192,7 +192,7 @@ namespace PTWin
         {
           Project = ProjectTracker.Library.ProjectEdit.GetProject(Project.Id);
           RoleList.InvalidateCache();
-          await RoleList.CacheListAsync();
+          RoleList.CacheList();
           Setup();
         }
       }

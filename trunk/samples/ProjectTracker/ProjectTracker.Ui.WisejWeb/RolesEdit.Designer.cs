@@ -61,7 +61,7 @@ namespace PTWisej
       // 
       // rolesBindingSource
       // 
-      this.rolesBindingSource.DataSource = typeof(ProjectTracker.Library.Admin.RoleEditList);
+      this.rolesBindingSource.DataSource = typeof(ProjectTracker.Library.Admin.RoleEditBindingList);
       // 
       // RolesDataGridView
       // 

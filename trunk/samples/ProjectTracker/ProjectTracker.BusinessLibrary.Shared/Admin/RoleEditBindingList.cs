@@ -14,7 +14,7 @@ namespace ProjectTracker.Library
     /// in the system.
     /// </summary>
     [Serializable()]
-    public class RoleEditList : BusinessListBase<RoleEditList, RoleEdit>
+    public class RoleEditBindingList : BusinessBindingListBase<RoleEditBindingList, RoleEdit>
     {
       /// <summary>
       /// Remove a role based on the role's
@@ -46,23 +46,27 @@ namespace ProjectTracker.Library
             return item;
           }
         }
+
         return null;
       }
 
       [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
       public static void AddObjectAuthorizationRules()
       {
-        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditList), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.CreateObject, "Administrator"));
-        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditList), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.EditObject, "Administrator"));
-        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditList), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.DeleteObject, "Administrator"));
+        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditBindingList),
+          new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.CreateObject, "Administrator"));
+        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditBindingList),
+          new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.EditObject, "Administrator"));
+        Csla.Rules.BusinessRules.AddRule(typeof(RoleEditBindingList),
+          new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.DeleteObject, "Administrator"));
       }
 
-      public static void GetRoles(EventHandler<DataPortalResult<RoleEditList>> callback)
+      public static void GetRoles(EventHandler<DataPortalResult<RoleEditBindingList>> callback)
       {
-        DataPortal.BeginFetch<RoleEditList>(callback);
+        DataPortal.BeginFetch<RoleEditBindingList>(callback);
       }
 
-      public RoleEditList()
+      public RoleEditBindingList()
       {
         this.Saved += Roles_Saved;
         this.AllowNew = true;
@@ -75,31 +79,16 @@ namespace ProjectTracker.Library
         RoleList.InvalidateCache();
       }
 
-#if !FULL_DOTNET && !NETSTANDARD2_0
-      protected override void AddNewCore()
-      {
-        var item = RoleEdit.NewRoleEdit();
-        Add(item);
-        OnAddedNew(item);
-      }
-#elif NETSTANDARD2_0
-      protected override RoleEdit AddNewCore()
-      {
-        RoleEdit item = RoleEdit.NewRoleEdit();
-        Add(item);
-        return item;
-      }
-#else
-      protected override RoleEdit AddNewCore()
+      /*protected override object AddNewCore()
       {
         RoleEdit item = RoleEditManager.NewRoleEdit();
         Add(item);
         return item;
-      }
+      }*/
 
-      public static RoleEditList GetRoles()
+      public static RoleEditBindingList GetRoles()
       {
-        return DataPortal.Fetch<RoleEditList>();
+        return DataPortal.Fetch<RoleEditBindingList>();
       }
 
       protected override void OnDeserialized()
@@ -131,6 +120,7 @@ namespace ProjectTracker.Library
           foreach (var item in list)
             Add(DataPortal.FetchChild<RoleEdit>(item));
         }
+
         RaiseListChangedEvents = rlce;
       }
 
@@ -142,7 +132,6 @@ namespace ProjectTracker.Library
           Child_Update();
         this.RaiseListChangedEvents = true;
       }
-#endif
     }
   }
 }

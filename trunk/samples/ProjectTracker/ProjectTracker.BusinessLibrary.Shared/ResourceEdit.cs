@@ -20,6 +20,7 @@ namespace ProjectTracker.Library
     }
 
     public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(c => c.Id);
+    [Display(Name = "Resource id")]
     public int Id
     {
       get { return GetProperty(IdProperty); }
@@ -137,7 +138,7 @@ namespace ProjectTracker.Library
       DataPortal.BeginFetch<ResourceEdit>(id, callback);
     }
 
-#if FULL_DOTNET
+#if FULL_DOTNET || NETSTANDARD2_0
 
     public static ResourceEdit NewResourceEdit()
     {

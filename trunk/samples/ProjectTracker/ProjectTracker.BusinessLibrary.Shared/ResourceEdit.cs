@@ -27,7 +27,8 @@ namespace ProjectTracker.Library
       set { SetProperty(IdProperty, value); }
     }
 
-    public static readonly PropertyInfo<string> LastNameProperty = RegisterProperty<string>(c => c.LastName);
+    public static readonly PropertyInfo<string> LastNameProperty = 
+      RegisterProperty<string>(c => c.LastName);
     [Display(Name = "Last name")]
     [Required]
     [StringLength(50)]
@@ -37,7 +38,8 @@ namespace ProjectTracker.Library
       set { SetProperty(LastNameProperty, value); }
     }
 
-    public static readonly PropertyInfo<string> FirstNameProperty = RegisterProperty<string>(c => c.FirstName);
+    public static readonly PropertyInfo<string> FirstNameProperty = 
+      RegisterProperty<string>(c => c.FirstName);
     [Display(Name = "First name")]
     [Required]
     [StringLength(50)]
@@ -69,23 +71,17 @@ namespace ProjectTracker.Library
     protected override void AddBusinessRules()
     {
       base.AddBusinessRules();
-      BusinessRules.AddRule(new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.WriteProperty,
-        LastNameProperty, "ProjectManager"));
-      BusinessRules.AddRule(new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.WriteProperty,
-        FirstNameProperty, "ProjectManager"));
-      BusinessRules.AddRule(new NoDuplicateProject {PrimaryProperty = AssignmentsProperty});
+      BusinessRules.AddRule(new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.WriteProperty, LastNameProperty, "ProjectManager"));
+      BusinessRules.AddRule(new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.WriteProperty, FirstNameProperty, "ProjectManager"));
+      BusinessRules.AddRule(new NoDuplicateProject { PrimaryProperty = AssignmentsProperty });
     }
 
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public static void AddObjectAuthorizationRules()
     {
-      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit),
-        new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.CreateObject, "ProjectManager"));
-      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit),
-        new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.EditObject, "ProjectManager"));
-      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit),
-        new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.DeleteObject, "ProjectManager",
-          "Administrator"));
+      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.CreateObject, "ProjectManager"));
+      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.EditObject, "ProjectManager"));
+      Csla.Rules.BusinessRules.AddRule(typeof(ResourceEdit), new Csla.Rules.CommonRules.IsInRole(Csla.Rules.AuthorizationActions.DeleteObject, "ProjectManager", "Administrator"));
     }
 
     protected override void OnChildChanged(Csla.Core.ChildChangedEventArgs e)
@@ -95,7 +91,6 @@ namespace ProjectTracker.Library
         BusinessRules.CheckRules(AssignmentsProperty);
         OnPropertyChanged(AssignmentsProperty);
       }
-
       base.OnChildChanged(e);
     }
 
@@ -103,7 +98,7 @@ namespace ProjectTracker.Library
     {
       protected override void Execute(Csla.Rules.RuleContext context)
       {
-        var target = (ResourceEdit) context.Target;
+        var target = (ResourceEdit)context.Target;
         foreach (var item in target.Assignments)
         {
           var count = target.Assignments.Count(r => r.ProjectId == item.ProjectId);
@@ -143,7 +138,7 @@ namespace ProjectTracker.Library
       DataPortal.BeginFetch<ResourceEdit>(id, callback);
     }
 
-#if FULL_DOTNET
+#if FULL_DOTNET || NETSTANDARD2_0
 
     public static ResourceEdit NewResourceEdit()
     {
@@ -177,7 +172,6 @@ namespace ProjectTracker.Library
     }
 
 #if FULL_DOTNET
-
     private void DataPortal_Fetch(int id)
     {
       using (var ctx = ProjectTracker.Dal.DalFactory.GetManager())
@@ -211,14 +205,13 @@ namespace ProjectTracker.Library
           Id = item.Id;
           TimeStamp = item.LastChanged;
         }
-
         FieldManager.UpdateChildren(this);
       }
     }
 
     protected override void DataPortal_Update()
     {
-      using (var ctx = Dal.DalFactory.GetManager())
+      using (var ctx = ProjectTracker.Dal.DalFactory.GetManager())
       {
         var dal = ctx.GetProvider<ProjectTracker.Dal.IResourceDal>();
         using (BypassPropertyChecks)
@@ -233,7 +226,6 @@ namespace ProjectTracker.Library
           dal.Update(item);
           TimeStamp = item.LastChanged;
         }
-
         FieldManager.UpdateChildren(this);
       }
     }
@@ -254,7 +246,6 @@ namespace ProjectTracker.Library
         dal.Delete(id);
       }
     }
-
 #endif
   }
 }

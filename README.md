@@ -2,6 +2,8 @@
 
 # CSLA .NET public contribution project
 
+[![NuGet](https://img.shields.io/nuget/v/CslaContrib.svg)](https://www.nuget.org/packages/CslaContrib)
+
 The use (and contribution to) cslacontrib is governed by the [LICENSE.md](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md) file in this repo.
 
 CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET framework. The project is focused on extending the features of CSLA .NET.

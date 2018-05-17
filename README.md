@@ -14,11 +14,15 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 
 ## News
 
+#### Project Tracker Wisej is online
+Try [Project Tracker online](http://projecttracker.ddns.net)
+
 #### Project Tracker Release mode build
-When you build the solution in __Release__ mode, at the root level there will be 3 folders with ready to run versions:
-- WinForms - Windows Forms desktop application
+When you build the solution in __Release__ mode, at the root level there will be a __ProjectTracker-Outputs__ folder with 4 folders. These folders have ready to run versions:
+- AppServer - AppServerHost web site IIS ready
 - WebSite - Wisej web site IIS ready
 - WebStandalone - Wisej web site packed into a desktop .exe file
+- WinForms - Windows Forms desktop application
 
 These applications use the remote AppServerHost hosted on Azure.
 

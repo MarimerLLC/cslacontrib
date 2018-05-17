@@ -23,6 +23,8 @@
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
+    <AppDir>$(SolutionDir)ProjectTracker.AppServerHost\</AppDir>
+    <OutputDir>$(SolutionDir)..\ProjectTracker-Outputs\AppServer\</OutputDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -140,10 +142,23 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <PropertyGroup>
+    <PostBuildEvent>
+if "$(Configuration)" == "Release" (
+XCOPY /S /Y /K /R "$(AppDir)bin" "$(OutputDir)bin\"
+XCOPY /S /Y /K /R "$(AppDir)App_Data" "$(OutputDir)App_Data\"
+COPY /Y "$(AppDir)clientaccesspolicy.xml" "$(OutputDir)clientaccesspolicy.xml"
+COPY /Y "$(AppDir)WcfFullPortal.svc" "$(OutputDir)WcfFullPortal.svc"
+COPY /Y "$(AppDir)WcfMobilePortal.svc" "$(OutputDir)WcfMobilePortal.svc"
+COPY /Y "$(AppDir)Web.config" "$(OutputDir)Web.config"
+)
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
-  </Target> -->
+  </Target>
+  -->
 </Project>

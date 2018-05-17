@@ -219,6 +219,7 @@ namespace PTWisej
       this.Role.DataPropertyName = "Role";
       this.Role.DataSource = this.RoleListBindingSource;
       this.Role.DisplayMember = "Value";
+      this.Role.DropDownStyle = Wisej.Web.ComboBoxStyle.DropDownList;
       this.Role.FillWeight = 200F;
       this.Role.HeaderText = "Role";
       this.Role.MinimumWidth = 100;

@@ -18,7 +18,8 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 Try [Project Tracker online](http://projecttracker.ddns.net)
 
 #### Project Tracker Release mode build
-When you build the solution in __Release__ mode, at the root level there will be a __ProjectTracker-Outputs__ folder with 4 folders. These folders have ready to run versions:
+When you build the solution in __Release__ mode, at the root level there will be a __ProjectTracker-Outputs__ folder.
+On this folder there are 4 folders with ready to run versions:
 - AppServer - AppServerHost web site IIS ready
 - WebSite - Wisej web site IIS ready
 - WebStandalone - Wisej web site packed into a desktop .exe file

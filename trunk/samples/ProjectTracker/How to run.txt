@@ -1,7 +1,7 @@
 Importanta notice
 =================
 
-The factory configuration uses own DataPortal.
+The default configuration uses own DataPortal.
 You just need to select the Startup Project and hit run.
 
 The below instructions only apply if you want to play around.

@@ -25,7 +25,7 @@ On this folder there are 4 folders with ready to run versions:
 - WebStandalone - Wisej web site packed into a desktop .exe file
 - WinForms - Windows Forms desktop application
 
-These applications use the remote AppServerHost hosted on Azure.
+These applications use a remotely hosted AppServerHost.
 
 ### [Release 4.6.606](https://github.com/MarimerLLC/cslacontrib/releases/tag/v4.6.606) published on NuGet (10-04-2018).
 

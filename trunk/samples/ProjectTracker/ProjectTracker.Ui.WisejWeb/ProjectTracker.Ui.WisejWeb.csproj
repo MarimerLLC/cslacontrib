@@ -53,7 +53,7 @@
     <Content Include="Properties\DataSources\ProjectTracker.Library.ProjectList.datasource" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.ResourceList.datasource" />
     <Content Include="Properties\DataSources\ProjectTracker.Library.RoleList.datasource" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

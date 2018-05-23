@@ -41,3 +41,8 @@ __N.B. - To run [ProjectTracker Wisej Web](https://github.com/MarimerLLC/cslacon
 
 - [Releases 4.6.601 to 4.6.606](Release_Notes_4.6.606.md)
 - [Release 4.6.600](Release_Notes_4.6.600.md)
+
+License
+-------
+CSLA .NET Contrib is copyright Marimer LLC.
+Its use is governed by the [MIT license](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md).

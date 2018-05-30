@@ -46,7 +46,7 @@ namespace PTWin
       this.FullName = new System.Windows.Forms.DataGridViewLinkColumn();
       this.Role = new System.Windows.Forms.DataGridViewComboBoxColumn();
       this.RoleListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.assignedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Assigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ResourcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.ProjectBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.DescriptionTextBox = new System.Windows.Forms.TextBox();
@@ -227,7 +227,7 @@ namespace PTWin
             this.ResourceId,
             this.FullName,
             this.Role,
-            this.assignedDataGridViewTextBoxColumn});
+            this.Assigned});
       this.ResourcesDataGridView.DataSource = this.ResourcesBindingSource;
       this.ResourcesDataGridView.Location = new System.Drawing.Point(6, 19);
       this.ResourcesDataGridView.MultiSelect = false;
@@ -276,11 +276,11 @@ namespace PTWin
       // 
       // assignedDataGridViewTextBoxColumn
       // 
-      this.assignedDataGridViewTextBoxColumn.DataPropertyName = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.HeaderText = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.Name = "assignedDataGridViewTextBoxColumn";
-      this.assignedDataGridViewTextBoxColumn.ReadOnly = true;
-      this.assignedDataGridViewTextBoxColumn.Width = 75;
+      this.Assigned.DataPropertyName = "Assigned";
+      this.Assigned.HeaderText = "Assigned";
+      this.Assigned.Name = "Assigned";
+      this.Assigned.ReadOnly = true;
+      this.Assigned.Width = 75;
       // 
       // ResourcesBindingSource
       // 
@@ -433,6 +433,6 @@ namespace PTWin
     private System.Windows.Forms.DataGridViewTextBoxColumn ResourceId;
     private System.Windows.Forms.DataGridViewLinkColumn FullName;
     private System.Windows.Forms.DataGridViewComboBoxColumn Role;
-    private System.Windows.Forms.DataGridViewTextBoxColumn assignedDataGridViewTextBoxColumn;
+    private System.Windows.Forms.DataGridViewTextBoxColumn Assigned;
   }
 }

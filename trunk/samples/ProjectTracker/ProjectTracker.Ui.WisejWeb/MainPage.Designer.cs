@@ -55,15 +55,15 @@ namespace PTWisej
       // toolStrip1
       // 
       this.toolStrip1.Buttons.AddRange(new Wisej.Web.ToolBarButton[] {
-      this.ProjectsStripDropDownButton1,
-      this.ResourcesToolStripDropDownButton,
-      this.AdminToolStripDropDownButton,
-      this.LoginToolStripLabel,
-      this.LoginToolStripButton,
-      this.DocumentsToolStripDropDownButton});
+            this.ProjectsStripDropDownButton1,
+            this.ResourcesToolStripDropDownButton,
+            this.AdminToolStripDropDownButton,
+            this.LoginToolStripLabel,
+            this.LoginToolStripButton,
+            this.DocumentsToolStripDropDownButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
-      this.toolStrip1.Size = new System.Drawing.Size(946, 26);
+      this.toolStrip1.Size = new System.Drawing.Size(948, 26);
       this.toolStrip1.TabIndex = 1;
       this.toolStrip1.TabStop = false;
       this.toolStrip1.TextAlign = Wisej.Web.ToolBarTextAlign.Right;
@@ -80,9 +80,9 @@ namespace PTWisej
       // projectsMenu
       // 
       this.projectsMenu.MenuItems.AddRange(new Wisej.Web.MenuItem[] {
-      this.NewProjectToolStripMenuItem,
-      this.EditProjectToolStripMenuItem,
-      this.DeleteProjectToolStripMenuItem});
+            this.NewProjectToolStripMenuItem,
+            this.EditProjectToolStripMenuItem,
+            this.DeleteProjectToolStripMenuItem});
       this.projectsMenu.Name = "projectsMenu";
       // 
       // NewProjectToolStripMenuItem
@@ -117,9 +117,9 @@ namespace PTWisej
       // resourcesMenu
       // 
       this.resourcesMenu.MenuItems.AddRange(new Wisej.Web.MenuItem[] {
-      this.NewResourceToolStripMenuItem,
-      this.EditResourceToolStripMenuItem,
-      this.DeleteResourceToolStripMenuItem});
+            this.NewResourceToolStripMenuItem,
+            this.EditResourceToolStripMenuItem,
+            this.DeleteResourceToolStripMenuItem});
       this.resourcesMenu.Name = "resourcesMenu";
       // 
       // NewResourceToolStripMenuItem
@@ -154,7 +154,7 @@ namespace PTWisej
       // adminMenu
       // 
       this.adminMenu.MenuItems.AddRange(new Wisej.Web.MenuItem[] {
-      this.EditRolesToolStripMenuItem});
+            this.EditRolesToolStripMenuItem});
       this.adminMenu.Name = "adminMenu";
       // 
       // EditRolesToolStripMenuItem
@@ -194,7 +194,7 @@ namespace PTWisej
       this.Panel1.Dock = Wisej.Web.DockStyle.Fill;
       this.Panel1.Location = new System.Drawing.Point(0, 26);
       this.Panel1.Name = "Panel1";
-      this.Panel1.Size = new System.Drawing.Size(946, 695);
+      this.Panel1.Size = new System.Drawing.Size(948, 695);
       this.Panel1.TabIndex = 2;
       // 
       // StatusStrip1
@@ -202,8 +202,8 @@ namespace PTWisej
       this.StatusStrip1.Location = new System.Drawing.Point(0, 699);
       this.StatusStrip1.Name = "StatusStrip1";
       this.StatusStrip1.Panels.AddRange(new Wisej.Web.StatusBarPanel[] {
-      this.StatusLabel});
-      this.StatusStrip1.Size = new System.Drawing.Size(946, 22);
+            this.StatusLabel});
+      this.StatusStrip1.Size = new System.Drawing.Size(948, 22);
       this.StatusStrip1.TabIndex = 3;
       this.StatusStrip1.Text = "26+22";
       // 
@@ -216,11 +216,13 @@ namespace PTWisej
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
       this.AutoScaleMode = Wisej.Web.AutoScaleMode.Font;
+      this.AutoScroll = true;
       this.Controls.Add(this.StatusStrip1);
       this.Controls.Add(this.Panel1);
       this.Controls.Add(this.toolStrip1);
+      this.MinimumSize = new System.Drawing.Size(650, 425);
       this.Name = "MainPage";
-      this.Size = new System.Drawing.Size(946, 721);
+      this.Size = new System.Drawing.Size(948, 721);
       this.Text = "Project Tracker";
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.ResumeLayout(false);

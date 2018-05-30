@@ -38,9 +38,9 @@ namespace PTWisej
       this.OKButton = new Wisej.Web.Button();
       this.GroupBox1 = new Wisej.Web.GroupBox();
       this.AssignmentsDataGridView = new Wisej.Web.DataGridView();
-      this.projectIdDataGridViewTextBoxColumn = new Wisej.Web.DataGridViewTextBoxColumn();
-      this.projectNameDataGridViewTextBoxColumn = new Wisej.Web.DataGridViewLinkColumn();
-      this.assignedDataGridViewTextBoxColumn = new Wisej.Web.DataGridViewTextBoxColumn();
+      this.ProjectId = new Wisej.Web.DataGridViewTextBoxColumn();
+      this.ProjectName = new Wisej.Web.DataGridViewLinkColumn();
+      this.Assigned = new Wisej.Web.DataGridViewTextBoxColumn();
       this.Role = new Wisej.Web.DataGridViewComboBoxColumn();
       this.RoleListBindingSource = new Wisej.Web.BindingSource(this.components);
       this.AssignmentsBindingSource = new Wisej.Web.BindingSource(this.components);
@@ -165,9 +165,9 @@ namespace PTWisej
       this.AssignmentsDataGridView.AutoGenerateColumns = false;
       this.AssignmentsDataGridView.AutoSizeColumnsMode = Wisej.Web.DataGridViewAutoSizeColumnsMode.AllCells;
       this.AssignmentsDataGridView.Columns.AddRange(new Wisej.Web.DataGridViewColumn[] {
-            this.projectIdDataGridViewTextBoxColumn,
-            this.projectNameDataGridViewTextBoxColumn,
-            this.assignedDataGridViewTextBoxColumn,
+            this.ProjectId,
+            this.ProjectName,
+            this.Assigned,
             this.Role});
       this.AssignmentsDataGridView.DataSource = this.AssignmentsBindingSource;
       this.AssignmentsDataGridView.Location = new System.Drawing.Point(6, 19);
@@ -180,53 +180,47 @@ namespace PTWisej
       this.AssignmentsDataGridView.TabIndex = 0;
       this.AssignmentsDataGridView.CellClick += new Wisej.Web.DataGridViewCellEventHandler(this.AssignmentsDataGridView_CellContentClick);
       // 
-      // projectIdDataGridViewTextBoxColumn
+      // ProjectId
       // 
-      this.projectIdDataGridViewTextBoxColumn.DataPropertyName = "ProjectId";
-      this.projectIdDataGridViewTextBoxColumn.HeaderText = "ProjectId";
-      this.projectIdDataGridViewTextBoxColumn.Name = "projectIdDataGridViewTextBoxColumn";
-      this.projectIdDataGridViewTextBoxColumn.ReadOnly = true;
-      this.projectIdDataGridViewTextBoxColumn.ValueType = typeof(int);
-      this.projectIdDataGridViewTextBoxColumn.Visible = false;
-      this.projectIdDataGridViewTextBoxColumn.Width = 74;
+      this.ProjectId.DataPropertyName = "ProjectId";
+      this.ProjectId.HeaderText = "ProjectId";
+      this.ProjectId.Name = "ProjectId";
+      this.ProjectId.ReadOnly = true;
+      this.ProjectId.Visible = false;
       // 
-      // projectNameDataGridViewTextBoxColumn
+      // ProjectName
       // 
-      this.projectNameDataGridViewTextBoxColumn.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.Fill;
-      this.projectNameDataGridViewTextBoxColumn.DataPropertyName = "ProjectName";
-      this.projectNameDataGridViewTextBoxColumn.FillWeight = 200F;
-      this.projectNameDataGridViewTextBoxColumn.HeaderText = "Project Name";
-      this.projectNameDataGridViewTextBoxColumn.MinimumWidth = 100;
-      this.projectNameDataGridViewTextBoxColumn.Name = "projectNameDataGridViewTextBoxColumn";
-      this.projectNameDataGridViewTextBoxColumn.ReadOnly = true;
-      this.projectNameDataGridViewTextBoxColumn.Resizable = Wisej.Web.DataGridViewTriState.True;
-      this.projectNameDataGridViewTextBoxColumn.SortMode = Wisej.Web.DataGridViewColumnSortMode.Automatic;
-      this.projectNameDataGridViewTextBoxColumn.Text = "";
-      this.projectNameDataGridViewTextBoxColumn.ValueType = typeof(string);
-      this.projectNameDataGridViewTextBoxColumn.Width = 200;
+      this.ProjectName.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.AllCells;
+      this.ProjectName.DataPropertyName = "ProjectName";
+      this.ProjectName.FillWeight = 200F;
+      this.ProjectName.HeaderText = "Project Name";
+      this.ProjectName.MinimumWidth = 50;
+      this.ProjectName.Name = "ProjectName";
+      this.ProjectName.ReadOnly = true;
+      this.ProjectName.Resizable = Wisej.Web.DataGridViewTriState.True;
+      this.ProjectName.SortMode = Wisej.Web.DataGridViewColumnSortMode.Automatic;
+      this.ProjectName.Text = "";
       // 
-      // assignedDataGridViewTextBoxColumn
+      // Assigned
       // 
-      this.assignedDataGridViewTextBoxColumn.DataPropertyName = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.HeaderText = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.MinimumWidth = 50;
-      this.assignedDataGridViewTextBoxColumn.Name = "assignedDataGridViewTextBoxColumn";
-      this.assignedDataGridViewTextBoxColumn.ReadOnly = true;
-      this.assignedDataGridViewTextBoxColumn.ValueType = typeof(string);
+      this.Assigned.DataPropertyName = "Assigned";
+      this.Assigned.HeaderText = "Assigned";
+      this.Assigned.MinimumWidth = 50;
+      this.Assigned.Name = "Assigned";
+      this.Assigned.ReadOnly = true;
       // 
       // Role
       // 
+      this.Role.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.AllCells;
       this.Role.DataPropertyName = "Role";
       this.Role.DataSource = this.RoleListBindingSource;
       this.Role.DisplayMember = "Value";
       this.Role.DropDownStyle = Wisej.Web.ComboBoxStyle.DropDownList;
       this.Role.FillWeight = 200F;
       this.Role.HeaderText = "Role";
-      this.Role.MinimumWidth = 100;
+      this.Role.MinimumWidth = 50;
       this.Role.Name = "Role";
       this.Role.ValueMember = "Key";
-      this.Role.ValueType = typeof(int);
-      this.Role.Width = 200;
       // 
       // RoleListBindingSource
       // 
@@ -361,9 +355,9 @@ namespace PTWisej
     internal Wisej.Web.BindingSource AssignmentsBindingSource;
     internal Wisej.Web.BindingSource ResourceBindingSource;
     internal Wisej.Web.ErrorProvider ErrorProvider1;
-    private Wisej.Web.DataGridViewTextBoxColumn projectIdDataGridViewTextBoxColumn;
-    private Wisej.Web.DataGridViewLinkColumn projectNameDataGridViewTextBoxColumn;
-    private Wisej.Web.DataGridViewTextBoxColumn assignedDataGridViewTextBoxColumn;
+    private Wisej.Web.DataGridViewTextBoxColumn ProjectId;
+    private Wisej.Web.DataGridViewLinkColumn ProjectName;
+    private Wisej.Web.DataGridViewTextBoxColumn Assigned;
     private Wisej.Web.DataGridViewComboBoxColumn Role;
     internal Wisej.Web.Button RefreshButton;
   }

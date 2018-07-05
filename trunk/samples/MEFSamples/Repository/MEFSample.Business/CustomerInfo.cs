@@ -14,7 +14,7 @@ namespace MEFSample.Business
     // use snippet cslapropg to create your properties
 
     // example with managed backing field
-    private static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(p => p.Id);
+    public static readonly PropertyInfo<int> IdProperty = RegisterProperty<int>(p => p.Id);
 
     public int Id
     {
@@ -22,7 +22,7 @@ namespace MEFSample.Business
     }
 
     // example with private backing field
-    private static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(p => p.Name);
+    public static readonly PropertyInfo<string> NameProperty = RegisterProperty<string>(p => p.Name);
 
     public string Name
     {

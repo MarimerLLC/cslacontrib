@@ -46,7 +46,7 @@ namespace PTWisej
       this.FullName = new Wisej.Web.DataGridViewLinkColumn();
       this.Role = new Wisej.Web.DataGridViewComboBoxColumn();
       this.RoleListBindingSource = new Wisej.Web.BindingSource(this.components);
-      this.assignedDataGridViewTextBoxColumn = new Wisej.Web.DataGridViewTextBoxColumn();
+      this.Assigned = new Wisej.Web.DataGridViewTextBoxColumn();
       this.ResourcesBindingSource = new Wisej.Web.BindingSource(this.components);
       this.ProjectBindingSource = new Wisej.Web.BindingSource(this.components);
       this.DescriptionTextBox = new Wisej.Web.TextBox();
@@ -216,7 +216,7 @@ namespace PTWisej
             this.ResourceId,
             this.FullName,
             this.Role,
-            this.assignedDataGridViewTextBoxColumn});
+            this.Assigned});
       this.ResourcesDataGridView.DataSource = this.ResourcesBindingSource;
       this.ResourcesDataGridView.Location = new System.Drawing.Point(6, 19);
       this.ResourcesDataGridView.MultiSelect = false;
@@ -234,51 +234,46 @@ namespace PTWisej
       this.ResourceId.HeaderText = "ResourceId";
       this.ResourceId.Name = "ResourceId";
       this.ResourceId.ReadOnly = true;
-      this.ResourceId.ValueType = typeof(int);
       this.ResourceId.Visible = false;
       // 
       // FullName
       // 
-      this.FullName.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.Fill;
+      this.FullName.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.AllCells;
       this.FullName.DataPropertyName = "FullName";
       this.FullName.FillWeight = 300F;
       this.FullName.HeaderText = "Full Name";
-      this.FullName.MinimumWidth = 200;
+      this.FullName.MinimumWidth = 50;
       this.FullName.Name = "FullName";
       this.FullName.ReadOnly = true;
       this.FullName.Resizable = Wisej.Web.DataGridViewTriState.True;
       this.FullName.SortMode = Wisej.Web.DataGridViewColumnSortMode.Automatic;
       this.FullName.Text = "";
-      this.FullName.ValueType = typeof(string);
-      this.FullName.Width = 300;
       // 
       // Role
       // 
+      this.Role.AutoSizeMode = Wisej.Web.DataGridViewAutoSizeColumnMode.AllCells;
       this.Role.DataPropertyName = "Role";
       this.Role.DataSource = this.RoleListBindingSource;
       this.Role.DisplayMember = "Value";
       this.Role.DropDownStyle = Wisej.Web.ComboBoxStyle.DropDownList;
-      this.Role.FillWeight = 200F;
+      this.Role.FillWeight = 300F;
       this.Role.HeaderText = "Role";
-      this.Role.MinimumWidth = 100;
+      this.Role.MinimumWidth = 50;
       this.Role.Name = "Role";
       this.Role.ValueMember = "Key";
-      this.Role.ValueType = typeof(int);
-      this.Role.Width = 200;
       // 
       // RoleListBindingSource
       // 
       this.RoleListBindingSource.DataSource = typeof(ProjectTracker.Library.RoleList);
       this.RoleListBindingSource.RefreshValueOnChange = true;
       // 
-      // assignedDataGridViewTextBoxColumn
+      // Assigned
       // 
-      this.assignedDataGridViewTextBoxColumn.DataPropertyName = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.HeaderText = "Assigned";
-      this.assignedDataGridViewTextBoxColumn.MinimumWidth = 50;
-      this.assignedDataGridViewTextBoxColumn.Name = "assignedDataGridViewTextBoxColumn";
-      this.assignedDataGridViewTextBoxColumn.ReadOnly = true;
-      this.assignedDataGridViewTextBoxColumn.ValueType = typeof(System.DateTime);
+      this.Assigned.DataPropertyName = "Assigned";
+      this.Assigned.HeaderText = "Assigned";
+      this.Assigned.MinimumWidth = 50;
+      this.Assigned.Name = "Assigned";
+      this.Assigned.ReadOnly = true;
       // 
       // ResourcesBindingSource
       // 
@@ -420,7 +415,7 @@ namespace PTWisej
     private Wisej.Web.DataGridViewTextBoxColumn ResourceId;
     private Wisej.Web.DataGridViewLinkColumn FullName;
     private Wisej.Web.DataGridViewComboBoxColumn Role;
-    private Wisej.Web.DataGridViewTextBoxColumn assignedDataGridViewTextBoxColumn;
+    private Wisej.Web.DataGridViewTextBoxColumn Assigned;
     internal Wisej.Web.Button RefreshButton;
   }
 }

@@ -61,12 +61,12 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Csla, Version=4.7.101.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\packages\CSLA-Core.4.7.101\lib\net45\Csla.dll</HintPath>
+    <Reference Include="Csla, Version=4.7.200.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-Core.4.7.200\lib\net45\Csla.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Csla.Windows, Version=4.7.101.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
-      <HintPath>..\packages\CSLA-WindowsForms.4.7.101\lib\net45\Csla.Windows.dll</HintPath>
+    <Reference Include="Csla.Windows, Version=4.7.200.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSLA-WindowsForms.4.7.200\lib\net45\Csla.Windows.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -218,7 +218,7 @@
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\CSLA-Core.4.7.101\analyzers\c#\Csla.Analyzers.dll" />
+    <Analyzer Include="..\packages\CSLA-Core.4.7.200\analyzers\c#\Csla.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

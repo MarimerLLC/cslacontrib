@@ -17,6 +17,18 @@ CSLA .NET Contrib is a contribution project to Rockford Lhotka's CSLA .NET frame
 #### Project Tracker Wisej is online
 Try [Project Tracker online](http://projecttracker.ddns.net)
 
+##### Profiling used memory on Project Tracker Wisej Web vs WinForms
+
+Results of Project Tracker memory profile for Wisej Web and WinForms versions:
+
+| Environment | Used Memory |
+| :--- | ---: |
+| Wisej single instance baseline | 14.908 KB |
+| Wisej extra instance | 259 KB |
+| WinForms | 2.421 KB |
+
+
+
 #### Project Tracker Release mode build
 When you build the solution in __Release__ mode, at the root level there will be a __ProjectTracker-Outputs__ folder.
 On this folder there are 4 folders with ready to run versions:

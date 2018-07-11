@@ -2,7 +2,7 @@
 //
 // (C) 2017 ICE TEA GROUP LLC - ALL RIGHTS RESERVED
 //
-// 
+//
 //
 // ALL INFORMATION CONTAINED HEREIN IS, AND REMAINS
 // THE PROPERTY OF ICE TEA GROUP LLC AND ITS SUPPLIERS, IF ANY.
@@ -28,48 +28,48 @@ using System.Web.WebSockets;
 namespace Wisej.HostService.Owin
 {
     internal class WisejWebSocketContext : AspNetWebSocketContext
+  {
+    HttpRequest request;
+    HttpContext context;
+    WebSocketContext webSocketContext;
+
+    public WisejWebSocketContext(IDictionary<string, object> environment)
     {
-        HttpRequest request;
-        HttpContext context;
-        WebSocketContext webSocketContext;
-
-        public WisejWebSocketContext(IDictionary<string, object> environment)
-        {
-            this.context = HttpContext.Current;
-            this.request = this.context.Request;
-            this.webSocketContext = (WebSocketContext) environment["System.Net.WebSockets.WebSocketContext"];
-        }
-
-        public override Uri RequestUri
-        {
-            get { return this.request.Url; }
-        }
-
-        public override NameValueCollection QueryString
-        {
-            get { return this.request.QueryString; }
-        }
-
-        public override IDictionary Items
-        {
-            get { return this._items = this._items ?? new Hashtable(); }
-        }
-
-        private IDictionary _items;
-
-        public override WebSocket WebSocket
-        {
-            get { return this.webSocketContext.WebSocket; }
-        }
-
-        public override bool IsClientConnected
-        {
-            get { return this.WebSocket.State == WebSocketState.Open; }
-        }
-
-        public override HttpServerUtilityBase Server
-        {
-            get { return new HttpServerUtilityWrapper(this.context.Server); }
-        }
+      this.context = HttpContext.Current;
+      this.request = this.context.Request;
+      this.webSocketContext = (WebSocketContext) environment["System.Net.WebSockets.WebSocketContext"];
     }
+
+    public override Uri RequestUri
+    {
+      get { return this.request.Url; }
+    }
+
+    public override NameValueCollection QueryString
+    {
+      get { return this.request.QueryString; }
+    }
+
+    public override IDictionary Items
+    {
+      get { return this._items = this._items ?? new Hashtable(); }
+    }
+
+    private IDictionary _items;
+
+    public override WebSocket WebSocket
+    {
+      get { return this.webSocketContext.WebSocket; }
+    }
+
+    public override bool IsClientConnected
+    {
+      get { return this.WebSocket.State == WebSocketState.Open; }
+    }
+
+    public override HttpServerUtilityBase Server
+    {
+      get { return new HttpServerUtilityWrapper(this.context.Server); }
+    }
+  }
 }

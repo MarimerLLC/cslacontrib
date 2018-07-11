@@ -28,48 +28,48 @@ using System.Web.WebSockets;
 namespace Wisej.HostService.Owin
 {
     internal class WisejWebSocketContext : AspNetWebSocketContext
-  {
-    HttpRequest request;
-    HttpContext context;
-    WebSocketContext webSocketContext;
-
-    public WisejWebSocketContext(IDictionary<string, object> environment)
     {
-      this.context = HttpContext.Current;
-      this.request = this.context.Request;
-      this.webSocketContext = (WebSocketContext) environment["System.Net.WebSockets.WebSocketContext"];
-    }
+        HttpRequest request;
+        HttpContext context;
+        WebSocketContext webSocketContext;
 
-    public override Uri RequestUri
-    {
-      get { return this.request.Url; }
-    }
+        public WisejWebSocketContext(IDictionary<string, object> environment)
+        {
+            this.context = HttpContext.Current;
+            this.request = this.context.Request;
+            this.webSocketContext = (WebSocketContext) environment["System.Net.WebSockets.WebSocketContext"];
+        }
 
-    public override NameValueCollection QueryString
-    {
-      get { return this.request.QueryString; }
-    }
+        public override Uri RequestUri
+        {
+            get { return this.request.Url; }
+        }
 
-    public override IDictionary Items
-    {
-      get { return this._items = this._items ?? new Hashtable(); }
-    }
+        public override NameValueCollection QueryString
+        {
+            get { return this.request.QueryString; }
+        }
 
-    private IDictionary _items;
+        public override IDictionary Items
+        {
+            get { return this._items = this._items ?? new Hashtable(); }
+        }
 
-    public override WebSocket WebSocket
-    {
-      get { return this.webSocketContext.WebSocket; }
-    }
+        private IDictionary _items;
 
-    public override bool IsClientConnected
-    {
-      get { return this.WebSocket.State == WebSocketState.Open; }
-    }
+        public override WebSocket WebSocket
+        {
+            get { return this.webSocketContext.WebSocket; }
+        }
 
-    public override HttpServerUtilityBase Server
-    {
-      get { return new HttpServerUtilityWrapper(this.context.Server); }
+        public override bool IsClientConnected
+        {
+            get { return this.WebSocket.State == WebSocketState.Open; }
+        }
+
+        public override HttpServerUtilityBase Server
+        {
+            get { return new HttpServerUtilityWrapper(this.context.Server); }
+        }
     }
-  }
 }

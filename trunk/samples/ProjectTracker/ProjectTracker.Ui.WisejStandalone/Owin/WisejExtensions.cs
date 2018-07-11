@@ -18,25 +18,26 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using Owin;
 
-namespace Owin
+namespace Wisej.HostService.Owin
 {
+  /// <summary>
+  /// Adds "UseWisej" to the Owin system.
+  /// </summary>
+  public static class WisejExtensions
+  {
     /// <summary>
-    /// Adds "UseWisej" to the Owin system.
+    /// Captures *.wx requests and passes them to Wisej for processing.
     /// </summary>
-    public static class WisejExtensions
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    public static IAppBuilder UseWisej(this IAppBuilder builder)
     {
-        /// <summary>
-        /// Captures *.wx requests and passes them to Wisej for processing.
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <returns></returns>
-        public static IAppBuilder UseWisej(this IAppBuilder builder)
-        {
-            if (builder == null)
-                throw new ArgumentNullException("builder");
+      if (builder == null)
+        throw new ArgumentNullException("builder");
 
-            return builder.Use<Wisej.HostService.Owin.WisejMiddleware>();
-        }
+      return builder.Use<Wisej.HostService.Owin.WisejMiddleware>();
     }
+  }
 }

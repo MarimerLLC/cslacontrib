@@ -2,7 +2,7 @@
 //
 // (C) 2017 ICE TEA GROUP LLC - ALL RIGHTS RESERVED
 //
-// 
+//
 //
 // ALL INFORMATION CONTAINED HEREIN IS, AND REMAINS
 // THE PROPERTY OF ICE TEA GROUP LLC AND ITS SUPPLIERS, IF ANY.
@@ -247,7 +247,7 @@ namespace Wisej.HostService.Owin
         }
 
         /// <summary>
-        /// Returns additional path information for a resource with a URL extension. 
+        /// Returns additional path information for a resource with a URL extension.
         /// That is, for the path /virdir/page.html/tail, the return value is /tail.
         /// </summary>
         /// <returns>Additional path information for a resource.</returns>
@@ -443,7 +443,7 @@ namespace Wisej.HostService.Owin
         }
 
         /// <summary>
-        /// Reads request data from the client (when not preloaded) by using the specified buffer to read from, byte offset, 
+        /// Reads request data from the client (when not preloaded) by using the specified buffer to read from, byte offset,
         /// and maximum bytes.
         /// </summary>
         /// <returns>The number of bytes read.</returns>
@@ -490,7 +490,7 @@ namespace Wisej.HostService.Owin
         }
 
         /// <summary>
-        /// Adds the contents of the file with the specified name to the response and specifies 
+        /// Adds the contents of the file with the specified name to the response and specifies
         /// the starting position in the file and the number of bytes to send.
         /// </summary>
         /// <param name="filename">The name of the file to send. </param>
@@ -505,7 +505,7 @@ namespace Wisej.HostService.Owin
         }
 
         /// <summary>
-        /// Adds the contents of the file with the specified handle to the response and specifies 
+        /// Adds the contents of the file with the specified handle to the response and specifies
         /// the starting position in the file and the number of bytes to send.
         /// </summary>
         /// <param name="handle">The handle of the file to send. </param>
@@ -540,7 +540,7 @@ namespace Wisej.HostService.Owin
         }
 
         /// <summary>
-        /// Adds the contents of a byte array to the response and specifies 
+        /// Adds the contents of a byte array to the response and specifies
         /// the number of bytes to send.
         /// </summary>
         /// <param name="data">The byte array to send. </param>

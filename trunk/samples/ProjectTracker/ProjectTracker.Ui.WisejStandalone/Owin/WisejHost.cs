@@ -2,7 +2,7 @@
 //
 // (C) 2017 ICE TEA GROUP LLC - ALL RIGHTS RESERVED
 //
-// 
+//
 //
 // ALL INFORMATION CONTAINED HEREIN IS, AND REMAINS
 // THE PROPERTY OF ICE TEA GROUP LLC AND ITS SUPPLIERS, IF ANY.
@@ -196,7 +196,7 @@ namespace Wisej.HostService.Owin
                 physicalDir = physicalDir + "\\";
 
             // NOTE: We have two solutions to make this assembly discoverable by the application host's AppDomain.
-            // 
+            //
             // 1) Copy this assembly to the application's /bin.
             // 2) Register this assembly's path with the application host's AppDomain.
 

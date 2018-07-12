@@ -39,12 +39,18 @@ namespace Wisej.HostService.Owin
     /// </summary>
     internal class WisejMiddleware : OwinMiddleware
     {
+        // reusable Wisej HttpHandler.
+        private Wisej.Core.HttpHandler _httpHandler;
+
         /// <summary>
         /// Process all requests.
         /// </summary>
         /// <param name="next"></param>
         public WisejMiddleware(OwinMiddleware next) : base(next)
         {
+            this._httpHandler = new Wisej.Core.HttpHandler();
+            if (!this._httpHandler.IsReusable)
+                this._httpHandler = null;
         }
 
         /// <summary>
@@ -99,7 +105,7 @@ namespace Wisej.HostService.Owin
                 }
             }
 
-            return this.Next.Invoke(context);
+            return ProcessAspNetRequest(context);
         }
 
         /// <summary>
@@ -120,7 +126,8 @@ namespace Wisej.HostService.Owin
 
             // process the wisej http request and return the async task
             // pegged to the async wisej handler EndProcessRequest.
-            var handler = new Wisej.Core.HttpHandler();
+            var handler = this._httpHandler ?? new Wisej.Core.HttpHandler();
+
             var async = handler.BeginProcessRequest(
                 httpContext,
                 r =>

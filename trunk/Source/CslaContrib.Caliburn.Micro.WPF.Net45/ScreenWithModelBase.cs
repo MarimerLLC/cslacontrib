@@ -2,35 +2,35 @@
 
 namespace CslaContrib.Caliburn.Micro
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq.Expressions;
-    using System.Runtime.Serialization;
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Collections.Specialized;
+  using System.ComponentModel;
+  using System.ComponentModel.DataAnnotations;
+  using System.Linq.Expressions;
+  using System.Runtime.Serialization;
 #if NETFX_CORE
     using Windows.UI.Xaml;
     using System.Linq.Expressions;
 #else
-    using System.Windows;
+  using System.Windows;
 #endif
-    using Csla;
-    using Csla.Core;
-    using Csla.Reflection;
-    using Csla.Rules;
+  using Csla;
+  using Csla.Core;
+  using Csla.Reflection;
+  using Csla.Rules;
 #if NET45
     using System.Runtime.CompilerServices;
 #endif
-    using ICloneable = System.ICloneable;
+  using ICloneable = System.ICloneable;
 
-    /// <summary>
-    /// Base class used to create ScreenWithModel objects that
-    /// implement their own commands/verbs/actions.
-    /// </summary>
-    /// <typeparam name="T">Type of the Model object.</typeparam>
-    public abstract class ScreenWithModelBase<T> : DependencyObject, IScreen, IChild, IViewAware, IHaveModel
+  /// <summary>
+  /// Base class used to create ScreenWithModel objects that
+  /// implement their own commands/verbs/actions.
+  /// </summary>
+  /// <typeparam name="T">Type of the Model object.</typeparam>
+  public abstract class ScreenWithModelBase<T> : DependencyObject, IScreen, IChild, IViewAware, IHaveModel
     {
         #region Constructor
 
@@ -1527,7 +1527,7 @@ namespace CslaContrib.Caliburn.Micro
         {
             if (CacheViews)
             {
-                Views[context ?? View.DefaultContext] = view;
+                Views[context ?? ViewAware.DefaultContext] = view;
             }
 
             var nonGeneratedView = View.GetFirstNonGeneratedView(view);
@@ -1583,7 +1583,7 @@ namespace CslaContrib.Caliburn.Micro
         public virtual object GetView(object context = null)
         {
             object view;
-            Views.TryGetValue(context ?? View.DefaultContext, out view);
+            Views.TryGetValue(context ?? ViewAware.DefaultContext, out view);
             return view;
         }
 

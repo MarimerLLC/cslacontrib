@@ -2,6 +2,7 @@
 
 # CSLA .NET public contribution project
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=MarimerLLC/cslacontrib)](https://dependabot.com)
 [![NuGet](https://img.shields.io/nuget/v/CslaContrib.svg)](https://www.nuget.org/packages/CslaContrib)
 
 The use (and contribution to) cslacontrib is governed by the [LICENSE.md](https://github.com/MarimerLLC/cslacontrib/blob/master/LICENSE.md) file in this repo.
